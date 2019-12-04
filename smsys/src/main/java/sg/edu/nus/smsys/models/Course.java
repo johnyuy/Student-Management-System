@@ -71,26 +71,10 @@ public class Course {
 	public void setCourseSubjectList(List<Subject> courseSubjectList) {
 		this.courseSubjectList = courseSubjectList;
 	}
-
-	
 	
 	@OneToMany(mappedBy = "course")
 	private List<Subject> courseSubjectList;
 
-	@Override
-	public String toString() {
-		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDesc=" + courseDesc
-				+ ", classSize=" + classSize + ", durationSemesters=" + durationSemesters + ", courseSubjectList="
-				+ courseSubjectList + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + courseId;
-		return result;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -105,7 +89,12 @@ public class Course {
 			return false;
 		return true;
 	}
-
-
+	
+	@Override
+	public String toString() {
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDesc=" + courseDesc
+				+ ", classSize=" + classSize + ", durationSemesters=" + durationSemesters + ", courseSubjectList="
+				+ courseSubjectList + "]";
+	}
 
 }
