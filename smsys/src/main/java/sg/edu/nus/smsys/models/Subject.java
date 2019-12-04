@@ -24,20 +24,42 @@ public class Subject {
 	private List<Lecturer> lecturerList;
 	
 	@OneToMany(mappedBy = "subject")
-	private List<Schedule> schedule;
+	private List<Schedule> scheduleList;
+	
+	@OneToMany(mappedBy = "subject")
+	private List<Grade> gradeList;
 
 	public Subject() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public Subject(int subjectId, String subjectName, String subjectDesc, int units, List<Lecturer> lecturerList) {
+	
+	public Subject(int subjectId, String subjectName, String subjectDesc, int units, List<Lecturer> lecturerList,
+			List<Schedule> scheduleList, List<Grade> gradeList) {
 		super();
 		this.subjectId = subjectId;
 		this.subjectName = subjectName;
 		this.subjectDesc = subjectDesc;
 		this.units = units;
 		this.lecturerList = lecturerList;
+		this.scheduleList = scheduleList;
+		this.gradeList = gradeList;
+	}
+
+	public List<Schedule> getSchedule() {
+		return scheduleList;
+	}
+
+	public void setSchedule(List<Schedule> scheduleList) {
+		this.scheduleList = scheduleList;
+	}
+
+	public List<Grade> getGradeList() {
+		return gradeList;
+	}
+
+	public void setGradeList(List<Grade> gradeList) {
+		this.gradeList = gradeList;
 	}
 
 	public int getSubjectId() {
@@ -80,10 +102,21 @@ public class Subject {
 		this.lecturerList = lecturerList;
 	}
 
+	public List<Schedule> getScheduleList() {
+		return scheduleList;
+	}
+
+	public void setScheduleList(List<Schedule> scheduleList) {
+		this.scheduleList = scheduleList;
+	}
+
 	@Override
 	public String toString() {
 		return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", subjectDesc=" + subjectDesc
-				+ ", units=" + units + ", lecturerList=" + lecturerList + "]";
+				+ ", units=" + units + ", lecturerList=" + lecturerList + ", scheduleList=" + scheduleList
+				+ ", gradeList=" + gradeList + "]";
 	}
+
+	
 
 }

@@ -23,7 +23,7 @@ public class Lecturer extends Staff {
 	private List<Subject> subjectList;
 	
 	@ManyToMany
-	private List<Class> classList;
+	private List<CourseClass> classList;
 
 	public Lecturer() {
 		super();

@@ -7,11 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Class {
+public class CourseClass {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
@@ -28,25 +29,49 @@ public class Class {
 	@ManyToMany
 	private List<Lecturer> lecturerList;
 	
+	@OneToMany(mappedBy="clas")
+	private List<Grade> gradeList;
+	
 //	@OneToOne(mappedBy ="class")
 //	private List<Schedule> classScheduleList;
 	
-	public Class() {
+	public CourseClass() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-//	public Class(int classId, String course, String level, List<Semester> semesterList, List<Student> student,
-//			List<Lecturer> facultyList, List<Schedule> classScheduleList) {
-//		super();
-//		this.classId = classId;
-//		this.course = course;
-//		this.level = level;
-//		this.semesterList = semesterList;
-//		this.student = student;
-//		this.facultyList = facultyList;
-//		this.classScheduleList = classScheduleList;
-//	}
+
+	public List<Lecturer> getLecturerList() {
+		return lecturerList;
+	}
+
+
+	public void setLecturerList(List<Lecturer> lecturerList) {
+		this.lecturerList = lecturerList;
+	}
+
+
+	public List<Grade> getGradeList() {
+		return gradeList;
+	}
+
+
+	public void setGradeList(List<Grade> gradeList) {
+		this.gradeList = gradeList;
+	}
+
+
+	public CourseClass(int classId, String course, String level, List<Semester> semesterList, List<Student> student,
+		List<Lecturer> lecturerList, List<Grade> gradeList) {
+	super();
+	this.classId = classId;
+	this.course = course;
+	this.level = level;
+	this.semesterList = semesterList;
+	this.student = student;
+	this.lecturerList = lecturerList;
+	this.gradeList = gradeList;
+}
 
 	public int getClassId() {
 		return classId;
@@ -106,7 +131,9 @@ public class Class {
 
 	@Override
 	public String toString() {
-		return "Class [classId=" + classId + ", course=" + course + ", level=" + level + "]";
+		return "Class [classId=" + classId + ", course=" + course + ", level=" + level + ", semesterList="
+				+ semesterList + ", student=" + student + ", lecturerList=" + lecturerList + ", gradeList=" + gradeList
+				+ "]";
 	}
 	
 
