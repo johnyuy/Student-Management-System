@@ -40,7 +40,7 @@ public class Lecturer extends Staff {
 				annualLeaveEntitled, annualLeaveList, manager);
 		// TODO Auto-generated constructor stub
 	}
-	
+	//main constructor
 	public Lecturer(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
 			String title, String address, String mobile, String email, String status, int annualLeaveBalance,
 			int annualLeaveEntitled, List<Leave> annualLeaveList, Staff manager,Department department, List<Subject> subjectList) {

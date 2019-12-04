@@ -8,6 +8,7 @@ public class SmsysApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SmsysApplication.class, args);
+		
 	}
 
 }
