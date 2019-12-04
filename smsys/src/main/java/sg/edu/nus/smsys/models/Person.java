@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.MappedSuperclass;
@@ -12,7 +13,7 @@ public abstract class Person {
 	private String middleName;
 	private String lastName;
 	private String gender;
-	private LocalDateTime birthDate;
+	private LocalDate birthDate;
 	private String title;
 	private String address;
 	private String mobile;
@@ -23,7 +24,7 @@ public abstract class Person {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Person(String firstName, String middleName, String lastName, String gender, LocalDateTime birthDate,
+	public Person(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
 			String title, String address, String mobile, String email) {
 		super();
 		this.firstName = firstName;
@@ -69,11 +70,11 @@ public abstract class Person {
 		this.gender = gender;
 	}
 
-	public LocalDateTime getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(LocalDateTime birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 

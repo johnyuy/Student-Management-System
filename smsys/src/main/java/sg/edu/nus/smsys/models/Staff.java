@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,23 +39,23 @@ public abstract class Staff extends Person {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Staff(String firstName, String middleName, String lastName, String gender, LocalDateTime birthDate,
+	public Staff(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
 			String title, String address, String mobile, String email) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);
 		// TODO Auto-generated constructor stub
 	}
-
-	public Staff(int staffId, String status, int annualLeaveBalance, int annualLeaveEntitled,
+	// Main Constructor
+	public Staff(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
+			String title, String address, String mobile, String email,String status, int annualLeaveBalance, int annualLeaveEntitled,
 			List<Leave> annualLeaveList, Staff manager) {
-		super();
-		this.staffId = staffId;
+		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);
 		this.status = status;
 		this.annualLeaveBalance = annualLeaveBalance;
 		this.annualLeaveEntitled = annualLeaveEntitled;
 		this.annualLeaveList = annualLeaveList;
-		this.manager = manager;
+		this.manager = manager;	
 	}
-
+	
 	public int getStaffId() {
 		return staffId;
 	}
