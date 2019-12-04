@@ -55,19 +55,14 @@ public class Course {
 	private int classSize;
 	private int durationSemesters;
 	
-	@SuppressWarnings("rawtypes")
 	@OneToMany(mappedBy = "course")
-	private List<Class> classList;
-	
+	private List<Subject> courseSubjectList;
 
-	@SuppressWarnings("rawtypes")
-	public List<Class> getClassList() {
-		return classList;
-	}
-
-	@SuppressWarnings("rawtypes")
-	public void setClassList(List<Class> classList) {
-		this.classList = classList;
+	@Override
+	public String toString() {
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDesc=" + courseDesc
+				+ ", classSize=" + classSize + ", durationSemesters=" + durationSemesters + ", courseSubjectList="
+				+ courseSubjectList + "]";
 	}
 
 	@Override
@@ -92,12 +87,22 @@ public class Course {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDesc=" + courseDesc
-				+ ", classSize=" + classSize + ", durationSemesters=" + durationSemesters + ", classList=" + classList
-				+ "]";
+	public int getCourseId() {
+		return courseId;
 	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+
+	public List<Subject> getCourseSubjectList() {
+		return courseSubjectList;
+	}
+
+	public void setCourseSubjectList(List<Subject> courseSubjectList) {
+		this.courseSubjectList = courseSubjectList;
+	}
+
 	
 
 }
