@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -18,6 +19,9 @@ public class Course {
 	private String courseDesc;
 	private int classSize;
 	private int durationSemesters;
+	
+	@ManyToMany
+	private List<Subject> courseSubjectList;
 	
 	public Course() {
 		super();
@@ -72,8 +76,7 @@ public class Course {
 		this.courseSubjectList = courseSubjectList;
 	}
 	
-	@OneToMany(mappedBy = "course")
-	private List<Subject> courseSubjectList;
+
 
 
 	@Override

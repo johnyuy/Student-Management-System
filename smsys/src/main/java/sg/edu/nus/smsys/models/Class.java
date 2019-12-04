@@ -19,34 +19,34 @@ public class Class {
 	private String course;
 	private String level;
 	
-	@ManyToMany(mappedBy ="class")
-	private List<Semesters> semesterList;
+	@ManyToMany
+	private List<Semester> semesterList;
 	
-	@ManyToMany(mappedBy ="class")
+	@ManyToMany
 	private List<Student> student;
 	
-	@OneToMany(mappedBy ="class")
-	private List<Lecturer> facultyList;
+	@ManyToMany
+	private List<Lecturer> lecturerList;
 	
-	@OneToOne(mappedBy ="class")
-	private List<Schedule> classScheduleList;
+//	@OneToOne(mappedBy ="class")
+//	private List<Schedule> classScheduleList;
 	
 	public Class() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Class(int classId, String course, String level, List<Semesters> semesterList, List<Student> student,
-			List<Lecturer> facultyList, List<Schedule> classScheduleList) {
-		super();
-		this.classId = classId;
-		this.course = course;
-		this.level = level;
-		this.semesterList = semesterList;
-		this.student = student;
-		this.facultyList = facultyList;
-		this.classScheduleList = classScheduleList;
-	}
+//	public Class(int classId, String course, String level, List<Semester> semesterList, List<Student> student,
+//			List<Lecturer> facultyList, List<Schedule> classScheduleList) {
+//		super();
+//		this.classId = classId;
+//		this.course = course;
+//		this.level = level;
+//		this.semesterList = semesterList;
+//		this.student = student;
+//		this.facultyList = facultyList;
+//		this.classScheduleList = classScheduleList;
+//	}
 
 	public int getClassId() {
 		return classId;
@@ -72,11 +72,11 @@ public class Class {
 		this.level = level;
 	}
 
-	public List<Semesters> getSemesterList() {
+	public List<Semester> getSemesterList() {
 		return semesterList;
 	}
 
-	public void setSemesterList(List<Semesters> semesterList) {
+	public void setSemesterList(List<Semester> semesterList) {
 		this.semesterList = semesterList;
 	}
 
@@ -89,20 +89,20 @@ public class Class {
 	}
 
 	public List<Lecturer> getFacultyList() {
-		return facultyList;
+		return lecturerList;
 	}
 
 	public void setFacultyList(List<Lecturer> facultyList) {
-		this.facultyList = facultyList;
+		this.lecturerList = facultyList;
 	}
 
-	public List<Schedule> getClassScheduleList() {
-		return classScheduleList;
-	}
-
-	public void setClassScheduleList(List<Schedule> classScheduleList) {
-		this.classScheduleList = classScheduleList;
-	}
+//	public List<Schedule> getClassScheduleList() {
+//		return classScheduleList;
+//	}
+//
+//	public void setClassScheduleList(List<Schedule> classScheduleList) {
+//		this.classScheduleList = classScheduleList;
+//	}
 
 	@Override
 	public String toString() {

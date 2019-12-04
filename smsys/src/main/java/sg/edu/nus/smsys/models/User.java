@@ -3,30 +3,42 @@ package sg.edu.nus.smsys.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
+@Table(name="user")
 public class User {
 	@Id
 	@NotEmpty
-	private String id;
+	private int id;
 	@NotEmpty
+	private int accessRights;
+	@NotEmpty
+	@Length(min=4, max=20)
 	private String password;
-	
 	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public User(String id, String password) {
+	public User(@NotEmpty int id, String password) {
 		super();
 		this.id = id;
 		this.password = password;
 	}
-	public String getId() {
+	public @NotEmpty int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(@NotEmpty int id) {
 		this.id = id;
 	}
+	public int getAccessRights() {
+		return accessRights;
+	}
+	public void setAccessRights(int accessRights) {
+		this.accessRights = accessRights;
+	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -37,7 +49,9 @@ public class User {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + accessRights;
+		result = prime * result + id;
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		return result;
 	}
 	@Override
@@ -49,13 +63,18 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (accessRights != other.accessRights)
+			return false;
+		if (id != other.id)
+			return false;
+		if (password == null) {
+			if (other.password != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!password.equals(other.password))
 			return false;
 		return true;
 	}
+	
 	
 	
 }
