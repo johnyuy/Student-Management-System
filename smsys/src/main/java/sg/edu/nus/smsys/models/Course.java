@@ -11,10 +11,26 @@ import javax.persistence.OneToMany;
 @Entity
 public class Course {
 	
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
+	private int courseId;
+	private String courseName;
+	private String courseDesc;
+	private int classSize;
+	private int durationSemesters;
+	
 	public Course() {
 		super();
 	}
+	
+	public int getCourseId() {
+		return courseId;
+	}
 
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+	
 	public String getCourseName() {
 		return courseName;
 	}
@@ -46,14 +62,17 @@ public class Course {
 	public void setDurationSemesters(int durationSemesters) {
 		this.durationSemesters = durationSemesters;
 	}
+	
 
-	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-	private int courseId;
-	private String courseName;
-	private String courseDesc;
-	private int classSize;
-	private int durationSemesters;
+	public List<Subject> getCourseSubjectList() {
+		return courseSubjectList;
+	}
+
+	public void setCourseSubjectList(List<Subject> courseSubjectList) {
+		this.courseSubjectList = courseSubjectList;
+	}
+
+	
 	
 	@OneToMany(mappedBy = "course")
 	private List<Subject> courseSubjectList;
@@ -87,22 +106,6 @@ public class Course {
 		return true;
 	}
 
-	public int getCourseId() {
-		return courseId;
-	}
 
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
-
-	public List<Subject> getCourseSubjectList() {
-		return courseSubjectList;
-	}
-
-	public void setCourseSubjectList(List<Subject> courseSubjectList) {
-		this.courseSubjectList = courseSubjectList;
-	}
-
-	
 
 }
