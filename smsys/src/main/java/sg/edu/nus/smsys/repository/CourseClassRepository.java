@@ -2,7 +2,9 @@ package sg.edu.nus.smsys.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import sg.edu.nus.smsys.models.CourseClass;
 
-public interface ClassRepository extends JpaRepository<Class, Integer> {
+
+public interface CourseClassRepository extends JpaRepository<CourseClass, Integer> {
  
 }
