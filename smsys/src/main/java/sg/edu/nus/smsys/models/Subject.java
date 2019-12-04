@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Subject {
@@ -18,8 +20,11 @@ public class Subject {
 	private String subjectDesc;
 	private int units;
 	
-	@ManyToMany(mappedBy ="subjectList")
+	@ManyToMany
 	private List<Lecturer> lecturerList;
+	
+	@OneToMany(mappedBy = "subject")
+	private List<Schedule> schedule;
 
 	public Subject() {
 		super();
