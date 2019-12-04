@@ -21,6 +21,9 @@ public class Lecturer extends Staff {
 		    CascadeType.MERGE
 		})
 	private List<Subject> subjectList;
+	
+	@ManyToMany
+	private List<Class> classList;
 
 	public Lecturer() {
 		super();

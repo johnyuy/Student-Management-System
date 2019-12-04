@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Home Page</title>
+</head>
+<body>
+	<h1>Home Page</h1>
+	<a href="homecontroller.html" th:href="@{/login}">Login Page</a>
+
+	<div th:fragment="copyright">
+		<p class="w3-wide" align="center">&copyright; 2019 ISS, NUS, All Rights Reserved.</p>
+	</div>
+</body>
+</html>
