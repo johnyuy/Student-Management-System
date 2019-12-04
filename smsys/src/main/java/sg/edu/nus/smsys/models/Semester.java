@@ -17,7 +17,7 @@ public class Semester {
 	private LocalDateTime endDate;
 	
 	@ManyToMany(mappedBy = "semesterList")
-	private List<Class> classList;
+	private List<CourseClass> classList;
 
 	public Semester() {
 		super();
@@ -26,7 +26,7 @@ public class Semester {
 
 
 
-	public Semester(int id, String semCode, LocalDateTime startDate, LocalDateTime endDate, List<Class> classList) {
+	public Semester(int id, String semCode, LocalDateTime startDate, LocalDateTime endDate, List<CourseClass> classList) {
 		super();
 		this.semId = id;
 		this.semCode = semCode;
@@ -63,11 +63,11 @@ public class Semester {
 		this.endDate = endDate;
 	}
 
-	public List<Class> getClassList() {
+	public List<CourseClass> getClassList() {
 		return classList;
 	}
 
-	public void setClassList(List<Class> classList) {
+	public void setClassList(List<CourseClass> classList) {
 		this.classList = classList;
 	}
 

@@ -20,6 +20,18 @@ public class Student extends Person{
 	
 	@OneToMany(mappedBy = "student")
 	private List<Application> appliedCourses;
+	
+	@OneToMany(mappedBy = "student")
+	private List<Grade> gradeList;
+	
+	public Student(int studentId, String status, float gpa, List<Application> appliedCourses, List<Grade> gradeList) {
+		super();
+		this.studentId = studentId;
+		this.status = status;
+		this.gpa = gpa;
+		this.appliedCourses = appliedCourses;
+		this.gradeList = gradeList;
+	}
 	public Student() {
 		super();
 	}
@@ -40,7 +52,7 @@ public class Student extends Person{
 	@Override
 	public String toString() {
 		return "Student [studentId=" + studentId + ", status=" + status + ", gpa=" + gpa + ", appliedCourses="
-				+ appliedCourses + "]";
+				+ appliedCourses + ", gradeList=" + gradeList + "]";
 	}
 	public String getStatus() {
 		return status;
@@ -59,6 +71,12 @@ public class Student extends Person{
 	}
 	public void setAppliedCourses(List<Application> appliedCourses) {
 		this.appliedCourses = appliedCourses;
+	}
+	public List<Grade> getGradeList() {
+		return gradeList;
+	}
+	public void setGradeList(List<Grade> gradeList) {
+		this.gradeList = gradeList;
 	}
 	@Override
 	public boolean equals(Object obj) {
