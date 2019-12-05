@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Course_Applications_Table")
-@SequenceGenerator(name="application_id_seq", initialValue = 10000, allocationSize = 100000)
+@SequenceGenerator(name="application_id_seq", initialValue = 10000)
 public class Application {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "application_id_seq")

@@ -1,15 +1,19 @@
 package sg.edu.nus.smsys.models;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("CADM")
 public class CourseAdmin extends Staff {
+
+	@OneToMany(mappedBy="approvedByStaffID")
+	private List<Leave> approvedLeaveList;
+	public static final int accessLevel = 1;
 
 	public CourseAdmin() {
 		super();
@@ -30,5 +34,11 @@ public class CourseAdmin extends Staff {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public List<Leave> getApprovedLeaveList() {
+		return approvedLeaveList;
+	}
 
+	public void setApprovedLeaveList(List<Leave> approvedLeaveList) {
+		this.approvedLeaveList = approvedLeaveList;
+	}
 }

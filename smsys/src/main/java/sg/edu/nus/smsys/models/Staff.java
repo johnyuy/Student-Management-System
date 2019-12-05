@@ -1,7 +1,6 @@
 package sg.edu.nus.smsys.models;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -27,9 +26,11 @@ public abstract class Staff extends Person {
 	private String status;
 	private int annualLeaveBalance;
 	private int annualLeaveEntitled;
+	public static final int accessLevel = 2;
 	
-	@OneToMany (mappedBy = "staff")
-	private List<Leave> annualLeaveList; 
+	@OneToMany (mappedBy = "submittedByStaffID")
+	private List<Leave> annualLeaveList;
+	
 	
 	@OneToOne (cascade={CascadeType.ALL})
 	private Staff manager;
@@ -39,6 +40,7 @@ public abstract class Staff extends Person {
 		// TODO Auto-generated constructor stub
 	}
 
+	//CONSTRUCTORS
 	public Staff(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
 			String title, String address, String mobile, String email) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);
