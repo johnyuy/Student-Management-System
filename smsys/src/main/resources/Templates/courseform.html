@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Course Form</title>
+</head>
+<body>
+	<form action="/course/insert" method="post" th:object="${course}" th:action="@{/course/insert}">
+	<fieldset>
+	Course Name: <input type="text" th:field="*{courseName}"/>
+	</fieldset>
+		<fieldset>
+	Course Description: <input type="text" th:field="*{courseDesc}"/>
+	</fieldset>
+		<fieldset>
+	Class Size: <input type="text" th:field="*{classSize}"/>
+	</fieldset>
+		<fieldset>
+	Duration in Semesters: <input type="text" th:field="*{durationSemesters}"/>
+	</fieldset>
+		<button type="submit">Add Course</button>
+	</form>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Courses</title>
+</head>
+<body>
+
+	<h1>Course Listing Table</h1>
+	<br/>
+	
+	<table>
+	<tr th:each="course:${courses}">
+	<td th:text=${course.id}>Id</td>
+	<td th:text=${course.courseName}>Course Name</td>
+	<td th:text=${course.courseDesc}>Course Description</td>
+	<td th:text=${course.classSize}>Class Size</td>
+	<td th:text=${course.durationSemesters}>Duration in Semesters</td>
+	</tr>
+	</table>
+</body>
+</html>
