@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "course_table")
-@SequenceGenerator(name="course_id_seq", initialValue = 2000, allocationSize = 5000)
+@SequenceGenerator(name="course_id_seq", initialValue = 2000)
 public class Course {
 	
 	@Id
