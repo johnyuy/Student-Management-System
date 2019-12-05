@@ -83,7 +83,7 @@ public class UserServiceImplement implements UserService {
 
 	private boolean UsernameExist(String username) {
 
-		if (urepo.findById(username) != null) {
+		if (urepo.findByUsername(username) != null) {
 			return true;
 		}
 		return false;

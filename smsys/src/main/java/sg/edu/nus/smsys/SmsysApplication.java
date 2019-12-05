@@ -20,10 +20,8 @@ import sg.edu.nus.smsys.service.UserService;
 public class SmsysApplication {
 	private static final Logger log = LoggerFactory.getLogger(SmsysApplication.class);
 	public static void main(String[] args) {
-		//SpringApplication.run(SmsysApplication.class, args);
+		SpringApplication.run(SmsysApplication.class, args);
 		
-		int tt = 10001;
-		System.out.println(Integer.valueOf(tt) / 10000);
 	}
 
 	@Bean
