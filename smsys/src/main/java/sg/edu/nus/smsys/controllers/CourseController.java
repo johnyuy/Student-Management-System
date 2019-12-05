@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.controllers;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +23,8 @@ public class CourseController
 		@GetMapping("/list")
 		public String listAll(Model course)
 		{
-			ArrayList<Course> cList = new ArrayList<Course>();
-			cList.add((Course) cRepo.findAll());
+			List<Course> cList = new ArrayList<Course>();
+			cList = cRepo.findAll();
 			course.addAttribute("courses",cList);
 			return "courses";
 			
