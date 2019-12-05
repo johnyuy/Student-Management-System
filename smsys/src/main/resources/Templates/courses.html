@@ -8,6 +8,8 @@
 
 	<h1>Course Listing Table</h1>
 	<br/>
+	<a href="addcourse.html" th:href="@{/course/add}">Add Course</a>
+	<br/>
 	
 	<table>
 	<tr th:each="course:${courses}">
@@ -16,6 +18,9 @@
 	<td th:text=${course.courseDesc}>Course Description</td>
 	<td th:text=${course.classSize}>Class Size</td>
 	<td th:text=${course.durationSemesters}>Duration in Semesters</td>
+	
+	<td><a href="editcourse.html" th:href="@{/course/edit/${course.courseId}"></a>Edit</td>
+	<td><a href="deletecourse.html" th:href="@{/course/delete/${course.courseId}"></a>Delete</td>
 	</tr>
 	</table>
 </body>
