@@ -6,4 +6,6 @@ import sg.edu.nus.smsys.models.CourseAdmin;
 
 public interface CourseAdminRepository extends JpaRepository<CourseAdmin,Integer>{
 
+	CourseAdmin findByStaffId(int staffId);
+
 }

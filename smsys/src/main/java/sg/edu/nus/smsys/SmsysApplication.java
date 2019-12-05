@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys;
 
+import java.security.GeneralSecurityException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 
 import sg.edu.nus.smsys.models.*;
 import sg.edu.nus.smsys.repository.*;
+import sg.edu.nus.smsys.service.UserService;
 
 @SpringBootApplication
 public class SmsysApplication {
@@ -22,7 +24,7 @@ public class SmsysApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(LecturerRepository lrepo, StudentRepository Srepo, CourseAdminRepository Crepo) {
+	public CommandLineRunner demo(LecturerRepository lrepo, StudentRepository Srepo, CourseAdminRepository Crepo, UserService us) {
 		return (args) -> {
 			log.info("Entering data..");
 			
@@ -49,9 +51,15 @@ public class SmsysApplication {
 			log.info("Adding Course Admin..");
 			CourseAdmin C1 = new CourseAdmin("Megan", "Susie", "Wang", "Female", LocalDate.of(1982, 3, 23), "Mrs", "Thomson", "82334576", "meganSW@hotmail.com", "Available", 21, 21, null, null, null);
 			Crepo.save(C1);
+			
+			//Create user accounts
+			log.info("Adding user account for lecturer..");
+			us.registerNewAccount(50001, "password");
+			
 			log.info("END OF PROGRAM");
 		};
 	}
 	
+
 }
 ;
