@@ -20,11 +20,15 @@ import sg.edu.nus.smsys.service.UserService;
 public class SmsysApplication {
 	private static final Logger log = LoggerFactory.getLogger(SmsysApplication.class);
 	public static void main(String[] args) {
-		SpringApplication.run(SmsysApplication.class, args);
+		//SpringApplication.run(SmsysApplication.class, args);
+		
+		int tt = 10001;
+		System.out.println(Integer.valueOf(tt) / 10000);
 	}
 
 	@Bean
-	public CommandLineRunner demo(LecturerRepository lrepo, StudentRepository Srepo, CourseAdminRepository Crepo, UserService us) {
+	public CommandLineRunner demo(LecturerRepository lrepo, StudentRepository Srepo, CourseAdminRepository Crepo, CourseRepository Csrepo, UserService us) {
+
 		return (args) -> {
 			log.info("Entering data..");
 			
@@ -52,6 +56,13 @@ public class SmsysApplication {
 			CourseAdmin C1 = new CourseAdmin("Megan", "Susie", "Wang", "Female", LocalDate.of(1982, 3, 23), "Mrs", "Thomson", "82334576", "meganSW@hotmail.com", "Available", 21, 21, null, null, null);
 			Crepo.save(C1);
 			
+			//Insert Courses
+			log.info("Adding Courses...");
+			Course course1 = new Course("SA49", "systems analysis for new programmers", 100, 2, null);
+			Course course2 = new Course("MS32", "master programme for experienced programmers", 100, 2, null);
+			Csrepo.save(course1);
+			Csrepo.save(course2);
+
 			//Create user accounts
 			log.info("Adding user account for lecturer..");
 			us.registerNewAccount(50001, "password");

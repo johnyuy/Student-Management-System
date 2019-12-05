@@ -31,6 +31,16 @@ public class Course {
 		super();
 	}
 	
+	public Course(String courseName, String courseDesc, int classSize, int durationSemesters,
+			List<Subject> courseSubjectList) {
+		super();
+		this.courseName = courseName;
+		this.courseDesc = courseDesc;
+		this.classSize = classSize;
+		this.durationSemesters = durationSemesters;
+		this.courseSubjectList = courseSubjectList;
+	}
+
 	public int getCourseId() {
 		return courseId;
 	}
