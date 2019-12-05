@@ -7,13 +7,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="student_table")
+@Table(name = "student_table")
+@SequenceGenerator(name="student_id_seq", initialValue = 1000, allocationSize = 8000)
 public class Student extends Person{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "student_id_seq")
 	private int studentId;
 	private String status;
 	private float gpa;
@@ -24,21 +26,13 @@ public class Student extends Person{
 	@OneToMany(mappedBy = "student")
 	private List<Grade> gradeList;
 	
-	public Student(int studentId, String status, float gpa, List<Application> appliedCourses, List<Grade> gradeList) {
-		super();
-		this.studentId = studentId;
-		this.status = status;
-		this.gpa = gpa;
-		this.appliedCourses = appliedCourses;
-		this.gradeList = gradeList;
-	}
 	public Student() {
 		super();
 	}
 	public Student(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
-			String title, String address, String mobile, String email, int studentId, String status, float gpa, List<Application> appliedCourses) {
+			String title, String address, String mobile, String email, String status, float gpa, List<Application> appliedCourses) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);
-		this.studentId = studentId;
+//		this.studentId = this.studentId;
 		this.status = status;
 		this.gpa = gpa;
 		this.appliedCourses = appliedCourses;
@@ -48,11 +42,6 @@ public class Student extends Person{
 	}
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
-	}
-	@Override
-	public String toString() {
-		return "Student [studentId=" + studentId + ", status=" + status + ", gpa=" + gpa + ", appliedCourses="
-				+ appliedCourses + ", gradeList=" + gradeList + "]";
 	}
 	public String getStatus() {
 		return status;
@@ -79,16 +68,8 @@ public class Student extends Person{
 		this.gradeList = gradeList;
 	}
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Student other = (Student) obj;
-		if (studentId != other.studentId)
-			return false;
-		return true;
+	public String toString() {
+		return "Student [studentId=" + studentId + ", status=" + status + ", gpa=" + gpa + ", appliedCourses="
+				+ appliedCourses + ", gradeList=" + gradeList + "]";
 	}
 }
