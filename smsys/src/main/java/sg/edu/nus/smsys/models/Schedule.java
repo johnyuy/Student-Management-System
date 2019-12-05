@@ -18,6 +18,8 @@ public class Schedule {
 	private int lecturerId;
 	@ManyToOne
 	private Subject subject;
+	@ManyToOne
+	private CourseClass clas;
 	public Schedule() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -65,9 +67,4 @@ public class Schedule {
 		return "Schedule [scheduleId=" + scheduleId + ", timeStart=" + timeStart + ", durationHours=" + durationHours
 				+ ", lecturerId=" + lecturerId + ", subject=" + subject + "]";
 	}
-	
-	
-
-	
-	
 }
