@@ -2,6 +2,7 @@ package sg.edu.nus.smsys.models;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,12 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "student_table")
-@SequenceGenerator(name="student_id_seq", initialValue = 1000, allocationSize = 8000)
+@SequenceGenerator(name="student_id_seq", initialValue = 1000)
 public class Student extends Person{
 	@Id
+	@NotNull
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "student_id_seq")
 	private int studentId;
 	private String status;
@@ -26,6 +29,9 @@ public class Student extends Person{
 	@OneToMany(mappedBy = "student")
 	private List<Grade> gradeList;
 	
+	public static final int accessLevel = 3;
+	
+	//CONSTRUCTORS
 	public Student() {
 		super();
 	}

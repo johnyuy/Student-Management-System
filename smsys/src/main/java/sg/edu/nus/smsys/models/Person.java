@@ -1,7 +1,6 @@
 package sg.edu.nus.smsys.models;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.persistence.MappedSuperclass;
 
@@ -109,6 +108,8 @@ public abstract class Person {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
 
 	@Override
 	public String toString() {

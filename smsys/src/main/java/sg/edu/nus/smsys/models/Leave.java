@@ -7,34 +7,43 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Leave_Table")
+@SequenceGenerator(name="leave_id_seq", initialValue = 33000)
 public class Leave {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "leave_id_seq")
 	private int leaveId;
 	private LocalDateTime dateStart;
 	private int duration;
+	private String reason;
 	private String status;
 	
 	@ManyToOne
-	private Staff staff;
+	private CourseAdmin approvedByStaffID;
+	
+	@ManyToOne
+	private Staff submittedByStaffID;
 
 	public Leave() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Leave(int leaveId, LocalDateTime dateStart, int duration, String status, Staff staff) {
+	public Leave(int leaveId, LocalDateTime dateStart, int duration, String reason, String status,
+			CourseAdmin approvedByStaffID, Staff submittedByStaffID) {
 		super();
 		this.leaveId = leaveId;
 		this.dateStart = dateStart;
 		this.duration = duration;
+		this.reason = reason;
 		this.status = status;
-		this.staff = staff;
+		this.approvedByStaffID = approvedByStaffID;
+		this.submittedByStaffID = submittedByStaffID;
 	}
 
 	public int getLeaveId() {
@@ -61,6 +70,14 @@ public class Leave {
 		this.duration = duration;
 	}
 
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -69,19 +86,49 @@ public class Leave {
 		this.status = status;
 	}
 
-	public Staff getStaff() {
-		return staff;
+	public CourseAdmin getApprovedByStaffID() {
+		return approvedByStaffID;
 	}
 
-	public void setStaff(Staff staff) {
-		this.staff = staff;
+	public void setApprovedByStaffID(CourseAdmin approvedByStaffID) {
+		this.approvedByStaffID = approvedByStaffID;
+	}
+
+	public Staff getSubmittedByStaffID() {
+		return submittedByStaffID;
+	}
+
+	public void setSubmittedByStaffID(Staff submittedByStaffID) {
+		this.submittedByStaffID = submittedByStaffID;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + leaveId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Leave other = (Leave) obj;
+		if (leaveId != other.leaveId)
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Leave [leaveId=" + leaveId + ", dateStart=" + dateStart + ", duration=" + duration + ", status="
-				+ status + ", staff=" + staff + "]";
+		return "Leave [leaveId=" + leaveId + ", dateStart=" + dateStart + ", duration=" + duration + ", reason="
+				+ reason + ", status=" + status + ", ApprovedByStaffID=" + approvedByStaffID + ", SubmittedByStaffID="
+				+ submittedByStaffID + "]";
 	}
-	
-	
+
  }
