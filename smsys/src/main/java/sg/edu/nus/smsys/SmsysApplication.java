@@ -22,13 +22,17 @@ public class SmsysApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(LecturerRepository lrepo, StudentRepository Srepo) {
+	public CommandLineRunner demo(LecturerRepository lrepo, StudentRepository Srepo, CourseAdminRepository Crepo) {
 		return (args) -> {
 			log.info("Entering data..");
-			Lecturer l1 = new Lecturer("Joel", "Nathan", "Thomas", "male", LocalDate.of(1992, 1, 1),
-					"Mr", "Serangoon", "96125552", "gg@g.com", "available", 24,
-					24, null, null, null, null);
+			
+			//Insert Lecturer
+			log.info("Adding Lecturer..");
+			Lecturer l1 = new Lecturer("Daniel", "Edward", "Foo", "Male", LocalDate.of(1973, 2, 14), "Dr", "Holland Village", "93336566", "danielEF@hotmail.com", "Available", 21, 21, null, null, null, null, null);
 			lrepo.save(l1);
+			
+			//Insert Students
+			log.info("Adding Students..");
 			List<Student> initialStudents = new ArrayList<Student>();
 			initialStudents.add(new Student("John", "Yue", "Yu", "male", LocalDate.of(1992, 11, 16), "Mr", "Tampines", "98076988", "yu.john92@gmail.com", "enrolled", 3.5f, null));
 			initialStudents.add(new Student("Natalie", "Si Min", "Hong", "female", LocalDate.of(1989, 05, 2), "Ms", "Bukit Panjang", "90019910", "natalie.hong@gmail.com", "Enrolled", 4.2f , null));
@@ -40,11 +44,12 @@ public class SmsysApplication {
 			for(Student s : initialStudents) {
 				Srepo.save(s);
 			}
-			for(Student s : initialStudents) {
-				Srepo.save(s);
-			}
-			log.info("Code ends here");
 			
+			//Insert Course Admin
+			log.info("Adding Course Admin..");
+			CourseAdmin C1 = new CourseAdmin("Megan", "Susie", "Wang", "Female", LocalDate.of(1982, 3, 23), "Mrs", "Thomson", "82334576", "meganSW@hotmail.com", "Available", 21, 21, null, null, null);
+			Crepo.save(C1);
+			log.info("END OF PROGRAM");
 		};
 	}
 	

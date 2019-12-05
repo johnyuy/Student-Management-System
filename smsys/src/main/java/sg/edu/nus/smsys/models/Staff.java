@@ -12,35 +12,43 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Inheritance 
 @Table(name="STAFF_TABLE")
 @DiscriminatorColumn(name="STAFF_TYPE")
+@SequenceGenerator(name="staff_id_seq", initialValue = 50001)
 public abstract class Staff extends Person {
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@NotNull
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "staff_id_seq")
+	@Min(50001)
+	@Max(59999)
 	private int staffId;
 	private String status;
 	private int annualLeaveBalance;
 	private int annualLeaveEntitled;
-	public static final int accessLevel = 2;
+	public final int accessLevel = 2;
 	
 	@OneToMany (mappedBy = "submittedByStaffID")
 	private List<Leave> annualLeaveList;
 	
-	
 	@OneToOne (cascade={CascadeType.ALL})
 	private Staff manager;
 
+	
+	//CONSTRUCTORS
 	public Staff() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	//CONSTRUCTORS
 	public Staff(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
 			String title, String address, String mobile, String email) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);
@@ -112,6 +120,5 @@ public abstract class Staff extends Person {
 				+ ", annualLeaveEntitled=" + annualLeaveEntitled + ", annualLeaveList=" + annualLeaveList + ", manager="
 				+ manager + "]";
 	}
-	
 
 }

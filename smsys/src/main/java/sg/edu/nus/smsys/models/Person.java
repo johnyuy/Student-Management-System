@@ -17,6 +17,7 @@ public abstract class Person {
 	private String address;
 	private String mobile;
 	private String email;
+	private final int accessLevel = 3;
 	
 	public Person() {
 		super();
@@ -37,87 +38,103 @@ public abstract class Person {
 		this.email = email;
 	}
 
+	
+	//GETTERS & SETTERS
 	public String getFirstName() {
 		return firstName;
 	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+	
 
 	public String getMiddleName() {
 		return middleName;
 	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
+	
 
 	public String getLastName() {
 		return lastName;
 	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+	
 
 	public String getGender() {
 		return gender;
 	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+	
 
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
-
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
+	
 
 	public String getTitle() {
 		return title;
 	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
+	
 
 	public String getAddress() {
 		return address;
 	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
+	
 
 	public String getMobile() {
 		return mobile;
 	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+	
 
 	public String getEmail() {
 		return email;
 	}
+	
+
+	public int getAccessLevel() {
+		return accessLevel;
+	}
+	
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+	
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+	
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "Person [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", gender="
-				+ gender + ", birthDate=" + birthDate + ", title=" + title + ", address=" + address + ", mobile="
-				+ mobile + ", email=" + email + "]";
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -125,6 +142,7 @@ public abstract class Person {
 		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
 		return result;
 	}
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -143,4 +161,12 @@ public abstract class Person {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Person [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", gender="
+				+ gender + ", birthDate=" + birthDate + ", title=" + title + ", address=" + address + ", mobile="
+				+ mobile + ", email=" + email + ", accessLevel=" + accessLevel + "]";
+	}
+
+	
 }

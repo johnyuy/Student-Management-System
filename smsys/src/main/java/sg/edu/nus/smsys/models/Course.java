@@ -7,9 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "course_table")
@@ -17,13 +17,13 @@ import javax.persistence.Table;
 public class Course {
 	
 	@Id
+	@NotNull
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "course_id_seq")
 	private int courseId;
 	private String courseName;
 	private String courseDesc;
 	private int classSize;
 	private int durationSemesters;
-	
 	@ManyToMany
 	private List<Subject> courseSubjectList;
 	
@@ -70,7 +70,6 @@ public class Course {
 	public void setDurationSemesters(int durationSemesters) {
 		this.durationSemesters = durationSemesters;
 	}
-	
 
 	public List<Subject> getCourseSubjectList() {
 		return courseSubjectList;
@@ -80,9 +79,6 @@ public class Course {
 		this.courseSubjectList = courseSubjectList;
 	}
 	
-
-
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

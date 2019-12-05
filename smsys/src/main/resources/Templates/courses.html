@@ -10,6 +10,13 @@
 	<br/>
 	
 	<table>
+	<tr>
+	<th>ID</th>
+	<th>Name</th>
+	<th>Description</th>
+	<th>Class Size</th>
+	<th>Course Duration (Sems)</th>
+	</tr>
 	<tr th:each="course:${courses}">
 	<td th:text=${course.courseId}>Id</td>
 	<td th:text=${course.courseName}>Course Name</td>
