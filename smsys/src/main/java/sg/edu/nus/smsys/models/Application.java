@@ -5,13 +5,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Course_Applications_Table")
+@SequenceGenerator(name="application_id_seq", initialValue = 10000, allocationSize = 100000)
 public class Application {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "application_id_seq")
 	private int applicationId;
 	private int courseId;
 	private String status;
