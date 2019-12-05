@@ -14,7 +14,7 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int passid;
 	
-	private String id;
+	private String username;
 	private int accessRights;
 	
 	private String password;
@@ -23,9 +23,9 @@ public class User {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public User(String id, int accessRights, String password) {
+	public User(String username, int accessRights, String password) {
 		super();
-		this.id = id;
+		this.username = username;
 		this.accessRights = accessRights;
 		this.password = password;
 	}
@@ -35,11 +35,11 @@ public class User {
 	public void setPassid(int passid) {
 		this.passid = passid;
 	}
-	public String getId() {
-		return id;
+	public String getUsername() {
+		return username;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public int getAccessRights() {
 		return accessRights;
@@ -53,6 +53,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	
 		
 }
