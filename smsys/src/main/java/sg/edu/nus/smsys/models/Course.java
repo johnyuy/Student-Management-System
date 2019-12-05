@@ -8,12 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "course_table")
+@SequenceGenerator(name="course_id_seq", initialValue = 2000, allocationSize = 5000)
 public class Course {
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "course_id_seq")
 	private int courseId;
 	private String courseName;
 	private String courseDesc;
