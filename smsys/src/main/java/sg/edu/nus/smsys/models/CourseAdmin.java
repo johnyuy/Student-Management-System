@@ -13,25 +13,19 @@ public class CourseAdmin extends Staff {
 
 	@OneToMany(mappedBy="approvedByStaffID")
 	private List<Leave> approvedLeaveList;
-	public static final int accessLevel = 1;
+	private final int accessLevel = 1;
 
+	//CONSTRUCTORS
 	public CourseAdmin() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CourseAdmin(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
-			String title, String address, String mobile, String email) {
-		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);
-		// TODO Auto-generated constructor stub
-	}
-	//Main Constructor
-	public CourseAdmin(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
 			String title, String address, String mobile, String email, String status, int annualLeaveBalance,
-			int annualLeaveEntitled, List<Leave> annualLeaveList, Staff manager) {
+			int annualLeaveEntitled, List<Leave> annualLeaveList, Staff manager, List<Leave> approvedLeaveList) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email, status, annualLeaveBalance,
 				annualLeaveEntitled, annualLeaveList, manager);
-		// TODO Auto-generated constructor stub
+		this.approvedLeaveList = approvedLeaveList;
 	}
 	
 	public List<Leave> getApprovedLeaveList() {
@@ -40,5 +34,9 @@ public class CourseAdmin extends Staff {
 
 	public void setApprovedLeaveList(List<Leave> approvedLeaveList) {
 		this.approvedLeaveList = approvedLeaveList;
+	}
+
+	public int getAccessLevel() {
+		return accessLevel;
 	}
 }

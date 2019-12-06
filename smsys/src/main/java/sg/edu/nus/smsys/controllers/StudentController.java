@@ -41,8 +41,7 @@ public class StudentController {
 	@GetMapping("/details")
 	public String viewStudent(Model model, @RequestParam("id") int id) {
 		ArrayList<Student> slist = new ArrayList<Student>();
-		slist.addAll(srepo.findByStudentId(id));
-		Student student = slist.get(0);
+		Student student = srepo.findByStudentId(id);
 		model.addAttribute("student", student);
 		return "studentdetails";
 	}
