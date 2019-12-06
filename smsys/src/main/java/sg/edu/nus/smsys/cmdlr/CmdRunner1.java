@@ -30,7 +30,7 @@ public class CmdRunner1 implements CommandLineRunner{
         log.info("In CmdRunner1:"); 
       	//Insert Lecturer
   		log.info("Adding Lecturer..");
-  		Lecturer l1 = new Lecturer("Daniel", "Edward", "Foo", "Male", LocalDate.of(1973, 2, 14), "Dr", "Holland Village", "93336566", "danielEF@hotmail.com", "Available", 21, 21, null, null, null, null, null);
+  		Lecturer l1 = new Lecturer("Daniel", "Edward", "Foo", "Male", LocalDate.of(1973, 2, 14), "Dr", "Holland Village", "93336566", "danielEF@hotmail.com", "Available", 21, 21, null, null, null, null, null, null);
   		lrepo.save(l1);
         //Insert Students
   		log.info("Adding Students..");
