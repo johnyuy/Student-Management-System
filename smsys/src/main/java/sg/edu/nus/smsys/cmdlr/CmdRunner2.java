@@ -34,6 +34,7 @@ public class CmdRunner2 implements CommandLineRunner {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 			
 		//Create grades
 		log.info("Adding some sample grades..");
