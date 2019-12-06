@@ -6,6 +6,5 @@ import sg.edu.nus.smsys.models.Course;
 
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
-
- 
+	Course findByCourseId(int id);
 }

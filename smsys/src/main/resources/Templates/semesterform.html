@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Semester Form</title>
+</head>
+<body>
+	<form action="/semester/insert" method="post" th:object="${semester}" th:action="@{/semester/insert}">
+	<fieldset>
+	Semester Id: <input type="text" th:field="*{semId}"/>
+	</fieldset>
+		<fieldset>
+	Semester Code: <input type="text" th:field="*{semCode}"/>
+	</fieldset>
+		<fieldset>
+	Start Date: <input type="text" th:field="*{startDate}"/>
+	</fieldset>
+		<fieldset>
+	End Date: <input type="text" th:field="*{endDate}"/>
+	</fieldset>
+		<button type="submit">Add Semseter</button>
+	</form>
+
+</body>
+</html>

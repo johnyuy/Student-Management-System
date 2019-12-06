@@ -26,7 +26,7 @@ public class CourseClass {
 	private int classId;
 	@NotNull
 	@Min(1)
-	private String level;
+	private int level;
 	@ManyToOne
 	private Course course;
 	@ManyToMany
@@ -46,10 +46,9 @@ public class CourseClass {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CourseClass(int classId, Course course, String level, List<Semester> semesterList, List<Student> student,
+	public CourseClass(Course course, int level, List<Semester> semesterList, List<Student> student,
 			List<Lecturer> lecturerList, List<Grade> gradeList, List<Schedule> scheduleList) {
 		super();
-		this.classId = classId;
 		this.course = course;
 		this.level = level;
 		this.semesterList = semesterList;
@@ -67,7 +66,7 @@ public class CourseClass {
 		return course;
 	}
 
-	public String getLevel() {
+	public int getLevel() {
 		return level;
 	}
 
@@ -99,7 +98,7 @@ public class CourseClass {
 		this.course = course;
 	}
 
-	public void setLevel(String level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
 
