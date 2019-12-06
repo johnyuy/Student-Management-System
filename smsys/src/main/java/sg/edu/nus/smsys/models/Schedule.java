@@ -23,6 +23,7 @@ public class Schedule {
 	@Max(19999999)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "schedule_id_seq")
 	private int scheduleId;
+	@NotNull
 	private LocalDateTime timeStart;
 	@Min(1)
 	private int durationHours;

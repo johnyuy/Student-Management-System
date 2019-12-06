@@ -3,22 +3,18 @@ package sg.edu.nus.smsys.models;
 import java.time.LocalDate;
 
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 
 
 @MappedSuperclass
 public abstract class Person {
-	
-	private String firstName;
-	private String middleName;
-	private String lastName;
-	private String gender;
+	@NotNull
+	private String firstName, middleName, lastName, gender, title, address, mobile, email;
+	@NotNull
 	private LocalDate birthDate;
-	private String title;
-	private String address;
-	private String mobile;
-	private String email;
 	private final int accessLevel = 3;
 	
+	//Constructors
 	public Person() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -37,7 +33,6 @@ public abstract class Person {
 		this.mobile = mobile;
 		this.email = email;
 	}
-
 	
 	//GETTERS & SETTERS
 	public String getFirstName() {
@@ -89,52 +84,42 @@ public abstract class Person {
 		return accessLevel;
 	}
 	
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 	
-
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
 	
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 	
-
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	
-
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 	
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
 	
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
 	
-
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 	
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -143,7 +128,6 @@ public abstract class Person {
 		return result;
 	}
 	
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -168,5 +152,4 @@ public abstract class Person {
 				+ mobile + ", email=" + email + ", accessLevel=" + accessLevel + "]";
 	}
 
-	
 }

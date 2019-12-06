@@ -15,6 +15,7 @@ public class Semester {
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int semId;
+	@NotNull
 	private String semCode;
 	@NotNull
 	private LocalDate startDate;

@@ -25,9 +25,14 @@ public class Course {
 	@Max(9999)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "course_id_seq")
 	private int courseId;
+	@NotNull
 	private String courseName;
+	@NotNull
 	private String courseDesc;
+	@NotNull
+	@Min(10)
 	private int classSize;
+	@Min(1)
 	private int durationSemesters;
 	@ManyToMany
 	private List<Subject> courseSubjectList;

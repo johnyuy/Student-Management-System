@@ -9,29 +9,34 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
+@SequenceGenerator(name="class_id_seq", initialValue = 1000)
 public class CourseClass {
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@NotNull
+	@Min(1000)
+	@Max(9999)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "class_id_seq")
 	private int classId;
+	@NotNull
+	@Min(1)
 	private String level;
 	@ManyToOne
 	private Course course;
-	
 	@ManyToMany
 	private List<Semester> semesterList;
-	
 	@ManyToMany
 	private List<Student> student;
-	
 	@ManyToMany
 	private List<Lecturer> lecturerList;
-	
 	@OneToMany(mappedBy="clas")
 	private List<Grade> gradeList;
-	
 	@OneToMany(mappedBy ="clas")
 	private List<Schedule> scheduleList;
 	

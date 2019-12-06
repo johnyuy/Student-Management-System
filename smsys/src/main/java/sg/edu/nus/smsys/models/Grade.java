@@ -3,79 +3,87 @@ package sg.edu.nus.smsys.models;
 import java.util.UUID;
 
 import javax.persistence.*;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.GenericGenerator;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="grades_table")
-
+@SequenceGenerator(name="grade_id_seq", initialValue = 1000010000)
 public class Grade {
 	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-	private UUID gradeId;
-	
+	@NotNull
+	@Min(1000010000)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "grade_id_seq")
+	private long gradeId;
 	@ManyToOne
 	private Student student;
-	
 	@ManyToOne
 	private CourseClass clas;
-	
 	@ManyToOne
 	private Subject subject;
-
+	@Size(min=1,max=2)
+	private String grade;
+	
+	//CONSTRUCTORS
 	public Grade() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Grade(UUID gradeId, Student student, CourseClass clas, Subject subject) {
+	public Grade(Student student, CourseClass clas, Subject subject, String grade) {
 		super();
-		this.gradeId = gradeId;
 		this.student = student;
 		this.clas = clas;
 		this.subject = subject;
+		this.grade = grade;
 	}
 
-	public UUID getGradeId() {
+	public long getGradeId() {
 		return gradeId;
-	}
-
-	public void setGradeId(UUID gradeId) {
-		this.gradeId = gradeId;
 	}
 
 	public Student getStudent() {
 		return student;
 	}
 
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-
 	public CourseClass getClas() {
 		return clas;
-	}
-
-	public void setClas(CourseClass clas) {
-		this.clas = clas;
 	}
 
 	public Subject getSubject() {
 		return subject;
 	}
 
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGradeId(long gradeId) {
+		this.gradeId = gradeId;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	public void setClas(CourseClass clas) {
+		this.clas = clas;
+	}
+
 	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((gradeId == null) ? 0 : gradeId.hashCode());
+		result = prime * result + (int) (gradeId ^ (gradeId >>> 32));
 		return result;
 	}
 
@@ -88,16 +96,15 @@ public class Grade {
 		if (getClass() != obj.getClass())
 			return false;
 		Grade other = (Grade) obj;
-		if (gradeId == null) {
-			if (other.gradeId != null)
-				return false;
-		} else if (!gradeId.equals(other.gradeId))
+		if (gradeId != other.gradeId)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Grade [gradeId=" + gradeId + ", student=" + student + ", clas=" + clas + ", subject=" + subject + "]";
+		return "Grade [gradeId=" + gradeId + ", student=" + student + ", clas=" + clas + ", subject=" + subject
+				+ ", grade=" + grade + "]";
 	}
+	
 }
