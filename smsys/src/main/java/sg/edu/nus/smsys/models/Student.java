@@ -41,7 +41,7 @@ public class Student extends Person{
 		super();
 	}
 	
-	public Student(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
+	public Student(String firstName, String middleName, String lastName, String gender, String birthDate,
 			String title, String address, String mobile, String email, String status, float gpa, List<Application> appliedCourses) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);
 		this.status = status;

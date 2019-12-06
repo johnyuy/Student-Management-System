@@ -20,7 +20,7 @@ public class CourseAdmin extends Staff {
 		super();
 	}
 
-	public CourseAdmin(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
+	public CourseAdmin(String firstName, String middleName, String lastName, String gender, String birthDate,
 			String title, String address, String mobile, String email, String status, int annualLeaveBalance,
 			int annualLeaveEntitled, List<Leave> annualLeaveList, Staff manager, List<Leave> approvedLeaveList) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email, status, annualLeaveBalance,

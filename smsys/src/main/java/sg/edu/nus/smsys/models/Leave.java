@@ -26,7 +26,7 @@ public class Leave {
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "leave_id_seq")
 	private int leaveId;
 	@NotNull
-	private LocalDateTime dateStart;
+	private String dateStart;
 	@NotNull
 	@Min(1)
 	private int duration;
@@ -44,7 +44,7 @@ public class Leave {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Leave(int leaveId, LocalDateTime dateStart, int duration, String reason, String status,
+	public Leave(int leaveId, String dateStart, int duration, String reason, String status,
 			CourseAdmin approvedByStaffID, Staff submittedByStaffID) {
 		super();
 		this.leaveId = leaveId;
@@ -65,11 +65,11 @@ public class Leave {
 		this.leaveId = leaveId;
 	}
 
-	public LocalDateTime getDateStart() {
+	public String getDateStart() {
 		return dateStart;
 	}
 
-	public void setDateStart(LocalDateTime dateStart) {
+	public void setDateStart(String dateStart) {
 		this.dateStart = dateStart;
 	}
 

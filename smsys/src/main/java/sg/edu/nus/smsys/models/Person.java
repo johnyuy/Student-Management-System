@@ -9,9 +9,7 @@ import javax.validation.constraints.NotNull;
 @MappedSuperclass
 public abstract class Person {
 	@NotNull
-	private String firstName, middleName, lastName, gender, title, address, mobile, email;
-	@NotNull
-	private LocalDate birthDate;
+	private String firstName, middleName, lastName, gender, title, address, mobile, email, birthDate;
 	private final int accessLevel = 3;
 	
 	//Constructors
@@ -20,7 +18,7 @@ public abstract class Person {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Person(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
+	public Person(String firstName, String middleName, String lastName, String gender, String birthDate,
 			String title, String address, String mobile, String email) {
 		super();
 		this.firstName = firstName;
@@ -55,7 +53,7 @@ public abstract class Person {
 	}
 	
 
-	public LocalDate getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
 	
@@ -100,7 +98,7 @@ public abstract class Person {
 		this.gender = gender;
 	}
 	
-	public void setBirthDate(LocalDate birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 	

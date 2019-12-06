@@ -59,12 +59,12 @@ public class CmdRunner2 implements CommandLineRunner {
         
         //Create Semesters
         log.info("Adding some semesters..");
-        semrepo.save(new Semester(LocalDate.of(2019, 8, 1), LocalDate.of(2019, 12, 31), null));
-        semrepo.save(new Semester(LocalDate.of(2020, 1, 1), LocalDate.of(2020, 5, 31), null));
-        semrepo.save(new Semester(LocalDate.of(2020, 8, 1), LocalDate.of(2020, 12, 31), null));
-        semrepo.save(new Semester(LocalDate.of(2021, 1, 1), LocalDate.of(2021, 5, 31), null));
-        semrepo.save(new Semester(LocalDate.of(2021, 8, 1), LocalDate.of(2021, 12, 31), null));
-        semrepo.save(new Semester(LocalDate.of(2022, 1, 1), LocalDate.of(2022, 5, 31), null));
+        semrepo.save(new Semester(LocalDate.of(2019, 8, 1).toString(), LocalDate.of(2019, 12, 31).toString(), null));
+        semrepo.save(new Semester(LocalDate.of(2020, 1, 1).toString(), LocalDate.of(2020, 5, 31).toString(), null));
+        semrepo.save(new Semester(LocalDate.of(2020, 8, 1).toString(), LocalDate.of(2020, 12, 31).toString(), null));
+        semrepo.save(new Semester(LocalDate.of(2021, 1, 1).toString(), LocalDate.of(2021, 5, 31).toString(), null));
+        semrepo.save(new Semester(LocalDate.of(2021, 8, 1).toString(), LocalDate.of(2021, 12, 31).toString(), null));
+        semrepo.save(new Semester(LocalDate.of(2022, 1, 1).toString(), LocalDate.of(2022, 5, 31).toString(), null));
         
         //Create classes
         log.info("Adding some classes..");

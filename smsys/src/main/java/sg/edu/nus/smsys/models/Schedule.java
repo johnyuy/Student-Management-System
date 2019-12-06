@@ -24,7 +24,7 @@ public class Schedule {
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "schedule_id_seq")
 	private int scheduleId;
 	@NotNull
-	private LocalDateTime timeStart;
+	private String timeStart;
 	@Min(1)
 	private int durationHours;
 	@ManyToOne
@@ -38,7 +38,7 @@ public class Schedule {
 	public Schedule() {
 		super();
 	}
-	public Schedule(int scheduleId, LocalDateTime timeStart, int durationHours, Lecturer lecturer, Subject subject) {
+	public Schedule(int scheduleId, String timeStart, int durationHours, Lecturer lecturer, Subject subject) {
 		super();
 		this.scheduleId = scheduleId;
 		this.timeStart = timeStart;
@@ -51,7 +51,7 @@ public class Schedule {
 	public int getScheduleId() {
 		return scheduleId;
 	}
-	public LocalDateTime getTimeStart() {
+	public String getTimeStart() {
 		return timeStart;
 	}
 	public int getDurationHours() {
@@ -69,7 +69,7 @@ public class Schedule {
 	public void setScheduleId(int scheduleId) {
 		this.scheduleId = scheduleId;
 	}
-	public void setTimeStart(LocalDateTime timeStart) {
+	public void setTimeStart(String timeStart) {
 		this.timeStart = timeStart;
 	}
 	public void setDurationHours(int durationHours) {

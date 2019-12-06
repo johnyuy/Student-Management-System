@@ -1,6 +1,7 @@
 package sg.edu.nus.smsys.models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.*;
@@ -18,29 +19,39 @@ public class Semester {
 	@NotNull
 	private String semCode;
 	@NotNull
-	private LocalDate startDate;
+	private String startDate;
 	@NotNull
-	private LocalDate endDate;
+	private String endDate;
 	
 	@ManyToMany(mappedBy = "semesterList")
 	private List<CourseClass> classList;
-
+	
 	public Semester() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Semester(LocalDate startDate, LocalDate endDate, List<CourseClass> classList) {
+	public Semester(String startDate, String endDate, List<CourseClass> classList) {
 		super();
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.classList = classList;
-		this.semCode = String.valueOf(startDate.getYear()%100) + "/" + String.valueOf(startDate.getYear()%100+1);
-		if(startDate.getMonthValue()>=7 && startDate.getMonthValue()<=12) {
+		this.semCode = String.valueOf(LocalDate.parse(startDate).getYear()%100) + "/" + String.valueOf(LocalDate.parse(startDate).getYear()%100+1);
+		if(LocalDate.parse(startDate).getMonthValue()>=7 && LocalDate.parse(startDate).getMonthValue()<=12) {
 			this.semCode += "/1";
 		} else {
 			this.semCode += "/2";
 		}
+	}
+	
+	public Semester updatedSemster() {
+		this.semCode = String.valueOf(LocalDate.parse(this.startDate).getYear()%100) + "/" + String.valueOf(LocalDate.parse(this.startDate).getYear()%100+1);
+		if(LocalDate.parse(this.startDate).getMonthValue()>=7 && LocalDate.parse(this.startDate).getMonthValue()<=12) {
+			this.semCode += "/1";
+		} else {
+			this.semCode += "/2";
+		}
+		return this;
 	}
 	
 	//GETTERS AND SETTERS
@@ -52,11 +63,11 @@ public class Semester {
 		return semCode;
 	}
 
-	public LocalDate getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public LocalDate getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
@@ -72,11 +83,11 @@ public class Semester {
 		this.semCode = semCode;
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

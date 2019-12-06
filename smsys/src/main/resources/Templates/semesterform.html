@@ -6,19 +6,14 @@
 </head>
 <body>
 	<form action="/semester/insert" method="post" th:object="${semester}" th:action="@{/semester/insert}">
+
 	<fieldset>
-	Semester Id: <input type="text" th:field="*{semId}"/>
+	Start Date: <input type="date" th:field="*{startDate}"/>
 	</fieldset>
 		<fieldset>
-	Semester Code: <input type="text" th:field="*{semCode}"/>
+	End Date: <input type="date" th:field="*{endDate}"/>
 	</fieldset>
-		<fieldset>
-	Start Date: <input type="text" th:field="*{startDate}"/>
-	</fieldset>
-		<fieldset>
-	End Date: <input type="text" th:field="*{endDate}"/>
-	</fieldset>
-		<button type="submit">Add Semseter</button>
+		<button type="submit">Add Semester</button>
 	</form>
 
 </body>

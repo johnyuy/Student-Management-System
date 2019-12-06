@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.controllers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class SemesterController
 	@PostMapping("/insert")
 	public String insertSemester(@ModelAttribute Semester semester)
 	{
-		semRepo.save(semester);
+		semRepo.save(semester.updatedSemster());
 		return "redirect:/semester/list";
 	}
 }
