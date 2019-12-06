@@ -10,24 +10,30 @@ import sg.edu.nus.smsys.repository.UserRepository;
 @Entity
 @Table(name="user")
 public class User {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int passid;
 	
 	private String username;
+	
 	private int accessRights;
 	
 	private String password;
+	
+	private byte[] salt;
 	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public User(String username, int accessRights, String password) {
+	
+	public User(String username, int accessRights, String password, byte[] salt) {
 		super();
 		this.username = username;
 		this.accessRights = accessRights;
 		this.password = password;
+		this.salt = salt;
 	}
 	public int getPassid() {
 		return passid;
@@ -52,6 +58,12 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public byte[] getSalt() {
+		return salt;
+	}
+	public void setSalt(byte[] salt) {
+		this.salt = salt;
 	}
 	
 	

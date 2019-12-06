@@ -5,6 +5,33 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+<!-- Custom styles for this template -->
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
+body {
+	padding-top: 5rem;
+}
+
+.starter-template {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}
+</style>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -43,14 +70,9 @@
 							class="dropdown-item" href="#">Something else here</a>
 					</div></li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
-				method="get">
-				<fieldset>
-					<input class="form-control mr-sm-2" name="name" type="text"
-						placeholder="Search Student" aria-label="Search" />
-					<fieldset />
-					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-					<p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
+			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}" method="get">
+					<input class="form-control mr-sm-2" name="name" type="text" placeholder="Search Student" aria-label="Search" />
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 		</div>
 	</nav>
@@ -104,31 +126,6 @@
 		</div>
 	</main>
 
-	<style>
-.bd-placeholder-img {
-	font-size: 1.125rem;
-	text-anchor: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
-@media ( min-width : 768px) {
-	.bd-placeholder-img-lg {
-		font-size: 3.5rem;
-	}
-}
-
-body {
-	padding-top: 5rem;
-}
-
-.starter-template {
-	padding: 3rem 1.5rem;
-	text-align: center;
-}
-</style>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sg.edu.nus.smsys.cmdlr.CmdRunner2;
 import sg.edu.nus.smsys.models.CourseAdmin;
 import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Student;
@@ -14,11 +15,16 @@ import sg.edu.nus.smsys.repository.StudentRepository;
 import sg.edu.nus.smsys.repository.UserRepository;
 import sg.edu.nus.smsys.service.UserService;
 
-import java.nio.charset.StandardCharsets;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.security.*;
 
 @Service
 public class UserServiceImplement implements UserService {
+	
+	private static final Logger log = LoggerFactory.getLogger(UserServiceImplement.class);
+	
 	@Autowired
 	private UserRepository urepo;
 	@Autowired
@@ -31,21 +37,23 @@ public class UserServiceImplement implements UserService {
 	@Transactional
 	public void registerNewAccount(Integer id, String password) throws GeneralSecurityException {
 		int userType = id / 10000;
-		String pw = PasswordEncoder(password).toString();
+		byte[] salt = getSalt();
+		String pw = PasswordEncoder(password, salt);
+		
 		if (userType == 5) {
 			//Create user account only if user account does not alr exist but staff exists in staff table
 			if (UsernameExist("A" + id) == false && CourseAdminIdExist(id) == true) {
 
 				CourseAdmin ca = crepo.findByStaffId(id);
 				String username = "A" + id;
-				User user = new User(username, ca.getAccessLevel(), pw);
+				User user = new User(username, ca.getAccessLevel(), pw, salt);
 				urepo.save(user);
 				System.out.println("New user account for " + ca.getFirstName() + " " + ca.getLastName()
 						+ " has been successfully created.");
 			} else if (UsernameExist("L" + id) == false && LecturerIdExist(id) == true) {
 				Lecturer lect = lrepo.findByStaffId(id);
 				String username = "L" + id;
-				User user = new User(username, lect.getAccessLevel(), pw);
+				User user = new User(username, lect.getAccessLevel(), pw, salt);
 				urepo.save(user);
 				System.out.println("New user account for " + lect.getFirstName() + " " + lect.getLastName()
 						+ " has been successfully created.");
@@ -54,7 +62,8 @@ public class UserServiceImplement implements UserService {
 		} else if (userType == 1 && UsernameExist("S" + id) == false && StudentIdExist(id) == true) {
 			Student s = srepo.findByStudentId(id);
 			String username = "S" + id;
-			User user = new User(username, s.getAccessLevel(), pw);
+			User user = new User(username, s.getAccessLevel(), pw, salt
+					);
 			urepo.save(user);
 			System.out.println("New user account for " + s.getFirstName() + " " + s.getLastName()
 					+ " has been successfully created.");
@@ -96,15 +105,57 @@ public class UserServiceImplement implements UserService {
 		}
 		return false;
 	}
-
-	public byte[] PasswordEncoder(String password) throws GeneralSecurityException {
-		SecureRandom random = new SecureRandom();
-		byte[] salt = new byte[16];
-		random.nextBytes(salt);
-		MessageDigest md = MessageDigest.getInstance("SHA-512");
-		md.update(salt);
-		byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
-		return hashedPassword;
+	
+	public String PasswordEncoder(String password, byte[] salt) {
+		String encodedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(salt);
+            byte[] bytes = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            encodedPassword = sb.toString();
+        } 
+        catch (NoSuchAlgorithmException e) 
+        {
+            e.printStackTrace();
+        }
+        return encodedPassword;
 	}
+	
+	private static byte[] getSalt() throws NoSuchAlgorithmException
+    {
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return salt;
+    }
+	
+	public boolean verifyPassword(String username, String password) {
+		if(UsernameExist(username)==true) {
+			User user = urepo.findByUsername(username);
+			byte[]salt = user.getSalt();
+			String testpw = PasswordEncoder(password, salt);
+			log.info("Comparing passwords.");
+			log.info("Testpw is " + testpw);
+			log.info("datapw is " + user.getPassword());
+			if (testpw.equals(user.getPassword())) {
+				System.out.println("Password verified");
+				return true;
+			}
+			else {
+				System.out.println("Wrong password.");
+				return false;
+			}
+		}
+		else {
+			System.out.println("Username does not exist.");
+			return false;
+		}
+	}
+
 
 }
