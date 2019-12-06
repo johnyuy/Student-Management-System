@@ -7,29 +7,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
+@SequenceGenerator(name="class_id_seq", initialValue = 1000)
 public class CourseClass {
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@NotNull
+	@Min(1000)
+	@Max(9999)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "class_id_seq")
 	private int classId;
-	private String course;
+	@NotNull
+	@Min(1)
 	private String level;
-	
+	@ManyToOne
+	private Course course;
 	@ManyToMany
 	private List<Semester> semesterList;
-	
 	@ManyToMany
 	private List<Student> student;
-	
 	@ManyToMany
 	private List<Lecturer> lecturerList;
-	
 	@OneToMany(mappedBy="clas")
 	private List<Grade> gradeList;
-	
 	@OneToMany(mappedBy ="clas")
 	private List<Schedule> scheduleList;
 	
@@ -39,7 +46,7 @@ public class CourseClass {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CourseClass(int classId, String course, String level, List<Semester> semesterList, List<Student> student,
+	public CourseClass(int classId, Course course, String level, List<Semester> semesterList, List<Student> student,
 			List<Lecturer> lecturerList, List<Grade> gradeList, List<Schedule> scheduleList) {
 		super();
 		this.classId = classId;
@@ -56,7 +63,7 @@ public class CourseClass {
 		return classId;
 	}
 
-	public String getCourse() {
+	public Course getCourse() {
 		return course;
 	}
 
@@ -88,7 +95,7 @@ public class CourseClass {
 		this.classId = classId;
 	}
 
-	public void setCourse(String course) {
+	public void setCourse(Course course) {
 		this.course = course;
 	}
 
@@ -118,11 +125,10 @@ public class CourseClass {
 
 	@Override
 	public String toString() {
-		return "Class [classId=" + classId + ", course=" + course + ", level=" + level + ", semesterList="
+		return "CourseClass [classId=" + classId + ", level=" + level + ", course=" + course + ", semesterList="
 				+ semesterList + ", student=" + student + ", lecturerList=" + lecturerList + ", gradeList=" + gradeList
-				+ "]";
+				+ ", scheduleList=" + scheduleList + "]";
 	}
-	
 
 }
 

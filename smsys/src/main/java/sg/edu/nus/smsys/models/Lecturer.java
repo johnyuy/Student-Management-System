@@ -8,6 +8,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("LECT")
@@ -24,6 +25,8 @@ public class Lecturer extends Staff {
 	
 	@ManyToMany
 	private List<CourseClass> classList;
+	@OneToMany(mappedBy="lecturer")
+	private List<Schedule> scheduleList;
 	
 	private final int accessLevel = 2;
 
@@ -35,12 +38,13 @@ public class Lecturer extends Staff {
 
 	public Lecturer(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
 			String title, String address, String mobile, String email, String status, int annualLeaveBalance,
-			int annualLeaveEntitled, List<Leave> annualLeaveList, Staff manager, Department department, List<Subject> subjectList, List<CourseClass> classList) {
+			int annualLeaveEntitled, List<Leave> annualLeaveList, Staff manager, Department department, List<Subject> subjectList, List<CourseClass> classList, List<Schedule> scheduleList) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email, status, annualLeaveBalance,
 				annualLeaveEntitled, annualLeaveList, manager);
 		this.department = department;
 		this.subjectList = subjectList;
 		this.classList = classList;
+		this.scheduleList = scheduleList;
 	}
 
 	public Department getDepartment() {
@@ -58,6 +62,10 @@ public class Lecturer extends Staff {
 	public int getAccessLevel() {
 		return accessLevel;
 	}
+	
+	public List<Schedule> getScheduleList() {
+		return scheduleList;
+	}
 
 	public void setDepartment(Department department) {
 		this.department = department;
@@ -71,11 +79,16 @@ public class Lecturer extends Staff {
 		this.classList = classList;
 	}
 
-	
+	public void setScheduleList(List<Schedule> scheduleList) {
+		this.scheduleList = scheduleList;
+	}
+
 	@Override
 	public String toString() {
 		return "Lecturer [department=" + department + ", subjectList=" + subjectList + ", classList=" + classList
-				+ ", accessLevel=" + accessLevel + "]";
+				+ ", scheduleList=" + scheduleList + ", accessLevel=" + accessLevel + "]";
 	}
+	
+	
 
 }
