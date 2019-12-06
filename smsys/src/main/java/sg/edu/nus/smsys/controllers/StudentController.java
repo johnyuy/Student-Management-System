@@ -21,7 +21,6 @@ public class StudentController {
 	@Autowired
 	private StudentRepository srepo;
 
-
 	@GetMapping("/list")
 	public String findStudent(Model model, @RequestParam(defaultValue = "") String name) {
 		ArrayList<Student> slist = new ArrayList<Student>();
