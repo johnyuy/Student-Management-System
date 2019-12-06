@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Leave Management Page</title>
+</head>
+<body>
+<table>
+	<tr>
+	<th>ID</th>
+	<th>LeaveStartTime</th>
+	<th>Duration</th>
+	<th>Reason</th>
+	<th>Status</th>
+	</tr>
+	<tr th:each="leave:${leave}">
+	<td th:text=${leave.leaveId}>Id</td>
+	<td th:text=${leave.dateStart}>dateStart</td>
+	<td th:text=${leave.duration}>duration</td>
+	<td th:text=${leave.reason}>reason</td>
+	<td th:text=${leave.status}>status</td>
+	<td ><button type="submit" name="viewleavedetails">View Details</button></td>
+	</tr>
+	</table>
+	
+
+
+</body>
+</html>
