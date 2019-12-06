@@ -33,8 +33,7 @@ public class UserServiceImplement implements UserService {
 		int userType = id / 10000;
 		String pw = PasswordEncoder(password).toString();
 		if (userType == 5) {
-			// Check if id exists in user database
-
+			//Create user account only if user account does not alr exist but staff exists in staff table
 			if (UsernameExist("A" + id) == false && CourseAdminIdExist(id) == true) {
 
 				CourseAdmin ca = crepo.findByStaffId(id);
@@ -51,6 +50,7 @@ public class UserServiceImplement implements UserService {
 				System.out.println("New user account for " + lect.getFirstName() + " " + lect.getLastName()
 						+ " has been successfully created.");
 			}
+		//Create user account only if user account does not alr exist but student exists in student table
 		} else if (userType == 1 && UsernameExist("S" + id) == false && StudentIdExist(id) == true) {
 			Student s = srepo.findByStudentId(id);
 			String username = "S" + id;
