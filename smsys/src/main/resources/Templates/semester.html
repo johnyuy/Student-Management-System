@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta charset="UTF-8">
 <title>Semester</title>
 </head>
 <body>
 
 	<h1>Semester Listing Table</h1>
-	<br/>
-	
-	<table>
-	<tr>
-	<th>Semester ID</th>
-	<th>Semester Code</th>
-	<th>Start Date</th>
-	<th>End Date</th>
-	</tr>
-	<tr th:each="semester:${semester}">
-	<td th:text=${semester.semId}>Semester ID</td>
-	<td th:text=${semester.semCode}>Semester Code</td>
-	<td th:text=${semester.startDate}>Start Date</td>
-	<td th:text=${semester.endDate}>End Date</td>
-	</tr>
+	<br />
+	<div class="w3-responsive">
+	<table class="w3-table-all w3-centered w3-hoverable">
+		<tr>
+			<th>Semester ID</th>
+			<th>Semester Code</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+		</tr>
+		<tr th:each="semester:${semester}">
+			<td th:text=${semester.semId}>Semester ID</td>
+			<td th:text=${semester.semCode}>Semester Code</td>
+			<td th:text=${semester.startDate}>Start Date</td>
+			<td th:text=${semester.endDate}>End Date</td>
+		</tr>
 	</table>
+	</div>
 </body>
 </html>

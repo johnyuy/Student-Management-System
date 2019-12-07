@@ -54,8 +54,10 @@ public class CmdRunner2 implements CommandLineRunner {
         
         //Create Courses
         log.info("Adding some courses..");
-        courepo.save(new Course("Graduate Diploma in Systems Analysis", "The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry.", 100, 2, null, null));
-        courepo.save(new Course("Master of Technology in Enterprise Business Analytics", "The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.", 50, 2, null, null));
+        Course course1 = new Course("Graduate Diploma in Systems Analysis", "The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry.", 100, 2, null, null);
+        Course course2 =  new Course("Master of Technology in Enterprise Business Analytics", "The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.", 50, 2, null, null);
+        courepo.save(course1);
+        courepo.save(course2);
         
         //Create Semesters
         log.info("Adding some semesters..");
@@ -73,7 +75,9 @@ public class CmdRunner2 implements CommandLineRunner {
         semlist.add(sem);
         sem = semrepo.findBySemCode("19/20/2");
         semlist.add(sem);
-        CourseClass newclass = new CourseClass(courepo.findByCourseId(2000), 1, semlist, null, null, null, null);
-        ccrepo.save(newclass);
+        ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 1, semlist, null, null, null, null));
+        ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 1, semlist, null, null, null, null));
+        ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 1, semlist, null, null, null, null));
+        
     }
 }

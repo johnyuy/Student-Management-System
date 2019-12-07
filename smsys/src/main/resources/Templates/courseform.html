@@ -5,7 +5,7 @@
 <title>Course Form</title>
 </head>
 <body>
-	<form action="/course/insert" method="post" th:object="${course}" th:action="@{/course/insert}">
+	<form action="/courses/insert" method="post" th:object="${course}" th:action="@{/courses/insert}">
 	<fieldset>
 	Course Name: <input type="text" th:field="*{courseName}"/>
 	</fieldset>
@@ -13,10 +13,10 @@
 	Course Description: <input type="text" th:field="*{courseDesc}"/>
 	</fieldset>
 		<fieldset>
-	Class Size: <input type="text" th:field="*{classSize}"/>
+	Class Size: <input type="number" min=10 th:field="*{classSize}"  value=10/>
 	</fieldset>
 		<fieldset>
-	Duration in Semesters: <input type="text" th:field="*{durationSemesters}"/>
+	Duration in Semesters: <input type="number" min=1 th:field="*{durationSemesters}" value=1 />
 	</fieldset>
 		<button type="submit">Add Course</button>
 	</form>
