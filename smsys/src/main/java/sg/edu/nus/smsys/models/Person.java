@@ -3,13 +3,38 @@ package sg.edu.nus.smsys.models;
 import java.time.LocalDate;
 
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 
 @MappedSuperclass
 public abstract class Person {
-	@NotNull
-	private String firstName, middleName, lastName, gender, title, address, mobile, email, birthDate;
+	
+	@NotEmpty(message ="This field cannot be left empty")
+	private String firstName, lastName, title, address;
+
+	private String middleName;
+	
+	@NotEmpty(message ="This field cannot be left empty")
+	@Pattern(regexp="^[0-9]+$", message ="Mobile numbers should on be in digits")
+	private String mobile;
+
+	@NotEmpty(message ="This field cannot be left empty")
+//	@Past
+	private String birthDate;
+	
+	@NotEmpty(message ="This field cannot be left empty")
+	@Email(message ="Must be a well-formed email address")
+	private String email;
+	
+	@NotEmpty(message ="This field cannot be left empty")
+//	@Pattern(regexp="male|female")
+	private String gender;
+	
 	private final int accessLevel = 3;
 	
 	//Constructors
