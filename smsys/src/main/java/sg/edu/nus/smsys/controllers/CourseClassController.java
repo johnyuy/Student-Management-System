@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import sg.edu.nus.smsys.models.Course;
-import sg.edu.nus.smsys.models.CourseClass;
+import sg.edu.nus.smsys.models.*;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
 
@@ -39,5 +40,20 @@ public class CourseClassController {
 		return("classlist");
 	}
 	
+	//can be opened from the course details page
+	@GetMapping("/add")
+	public String showAddForm(Model model, @RequestParam(defaultValue="")String courseId) {
+		CourseClass courseclass = new CourseClass();
+		model.addAttribute(courseclass);
 
+		
+		return("courseclassform");
+	}
+	
+	@PostMapping("/insert")
+	public String insertCourseClassController(@ModelAttribute CourseClass courseClass)
+	{
+		ccRepo.save(courseClass);
+		return "redirect:/courseClass/list";
+	}
 }
