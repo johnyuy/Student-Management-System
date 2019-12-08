@@ -86,10 +86,10 @@ body {
 		</div>
 
 		<div class="container">
-			<h4>Add new Student</h4>
+			<h4 th:text="*{studentId != 0}? 'Update Student' : 'Add New Student'">Add New Student</h4>
 		</div>
 		<div class="container">
-			<form action="/students/insert" th:object="${student}"
+			<form th:object="${student}"
 				id="add-student-form" class="form-horizontal" method="post">
 
 				<div class="row">
@@ -129,9 +129,9 @@ body {
 				<div class="row">
 					<div class="col-md-4 mb-3">
 						<label for="birthDate">Birth Date</label> <input
-							class="form-control" type="date" th:object="${birthDate}" />
+							class="form-control" type="date" th:field="*{birthDate}" />
 						<p th:if="${#fields.hasErrors('birthDate')}"
-							th:errors="*{birthDate}"></p>
+							th:errors="*{{birthDate}}"></p>
 					</div>
 				</div>
 				<div class="row">

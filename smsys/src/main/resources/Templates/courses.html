@@ -13,30 +13,34 @@
 	<div class="w3-responsive">
 		<table class="w3-table-all w3-centered w3-hoverable">
 			<tr>
-				<th>ID</th>
-				<th>Name</th>
-				<th>View Details</th>
+				<th>Course ID</th>
+				<th></th>
 				<th>Classes</th>
-				
+
 			</tr>
 			<tr th:each="course:${courses}">
 				<td th:text=${course.courseId}>Id</td>
-				<td th:text=${course.courseName}>Course Name</td>
-				
+
 				<td><a href="coursedetails.html"
 					th:href="@{/courses/details(courseId=${course.courseId})}"
-					class="btn btn-default">view</a></td>
-					
+					th:text=${course.courseName}
+					class="btn btn-default">testing</a></td>
+
 				<td><a href="classlist.html"
 					th:href="@{/classes/list(courseId=${course.courseId})}"
 					class="btn btn-default"><span
-					th:text=${course.classesList.size()}>number of classes</span></a></td>
-					
+						th:text=${course.classesList.size()}>number of classes</span></a></td>
+				
 			</tr>
 		</table>
-
-		<form action="/courses/add" method="get" th:action="@{/courses/add}">
-			<button>Add course</button>
+		<br />
+		<h3>Admin Tools</h3>
+		<form action="/classes/add" method="get" th:action="@{/courses/add}">
+			<table class="w3-table-all w3-centered">
+				<tr>
+					<td><button>Add course</button></td>
+				</tr>
+			</table>
 		</form>
 	</div>
 </body>

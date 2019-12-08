@@ -30,14 +30,16 @@ public class CourseClassController {
 	@GetMapping("/list")
 	public String viewCourseClasses(Model model, @RequestParam(defaultValue = "") String courseId) {
 		
-		List<CourseClass> classlist = new ArrayList<CourseClass>();
-		classlist = ccRepo.findAll();
+		List<CourseClass> classlist = ccRepo.findAll();
+		String title = "All Courses";
 		if(courseId.equals("")) {
 			classlist = ccRepo.findAll();
+			model.addAttribute("title", title);
 		}
 		else {
 			Course course = couRepo.findByCourseId(Integer.parseInt(courseId));
 			classlist = ccRepo.findByCourse(course);
+			model.addAttribute("title", course.getCourseName());
 		}
 		model.addAttribute("classes", classlist);
 		return("classlist");

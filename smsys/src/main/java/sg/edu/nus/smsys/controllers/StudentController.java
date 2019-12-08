@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import sg.edu.nus.smsys.models.Student;
+import sg.edu.nus.smsys.models.DateString;
 import sg.edu.nus.smsys.repository.StudentRepository;
 
 @Controller
@@ -62,22 +63,20 @@ public class StudentController {
 	@GetMapping("/add")
 	public String addStudentForm(Model model) {
 		Student student = new Student();
-		String birthDate = "";
 		model.addAttribute("student", student);
-		model.addAttribute("birthDate",birthDate);
 		return "studentform";
 	}
 
 	@PostMapping("/add")
-	public String addStudent(@Valid @ModelAttribute Student s, BindingResult bindingResult,  @ModelAttribute String birthDate) {
+	public String addStudent(@Valid @ModelAttribute Student s, BindingResult bindingResult) {
 		{
 			if (bindingResult.hasErrors()) {
+				bindingResult.getFieldErrors().stream()
+				.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
 				return "studentform";
 			}
 			Student student = new Student();
 			student = s;
-			System.out.println(birthDate);
-			student.setBirthDate(LocalDate.parse(birthDate));
 			srepo.save(student);
 			return "redirect:/students/list";
 		}
@@ -109,18 +108,20 @@ public class StudentController {
 	}
 	
 	
-
-	@PostMapping("/insert")
-	public String insertCourse(@Valid @ModelAttribute Student s, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			bindingResult.getFieldErrors().stream()
-					.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
-			return "studentform";
-		}
-		Student student = new Student();
-		student = s;
-		srepo.save(student);
-		return "redirect:/students/list";
-	}
+//
+//	@PostMapping("/insert")
+//	public String insertCourse(@Valid @ModelAttribute Student s, BindingResult bindingResult) {
+//		if (bindingResult.hasErrors()) {
+//			bindingResult.getFieldErrors().stream()
+//					.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
+//			return "studentform";
+//		}
+//		Student student = new Student();
+//		student = s;
+//		System.out.println("Im here in /insert");
+//
+//		srepo.save(student);
+//		return "redirect:/students/list";
+//	}
 
 }
