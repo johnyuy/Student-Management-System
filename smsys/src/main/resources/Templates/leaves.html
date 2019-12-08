@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Leave List by Staff themselves </title>
+</head>
+<body>
+
+<table>
+	<tr>
+	<th>ID</th>
+	<th>LeaveStartTime</th>
+	<th>Duration</th>
+	<th>Reason</th>
+	<th>Status</th>
+	</tr>
+	<tr th:each="leave:${leaves}">
+	<td th:text=${leave.leaveId}>id</td>
+	<td th:text=${leave.dateStart}>leavedatestart</td>
+	<td th:text=${leave.duration}>duration</td>
+	<td th:text=${leave.reason}>reason</td>
+	<td th:text=${leave.status}>status</td>
+	</tr>
+	</table>
+			<div>
+				<a class="btn btn-success" th:href="@{/leave/add}">Add New Student</a>
+			</div>
+
+</body>
+</html>

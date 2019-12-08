@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta charset="UTF-8">
 <title>Courses</title>
 </head>
@@ -8,6 +9,7 @@
 
 	<h1>Course Listing Table</h1>
 	<br/>
+<<<<<<< HEAD
 	<a href="addcourse.html" th:href="@{/course/add}">Add Course</a>
 	<br/>
 	
@@ -22,6 +24,23 @@
 	<td><a href="editcourse.html" th:href="@{/course/edit/${course.courseId}"></a>Edit</td>
 	<td><a href="deletecourse.html" th:href="@{/course/delete/${course.courseId}"></a>Delete</td>
 	</tr>
+=======
+	<div class="w3-responsive">
+	<table class="w3-table-all w3-centered w3-hoverable">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Classes</th>
+			<th>View Details</th>
+		</tr>
+		<tr th:each="course:${courses}">
+			<td th:text=${course.courseId}>Id</td>
+			<td th:text=${course.courseName}>Course Name</td>
+			<td><a href="classlist.html" th:href="@{/classes/list(courseId=${course.courseId})}" class= "btn btn-default"><span th:text=${course.classesList.size()}>number of classes</span></a></td>
+			<td><a href="coursedetails.html" th:href="@{/courses/details(courseId=${course.courseId})}" class= "btn btn-default">view</a></td>
+		</tr>
+>>>>>>> branch 'master' of https://github.com/johnyuy/Student-Management-System
 	</table>
+	</div>
 </body>
 </html>

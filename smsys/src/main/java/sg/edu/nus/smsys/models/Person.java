@@ -3,27 +3,47 @@ package sg.edu.nus.smsys.models;
 import java.time.LocalDate;
 
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 
 @MappedSuperclass
 public abstract class Person {
 	
-	private String firstName;
+	@NotEmpty(message ="This field cannot be left empty")
+	private String firstName, lastName, title, address;
+
 	private String middleName;
-	private String lastName;
-	private String gender;
-	private LocalDate birthDate;
-	private String title;
-	private String address;
+	
+	@NotEmpty(message ="This field cannot be left empty")
+	@Pattern(regexp="^[0-9]+$", message ="Mobile numbers should on be in digits")
 	private String mobile;
+
+	@NotEmpty(message ="This field cannot be left empty")
+//	@Past
+	private String birthDate;
+	
+	@NotEmpty(message ="This field cannot be left empty")
+	@Email(message ="Must be a well-formed email address")
 	private String email;
 	
+	@NotEmpty(message ="This field cannot be left empty")
+//	@Pattern(regexp="male|female")
+	private String gender;
+	
+	private final int accessLevel = 3;
+	
+	//Constructors
 	public Person() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Person(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
+	public Person(String firstName, String middleName, String lastName, String gender, String birthDate,
 			String title, String address, String mobile, String email) {
 		super();
 		this.firstName = firstName;
@@ -36,86 +56,91 @@ public abstract class Person {
 		this.mobile = mobile;
 		this.email = email;
 	}
-
+	
+	//GETTERS & SETTERS
 	public String getFirstName() {
 		return firstName;
 	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+	
 
 	public String getMiddleName() {
 		return middleName;
 	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
+	
 
 	public String getLastName() {
 		return lastName;
 	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+	
 
 	public String getGender() {
 		return gender;
 	}
+	
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public LocalDate getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
-
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
+	
 
 	public String getTitle() {
 		return title;
 	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
+	
 
 	public String getAddress() {
 		return address;
 	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
+	
 
 	public String getMobile() {
 		return mobile;
 	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+	
 
 	public String getEmail() {
 		return email;
 	}
+	
 
+	public int getAccessLevel() {
+		return accessLevel;
+	}
+	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "Person [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", gender="
-				+ gender + ", birthDate=" + birthDate + ", title=" + title + ", address=" + address + ", mobile="
-				+ mobile + ", email=" + email + "]";
 	}
 
 	@Override
@@ -125,7 +150,7 @@ public abstract class Person {
 		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -141,6 +166,13 @@ public abstract class Person {
 		} else if (!mobile.equals(other.mobile))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", gender="
+				+ gender + ", birthDate=" + birthDate + ", title=" + title + ", address=" + address + ", mobile="
+				+ mobile + ", email=" + email + ", accessLevel=" + accessLevel + "]";
 	}
 
 }

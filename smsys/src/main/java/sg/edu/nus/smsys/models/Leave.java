@@ -9,32 +9,42 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="Leave_Table")
-@SequenceGenerator(name="leave_id_seq", initialValue = 33000)
+@SequenceGenerator(name="leave_id_seq", initialValue = 300000)
 public class Leave {
 	
 	@Id
+	@NotNull
+	@Min(300000)
+	@Max(399999)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "leave_id_seq")
 	private int leaveId;
-	private LocalDateTime dateStart;
+	@NotNull
+	private String dateStart;
+	@NotNull
+	@Min(1)
 	private int duration;
+	@Size(min=2, max=100)
 	private String reason;
 	private String status;
-	
 	@ManyToOne
 	private CourseAdmin approvedByStaffID;
-	
 	@ManyToOne
 	private Staff submittedByStaffID;
-
+	
+	//CONSTRUCTORS
 	public Leave() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public Leave(int leaveId, LocalDateTime dateStart, int duration, String reason, String status,
+	
+	public Leave(int leaveId, String dateStart, int duration, String reason, String status,
 			CourseAdmin approvedByStaffID, Staff submittedByStaffID) {
 		super();
 		this.leaveId = leaveId;
@@ -45,7 +55,8 @@ public class Leave {
 		this.approvedByStaffID = approvedByStaffID;
 		this.submittedByStaffID = submittedByStaffID;
 	}
-
+	
+	//GETTERS AND SETTERS
 	public int getLeaveId() {
 		return leaveId;
 	}
@@ -54,11 +65,11 @@ public class Leave {
 		this.leaveId = leaveId;
 	}
 
-	public LocalDateTime getDateStart() {
+	public String getDateStart() {
 		return dateStart;
 	}
 
-	public void setDateStart(LocalDateTime dateStart) {
+	public void setDateStart(String dateStart) {
 		this.dateStart = dateStart;
 	}
 

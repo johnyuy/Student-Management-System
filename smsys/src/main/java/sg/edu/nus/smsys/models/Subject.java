@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Subject {
@@ -15,8 +18,11 @@ public class Subject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int subjectId;
+	@NotNull
 	private String subjectName;
+	@Size(min=2, max=100)
 	private String subjectDesc;
+	@Min(0)
 	private int units;
 	
 	@ManyToMany

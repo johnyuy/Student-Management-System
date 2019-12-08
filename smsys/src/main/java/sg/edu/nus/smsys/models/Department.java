@@ -7,15 +7,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Department {
 	
 	@Id
+	@NotNull
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int departmentId;
+	@NotNull
 	private String departmentName;
-	
 	@OneToMany(mappedBy = "department")
 	private List<Lecturer> lecturerList;
 

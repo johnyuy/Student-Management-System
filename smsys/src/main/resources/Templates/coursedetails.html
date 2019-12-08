@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="UTF-8">
+<title>Course Details</title>
+</head>
+<body>
+<div class="w3-responsive">
+	<h1 th:text=${course.courseName}>Course Name</h1>
+	<h2>Course Details</h2>
+	<br/>
+	<table class="w3-table-all w3-centered w3-hoverable">
+		<tr>
+			<th>ID</th>
+			<td th:text=${course.courseId}></td>
+		<tr>
+			<th>Name</th>
+			<td th:text=${course.courseName}></td>
+		</tr>
+		<tr>
+			<th>Description</th>
+			<td th:text=${course.courseDesc}></td>
+		</tr>
+		<tr>
+			<th>Class Size</th>
+			<td th:text=${course.classSize}></td>
+		</tr>
+		<tr>
+			<th>Duration (Semesters)</th>
+			<td th:text=${course.durationSemesters}></td>
+		</tr>
+		<tr>
+			<th>Subjects</th>
+			<td>link to see subjects here</td>
+		</tr>
+		
+	</table>
+	
+	
+</div>
+</body>
+</html>

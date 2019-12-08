@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Class List</title>
+</head>
+<body>
+
+	<h1>Class List</h1>
+	<br />
+	<div class="w3-responsive">
+		<table class="w3-table-all w3-centered w3-hoverable">
+			<tr>
+				<th>ID</th>
+				<th>Level</th>
+				<th>Course Id</th>
+				<th>Details</th>
+			</tr>
+			<tr th:each="class:${classes}">
+				<td th:text=${class.classId}>Class Id</td>
+				<td th:text=${class.level}>Class Level</td>
+				<td th:text=${class.course.courseId}>Course Id</td>
+				<td th:text="view">Details</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Leave Details</title>
+</head>
+<body>
+<p th:text=${staff.name}>Name</p>
+<p th:text=${leave.submittedByStaffID}>Id</p>
+<p th:text=${leave.dateStart}>dateStart</p>
+<p th:text=${leave.duration}>Duration</p>
+<p th:text=${leave.reason}>reason</p>
+
+<p th:text=${leave.status}>status</p>
+
+<select name="status">
+<option value ="approve">approve</option>
+<option value ="pending">pending</option>
+<option value ="reject">reject</option>
+</select>
+
+<button type="submit">Submit</button>
+
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Leave Application</title>
+</head>
+<body>
+
+
+<form action="/leave/submit" method="post" th:object="${leave}" th:action="@{/leave/submit}">
+	
+	<fieldset>
+	Leave Start Time:<input type="text" th:field="*{dateStart}"/>
+	</fieldset>
+	
+	<fieldset>
+	Duration:<input type="text" th:field="*{duration}"/>
+	</fieldset>
+	
+	<fieldset>
+	Reason:<input type="text" th:field="*{reason}"/>
+	</fieldset>
+
+	<fieldset>
+	<button type="submit">Submit</button>
+	</fieldset>
+</form>
+
+</body>
+</html>
