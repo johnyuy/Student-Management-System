@@ -55,14 +55,19 @@ public class CourseClassController {
 		List<Semester> semesterList = semRepo.findAll();
 		model.addAttribute("semesterList",semesterList);
 		
+		
+		
 		return("courseclassform");
 	}
 	
 	
 	@PostMapping("/insert")
-	public String insertCourseClassController(@ModelAttribute CourseClass courseClass)
+	public String insertCourseClass(@ModelAttribute CourseClass courseClass)
 	{
+		courseClass.setLevel(0);
+		
 		ccRepo.save(courseClass);
-		return "redirect:/courseClass/list";
+		
+		return "redirect:/classes/list";
 	}
 }

@@ -25,7 +25,7 @@ public class CourseClass {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "class_id_seq")
 	private int classId;
 	@NotNull
-	@Min(1)
+	@Min(0)
 	private int level;
 	@ManyToOne
 	private Course course;
