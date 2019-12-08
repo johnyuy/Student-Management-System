@@ -30,13 +30,15 @@ public class CmdRunner2 implements CommandLineRunner {
 	SemesterRepository semrepo;
 	@Autowired
 	CourseClassRepository ccrepo;
-	
+	@Autowired
+	SubjectRepository subrepo;
+
 	@Override
-    public void run(String[] args) {
-        log.info("In CmdRunner2");    
-        //Create user accounts
-  		log.info("Adding user account for lecturer..");
-  		
+	public void run(String[] args) {
+		log.info("In CmdRunner2");
+		// Create user accounts
+		log.info("Adding user account for lecturer..");
+
 		try {
 			us.registerNewAccount(50001, "password");
 			us.registerNewAccount(50002, "admin");
@@ -44,40 +46,57 @@ public class CmdRunner2 implements CommandLineRunner {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-			
-		//Create grades
+
+		// Create Subjects
+		log.info("Adding some subjects..");
+		subrepo.save(new Subject("Foundations",
+				"This unit lays the foundation for programming and developing of system of records. This course will cover programming concepts using the C# Language as the vehicle. You will learn about Object Oriented Programming and acquire the technical knowledge necessary for developing a User Interface for Business Systems using Visual Studio.Net. The curriculum also covers the implementation of client/server development on .NET data objects with Visual Studio as the client side programming tool, ADO.NET as the enabling middleware, and RDBMS as the database server. It will also include the development web application using ASP.NET MVC.",
+				5));
+		subrepo.save(new Subject("Design",
+				"This course will cover the Application Development Life Cycle using object oriented development technique with UML. You will learn how to understand users needs using user experience design techniques and user requirement gathering tools. You will also acquire skills to analyse and design IT solutions that address business problems. You will also acquire basic IT project management skills based on Agile practices.", 5));	
+		subrepo.save(new Subject("Web Applications",
+				"The course imparts the techniques and engineering skills needed for the end-to-end design, architecture, implementation, persistence and testing an enterprise web application. In this module, you will learn how to develop system of engagement using Java and JS components. You will also learn how to apply these newly acquired proficiencies by developing full stack web application project using Java Enterprise Edition (Java EE) for the Server Side and Java Script for the Client Side Libraries. The course covers a wide range of design concepts, development abilities, and integration skills, from analysing the requirements to implementing a complete solution.", 5));
+		subrepo.save(new Subject("Mobility Applications",
+				"In this module, you will learn how to develop system of insights using Python with machine learning as well as native mobile apps using the Android Development Platform. You will attain skills in publishing server-side functionality as REST API with Python, adopt popular machine learning models such as k-nearest neighbors, random forest, logistic regression, k-means, naïve Bayes and artificial neural network. You will also build and evaluate performance of machine learning models using Python. You will develop and package Android application using Android Studio and integrate Android application with server-side functionality for full stack development", 5));	
+		subrepo.save(new Subject("Web Applications",
+				"This module includes the capstone project that links up all the concepts taught in the NUS-ISS Certificate in Digital Solutions Development – Foundations, Design, Web Applications and Mobility Applications. It also includes an internship programme where you will develop and propose IT solutions for your assigned internship company.", 5));
+	
+		// Create grades
 		log.info("Adding some sample grades..");
 		grepo.save(new Grade(null, null, null, "A+"));
 		grepo.save(new Grade(null, null, null, "B"));
-        log.info("End of CmdRunner2"); 
-        
-        //Create Courses
-        log.info("Adding some courses..");
-        Course course1 = new Course("Graduate Diploma in Systems Analysis", "The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry.", 100, 2, null, null);
-        Course course2 =  new Course("Master of Technology in Enterprise Business Analytics", "The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.", 50, 2, null, null);
-        courepo.save(course1);
-        courepo.save(course2);
-        
-        //Create Semesters
-        log.info("Adding some semesters..");
-        semrepo.save(new Semester(LocalDate.of(2019, 8, 1).toString(), LocalDate.of(2019, 12, 31).toString(), null));
-        semrepo.save(new Semester(LocalDate.of(2020, 1, 1).toString(), LocalDate.of(2020, 5, 31).toString(), null));
-        semrepo.save(new Semester(LocalDate.of(2020, 8, 1).toString(), LocalDate.of(2020, 12, 31).toString(), null));
-        semrepo.save(new Semester(LocalDate.of(2021, 1, 1).toString(), LocalDate.of(2021, 5, 31).toString(), null));
-        semrepo.save(new Semester(LocalDate.of(2021, 8, 1).toString(), LocalDate.of(2021, 12, 31).toString(), null));
-        semrepo.save(new Semester(LocalDate.of(2022, 1, 1).toString(), LocalDate.of(2022, 5, 31).toString(), null));
-        
-        //Create classes
-        log.info("Adding some classes..");
-        List<Semester> semlist = new ArrayList<Semester>();
-        Semester sem = semrepo.findBySemCode("19/20/1");
-        semlist.add(sem);
-        sem = semrepo.findBySemCode("19/20/2");
-        semlist.add(sem);
-        ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 1, semlist, null, null, null, null));
-        ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 1, semlist, null, null, null, null));
-        ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 1, semlist, null, null, null, null));
-        
-    }
+
+		// Create Courses
+		log.info("Adding some courses..");
+		Course course1 = new Course("Graduate Diploma in Systems Analysis",
+				"The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry.",
+				100, 2, null, null);
+		Course course2 = new Course("Master of Technology in Enterprise Business Analytics",
+				"The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.",
+				50, 2, null, null);
+		courepo.save(course1);
+		courepo.save(course2);
+
+		// Create Semesters
+		log.info("Adding some semesters..");
+		semrepo.save(new Semester(LocalDate.of(2019, 8, 1).toString(), LocalDate.of(2019, 12, 31).toString(), null));
+		semrepo.save(new Semester(LocalDate.of(2020, 1, 1).toString(), LocalDate.of(2020, 5, 31).toString(), null));
+		semrepo.save(new Semester(LocalDate.of(2020, 8, 1).toString(), LocalDate.of(2020, 12, 31).toString(), null));
+		semrepo.save(new Semester(LocalDate.of(2021, 1, 1).toString(), LocalDate.of(2021, 5, 31).toString(), null));
+		semrepo.save(new Semester(LocalDate.of(2021, 8, 1).toString(), LocalDate.of(2021, 12, 31).toString(), null));
+		semrepo.save(new Semester(LocalDate.of(2022, 1, 1).toString(), LocalDate.of(2022, 5, 31).toString(), null));
+
+		// Create classes
+		log.info("Adding some classes..");
+		List<Semester> semlist = new ArrayList<Semester>();
+		Semester sem = semrepo.findBySemCode("19/20/1");
+		semlist.add(sem);
+		sem = semrepo.findBySemCode("19/20/2");
+		semlist.add(sem);
+		ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 1, semlist, null, null, null, null));
+		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 1, semlist, null, null, null, null));
+		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 1, semlist, null, null, null, null));
+		log.info("End of CmdRunner2");
+
+	}
 }
