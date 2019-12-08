@@ -5,20 +5,18 @@
 <title>Add Class</title>
 </head>
 <body>
-	<form action="/classes/insert" method="post" th:object="${courseclass}" th:action="@{/classes/insert}">
+	<form action="/classes/insert" method="post" th:object="${courseClass}" th:action="@{/classes/insert}">
 	
-
-		<fieldset>
-			Select Course: <select><option th:each="course:${courselist}" value=${course.courseId}>hello</option> </select>
-		</fieldset>
-
-		
-		
+	<fieldset>
+	<!-- Course Name: <input type="text" th:field="*{courseName}"/> -->
+	<select th:field="${courseClass.course}">
+		<option value="0"> select course </option>
+		<option th:each="course: ${courseList}" th:value="${course.courseId}" th:text="${course.courseName}"></option>
+	</select>
+	</fieldset>
+	
+	
 		<button type="submit">Add Class</button>
 	</form>
-
-
-
-
 </body>
 </html>

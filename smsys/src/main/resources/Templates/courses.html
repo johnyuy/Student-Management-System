@@ -8,43 +8,36 @@
 <body>
 
 	<h1>Course Listing Table</h1>
-	<br/>
-<<<<<<< HEAD
-	<a href="addcourse.html" th:href="@{/course/add}">Add Course</a>
-	<br/>
-	
-	<table>
-	<tr th:each="course:${courses}">
-	<td th:text=${course.courseId}>Id</td>
-	<td th:text=${course.courseName}>Course Name</td>
-	<td th:text=${course.courseDesc}>Course Description</td>
-	<td th:text=${course.classSize}>Class Size</td>
-	<td th:text=${course.durationSemesters}>Duration in Semesters</td>
-	
-	<td><a href="editcourse.html" th:href="@{/course/edit/${course.courseId}"></a>Edit</td>
-	<td><a href="deletecourse.html" th:href="@{/course/delete/${course.courseId}"></a>Delete</td>
-	</tr>
-=======
+	<br />
+
 	<div class="w3-responsive">
-	<table class="w3-table-all w3-centered w3-hoverable">
-		<tr>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Classes</th>
-			<th>View Details</th>
-		</tr>
-		<tr th:each="course:${courses}">
-			<td th:text=${course.courseId}>Id</td>
-			<td th:text=${course.courseName}>Course Name</td>
-			<td><a href="classlist.html" th:href="@{/classes/list(courseId=${course.courseId})}" class= "btn btn-default"><span th:text=${course.classesList.size()}>number of classes</span></a></td>
-			<td><a href="coursedetails.html" th:href="@{/courses/details(courseId=${course.courseId})}" class= "btn btn-default">view</a></td>
-		</tr>
->>>>>>> branch 'master' of https://github.com/johnyuy/Student-Management-System
-	</table>
-	
-	<form action="/courses/add" method="get" th:action="@{/courses/add}">
-		<button>Add course</button>
-	</form>
+		<table class="w3-table-all w3-centered w3-hoverable">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>View Details</th>
+				<th>Classes</th>
+				
+			</tr>
+			<tr th:each="course:${courses}">
+				<td th:text=${course.courseId}>Id</td>
+				<td th:text=${course.courseName}>Course Name</td>
+				
+				<td><a href="coursedetails.html"
+					th:href="@{/courses/details(courseId=${course.courseId})}"
+					class="btn btn-default">view</a></td>
+					
+				<td><a href="classlist.html"
+					th:href="@{/classes/list(courseId=${course.courseId})}"
+					class="btn btn-default"><span
+					th:text=${course.classesList.size()}>number of classes</span></a></td>
+					
+			</tr>
+		</table>
+
+		<form action="/courses/add" method="get" th:action="@{/courses/add}">
+			<button>Add course</button>
+		</form>
 	</div>
 </body>
 </html>
