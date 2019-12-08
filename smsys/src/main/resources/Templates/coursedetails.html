@@ -6,38 +6,41 @@
 <title>Course Details</title>
 </head>
 <body>
-<div class="w3-responsive">
-	<h1 th:text=${course.courseName}>Course Name</h1>
-	<h2>Course Details</h2>
-	<br/>
-	<table class="w3-table-all w3-centered w3-hoverable">
-		<tr>
-			<th>ID</th>
-			<td th:text=${course.courseId}></td>
-		<tr>
-			<th>Name</th>
-			<td th:text=${course.courseName}></td>
-		</tr>
-		<tr>
-			<th>Description</th>
-			<td th:text=${course.courseDesc}></td>
-		</tr>
-		<tr>
-			<th>Class Size</th>
-			<td th:text=${course.classSize}></td>
-		</tr>
-		<tr>
-			<th>Duration (Semesters)</th>
-			<td th:text=${course.durationSemesters}></td>
-		</tr>
-		<tr>
-			<th>Subjects</th>
-			<td>link to see subjects here</td>
-		</tr>
-		
-	</table>
-	
-	
-</div>
+	<div class="w3-responsive">
+		<h1 th:text=${course.courseName}>Course Name</h1>
+		<h2>Course Details</h2>
+		<br />
+		<table class="w3-table-all w3-centered w3-hoverable">
+			<tr>
+				<th>ID</th>
+				<td th:text=${course.courseId}></td>
+			<tr>
+				<th>Name</th>
+				<td th:text=${course.courseName}></td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td th:text=${course.courseDesc}></td>
+			</tr>
+			<tr>
+				<th>Class Size</th>
+				<td th:text=${course.classSize}></td>
+			</tr>
+			<tr>
+				<th>Duration (Semesters)</th>
+				<td th:text=${course.durationSemesters}></td>
+			</tr>
+			<tr>
+				<th>Subjects</th>
+				<td>link to see subjects here</td>
+			</tr>
+
+		</table>
+
+		<form action="/courses/list" method="get" th:action="@{/courses/list}">
+			<button>Back to courses</button>
+		</form>
+
+	</div>
 </body>
 </html>

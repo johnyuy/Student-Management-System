@@ -24,6 +24,10 @@
 			<td><a href="coursedetails.html" th:href="@{/courses/details(courseId=${course.courseId})}" class= "btn btn-default">view</a></td>
 		</tr>
 	</table>
+	
+	<form action="/courses/add" method="get" th:action="@{/courses/add}">
+		<button>Add course</button>
+	</form>
 	</div>
 </body>
 </html>
