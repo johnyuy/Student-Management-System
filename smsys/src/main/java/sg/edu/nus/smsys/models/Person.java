@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.models;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.MappedSuperclass;
@@ -23,9 +24,8 @@ public abstract class Person {
 	@Pattern(regexp="^[0-9]+$", message ="Mobile numbers should on be in digits")
 	private String mobile;
 
-	@NotEmpty(message ="This field cannot be left empty")
-//	@Past
-	private String birthDate;
+	@Past
+	private LocalDate birthDate;
 	
 	@NotEmpty(message ="This field cannot be left empty")
 	@Email(message ="Must be a well-formed email address")
@@ -43,7 +43,7 @@ public abstract class Person {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Person(String firstName, String middleName, String lastName, String gender, String birthDate,
+	public Person(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
 			String title, String address, String mobile, String email) {
 		super();
 		this.firstName = firstName;
@@ -78,7 +78,7 @@ public abstract class Person {
 	}
 	
 
-	public String getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 	
@@ -123,7 +123,7 @@ public abstract class Person {
 		this.gender = gender;
 	}
 	
-	public void setBirthDate(String birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 	
