@@ -51,4 +51,11 @@ public class CourseController
 			return "redirect:/courses/list";
 		}
 		
+		@GetMapping("/details")
+		public String viewCourseDetails(Model model, @RequestParam() String courseId)
+		{
+			Course course = cRepo.findByCourseId(Integer.parseInt(courseId));
+			model.addAttribute("course",course);
+			return "coursedetails";
+		}
 	}

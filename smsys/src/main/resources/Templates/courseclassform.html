@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Add Class</title>
+</head>
+<body>
+	<form action="/classes/insert" method="post" th:object="${courseclass}" th:action="@{/classes/insert}">
+	
+
+		<fieldset>
+			Select Course: <select><option th:each="course:${courselist}" value=${course.courseId}>hello</option> </select>
+		</fieldset>
+
+		
+		
+		<button type="submit">Add Class</button>
+	</form>
+
+
+
+
+</body>
+</html>

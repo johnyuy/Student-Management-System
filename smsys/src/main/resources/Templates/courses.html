@@ -14,20 +14,14 @@
 		<tr>
 			<th>ID</th>
 			<th>Name</th>
-			<th>Description</th>
-			<th>Class Size</th>
-			<th>Semesters</th>
-			<th>View Classes</th>
-			<th>View Subjects</th>
+			<th>Classes</th>
+			<th>View Details</th>
 		</tr>
 		<tr th:each="course:${courses}">
 			<td th:text=${course.courseId}>Id</td>
 			<td th:text=${course.courseName}>Course Name</td>
-			<td th:text=${course.courseDesc}>Course Description</td>
-			<td th:text=${course.classSize}>Class Size</td>
-			<td th:text=${course.durationSemesters}>Duration in Semesters</td>
-			<td><a href="classlist.html" th:href="@{/classes/list(courseId=${course.courseId})}" class= "btn btn-default">view</a>
-			<td><a href="subjectlist.html" th:href="@{/subjects/list(courseId=${course.courseId})}" class= "btn btn-default">view</a>
+			<td><a href="classlist.html" th:href="@{/classes/list(courseId=${course.courseId})}" class= "btn btn-default"><span th:text=${course.classesList.size()}>number of classes</span></a></td>
+			<td><a href="coursedetails.html" th:href="@{/courses/details(courseId=${course.courseId})}" class= "btn btn-default">view</a></td>
 		</tr>
 	</table>
 	</div>
