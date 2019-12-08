@@ -21,8 +21,8 @@ public class Student extends Person{
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "student_id_seq")
-	@Min(10001)
-	@Max(19999)
+//	@Min(10001)
+//	@Max(19999)
 	private int studentId;
 	private String status;
 	@Min(0)
@@ -41,7 +41,7 @@ public class Student extends Person{
 		super();
 	}
 	
-	public Student(String firstName, String middleName, String lastName, String gender, String birthDate,
+	public Student(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
 			String title, String address, String mobile, String email, String status, float gpa, List<Application> appliedCourses) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);
 		this.status = status;

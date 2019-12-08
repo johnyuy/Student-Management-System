@@ -52,7 +52,7 @@ public abstract class Staff extends Person {
 	}
 
 	// Main Constructor
-	public Staff(String firstName, String middleName, String lastName, String gender, String birthDate,
+	public Staff(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
 			String title, String address, String mobile, String email,String status, int annualLeaveBalance, int annualLeaveEntitled,
 			List<Leave> annualLeaveList, Staff manager) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);

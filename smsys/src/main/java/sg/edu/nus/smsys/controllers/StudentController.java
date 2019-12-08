@@ -1,28 +1,43 @@
 package sg.edu.nus.smsys.controllers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.repository.StudentRepository;
 
 @Controller
 @RequestMapping("/students")
+@SessionAttributes("usersession")
 public class StudentController {
-	
+
 	@Autowired
 	private StudentRepository srepo;
 
+//	@InitBinder
+//	protected void initBinder(WebDataBinder binder) {
+//		
+//	}
+
 	@GetMapping("/list")
-	public String findStudent(Model model, @RequestParam(defaultValue = "") String name) {
+	public String findStudents(Model model, @RequestParam(defaultValue = "") String name) {
 		ArrayList<Student> slist = new ArrayList<Student>();
 		slist.addAll(srepo.findByStudentFullNameLike(name));
 
@@ -35,36 +50,75 @@ public class StudentController {
 		}
 		return "studentlist";
 	}
-	
-	
-	@GetMapping("/details")
-	public String viewStudent(Model model, @RequestParam("id") int id) {
+
+	@GetMapping("/details/{id}")
+	public String viewStudent(Model model, @PathVariable("id") int id) {
 		ArrayList<Student> slist = new ArrayList<Student>();
 		Student student = srepo.findByStudentId(id);
 		model.addAttribute("student", student);
 		return "studentdetails";
 	}
-	
+
 	@GetMapping("/add")
-	public String showAddForm(Model model)
-	{
+	public String addStudentForm(Model model) {
 		Student student = new Student();
+		String birthDate = "";
+		model.addAttribute("student", student);
+		model.addAttribute("birthDate",birthDate);
+		return "studentform";
+	}
+
+	@PostMapping("/add")
+	public String addStudent(@Valid @ModelAttribute Student s, BindingResult bindingResult,  @ModelAttribute String birthDate) {
+		{
+			if (bindingResult.hasErrors()) {
+				return "studentform";
+			}
+			Student student = new Student();
+			student = s;
+			System.out.println(birthDate);
+			student.setBirthDate(LocalDate.parse(birthDate));
+			srepo.save(student);
+			return "redirect:/students/list";
+		}
+	}
+
+	@GetMapping("/edit/{id}")
+	public String editStudentForm(Model model, @PathVariable("id") int id) {
+		Student student = srepo.findById(id).get();
 		model.addAttribute("student", student);
 		return "studentform";
 	}
+
+	@PostMapping("/edit/{id}")
+	public String editStudent(@Valid @ModelAttribute Student s, BindingResult bindingResult,
+			@PathVariable("id") int id) {
+		if (bindingResult.hasErrors()) {
+			return "studentform";
+		}
+        s.setStudentId(id);
+        srepo.save(s);
+		return "redirect:/students/list";
+	}
+
+	@GetMapping("/delete/{id}")
+	public String deleteStudent(Model model, @PathVariable("id") int id) {
+		Student student = srepo.findById(id).get();
+		srepo.delete(student);
+		return "redirect:/students/list";
+	}
 	
+	
+
 	@PostMapping("/insert")
-	public String insertCourse(@ModelAttribute Student s)
-	{
+	public String insertCourse(@Valid @ModelAttribute Student s, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			bindingResult.getFieldErrors().stream()
+					.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
+			return "studentform";
+		}
 		Student student = new Student();
-		student.setFirstName(s.getFirstName());
-		student.setMiddleName(s.getMiddleName());
-		student.setLastName(s.getLastName());
-		student.setBirthDate(null);
-		student.setAddress(s.getAddress());
-		student.setMobile(s.getMobile());
-		student.setEmail(s.getEmail());
-		student.setStatus(s.getStatus());
+		student = s;
 		srepo.save(student);
 		return "redirect:/students/list";
 	}

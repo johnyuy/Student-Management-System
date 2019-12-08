@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
 <!-- Custom styles for this template -->
 <style>
 .bd-placeholder-img {
@@ -70,9 +70,12 @@ body {
 							class="dropdown-item" href="#">Something else here</a>
 					</div></li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}" method="get">
-					<input class="form-control mr-sm-2" name="name" type="text" placeholder="Search Student" aria-label="Search" />
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
+				method="get">
+				<input class="form-control mr-sm-2" id="studentsearch" name="name"
+					type="text" onkeyup="myFunction()" placeholder="Search Student"
+					aria-label="Search" />
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 		</div>
 	</nav>
@@ -88,14 +91,30 @@ body {
 			<h4>List of Students</h4>
 		</div>
 		<div class="container">
-			<table class="table table-striped">
+<!-- 			<p th:text="${session.usersession.name}">Para 2</p> -->
+		</div>
+		<div class="container">
+			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
+				method="get">
+				<input class="form-control mr-sm-2" name="name" type="text"
+					placeholder="Search Student" aria-label="Search" />
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+
+		<div class="container">
+			<table class="table table-striped" id="studentlist">
 				<tr>
 					<th>Student Id</th>
 					<th>First Name</th>
 					<th>Middle Name</th>
 					<th>Last Name</th>
 					<th>Email</th>
+					<th>Birth Date</th>
 					<th></th>
+					<th></th>
+					<th></th>
+
 				</tr>
 				<tr th:each="student:${students}">
 					<td th:text=${student.studentId}>Student Id</td>
@@ -103,12 +122,23 @@ body {
 					<td th:text=${student.middleName}>Middle Name</td>
 					<td th:text=${student.lastName}>Last Name</td>
 					<td th:text=${student.email}>Email</td>
-					<td><a type="submit" th:href="@{/students/details(id=${student.studentId})}" class="btn btn-default">View Details</a></td>
+					<td th:text=${student.birthDate}>Email</td>
+
+					<td><a type="submit"
+						th:href="@{/students/details/{id}(id=${student.studentId})}"
+						class="btn btn-outline-dark">View Details</a></td>
+					<td><a type="submit"
+						th:href="@{/students/edit/{id}(id=${student.studentId})}"
+						class="btn btn-outline-dark">Edit</a></td>
+					<td><a type="submit"
+						th:href="@{/students/delete/{id}(id=${student.studentId})}"
+						class="btn btn-outline-dark">Delete</a></td>
 				</tr>
 			</table>
 
 			<div>
-				<a class="btn btn-success" th:href="@{/students/add}">Add New Student</a>
+				<a class="btn btn-success" th:href="@{/students/add}">Add New
+					Student</a>
 			</div>
 		</div>
 	</main>
@@ -126,5 +156,31 @@ body {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
+
+<!-- 	<script>
+		function myFunction() {
+			// Declare variables
+			var input, filter, table, tr, td, i, txtValue, k;
+			input = document.getElementById("studentsearch");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("studentlist");
+			tr = table.getElementsByTagName("tr");
+
+			// Loop through all table rows, and hide those who don't match the search query
+			for (i = 0; i < tr.length; i++) {
+				for(k = 0; k < 6; k++){
+				td = tr[i].getElementsByTagName("td")[k];
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+			}
+		}
+	</script> -->
 </body>
 </html>
