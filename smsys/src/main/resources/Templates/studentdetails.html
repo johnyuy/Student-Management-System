@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
 <!-- Custom styles for this template -->
 <style>
 .bd-placeholder-img {
@@ -70,9 +70,11 @@ body {
 							class="dropdown-item" href="#">Something else here</a>
 					</div></li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}" method="get">
-					<input class="form-control mr-sm-2" name="name" type="text" placeholder="Search Student" aria-label="Search" />
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
+				method="get">
+				<input class="form-control mr-sm-2" name="name" type="text"
+					placeholder="Search Student" aria-label="Search" />
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 		</div>
 	</nav>
@@ -91,7 +93,8 @@ body {
 			<table class="table table-striped" th:object="${student}">
 				<tr>
 					<th>Name</th>
-					<td><b th:text="*{title + ', ' + firstName + ' ' + middleName + ' ' + lastName}" ></b></td>
+					<td><b
+						th:text="*{title + ', ' + firstName + ' ' + middleName + ' ' + lastName}"></b></td>
 				</tr>
 				<tr>
 					<th>Birth Date</th>
@@ -120,8 +123,8 @@ body {
 			</table>
 
 			<div>
-				<a class="btn btn-success " 
-					th:href="@{/students/details/edit(id=${student.studentId})}">Edit/Update</a>
+				<a class="btn btn-success" type="submit"
+					th:href="@{/students/edit/{id}(id=${student.studentId})}" >Edit/Update</a>
 			</div>
 		</div>
 	</main>

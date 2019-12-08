@@ -5,11 +5,14 @@ import java.time.LocalDate;
 
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @MappedSuperclass
@@ -24,7 +27,8 @@ public abstract class Person {
 	@Pattern(regexp="^[0-9]+$", message ="Mobile numbers should on be in digits")
 	private String mobile;
 
-	@Past
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Past(message ="Please enter valid date")
 	private LocalDate birthDate;
 	
 	@NotEmpty(message ="This field cannot be left empty")
@@ -32,7 +36,7 @@ public abstract class Person {
 	private String email;
 	
 	@NotEmpty(message ="This field cannot be left empty")
-//	@Pattern(regexp="male|female")
+	@Pattern(regexp="male|female")
 	private String gender;
 	
 	private final int accessLevel = 3;

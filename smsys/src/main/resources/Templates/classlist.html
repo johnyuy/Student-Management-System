@@ -6,8 +6,8 @@
 <title>Class List</title>
 </head>
 <body>
-
-	<h1>Class List</h1>
+	<h1>Classes</h1>
+	<h2 th:text="${title}">Classes</h2>
 	<br />
 	<div class="w3-responsive">
 		<table class="w3-table-all w3-centered w3-hoverable">
@@ -24,9 +24,17 @@
 				<td th:text="view">Details</td>
 			</tr>
 		</table>
-		
-				<form action="/classes/add" method="get" th:action="@{/classes/add}">
-			<button>Add class</button>
+		<br />
+
+		<h3>Admin Tools</h3>
+		<form action="/classes/add" method="get" th:action="@{/classes/add}">
+			<table class="w3-table-all w3-centered">
+				<tr>
+					<td><button>Add class</button></td>
+				</tr>
+			</table>
+		</form>
+
 	</div>
 </body>
 </html>
