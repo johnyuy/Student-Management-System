@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sg.edu.nus.smsys.models.*;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
+import sg.edu.nus.smsys.repository.SemesterRepository;
 
 @Controller
 @RequestMapping("/classes")
@@ -23,18 +24,22 @@ public class CourseClassController {
 	private CourseClassRepository ccRepo;
 	@Autowired
 	private CourseRepository couRepo;
+	@Autowired
+	private SemesterRepository semRepo;
 	
 	@GetMapping("/list")
 	public String viewCourseClasses(Model model, @RequestParam(defaultValue = "") String courseId) {
 		
-		List<CourseClass> classlist = new ArrayList<CourseClass>();
-		classlist = ccRepo.findAll();
+		List<CourseClass> classlist = ccRepo.findAll();
+		String title = "All Courses";
 		if(courseId.equals("")) {
 			classlist = ccRepo.findAll();
+			model.addAttribute("title", title);
 		}
 		else {
 			Course course = couRepo.findByCourseId(Integer.parseInt(courseId));
 			classlist = ccRepo.findByCourse(course);
+			model.addAttribute("title", course.getCourseName());
 		}
 		model.addAttribute("classes", classlist);
 		return("classlist");
@@ -45,15 +50,26 @@ public class CourseClassController {
 	public String showAddForm(Model model, @RequestParam(defaultValue="")String courseId) {
 		CourseClass courseclass = new CourseClass();
 		model.addAttribute(courseclass);
+	
+		List<Course> courseList = couRepo.findAll();
+		model.addAttribute("courseList",courseList);
 
+		List<Semester> semesterList = semRepo.findAll();
+		model.addAttribute("semesterList",semesterList);
+		
+		
 		
 		return("courseclassform");
 	}
 	
+	
 	@PostMapping("/insert")
-	public String insertCourseClassController(@ModelAttribute CourseClass courseClass)
+	public String insertCourseClass(@ModelAttribute CourseClass courseClass)
 	{
+		courseClass.setLevel(0);
+		
 		ccRepo.save(courseClass);
-		return "redirect:/courseClass/list";
+		
+		return "redirect:/classes/list";
 	}
 }
