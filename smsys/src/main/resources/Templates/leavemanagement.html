@@ -8,13 +8,16 @@
 <table>
 	<tr>
 	<th>ID</th>
+	<th>Staff Name</th>
 	<th>LeaveStartTime</th>
 	<th>Duration</th>
 	<th>Reason</th>
 	<th>Status</th>
+	<th>View</th>
 	</tr>
 	<tr th:each="leave:${leave}">
 	<td th:text=${leave.leaveId}>Id</td>
+	<td th:text=${leave.submittedByStaffId.getStaffName()}>StaffName</td>
 	<td th:text=${leave.dateStart}>dateStart</td>
 	<td th:text=${leave.duration}>duration</td>
 	<td th:text=${leave.reason}>reason</td>
