@@ -68,7 +68,6 @@ public class StudentController {
 		cc.stream().forEach(c -> System.out.println(c.getCourse().getCourseName()));
 		model.addAttribute("student", student);
 		return "studentdetails";
-
 	}
 
 	@GetMapping("/add")
