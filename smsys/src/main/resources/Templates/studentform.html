@@ -86,7 +86,7 @@ body {
 		</div>
 
 		<div class="container">
-			<h4 th:text="*{studentId != 0}? 'Update Student' : 'Add New Student'">Add New Student</h4>
+			<h4 th:text="${student.studentId != 0}? 'Update Student' : 'Add New Student'">Add New Student</h4>
 		</div>
 		<div class="container">
 			<form th:object="${student}"
