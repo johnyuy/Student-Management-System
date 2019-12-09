@@ -16,5 +16,5 @@ public interface CourseClassRepository extends JpaRepository<CourseClass, Intege
 	List<CourseClass> findByCourse(Course course);
 
 	List<CourseClass> findByStudentListContaining(Student student);
- 
+
 }
