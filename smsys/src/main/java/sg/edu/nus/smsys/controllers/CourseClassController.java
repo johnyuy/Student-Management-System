@@ -77,7 +77,7 @@ public class CourseClassController {
 		//get first sem and the subsequent sems as a list
 		int startid = courseClass.getSemesterList().get(0).getSemId();
 		List<Semester> semList = new ArrayList<Semester>();
-		for(int i = 1; i <= duration; i++) {
+		for(int i = 0; i < duration; i++) {
 			semList.add(semRepo.findBySemId(startid+i));
 		}
 		courseClass.setSemesterList(semList);
