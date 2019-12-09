@@ -1,6 +1,8 @@
 package sg.edu.nus.smsys.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="Leave_Table")
@@ -21,12 +26,14 @@ public class Leave {
 	
 	@Id
 	@NotNull
-	@Min(300000)
-	@Max(399999)
+//	@Min(300000)
+//	@Max(399999)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "leave_id_seq")
 	private int leaveId;
 	@NotNull
-	private String dateStart;
+	@Future
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date dateStart;
 	@NotNull
 	@Min(1)
 	private int duration;
@@ -44,7 +51,7 @@ public class Leave {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Leave(int leaveId, String dateStart, int duration, String reason, String status,
+	public Leave(int leaveId, Date dateStart, int duration, String reason, String status,
 			CourseAdmin approvedByStaffID, Staff submittedByStaffID) {
 		super();
 		this.leaveId = leaveId;
@@ -65,11 +72,11 @@ public class Leave {
 		this.leaveId = leaveId;
 	}
 
-	public String getDateStart() {
+	public Date getDateStart() {
 		return dateStart;
 	}
 
-	public void setDateStart(String dateStart) {
+	public void setDateStart(Date dateStart) {
 		this.dateStart = dateStart;
 	}
 

@@ -72,8 +72,9 @@ body {
 			</ul>
 			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
 				method="get">
-				<input class="form-control mr-sm-2" name="name" type="text"
-					placeholder="Search Student" aria-label="Search" />
+				<input class="form-control mr-sm-2" id="studentsearch" name="name"
+					type="text" onkeyup="myFunction()" placeholder="Search Student"
+					aria-label="Search" />
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 		</div>
@@ -83,56 +84,55 @@ body {
 
 
 		<div class="starter-template">
-			<h1>Student</h1>
+			<h1>Subject List</h1>
 		</div>
 
 		<div class="container">
-			<h4>Student Details</h4>
+			<h4>List of Subjects</h4>
 		</div>
 		<div class="container">
-			<table class="table table-striped" th:object="${student}">
+			<!-- 			<p th:text="${session.usersession.name}">Para 2</p> -->
+		</div>
+		<div class="container">
+			<form class="form-inline my-2 my-lg-0" th:action="@{/subjects/list}"
+				method="get">
+				<input class="form-control mr-sm-2" name="name" type="text"
+					placeholder="Search Subjects" aria-label="Search" />
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+
+		<div class="container">
+			<table class="table table-striped" id="subjectlist">
 				<tr>
-					<th>Name</th>
-					<td><b
-						th:text="*{title + '. ' + firstName + ' ' + middleName + ' ' + lastName + ', ' + age}"></b></td>
+					<th>Subject Id</th>
+					<th>Subject Name</th>
+					<th>Units</th>
+					<th></th>
+					<th></th>
+					<th></th>
+
 				</tr>
-				<tr>
-					<th>Birth Date</th>
-					<td th:text="*{birthDate}" /></td>
-				</tr>
-				<tr>
-					<th>Address</th>
-					<td th:text="*{address}" /></td>
-				</tr>
-				<tr>
-					<th>Mobile</th>
-					<td th:text="*{mobile}" /></td>
-				</tr>
-				<tr>
-					<th>Email</th>
-					<td th:text="*{email}" /></td>
-				</tr>
-				<tr>
-					<th>Status</th>
-					<td th:text="*{status}" /></td>
-				</tr>
-				<tr>
-					<th>GPA</th>
-					<td th:text="*{gpa}" /></td>
-				</tr>
-				<tr th:each="c:${student.courseClassList}">
-					<th>Enrolled in</th>
-					<td th:text="${c.course.courseName}">Course Name</td>
+				<tr th:each="subject:${subjects}">
+					<td th:text=${subject.subjectId}>Subject Id</td>
+					<td th:text=${subject.subjectName}>Subject Name</td>
+					<td th:text=${subject.units}>Units</td>
+					
+					<td><a type="submit"
+						th:href="@{/subjects/details/{id}(id=${subject.subjectId})}"
+						class="btn btn-outline-dark">View Details</a></td>
+					<td><a type="submit"
+						th:href="@{/subjects/edit/{id}(id=${subject.subjectId})}"
+						class="btn btn-outline-dark">Edit</a></td>
+					<td><a type="submit"
+						th:href="@{/subjects/delete/{id}(id=${subject.subjectId})}"
+						class="btn btn-outline-dark">Delete</a></td>
 				</tr>
 			</table>
 
 			<div>
-				<a class="btn btn-success" type="submit"
-					th:href="@{/students/edit/{id}(id=${student.studentId})}">Edit/Update</a>
-			</div>
-			<div>
-				<a class="btn btn-outline-dark" th:href="@{/students/list}">Back
-					to List</a>
+				<a class="btn btn-success" th:href="@{/subjects/add}">Add New
+					Subject</a>
 			</div>
 		</div>
 	</main>

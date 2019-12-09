@@ -8,19 +8,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@SequenceGenerator(name="subject_id_seq", initialValue = 1)
 public class Subject {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "subject_id_seq")
 	private int subjectId;
 	@NotNull
 	private String subjectName;
-	@Size(min=2, max=100)
+	@Size(min=2, max=1000)
 	private String subjectDesc;
 	@Min(0)
 	private int units;
@@ -39,10 +41,28 @@ public class Subject {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Subject(String subjectName, String subjectDesc, int units) {
+		super();
+		this.subjectName = subjectName;
+		this.subjectDesc = subjectDesc;
+		this.units = units;
+	}
+	
 	public Subject(int subjectId, String subjectName, String subjectDesc, int units, List<Lecturer> lecturerList,
 			List<Schedule> scheduleList, List<Grade> gradeList) {
 		super();
 		this.subjectId = subjectId;
+		this.subjectName = subjectName;
+		this.subjectDesc = subjectDesc;
+		this.units = units;
+		this.lecturerList = lecturerList;
+		this.scheduleList = scheduleList;
+		this.gradeList = gradeList;
+	}
+	
+	public Subject(String subjectName, String subjectDesc, int units, List<Lecturer> lecturerList,
+			List<Schedule> scheduleList, List<Grade> gradeList) {
+		super();
 		this.subjectName = subjectName;
 		this.subjectDesc = subjectDesc;
 		this.units = units;
