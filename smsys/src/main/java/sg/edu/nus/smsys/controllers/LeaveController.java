@@ -1,5 +1,7 @@
 package sg.edu.nus.smsys.controllers;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.nus.smsys.models.Leave;
+//import sg.edu.nus.smsys.models.MyAnnotation;
 import sg.edu.nus.smsys.models.Staff;
-import sg.edu.nus.smsys.models.Student;
+
 import sg.edu.nus.smsys.repository.LeaveRepository;
 import sg.edu.nus.smsys.repository.StaffRepository;
+
 
 
 
@@ -35,6 +39,15 @@ public class LeaveController {
 	@Autowired 
 	StaffRepository srepo;
 	
+	/*
+	 * @GetMapping("/alllist")
+	public  String listAll(Model model){
+		List<Leave> alllist = new ArrayList<Leave>();
+		alllist = lrepo.findAll();
+		model.addAttribute("leave",alllist);
+		return "leavemanagement";
+	}
+	 */
 	
 	@GetMapping("/alllist")
 	public  String listAll(Model model){
@@ -43,7 +56,6 @@ public class LeaveController {
 		model.addAttribute("leave",alllist);
 		return "leavemanagement";
 	}
-		
 	
 	@GetMapping("/leavelist")
 	public  String leaveList(Model model, @RequestParam(defaultValue="") String id){
@@ -61,7 +73,7 @@ public class LeaveController {
 	return "leaves";	
 	}
 	
-
+	
 	@GetMapping("/add")
 	public String showAddForm(Model model) {
 		Leave leave=new Leave();
@@ -70,7 +82,7 @@ public class LeaveController {
 	}
 	
 	@PostMapping("/add")
-	public String applyLeave(@Valid Leave l, BindingResult bindingResult) {
+	public String applyLeave(@Valid  Leave l, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			bindingResult.getFieldErrors().stream().forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
 			return "leaveapplication";
@@ -97,15 +109,14 @@ public class LeaveController {
 		}
 		l.setLeaveId(id);
 		lrepo.save(l);
-			String staffId = String.valueOf(l.getSubmittedByStaffID().getStaffId());
-			return "redirect:/leave/leavelist?id="+staffId;
+		String staffId = String.valueOf(l.getSubmittedByStaffID().getStaffId());
+		return "redirect:/leave/leavelist?id="+staffId;
 	}
-	
 	
 
 	@GetMapping("/edit/{id}")
-	public String showEditForm(Model model, @PathVariable("id") Integer id) {		
-		Leave leave=lrepo.findById(id).get();
+	public String showEditForm(Model model, @PathVariable("id") int id ) {		
+		Leave leave=lrepo.findById(Integer.valueOf(id)).get();
 		model.addAttribute("leave", leave);
 		return "leaveapplication";
 	}
@@ -119,9 +130,38 @@ public class LeaveController {
 		return "redirect:/leave/leavelist?id="+staffId;
 	}
 	
+	@GetMapping("/view/{id}")
+	public String viewLeaveDetails(Model model, @ModelAttribute Leave l , @PathVariable("id") Integer id) {
+		l = lrepo.findById(id).get();
+		
+		model.addAttribute("leave", l);
+		
+		return "leavedetails";
+	}
 	
+	/*
+	@PostMapping("/submit")
+	public String submitLeave(@ModelAttribute Leave leave) {
+		lrepo.save(leave);
+		//String staffId = String.valueOf(leave.getSubmittedByStaffID().getStaffId());
+		return "redirect:/leave/alllist";
+	}*/
 	
+	@PostMapping("/reply/{id}")
+	public String replyLeave(Leave leave,@PathVariable("id") int id) {
+		leave.setLeaveId(id);
+		lrepo.save(leave);
+		
+		System.out.println("duration = " + leave.getDuration());
+		System.out.println("reason = " + leave.getReason());
+		System.out.println("status= " + leave.getStatus());
+		System.out.println("id = " + leave.getLeaveId());
+		
+		
+			//String staffId = String.valueOf(l.getSubmittedByStaffID().getStaffId());
+		return "redirect:/leave/alllist";
+	}
 
-	
+
 
 }
