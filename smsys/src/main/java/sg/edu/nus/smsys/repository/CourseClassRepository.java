@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,5 +14,7 @@ import sg.edu.nus.smsys.models.Student;
 public interface CourseClassRepository extends JpaRepository<CourseClass, Integer> {
 
 	List<CourseClass> findByCourse(Course course);
+
 	List<CourseClass> findByStudentListContaining(Student student);
+
 }

@@ -31,7 +31,7 @@ public class CourseClass {
 	private Course course;
 	@ManyToMany
 	private List<Semester> semesterList;
-	@ManyToMany(mappedBy="courseClassList")
+	@ManyToMany
 	private List<Student> studentList;
 	@ManyToMany
 	private List<Lecturer> lecturerList;

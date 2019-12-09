@@ -120,9 +120,9 @@ body {
 					<th>GPA</th>
 					<td th:text="*{gpa}" /></td>
 				</tr>
-								<tr>
+				<tr th:each="c:${student.courseClassList}">
 					<th>Enrolled in</th>
-					<td th:text="*{courseClassList}" /></td>
+					<td th:text="${c.course.courseName}">Course Name</td>
 				</tr>
 			</table>
 

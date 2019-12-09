@@ -1,31 +1,23 @@
 package sg.edu.nus.smsys.controllers;
 
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 import javax.validation.Valid;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
+import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Student;
 
 import sg.edu.nus.smsys.models.UserSession;
-
+import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.StudentRepository;
 
 @Controller
@@ -34,8 +26,9 @@ public class StudentController {
 
 	@Autowired
 	private StudentRepository srepo;
-	
-	
+
+	@Autowired
+	private CourseClassRepository ccrepo;
 
 //	@InitBinder
 //	protected void initBinder(WebDataBinder binder) {
@@ -60,6 +53,10 @@ public class StudentController {
 	@GetMapping("/details/{id}")
 	public String viewStudent(Model model, @PathVariable("id") int id) {
 		Student student = srepo.findByStudentId(id);
+		ArrayList<CourseClass> cc = new ArrayList<CourseClass>();
+		cc.addAll(ccrepo.findByStudentListContaining(student));
+		student.setCourseClassList(cc);
+		cc.stream().forEach(c -> System.out.println(c.getCourse().getCourseName()));
 		model.addAttribute("student", student);
 		return "studentdetails";
 	}
@@ -110,5 +107,5 @@ public class StudentController {
 		srepo.delete(student);
 		return "redirect:/students/list";
 	}
-	
+
 }
