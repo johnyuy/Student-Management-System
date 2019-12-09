@@ -39,7 +39,7 @@ body {
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
 
-<title>Student</title>
+<title>SMS</title>
 <!-- Custom styles for this template -->
 <link href="starter-template.css" rel="stylesheet">
 </head>
@@ -70,7 +70,7 @@ body {
 							class="dropdown-item" href="#">Something else here</a>
 					</div></li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
+			<form class="form-inline my-2 my-lg-0" th:action="@{/subjects/list}"
 				method="get">
 				<input class="form-control mr-sm-2" name="name" type="text"
 					placeholder="Search Student" aria-label="Search" />
@@ -83,55 +83,38 @@ body {
 
 
 		<div class="starter-template">
-			<h1>Student</h1>
+			<h1>Subject</h1>
 		</div>
 
 		<div class="container">
-			<h4>Student Details</h4>
+			<h4>Subject Details</h4>
 		</div>
 		<div class="container">
-			<table class="table table-striped" th:object="${student}">
+			<table class="table table-striped" th:object="${subject}">
 				<tr>
-					<th>Name</th>
-					<td><b
-						th:text="*{title + '. ' + firstName + ' ' + middleName + ' ' + lastName + ', ' + age}"></b></td>
+					<th>Subject Id</th>
+					<td><b th:text="*{subjectId}"></b></td>
 				</tr>
 				<tr>
-					<th>Birth Date</th>
-					<td th:text="*{birthDate}" /></td>
+					<th>Subject Name</th>
+					<td><b th:text="*{subjectName}"></b></td>
 				</tr>
 				<tr>
-					<th>Address</th>
-					<td th:text="*{address}" /></td>
+					<th>Subject Description</th>
+					<td th:text="*{subjectDesc}" /></td>
 				</tr>
 				<tr>
-					<th>Mobile</th>
-					<td th:text="*{mobile}" /></td>
-				</tr>
-				<tr>
-					<th>Email</th>
-					<td th:text="*{email}" /></td>
-				</tr>
-				<tr>
-					<th>Status</th>
-					<td th:text="*{status}" /></td>
-				</tr>
-				<tr>
-					<th>GPA</th>
-					<td th:text="*{gpa}" /></td>
-				</tr>
-				<tr th:each="c:${student.courseClassList}">
-					<th>Enrolled in</th>
-					<td th:text="${c.course.courseName}">Course Name</td>
+					<th>Units</th>
+					<td th:text="*{units}" /></td>
 				</tr>
 			</table>
 
 			<div>
 				<a class="btn btn-success" type="submit"
-					th:href="@{/students/edit/{id}(id=${student.studentId})}">Edit/Update</a>
+					th:href="@{/subjects/edit/{id}(id=${subject.subjectId})}">Edit/Update</a>
 			</div>
 			<div>
-				<a class="btn btn-outline-dark" th:href="@{/students/list}">Back
+				<a class="btn btn-outline-dark" th:href="@{/subjects/list}">Back
 					to List</a>
 			</div>
 		</div>

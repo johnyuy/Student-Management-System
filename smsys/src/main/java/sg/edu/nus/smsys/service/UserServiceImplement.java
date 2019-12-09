@@ -134,29 +134,31 @@ public class UserServiceImplement implements UserService {
         return salt;
     }
 	
-	public boolean verifyPassword(String username, String password) {
-		if(UsernameExist(username)==true) 
+	public boolean verifyUserAndPassword(String username, String password) 
+	{
+		if(UsernameExist(username)==true)
 		{
 			User user = urepo.findByUsername(username);
-			byte[]salt = user.getSalt();
+			byte[] salt = user.getSalt();
 			String testpw = PasswordEncoder(password, salt);
 			log.info("Comparing passwords.");
 			log.info("Testpw is " + testpw);
 			log.info("datapw is " + user.getPassword());
-			if (testpw.equals(user.getPassword())) {
+			if (testpw.equals(user.getPassword())) 
+			{
 				System.out.println("Password verified");
 				return true;
 			}
-			else {
+			else 
+			{
 				System.out.println("Wrong password.");
 				return false;
 			}
 		}
-		else {
+		else
+		{
 			System.out.println("Username does not exist.");
 			return false;
 		}
 	}
-
-
 }

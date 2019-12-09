@@ -32,7 +32,7 @@ public class CourseController
 			List<Course> cList = new ArrayList<Course>();
 			cList = cRepo.findAll();
 			course.addAttribute("courses",cList);
-			return "courses";
+			return "courselist";
 			
 		}
 		

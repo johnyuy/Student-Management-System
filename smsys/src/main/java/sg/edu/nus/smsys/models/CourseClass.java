@@ -32,7 +32,7 @@ public class CourseClass {
 	@ManyToMany
 	private List<Semester> semesterList;
 	@ManyToMany
-	private List<Student> student;
+	private List<Student> studentList;
 	@ManyToMany
 	private List<Lecturer> lecturerList;
 	@OneToMany(mappedBy="clas")
@@ -46,13 +46,13 @@ public class CourseClass {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CourseClass(Course course, int level, List<Semester> semesterList, List<Student> student,
+	public CourseClass(Course course, int level, List<Semester> semesterList, List<Student> studentList,
 			List<Lecturer> lecturerList, List<Grade> gradeList, List<Schedule> scheduleList) {
 		super();
 		this.course = course;
 		this.level = level;
 		this.semesterList = semesterList;
-		this.student = student;
+		this.studentList = studentList;
 		this.lecturerList = lecturerList;
 		this.gradeList = gradeList;
 		this.scheduleList = scheduleList;
@@ -74,8 +74,8 @@ public class CourseClass {
 		return semesterList;
 	}
 
-	public List<Student> getStudent() {
-		return student;
+	public List<Student> getStudentList() {
+		return studentList;
 	}
 
 	public List<Lecturer> getLecturerList() {
@@ -106,8 +106,8 @@ public class CourseClass {
 		this.semesterList = semesterList;
 	}
 
-	public void setStudent(List<Student> student) {
-		this.student = student;
+	public void setStudentList(List<Student> studentList) {
+		this.studentList = studentList;
 	}
 
 	public void setLecturerList(List<Lecturer> lecturerList) {
@@ -125,7 +125,7 @@ public class CourseClass {
 	@Override
 	public String toString() {
 		return "CourseClass [classId=" + classId + ", level=" + level + ", course=" + course + ", semesterList="
-				+ semesterList + ", student=" + student + ", lecturerList=" + lecturerList + ", gradeList=" + gradeList
+				+ semesterList + ", studentList=" + studentList + ", lecturerList=" + lecturerList + ", gradeList=" + gradeList
 				+ ", scheduleList=" + scheduleList + "]";
 	}
 
