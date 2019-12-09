@@ -12,15 +12,17 @@
 	<div class="w3-responsive">
 		<table class="w3-table-all w3-centered w3-hoverable">
 			<tr>
-				<th>ID</th>
+				<th>Course (ID)</th>
+				<th>Class ID</th>
 				<th>Level</th>
-				<th>Course Id</th>
 				<th>Details</th>
 			</tr>
 			<tr th:each="class:${classes}">
+				<td><a href="coursedetails.html"
+					th:href="@{/courses/details(courseId=${class.course.courseId})}"
+					th:text="${class.course.courseName}+' ('+${class.course.courseId}+')'">Course</a></td>
 				<td th:text=${class.classId}>Class Id</td>
 				<td th:text=${class.level}>Class Level</td>
-				<td th:text=${class.course.courseId}>Course Id</td>
 				<td th:text="view">Details</td>
 			</tr>
 		</table>
