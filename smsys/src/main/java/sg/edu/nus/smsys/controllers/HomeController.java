@@ -1,5 +1,7 @@
 package sg.edu.nus.smsys.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +37,7 @@ public class HomeController {
 	
 	@GetMapping("/login")
 	public String getLoginPage(Model model) {
+		
 		User user = new User();
 		model.addAttribute("user", user);
 		return "login";
@@ -48,24 +51,27 @@ public class HomeController {
 	
 	
 	@PostMapping("/authenticate")
-	public String getAuthentication(@ModelAttribute User user) {
+	public String getAuthentication(@Valid @ModelAttribute User user, BindingResult bindingresult) {
 		System.out.println(user.getUsername());
 		System.out.println(user.getPassword());
+		if(bindingresult.hasErrors()) {
+			return "login";
+		}
 		if (us.verifyUserAndPassword(user.getUsername(), user.getPassword()) == true){
 			int accesslevel = urepo.findByUsername(user.getUsername()).getAccessRights();
 			 
 			if ( accesslevel == 1) {
-				return "courseadminhome";
+				return "redirect:/home/admin";
 			} 
 			if (accesslevel == 2) {
-					return "lecturerhome";
+					return "redirect:/home/lecturer";
 				} 
 			if (accesslevel == 3) {
-					return "studenthome";
+					return "redirect:/home/student";
 				}
 		}
 		
-		return "login";
+		return "redirect:/home/login";
 		
 	}
 	
