@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import sg.edu.nus.smsys.models.Student;
+
 import sg.edu.nus.smsys.models.UserSession;
+
 import sg.edu.nus.smsys.repository.StudentRepository;
 
 @Controller
