@@ -21,10 +21,9 @@ public class Student extends Person{
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "student_id_seq")
-//	@Min(10001)
-//	@Max(19999)
 	private int studentId;
 	private String status;
+	
 	@Min(0)
 	private float gpa;
 	

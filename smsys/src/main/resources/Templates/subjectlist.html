@@ -117,14 +117,15 @@ body {
 					<td th:text=${subject.subjectId}>Subject Id</td>
 					<td th:text=${subject.subjectName}>Subject Name</td>
 					<td th:text=${subject.units}>Units</td>
+					
 					<td><a type="submit"
-						th:href="@{/students/details/{id}(id=${subject.subjectId})}"
+						th:href="@{/subjects/details/{id}(id=${subject.subjectId})}"
 						class="btn btn-outline-dark">View Details</a></td>
 					<td><a type="submit"
-						th:href="@{/students/edit/{id}(id=${subject.subjectId})}"
+						th:href="@{/subjects/edit/{id}(id=${subject.subjectId})}"
 						class="btn btn-outline-dark">Edit</a></td>
 					<td><a type="submit"
-						th:href="@{/students/delete/{id}(id=${subject.subjectId})}"
+						th:href="@{/subjects/delete/{id}(id=${subject.subjectId})}"
 						class="btn btn-outline-dark">Delete</a></td>
 				</tr>
 			</table>
