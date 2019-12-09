@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -33,6 +35,9 @@ public class Student extends Person{
 	@OneToMany(mappedBy = "student")
 	private List<Grade> gradeList;
 	
+	@ManyToMany
+	private List<CourseClass> courseClassList;
+	
 	private final int accessLevel = 3;
 	
 	//CONSTRUCTORS
@@ -40,59 +45,111 @@ public class Student extends Person{
 		super();
 	}
 	
+
+	
+	public int getStudentId() {
+		return studentId;
+	}
+
+
+
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
+
+	public float getGpa() {
+		return gpa;
+	}
+
+
+
+
+	public void setGpa(float gpa) {
+		this.gpa = gpa;
+	}
+
+
+
+
+	public List<Application> getAppliedCourses() {
+		return appliedCourses;
+	}
+
+
+
+
+	public void setAppliedCourses(List<Application> appliedCourses) {
+		this.appliedCourses = appliedCourses;
+	}
+
+
+
+
+	public List<Grade> getGradeList() {
+		return gradeList;
+	}
+
+
+
+
+	public void setGradeList(List<Grade> gradeList) {
+		this.gradeList = gradeList;
+	}
+
+
+
+
+	public List<CourseClass> getCourseClassList() {
+		return courseClassList;
+	}
+
+
+
+
+	public void setCourseClassList(List<CourseClass> courseClassList) {
+		this.courseClassList = courseClassList;
+	}
+
+
+
+
+	public int getAccessLevel() {
+		return accessLevel;
+	}
+
+
+
+
 	public Student(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
-			String title, String address, String mobile, String email, String status, float gpa, List<Application> appliedCourses) {
+			String title, String address, String mobile, String email, String status, @Min(0) float gpa, List<Application> appliedCourses,
+			List<Grade> gradeList, List<CourseClass> courseClassList) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);
 		this.status = status;
 		this.gpa = gpa;
 		this.appliedCourses = appliedCourses;
-	}
-	
-	//GETTERS & SETTERS
-	public int getStudentId() {
-		return studentId;
-	}
-	
-	public String getStatus() {
-		return status;
-	}
-	
-	public float getGpa() {
-		return gpa;
-	}
-	
-	public List<Application> getAppliedCourses() {
-		return appliedCourses;
-	}
-	
-	public List<Grade> getGradeList() {
-		return gradeList;
-	}
-	
-	public int getAccessLevel() {
-		return accessLevel;
-	}
-	
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
-	}
-	
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
-	public void setGpa(float gpa) {
-		this.gpa = gpa;
-	}
-	
-	public void setAppliedCourses(List<Application> appliedCourses) {
-		this.appliedCourses = appliedCourses;
-	}
-	
-	public void setGradeList(List<Grade> gradeList) {
 		this.gradeList = gradeList;
+		this.courseClassList = courseClassList;
+		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Student [studentId=" + studentId + ", status=" + status + ", gpa=" + gpa + ", appliedCourses="

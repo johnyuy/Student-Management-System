@@ -94,7 +94,7 @@ body {
 				<tr>
 					<th>Name</th>
 					<td><b
-						th:text="*{title + ', ' + firstName + ' ' + middleName + ' ' + lastName}"></b></td>
+						th:text="*{title + '. ' + firstName + ' ' + middleName + ' ' + lastName + ', ' + age}"></b></td>
 				</tr>
 				<tr>
 					<th>Birth Date</th>
@@ -119,6 +119,10 @@ body {
 				<tr>
 					<th>GPA</th>
 					<td th:text="*{gpa}" /></td>
+				</tr>
+								<tr>
+					<th>Enrolled in</th>
+					<td th:text="*{courseClassList}" /></td>
 				</tr>
 			</table>
 

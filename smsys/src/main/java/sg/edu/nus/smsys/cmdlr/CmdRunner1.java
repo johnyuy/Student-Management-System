@@ -28,23 +28,7 @@ public class CmdRunner1 implements CommandLineRunner{
 	@Override
     public void run(String[] args) {
         log.info("In CmdRunner1:"); 
-      	//Insert Lecturer
-  		log.info("Adding Lecturer..");
-  		Lecturer l1 = new Lecturer("Daniel", "Edward", "Foo", "male", LocalDate.of(1972, 02, 4), "Dr", "Holland Village", "93336566", "danielEF@hotmail.com", "Available", 21, 21, null, null, null, null, null, null);
-  		lrepo.save(l1);
-        //Insert Students
-  		log.info("Adding Students..");
-  		List<Student> initialStudents = new ArrayList<Student>();
-  		initialStudents.add(new Student("John", "Yue", "Yu", "male", LocalDate.of(1992, 11, 16), "Mr", "Tampines", "98076988", "yu.john92@gmail.com", "enrolled", 3.5f, null));
-  		initialStudents.add(new Student("Natalie", "Si Min", "Hong", "female",LocalDate.of(1989, 05, 02), "Ms", "Bukit Panjang", "90019910", "natalie.hong@gmail.com", "Enrolled", 4.2f , null));
-  		initialStudents.add(new Student("Johann", "Cheok Arn", "Fong", "male", LocalDate.of(1992, 11, 07), "Mr", "Pasir Ris", "98981123", "treedays@gmail.com", "Enrolled", 4.5f , null));
-  		initialStudents.add(new Student("Drake", "Lin Htet", "Ye", "male", LocalDate.of(1996, 04, 8 ), "Mr", "Keppel Bay", "84524324", "drakelin21@gmail.com", "Enrolled", 4.1f , null));
-  		initialStudents.add(new Student("Ettiyan", "", "Premalatha", "female", LocalDate.of(1990, 01, 04), "Ms", "Clementi", "87654321", "e.premalatha@gmail.com", "Enrolled", 4.2f , null));
-  		initialStudents.add(new Student("Frank", "Minhao", "Liu", "male", LocalDate.of(1996, 3, 16), "Mr", "Clementi", "83443543", "frankLiu@qq.com", "Enrolled", 4.9f , null));
-  		initialStudents.add(new Student("Gail", "Yazhi", "Jiang", "female", LocalDate.of(1994, 12, 1), "Ms", "Jurong", "98076988", "gailJiang@qq.com", "Enrolled", 5.0f , null));
-  		for(Student s : initialStudents) {
-  			srepo.save(s);
-  		}
+
   		//Insert Course Admin
 		log.info("Adding Course Admin..");
 		CourseAdmin C1 = new CourseAdmin("Megan", "Susie", "Wang", "female", LocalDate.of(1982, 3, 23), "Mrs", "Thomson", "82334576", "meganSW@hotmail.com", "Available", 21, 21, null, null, null);

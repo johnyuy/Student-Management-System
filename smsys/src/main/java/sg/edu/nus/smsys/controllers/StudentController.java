@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javax.validation.Valid;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,18 +19,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import sg.edu.nus.smsys.models.Student;
+import sg.edu.nus.smsys.models.UserSession;
 import sg.edu.nus.smsys.repository.StudentRepository;
 
 @Controller
 @RequestMapping("/students")
-@SessionAttributes("usersession")
 public class StudentController {
 
 	@Autowired
 	private StudentRepository srepo;
+	
+	
 
 //	@InitBinder
 //	protected void initBinder(WebDataBinder binder) {
@@ -104,5 +108,16 @@ public class StudentController {
 		srepo.delete(student);
 		return "redirect:/students/list";
 	}
+	
+	@GetMapping("/user")
+	public String userTest(@SessionAttribute("banana") UserSession banana){
+		System.out.println(banana.getName());
+		banana.setName("not mikey banana");
+		System.out.println(banana.getName());	
+		return "johannlogin";
+		
+	}
+	
+	
 
 }
