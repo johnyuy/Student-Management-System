@@ -24,8 +24,9 @@
 			</tr>
 
 			<tr>
-				<th>Duration in Semesters</th>
+				<th>Semesters</th>
 				<td><select th:field="*{durationSemesters}">
+						<option value="" selected hidden>Select Duration</option>
 						<option th:value="1">1</option>
 						<option th:value="2">2</option>
 						<option th:value="3">3</option>
