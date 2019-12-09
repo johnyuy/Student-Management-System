@@ -26,18 +26,25 @@ public class Application {
 	private Course course;
 	@ManyToOne
 	private Student student;
-	private boolean isOpen;
+	@Min(-2)
+	@Max(1)
+	private int status = 0;
+	//status = 0 is pending
+	//status = 1 is accepted (successful)
+	//status = -1 is rejected (unsuccessful)
+	//status = -2 is withdrawn
+	
 	
 	//CONSTRUCTORS
 	public Application() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Application(int applicationId, Course course, boolean isOpen, Student student) {
+	public Application(int applicationId, Course course, int status, Student student) {
 		super();
 		this.applicationId = applicationId;
 		this.course = course;
-		this.isOpen = isOpen;
+		this.status = status;
 		this.student = student;
 	}
 	
@@ -51,8 +58,12 @@ public class Application {
 	public Student getStudent() {
 		return student;
 	}
-	public boolean isOpen() {
-		return isOpen;
+	
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	public void setApplicationId(int applicationId) {
 		this.applicationId = applicationId;
@@ -63,9 +74,8 @@ public class Application {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	public void setOpen(boolean isOpen) {
-		this.isOpen = isOpen;
-	}
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -89,7 +99,7 @@ public class Application {
 	@Override
 	public String toString() {
 		return "Application [applicationId=" + applicationId + ", course=" + course + ", student=" + student
-				+ ", isOpen=" + isOpen + "]";
+				+ ", status=" + status + "]";
 	}
 	
 }
