@@ -3,15 +3,7 @@ package sg.edu.nus.smsys.models;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -35,7 +27,7 @@ public class Student extends Person{
 	@OneToMany(mappedBy = "student")
 	private List<Grade> gradeList;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy="studentList")
 	private List<CourseClass> courseClassList;
 	
 	private final int accessLevel = 3;
@@ -45,14 +37,9 @@ public class Student extends Person{
 		super();
 	}
 	
-
-	
 	public int getStudentId() {
 		return studentId;
 	}
-
-
-
 
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
@@ -155,5 +142,32 @@ public class Student extends Person{
 		return "Student [studentId=" + studentId + ", status=" + status + ", gpa=" + gpa + ", appliedCourses="
 				+ appliedCourses + ", gradeList=" + gradeList + ", accessLevel=" + accessLevel + "]";
 	}
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + studentId;
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		if (studentId != other.studentId)
+			return false;
+		return true;
+	}
+	
 	
 }

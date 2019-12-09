@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.controllers;
 
+import java.awt.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
@@ -22,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.models.UserSession;
+import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.StudentRepository;
 
 @Controller
@@ -32,8 +35,9 @@ public class StudentController {
 
 	@Autowired
 	private StudentRepository srepo;
-	
-	
+
+	@Autowired
+	private CourseClassRepository ccrepo;
 
 //	@InitBinder
 //	protected void initBinder(WebDataBinder binder) {
@@ -58,8 +62,13 @@ public class StudentController {
 	@GetMapping("/details/{id}")
 	public String viewStudent(Model model, @PathVariable("id") int id) {
 		Student student = srepo.findByStudentId(id);
+		ArrayList<CourseClass> cc = new ArrayList<CourseClass>();
+		cc.addAll(ccrepo.findByStudentListContaining(student));
+		student.setCourseClassList(cc);
+		cc.stream().forEach(c -> System.out.println(c.getCourse().getCourseName()));
 		model.addAttribute("student", student);
 		return "studentdetails";
+
 	}
 
 	@GetMapping("/add")
@@ -108,16 +117,5 @@ public class StudentController {
 		srepo.delete(student);
 		return "redirect:/students/list";
 	}
-	
-	@GetMapping("/user")
-	public String userTest(@SessionAttribute("banana") UserSession banana){
-		System.out.println(banana.getName());
-		banana.setName("not mikey banana");
-		System.out.println(banana.getName());	
-		return "johannlogin";
-		
-	}
-	
-	
 
 }
