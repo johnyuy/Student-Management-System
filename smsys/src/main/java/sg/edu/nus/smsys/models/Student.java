@@ -150,10 +150,15 @@ public class Student extends Person{
 		// TODO Auto-generated constructor stub
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Student [studentId=" + studentId + ", status=" + status + ", gpa=" + gpa + ", appliedCourses="
-				+ appliedCourses + ", gradeList=" + gradeList + ", accessLevel=" + accessLevel + "]";
+				+ appliedCourses + ", gradeList=" + gradeList + ", courseClassList=" + courseClassList
+				+ ", accessLevel=" + accessLevel + "]";
 	}
+
+	
 	
 }

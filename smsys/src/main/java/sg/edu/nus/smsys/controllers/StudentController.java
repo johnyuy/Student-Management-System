@@ -111,15 +111,4 @@ public class StudentController {
 		return "redirect:/students/list";
 	}
 	
-	@GetMapping("/user")
-	public String userTest(@SessionAttribute("banana") UserSession banana){
-		System.out.println(banana.getName());
-		banana.setName("not mikey banana");
-		System.out.println(banana.getName());	
-		return "johannlogin";
-		
-	}
-	
-	
-
 }

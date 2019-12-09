@@ -140,7 +140,7 @@ public class CmdRunner2 implements CommandLineRunner {
 		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
 		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
 		
-		
+
 		
 		log.info("End of CmdRunner2");
 
