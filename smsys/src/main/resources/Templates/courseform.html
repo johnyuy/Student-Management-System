@@ -1,24 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta charset="UTF-8">
 <title>Course Form</title>
 </head>
 <body>
-	<form action="/courses/insert" method="post" th:object="${course}" th:action="@{/courses/insert}">
-	<fieldset>
-	Course Name: <input type="text" th:field="*{courseName}"/>
-	</fieldset>
-		<fieldset>
-	Course Description: <input type="text" th:field="*{courseDesc}"/>
-	</fieldset>
-		<fieldset>
-	Class Size: <input type="number" min=10 th:field="*{classSize}"  value=10/>
-	</fieldset>
-		<fieldset>
-	Duration in Semesters: <input type="number" min=1 th:field="*{durationSemesters}" value=1 />
-	</fieldset>
-		<button type="submit">Add Course</button>
+	<form action="/courses/insert" method="post" th:object="${course}"
+		th:action="@{/courses/insert}">
+		<table class="w3-table-all">
+			<tr>
+				<th>Course Name</th>
+				<td><input type="text" th:field="*{courseName}" /></td>
+			</tr>
+
+			<tr>
+				<th>Course Description</th>
+				<td><input type="text" th:field="*{courseDesc}" /></td>
+			</tr>
+			<tr>
+				<th>Class Size</th>
+				<td><input type="number" min=10 th:field="*{classSize}" /></td>
+			</tr>
+
+			<tr>
+				<th>Duration in Semesters</th>
+				<td><select th:field="*{durationSemesters}">
+						<option th:value="1">1</option>
+						<option th:value="2">2</option>
+						<option th:value="3">3</option>
+						<option th:value="4">4</option>
+						<option th:value="5">5</option>
+						<option th:value="6">6</option>
+						<option th:value="7">7</option>
+						<option th:value="8">8</option>
+						
+				</select></td>
+			</tr>
+
+			<tr>
+				<td>
+					<button type="submit">Add Course</button>
+				</td>
+			</tr>
+		</table>
 	</form>
 </body>
 </html>

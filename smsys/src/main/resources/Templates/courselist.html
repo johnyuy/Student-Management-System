@@ -14,7 +14,7 @@
 		<table class="w3-table-all w3-centered w3-hoverable">
 			<tr>
 				<th>Course ID</th>
-				<th></th>
+				<th>Course Name</th>
 				<th>Classes</th>
 
 			</tr>
@@ -29,11 +29,12 @@
 				<td><a href="classlist.html"
 					th:href="@{/classes/list(courseId=${course.courseId})}"
 					class="btn btn-default"><span
-						th:text=${course.classesList.size()}>number of classes</span></a></td>
+						th:text="${course.classesList.size()}+' Classes'">number of classes</span></a></td>
 				
 			</tr>
 		</table>
 		<br />
+		<!-- following tool bar below is dependant on user access level -->
 		<h3>Admin Tools</h3>
 		<form action="/classes/add" method="get" th:action="@{/courses/add}">
 			<table class="w3-table-all w3-centered">
