@@ -14,6 +14,4 @@ public interface UserService {
 	public void registerNewAccount(Integer id, String password) throws GeneralSecurityException;
 	@Autowired
 	public boolean verifyUserAndPassword(String username, String password);
-
-
 }
