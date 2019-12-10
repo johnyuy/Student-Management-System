@@ -2,15 +2,26 @@ package sg.edu.nus.smsys.models;
 
 import java.util.UUID;
 
+import sg.edu.nus.smsys.service.UserService;
+
+
+
 public class UserSession {
+	
 	private User user;
 	private UUID sessionId;
-	public UserSession(User user) {
+	
+	public UserSession() {
 		super();
-		this.sessionId = UUID.randomUUID();
-		this.user = user;
 		
 	}
+	public UserSession(User user, UUID sessionId) {
+		super();
+		this.user = user;
+		this.sessionId = sessionId;
+	}
+	
+	
 	public User getUser() {
 		return user;
 	}
@@ -20,6 +31,7 @@ public class UserSession {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 	
 	
 }

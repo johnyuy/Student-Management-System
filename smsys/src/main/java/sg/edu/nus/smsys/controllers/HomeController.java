@@ -1,8 +1,10 @@
 package sg.edu.nus.smsys.controllers;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import jdk.internal.org.jline.utils.Log;
 import sg.edu.nus.smsys.models.User;
 import sg.edu.nus.smsys.models.UserSession;
 import sg.edu.nus.smsys.repository.CourseAdminRepository;
@@ -26,7 +29,7 @@ import sg.edu.nus.smsys.repository.UserRepository;
 import sg.edu.nus.smsys.service.UserService;
 
 @Controller
-@SessionAttributes({"user", "num"})
+@SessionAttributes(value= {"username", "sessionId", "accessLevel"})
 @RequestMapping("/home")
 public class HomeController {
 	@Autowired
@@ -40,9 +43,6 @@ public class HomeController {
 	
 	@Autowired 
 	private UserService us;
-	
-	private User user;
-	private int number = 99;
 	
 	@GetMapping("/login")
 	public String getLoginPage(Model model) {
@@ -60,7 +60,7 @@ public class HomeController {
 	
 	
 	@PostMapping("/authenticate")
-	public String getAuthentication(@Valid @ModelAttribute User user, BindingResult bindingresult) {
+	public String getAuthentication(@Valid @ModelAttribute User user, BindingResult bindingresult, HttpSession httpSession) {
 		System.out.println(user.getUsername());
 		System.out.println(user.getPassword());
 		if(bindingresult.hasErrors()) {
@@ -68,6 +68,11 @@ public class HomeController {
 		}
 		if (us.verifyUserAndPassword(user.getUsername(), user.getPassword()) == true){
 			int accesslevel = urepo.findByUsername(user.getUsername()).getAccessRights();
+			UUID sessionId = UUID.randomUUID();
+			UserSession session = new UserSession(urepo.findByUsername(user.getUsername()), sessionId);
+			httpSession.setAttribute("session", session);
+			System.out.println(session.getSessionId());
+
 			
 			if ( accesslevel == 1) {
 				return "redirect:/home/admin";
@@ -102,15 +107,7 @@ public class HomeController {
 		return "studenthome";
 	}
 	
-	@ModelAttribute("user")
-	public User getUser(){
-		return this.user;
-	}
 	
-	@ModelAttribute("num")
-	public int getNum(){
-		return 555;
-	}
 	
 	@Scheduled(fixedRate = 1000)
 	public void printTime() {
