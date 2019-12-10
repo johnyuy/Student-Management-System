@@ -86,7 +86,7 @@ body {
 		</div>
 
 		<div class="container">
-			<h4 th:text="*{studentId != 0}? 'Update Student' : 'Add New Student'">Add New Student</h4>
+			<h4 th:text="${student.studentId != 0}? 'Update Student' : 'Add New Student'">Add New Student</h4>
 		</div>
 		<div class="container">
 			<form th:object="${student}"
@@ -177,8 +177,8 @@ body {
 					th:text="*{studentId != 0}? 'Update Student' : 'Add Student'"
 					class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
 			</form>
-			<div class="container">
-				<a class="btn" th:href="@{/students/list}">Back to List</a>
+			<div>
+				<button class="btn btn-outline-dark" th:href="@{/students/list}">Back to List</button>
 			</div>
 		</div>
 	</main>

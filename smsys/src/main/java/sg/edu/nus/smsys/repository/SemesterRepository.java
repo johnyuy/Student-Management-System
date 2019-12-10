@@ -8,4 +8,5 @@ import sg.edu.nus.smsys.models.Semester;
 
 public interface SemesterRepository extends JpaRepository<Semester, Integer>{
 	Semester findBySemCode(String semCode);
+	Semester findBySemId(int semId);
 }

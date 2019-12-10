@@ -2,10 +2,13 @@ package sg.edu.nus.smsys.models;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.Period;
 
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -145,6 +148,10 @@ public abstract class Person {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public int getAge() {	
+		return Period.between(this.birthDate, LocalDate.now()).getYears();
 	}
 
 	@Override

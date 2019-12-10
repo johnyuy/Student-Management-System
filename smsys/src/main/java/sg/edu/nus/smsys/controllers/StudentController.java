@@ -1,8 +1,8 @@
 package sg.edu.nus.smsys.controllers;
 
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 import javax.validation.Valid;
 
@@ -11,26 +11,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
+import sg.edu.nus.smsys.UserSession;
+import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Student;
-//import sg.edu.nus.smsys.models.DateString;
-import sg.edu.nus.smsys.repository.StudentRepository;
+
+import sg.edu.nus.smsys.repository.*;
 
 @Controller
 @RequestMapping("/students")
-@SessionAttributes("usersession")
 public class StudentController {
 
 	@Autowired
 	private StudentRepository srepo;
+
+	@Autowired
+	private CourseClassRepository ccrepo;
 
 //	@InitBinder
 //	protected void initBinder(WebDataBinder binder) {
@@ -54,8 +51,11 @@ public class StudentController {
 
 	@GetMapping("/details/{id}")
 	public String viewStudent(Model model, @PathVariable("id") int id) {
-		ArrayList<Student> slist = new ArrayList<Student>();
 		Student student = srepo.findByStudentId(id);
+		ArrayList<CourseClass> cc = new ArrayList<CourseClass>();
+		cc.addAll(ccrepo.findByStudentListContaining(student));
+		student.setCourseClassList(cc);
+		cc.stream().forEach(c -> System.out.println(c.getCourse().getCourseName()));
 		model.addAttribute("student", student);
 		return "studentdetails";
 	}
@@ -72,7 +72,7 @@ public class StudentController {
 		{
 			if (bindingResult.hasErrors()) {
 				bindingResult.getFieldErrors().stream()
-				.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
+						.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
 				return "studentform";
 			}
 			Student student = new Student();
@@ -95,8 +95,8 @@ public class StudentController {
 		if (bindingResult.hasErrors()) {
 			return "studentform";
 		}
-        s.setStudentId(id);
-        srepo.save(s);
+		s.setStudentId(id);
+		srepo.save(s);
 		return "redirect:/students/list";
 	}
 
@@ -106,22 +106,5 @@ public class StudentController {
 		srepo.delete(student);
 		return "redirect:/students/list";
 	}
-	
-	
-//
-//	@PostMapping("/insert")
-//	public String insertCourse(@Valid @ModelAttribute Student s, BindingResult bindingResult) {
-//		if (bindingResult.hasErrors()) {
-//			bindingResult.getFieldErrors().stream()
-//					.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
-//			return "studentform";
-//		}
-//		Student student = new Student();
-//		student = s;
-//		System.out.println("Im here in /insert");
-//
-//		srepo.save(student);
-//		return "redirect:/students/list";
-//	}
 
 }

@@ -2,6 +2,8 @@ package sg.edu.nus.smsys.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -15,10 +17,13 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int passid;
 	
+	@NotEmpty
 	private String username;
 	
-	private int accessRights;
+	private int accessLevel;
 	
+	@NotNull
+	@Length(min=4)
 	private String password;
 	
 	private byte[] salt;
@@ -31,7 +36,7 @@ public class User {
 	public User(String username, int accessRights, String password, byte[] salt) {
 		super();
 		this.username = username;
-		this.accessRights = accessRights;
+		this.accessLevel = accessRights;
 		this.password = password;
 		this.salt = salt;
 	}
@@ -48,10 +53,10 @@ public class User {
 		this.username = username;
 	}
 	public int getAccessRights() {
-		return accessRights;
+		return accessLevel;
 	}
 	public void setAccessRights(int accessRights) {
-		this.accessRights = accessRights;
+		this.accessLevel = accessRights;
 	}
 	public String getPassword() {
 		return password;

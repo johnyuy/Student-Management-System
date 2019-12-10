@@ -91,7 +91,7 @@ body {
 			<h4>List of Students</h4>
 		</div>
 		<div class="container">
-<!-- 			<p th:text="${session.usersession.name}">Para 2</p> -->
+		<p th:text="${session.string}">UserSession.Name</p> 
 		</div>
 		<div class="container">
 			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
@@ -122,7 +122,7 @@ body {
 					<td th:text=${student.middleName}>Middle Name</td>
 					<td th:text=${student.lastName}>Last Name</td>
 					<td th:text=${student.email}>Email</td>
-					<td th:text=${student.birthDate}>Email</td>
+					<td th:text=${student.birthDate}>Birth Date</td>
 
 					<td><a type="submit"
 						th:href="@{/students/details/{id}(id=${student.studentId})}"

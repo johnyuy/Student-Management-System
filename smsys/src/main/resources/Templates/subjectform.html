@@ -1,11 +1,18 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	crossorigin="anonymous">
+
+<title>Subject</title>
 <!-- Custom styles for this template -->
 <style>
 .bd-placeholder-img {
@@ -32,16 +39,8 @@ body {
 	text-align: center;
 }
 </style>
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-
-<title>Student</title>
-<!-- Custom styles for this template -->
 <link href="starter-template.css" rel="stylesheet">
+
 </head>
 <body>
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -70,10 +69,10 @@ body {
 							class="dropdown-item" href="#">Something else here</a>
 					</div></li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
+			<form class="form-inline my-2 my-lg-0" th:action="@{/subjects/list}"
 				method="get">
 				<input class="form-control mr-sm-2" name="name" type="text"
-					placeholder="Search Student" aria-label="Search" />
+					placeholder="Search Subject" aria-label="Search" />
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 		</div>
@@ -83,60 +82,50 @@ body {
 
 
 		<div class="starter-template">
-			<h1>Student</h1>
+			<h1>Subject</h1>
 		</div>
 
 		<div class="container">
-			<h4>Student Details</h4>
+			<h4 th:text="*{subjectId != 0}? 'Update Subject' : 'Add New Subject'">Add New Subject</h4>
 		</div>
 		<div class="container">
-			<table class="table table-striped" th:object="${student}">
-				<tr>
-					<th>Name</th>
-					<td><b
-						th:text="*{title + '. ' + firstName + ' ' + middleName + ' ' + lastName + ', ' + age}"></b></td>
-				</tr>
-				<tr>
-					<th>Birth Date</th>
-					<td th:text="*{birthDate}" /></td>
-				</tr>
-				<tr>
-					<th>Address</th>
-					<td th:text="*{address}" /></td>
-				</tr>
-				<tr>
-					<th>Mobile</th>
-					<td th:text="*{mobile}" /></td>
-				</tr>
-				<tr>
-					<th>Email</th>
-					<td th:text="*{email}" /></td>
-				</tr>
-				<tr>
-					<th>Status</th>
-					<td th:text="*{status}" /></td>
-				</tr>
-				<tr>
-					<th>GPA</th>
-					<td th:text="*{gpa}" /></td>
-				</tr>
-				<tr th:each="c:${student.courseClassList}">
-					<th>Enrolled in</th>
-					<td th:text="${c.course.courseName}">Course Name</td>
-				</tr>
-			</table>
+			<form th:object="${subject}"
+				id="add-subject-form" class="form-horizontal" method="post">
 
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="title">Subject Name</label> <input class="form-control"
+							placeholder="Enter Subject Name" type="text" th:field="*{subjectName}" />
+						<p th:if="${#fields.hasErrors('subjectName')}" th:errors="*{subjectName}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8 mb-6">
+						<label for="subjectDesc">Subject Description</label><textarea rows="8" cols=""
+							class="form-control" placeholder="Enter Subject Decription"
+							th:field="*{subjectDesc}" /></textarea>
+						<p th:if="${#fields.hasErrors('subjectDesc')}"
+							th:errors="*{subjectDesc}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="units">Units</label> <input
+							class="form-control" placeholder="Enter Units" type="text"
+							th:field="*{units}" />
+						<p th:if="${#fields.hasErrors('units')}"
+							th:errors="*{units}"></p>
+					</div>
+				</div>
+				<button
+					th:text="*{subjectId != 0}? 'Update Subject' : 'Add Subject'"
+					class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
+			</form>
 			<div>
-				<a class="btn btn-success" type="submit"
-					th:href="@{/students/edit/{id}(id=${student.studentId})}">Edit/Update</a>
-			</div>
-			<div>
-				<a class="btn btn-outline-dark" th:href="@{/students/list}">Back
-					to List</a>
+				<a class="btn btn-outline-dark" th:href="@{/subjects/list}">Back to Subject List</a>
 			</div>
 		</div>
 	</main>
-
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
