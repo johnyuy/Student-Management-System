@@ -140,7 +140,7 @@ public class UserServiceImplement implements UserService {
 			log.info("Username found, checking credentials...");
 			
 			if (testpw.equals(user.getPassword())) {
-				log.info("Authenthication sucessful!");
+				log.info("Authenthication successful!");
 				return true;
 			} else {
 				log.info("Wrong password!");
