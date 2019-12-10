@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import jdk.internal.org.jline.utils.Log;
 import sg.edu.nus.smsys.SmsysApplication;
 import sg.edu.nus.smsys.UserSession;
 import sg.edu.nus.smsys.models.User;
