@@ -2,12 +2,14 @@ package sg.edu.nus.smsys.controllers;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,8 +43,7 @@ public class HomeController {
 	
 	@Autowired 
 	private UserService us;
-	
-	
+
 	@GetMapping("/login")
 	public String getLoginPage(Model model) {
 		
@@ -60,7 +61,7 @@ public class HomeController {
 	
 	
 	@PostMapping("/authenticate")
-	public String getAuthentication(@Valid @ModelAttribute User user, BindingResult bindingresult) {
+	public String getAuthentication(@Valid @ModelAttribute User user, BindingResult bindingresult, HttpSession httpSession) {
 		System.out.println(user.getUsername());
 		System.out.println(user.getPassword());
 		if(bindingresult.hasErrors()) {
@@ -69,8 +70,12 @@ public class HomeController {
 		if (us.verifyUserAndPassword(user.getUsername(), user.getPassword()) == true){
 			//LOGIN AUTHENTHICATION IS SUCCESSFUL
 			Optional<User> u = urepo.findByUsername(user.getUsername());
-			int accesslevel = u.get().getAccessRights();			
-	
+			int accesslevel = u.get().getAccessRights();
+			
+			UUID sessionId = UUID.randomUUID();
+			UserSession session = new UserSession(urepo.findByUsername(user.getUsername()).get(), sessionId);
+			httpSession.setAttribute("session", session);
+			System.out.println(session.getSessionId());
 			
 			//System.out.println("NEW SESSION IN TOWN!   " + UserSession.sessions.get(0).getSessionId());
 			if ( accesslevel == 1) {
@@ -106,5 +111,15 @@ public class HomeController {
 		return "studenthome";
 	}
 
-	
+			
+	@Scheduled(fixedRate = 1000)
+	public void printTime() {
+		System.out.println("Fixed Delay Task :: Execution Time -" + LocalDateTime.now().toString());
+	    try {
+	        TimeUnit.SECONDS.sleep(10);
+	    } catch (InterruptedException ex) {
+	        System.out.println("Ran into an error {} "+  ex);
+	        throw new IllegalStateException(ex);
+	    }
+	}
 }

@@ -7,7 +7,7 @@
 <body>
 
 
-<form  th:object="${leave}" method="post"  >
+<form  th:object="${leave}" method="post" >
 
 	<fieldset>
 	Staff ID:<input type="text" th:field="*{submittedByStaffID}"/>
@@ -27,9 +27,11 @@
 	Reason:<input type="text" th:field="*{reason}"/>
 	<p th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}"></p>
 	</fieldset>
+	
+	
 
 	<fieldset>
-	<button type="submit">Save</button>
+	<button type="submit">Submit</button>
 	</fieldset>
 </form>
 
