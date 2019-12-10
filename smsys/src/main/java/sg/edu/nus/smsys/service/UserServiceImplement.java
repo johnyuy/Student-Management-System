@@ -22,9 +22,9 @@ import java.security.*;
 
 @Service
 public class UserServiceImplement implements UserService {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(UserServiceImplement.class);
-	
+
 	@Autowired
 	private UserRepository urepo;
 	@Autowired
@@ -39,9 +39,10 @@ public class UserServiceImplement implements UserService {
 		int userType = id / 10000;
 		byte[] salt = getSalt();
 		String pw = PasswordEncoder(password, salt);
-		
+
 		if (userType == 5) {
-			//Create user account only if user account does not alr exist but staff exists in staff table
+			// Create user account only if user account does not alr exist but staff exists
+			// in staff table
 			if (UsernameExist("A" + id) == false && CourseAdminIdExist(id) == true) {
 
 				CourseAdmin ca = crepo.findByStaffId(id);
@@ -58,19 +59,18 @@ public class UserServiceImplement implements UserService {
 				log.info("New user account for " + lect.getFirstName() + " " + lect.getLastName()
 						+ " has been successfully created.");
 			}
-		//Create user account only if user account does not alr exist but student exists in student table
+			// Create user account only if user account does not alr exist but student
+			// exists in student table
 		} else if (userType == 1 && UsernameExist("S" + id) == false && StudentIdExist(id) == true) {
 			Student s = srepo.findByStudentId(id);
 			String username = "S" + id;
-			User user = new User(username, s.getAccessLevel(), pw, salt
-					);
+			User user = new User(username, s.getAccessLevel(), pw, salt);
 			urepo.save(user);
 			log.info("New user account for " + s.getFirstName() + " " + s.getLastName()
 					+ " has been successfully created.");
 		} else {
 			log.info("Error creating user account.");
-			log.info(
-					"There is an existing account with that username or person does not exist in the database.");
+			log.info("There is an existing account with that username or person does not exist in the database.");
 		}
 	}
 
@@ -105,56 +105,47 @@ public class UserServiceImplement implements UserService {
 		}
 		return false;
 	}
-	
+
 	public String PasswordEncoder(String password, byte[] salt) {
 		String encodedPassword = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(salt);
-            byte[] bytes = md.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            encodedPassword = sb.toString();
-        } 
-        catch (NoSuchAlgorithmException e) 
-        {
-            e.printStackTrace();
-        }
-        return encodedPassword;
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-512");
+			md.update(salt);
+			byte[] bytes = md.digest(password.getBytes());
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++) {
+				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			encodedPassword = sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return encodedPassword;
 	}
-	
-	private static byte[] getSalt() throws NoSuchAlgorithmException
-    {
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-        byte[] salt = new byte[16];
-        sr.nextBytes(salt);
-        return salt;
-    }
-	
+
+	private static byte[] getSalt() throws NoSuchAlgorithmException {
+		SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+		byte[] salt = new byte[16];
+		sr.nextBytes(salt);
+		return salt;
+	}
+
 	public boolean verifyUserAndPassword(String username, String password) {
-		if(UsernameExist(username)==true) {
+		if (UsernameExist(username) == true) {
 			User user = urepo.findByUsername(username);
 			byte[] salt = user.getSalt();
 			String testpw = PasswordEncoder(password, salt);
-			log.info("Comparing passwords.");
-			log.info("Testpw is " + testpw);
-			log.info("datapw is " + user.getPassword());
+			log.info("Username verified, comparing passwords...");
 			if (testpw.equals(user.getPassword())) {
-				log.info("Password verified");
-				return true;
-			}
-			else {
-				log.info("Wrong password.");
+				System.out.println("Password verified, logged in...");
+			} else {
+				log.info("Wrong password!");
 				return false;
 			}
+		} else {
+		log.info("Username does not exist!");
 		}
-		else {
-			log.info("Username does not exist.");
-			return false;
-		}
+		log.info("Authenthication failed!");
+		return false;
 	}
-
 }

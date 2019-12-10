@@ -17,6 +17,7 @@ import sg.edu.nus.smsys.UserSession;
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
+
 import sg.edu.nus.smsys.repository.StudentRepository;
 
 @Controller
