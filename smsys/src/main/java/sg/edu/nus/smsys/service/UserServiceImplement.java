@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.*;
+import java.util.Optional;
 
 @Service
 public class UserServiceImplement implements UserService {
@@ -39,32 +40,31 @@ public class UserServiceImplement implements UserService {
 		int userType = id / 10000;
 		byte[] salt = getSalt();
 		String pw = PasswordEncoder(password, salt);
-
 		if (userType == 5) {
-			// Create user account only if user account does not alr exist but staff exists
-			// in staff table
+			
+			//Course Admin
 			if (UsernameExist("A" + id) == false && CourseAdminIdExist(id) == true) {
-
+				
 				CourseAdmin ca = crepo.findByStaffId(id);
 				String username = "A" + id;
-				User user = new User(username, ca.getAccessLevel(), pw, salt);
+				User user = new User(username, ca.getAccessLevel(), pw, salt, "ROLE_ADMIN", true);
 				urepo.save(user);
 				log.info("New user account for " + ca.getFirstName() + " " + ca.getLastName()
-						+ " has been successfully created.");
-			} else if (UsernameExist("L" + id) == false && LecturerIdExist(id) == true) {
+						+ " has been successfully created.");} 
+			//lecturer
+			else if (UsernameExist("L" + id) == false && LecturerIdExist(id) == true) {
 				Lecturer lect = lrepo.findByStaffId(id);
 				String username = "L" + id;
-				User user = new User(username, lect.getAccessLevel(), pw, salt);
+				User user = new User(username, lect.getAccessLevel(), pw, salt, "ROLE_LECTURER", true);
 				urepo.save(user);
 				log.info("New user account for " + lect.getFirstName() + " " + lect.getLastName()
 						+ " has been successfully created.");
 			}
-			// Create user account only if user account does not alr exist but student
-			// exists in student table
+		//student
 		} else if (userType == 1 && UsernameExist("S" + id) == false && StudentIdExist(id) == true) {
 			Student s = srepo.findByStudentId(id);
 			String username = "S" + id;
-			User user = new User(username, s.getAccessLevel(), pw, salt);
+			User user = new User(username, s.getAccessLevel(), pw, salt, "ROLE_STUDENT", true);
 			urepo.save(user);
 			log.info("New user account for " + s.getFirstName() + " " + s.getLastName()
 					+ " has been successfully created.");
@@ -91,11 +91,11 @@ public class UserServiceImplement implements UserService {
 	}
 
 	private boolean UsernameExist(String username) {
-
-		if (urepo.findByUsername(username) != null) {
+		Optional<User> user =  urepo.findByUsername(username);
+		if(user.isPresent()==false)
+			return false;
+		else
 			return true;
-		}
-		return false;
 	}
 
 	private boolean StudentIdExist(int studentId) {
@@ -131,21 +131,26 @@ public class UserServiceImplement implements UserService {
 	}
 
 	public boolean verifyUserAndPassword(String username, String password) {
-		if (UsernameExist(username) == true) {
-			User user = urepo.findByUsername(username);
+		
+		Optional<User> u = urepo.findByUsername(username);
+		System.out.println("EXIST? = "+ u.isPresent());
+		if (u != null) {
+			System.out.println("ok  "+ username);
+			User user = u.get();
 			byte[] salt = user.getSalt();
+			
 			String testpw = PasswordEncoder(password, salt);
 			log.info("Username verified, comparing passwords...");
+			
 			if (testpw.equals(user.getPassword())) {
 				System.out.println("Password verified, logged in...");
+				return true;
 			} else {
 				log.info("Wrong password!");
-				return false;
 			}
-		} else {
-		log.info("Username does not exist!");
 		}
 		log.info("Authenthication failed!");
 		return false;
 	}
+	
 }

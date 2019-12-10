@@ -1,6 +1,7 @@
 package sg.edu.nus.smsys.controllers;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpSession;
@@ -67,8 +68,8 @@ public class HomeController {
 		}
 		if (us.verifyUserAndPassword(user.getUsername(), user.getPassword()) == true){
 			//LOGIN AUTHENTHICATION IS SUCCESSFUL
-			int accesslevel = urepo.findByUsername(user.getUsername()).getAccessRights();
-			
+			Optional<User> u = urepo.findByUsername(user.getUsername());
+			int accesslevel = u.get().getAccessRights();			
 	
 			
 			//System.out.println("NEW SESSION IN TOWN!   " + UserSession.sessions.get(0).getSessionId());
