@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import sg.edu.nus.smsys.models.CourseAdmin;
 import sg.edu.nus.smsys.models.Leave;
+import sg.edu.nus.smsys.models.Lecturer;
 //import sg.edu.nus.smsys.models.MyAnnotation;
 import sg.edu.nus.smsys.models.Staff;
-
+import sg.edu.nus.smsys.repository.CourseAdminRepository;
 import sg.edu.nus.smsys.repository.LeaveRepository;
+import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.StaffRepository;
 
 
@@ -38,6 +41,13 @@ public class LeaveController {
 	
 	@Autowired 
 	StaffRepository srepo;
+	
+	@Autowired
+	CourseAdminRepository crepo;
+	
+	@Autowired
+	LecturerRepository lerepo;
+	
 	
 	/*
 	 * @GetMapping("/alllist")
@@ -63,6 +73,32 @@ public class LeaveController {
 	if(!id.equals("")) {
 		Staff staff = srepo.findByStaffId(Integer.parseInt(id));
 		leavelist.addAll(lrepo.findBysubmittedByStaffID(staff));
+		
+		
+		//alternatively
+		/*System.out.println(srepo.findByStaffId(Integer.parseInt(id)).getClass().toString());
+		
+		if(srepo.findByStaffId(Integer.parseInt(id)).getClass()==CourseAdmin.class)
+		{
+			//get cadmin
+			//find all leave taken by cadmin
+			
+			//addall to leave list
+			
+			CourseAdmin courseadmin = (CourseAdmin)srepo.findByStaffId(Integer.parseInt(id));
+			leavelist.addAll(lrepo.findBysubmittedByStaffID(courseadmin));
+			
+		} else if (srepo.findByStaffId(Integer.parseInt(id)).getClass()==Lecturer.class) {
+			//get cadmin
+			//find all leave taken by lecturer
+			
+			//addall to leave list
+			
+			Lecturer lecturer= (Lecturer) srepo.findByStaffId(Integer.parseInt(id));
+			//CourseAdmin courseadmin = crepo.findByStaffId(Integer.parseInt(id));
+			leavelist.addAll(lrepo.findBysubmittedByStaffID(lecturer));
+			
+		}*/	
 	}
 	else {
 		leavelist.addAll(lrepo.findAll());
@@ -131,10 +167,13 @@ public class LeaveController {
 	}
 	
 	@GetMapping("/view/{id}")
-	public String viewLeaveDetails(Model model, @ModelAttribute Leave l , @PathVariable("id") Integer id) {
-		l = lrepo.findById(id).get();
+	public String viewLeaveDetails(Model model, @ModelAttribute Leave leave , @PathVariable("id") Integer id) {
+		leave = lrepo.findById(id).get();
 		
-		model.addAttribute("leave", l);
+		model.addAttribute("leave", leave);
+		
+		
+		
 		
 		return "leavedetails";
 	}
@@ -147,18 +186,30 @@ public class LeaveController {
 		return "redirect:/leave/alllist";
 	}*/
 	
-	@PostMapping("/reply/{id}")
-	public String replyLeave(Leave leave,@PathVariable("id") int id) {
-		leave.setLeaveId(id);
+	@PostMapping("/reply")
+	public String replyLeave(@ModelAttribute Leave leave) {
 		lrepo.save(leave);
+		
+		Staff staff=new Staff();
+		staff=srepo.findByStaffId(leave.getSubmittedByStaffID().getStaffId());
+		
+		if(leave.getStatus().equals("approve")) 
+		{
+		
+		staff.setAnnualLeaveBalance(leave.getSubmittedByStaffID().getAnnualLeaveBalance()-leave.getDuration());
+		
+		}
+		else {
+			staff.setAnnualLeaveBalance(leave.getSubmittedByStaffID().getAnnualLeaveBalance());
+		}
+		srepo.save(staff);
+		
 		
 		System.out.println("duration = " + leave.getDuration());
 		System.out.println("reason = " + leave.getReason());
 		System.out.println("status= " + leave.getStatus());
 		System.out.println("id = " + leave.getLeaveId());
 		
-		
-			//String staffId = String.valueOf(l.getSubmittedByStaffID().getStaffId());
 		return "redirect:/leave/alllist";
 	}
 

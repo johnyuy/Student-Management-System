@@ -8,37 +8,51 @@
 
 <form action="/leave/reply"  th:object="${leave}" method="post"th:action="@{/leave/reply}"  >
 <table>
-<tr>
-	<td>Staff Name</td>
-	<td th:field="*{submittedByStaffID.firstName}" th:text=${leave.submittedByStaffID.firstName}>Name</td>
-</tr>
 
 <tr>
+	<td>Application Id</td>
+	<td >
+	<input type="text" th:field=*{leaveId} />
+	</td>
+</tr>
+<tr>
 	<td>Staff Id</td>
-	<td th:field="*{submittedByStaffID.staffId}" th:text=${leave.submittedByStaffID.staffId}>Id</td>
+	<td >
+	<input type="text" th:field=*{submittedByStaffID.staffId} />
+	</td>
+</tr>
+<tr>
+	<td>Staff Name</td>
+	<td >
+	<input type="text" th:field=*{submittedByStaffID.firstName} />
+	</td>
 </tr>
 
 <tr>
 	<td>Leave Start Time</td>
-	<td><span th:field="*{dateStart}" th:text=${leave.dateStart}>Start Time</span></td>
+	<td >
+	<input type="text" th:field=*{dateStart} /></td>
 </tr>
 
 <tr>
 	<td>Duration</td>
-	
-	<td><span th:field="*{duration}" th:text=${leave.duration}>Start Time</span></td>
+	<td >
+	<input type="text" th:field=*{duration} /></td>
 </tr>
 
 <tr>
 	<td>Reason</td>
-	<td>
-	<span th:field="*{reason}" th:text=${leave.reason}>Start Time</span></td>
-</tr>
-<tr>
-	<td>Annual Balance</td>
-	<td  th:text=${leave.submittedByStaffID.annualLeaveEntitled-leave.duration}>Annual Balance</td>
+	<td >
+	<input type="text" th:field=*{reason} /></td>
 </tr>
 
+<tr>
+	<td>Annual Leave Balance</td>
+	<td >
+	<input type="text" th:field=*{submittedByStaffID.annualLeaveBalance} />
+	
+	</td>
+</tr>
 
 <tr>
 	<th>Status</th>
@@ -54,7 +68,7 @@
 </table>
 
 
-<p><button type="submit" >Submit</button></p>
+<button type="submit" >Submit</button>
 
 </form>
 

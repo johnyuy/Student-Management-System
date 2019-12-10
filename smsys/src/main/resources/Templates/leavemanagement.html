@@ -14,6 +14,7 @@
 	<th>Duration</th>
 	<th>Reason</th>
 	<th>Status</th>
+	<th>Annual Leave Balance</th>
 	<th>View</th>
 	</tr>
 	<tr th:each="leave:${leave}" >
@@ -24,6 +25,12 @@
 	<td th:text=${leave.duration}>duration</td>
 	<td th:text=${leave.reason}>reason</td>
 	<td th:text=${leave.status}>status</td>
+	<td th:text=${leave.submittedByStaffID.annualLeaveBalance}>balance</td>
+	
+	<!--  
+	<td th:text="*{status == 'approve'}?  21-${leave.duration} : ${leave.submittedByStaffID.annualLeaveBalance}">balance</td>
+	-->
+	
 	<td ><a th:href="@{/leave/view/}+${leave.leaveId}">View Details</a></td>
 	</tr>
 	</table>

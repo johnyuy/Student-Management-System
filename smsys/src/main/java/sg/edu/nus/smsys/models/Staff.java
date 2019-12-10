@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 @Table(name="STAFF_TABLE")
 @DiscriminatorColumn(name="STAFF_TYPE")
 @SequenceGenerator(name="staff_id_seq", initialValue = 50001)
-public abstract class Staff extends Person {
+public  class Staff extends Person {
 	
 	@Id
 	@NotNull
