@@ -27,7 +27,7 @@ import sg.edu.nus.smsys.service.UserService;
 
 
 @Controller
-@RequestMapping("/home/courseadmin/useraccount")
+@RequestMapping("/home/admin/useraccount")
 public class UserAccountController {
 	
 	@Autowired

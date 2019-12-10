@@ -41,7 +41,7 @@ public class UserServiceImplement implements UserService {
 		byte[] salt = getSalt();
 		String pw = PasswordEncoder(password, salt);
 		if (userType == 5) {
-			
+	
 			//Course Admin
 			if (UsernameExist("A" + id) == false && CourseAdminIdExist(id) == true) {
 				
@@ -131,19 +131,16 @@ public class UserServiceImplement implements UserService {
 	}
 
 	public boolean verifyUserAndPassword(String username, String password) {
-		
 		Optional<User> u = urepo.findByUsername(username);
-		System.out.println("EXIST? = "+ u.isPresent());
-		if (u != null) {
-			System.out.println("ok  "+ username);
+		if (u.isPresent()) {
 			User user = u.get();
 			byte[] salt = user.getSalt();
 			
 			String testpw = PasswordEncoder(password, salt);
-			log.info("Username verified, comparing passwords...");
+			log.info("Username found, checking credentials...");
 			
 			if (testpw.equals(user.getPassword())) {
-				System.out.println("Password verified, logged in...");
+				log.info("Authenthication sucessful!");
 				return true;
 			} else {
 				log.info("Wrong password!");

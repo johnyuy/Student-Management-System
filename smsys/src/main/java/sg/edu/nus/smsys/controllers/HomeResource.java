@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.controllers;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,21 +8,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeResource {
 	@GetMapping("/")
 	public String home() {
-		return("<h1>Welcome</h1>");
+		return("<h1>Main Home Page</h1>");
 	}
 	
-	@GetMapping("/student2")
-	public String student() {
-		return("<h1>Welcome student</h1>");
+	@GetMapping("/student")
+	public String getStudentHome(Model m) {
+		return("studenthome");
 	}
 	
-	@GetMapping("/admin2")
-	public String admin() {
-		return("<h1>Welcome admin</h1>");
+	@GetMapping("/admin")
+	public String getAdminHome(Model m) {
+		return("courseadminhome");
 	}
 	
-	@GetMapping("/lecturer2")
-	public String lecturer() {
-		return("<h1>Welcome lecturer</h1>");
+	@GetMapping("/lecturer")
+	public String getLecturerHome(Model m) {
+		return("lecturerhome");
 	}
 }

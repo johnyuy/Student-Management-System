@@ -30,7 +30,7 @@ import sg.edu.nus.smsys.repository.UserRepository;
 import sg.edu.nus.smsys.service.UserService;
 
 @Controller
-@RequestMapping("/home")
+//@RequestMapping("/home")
 public class HomeController {
 	@Autowired
 	private UserRepository urepo;
@@ -51,6 +51,8 @@ public class HomeController {
 		model.addAttribute("user", user);
 		return "login";
 	}
+	
+	
 	
 	@GetMapping("/logout")
 	public String getLogoutPage(SessionStatus status) {
@@ -79,47 +81,18 @@ public class HomeController {
 			
 			//System.out.println("NEW SESSION IN TOWN!   " + UserSession.sessions.get(0).getSessionId());
 			if ( accesslevel == 1) {
-				return "redirect:/home/admin";
+				return "redirect:/admin";
 			} 
 			if (accesslevel == 2) {
-					return "redirect:/home/lecturer";
+					return "redirect:/lecturer";
 				} 
 			if (accesslevel == 3) {
-					return "redirect:/home/student";
+					return "redirect:/student";
 				}
 		}
 		
 		return "redirect:/home/login";
 		
 	}
-	
-	@GetMapping("/lecturer")
-	public String getLecturerPage(Model model) {
-		//model.addAttribute("user", new UserSession());
-		return "lecturerhome";
-	}
-	
-	@GetMapping("/admin")
-	public String getAdminPage(Model model) {
-		//model.addAttribute("user", new UserSession());
-		return "courseadminhome";
-	}
-	
-	@GetMapping("/student")
-	public String getStudentPage(Model model) {
-		//model.addAttribute("user", new UserSession());
-		return "studenthome";
-	}
 
-			
-	@Scheduled(fixedRate = 1000)
-	public void printTime() {
-		System.out.println("Fixed Delay Task :: Execution Time -" + LocalDateTime.now().toString());
-	    try {
-	        TimeUnit.SECONDS.sleep(10);
-	    } catch (InterruptedException ex) {
-	        System.out.println("Ran into an error {} "+  ex);
-	        throw new IllegalStateException(ex);
-	    }
-	}
 }
