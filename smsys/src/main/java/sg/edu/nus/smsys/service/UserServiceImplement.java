@@ -48,14 +48,14 @@ public class UserServiceImplement implements UserService {
 				String username = "A" + id;
 				User user = new User(username, ca.getAccessLevel(), pw, salt);
 				urepo.save(user);
-				System.out.println("New user account for " + ca.getFirstName() + " " + ca.getLastName()
+				log.info("New user account for " + ca.getFirstName() + " " + ca.getLastName()
 						+ " has been successfully created.");
 			} else if (UsernameExist("L" + id) == false && LecturerIdExist(id) == true) {
 				Lecturer lect = lrepo.findByStaffId(id);
 				String username = "L" + id;
 				User user = new User(username, lect.getAccessLevel(), pw, salt);
 				urepo.save(user);
-				System.out.println("New user account for " + lect.getFirstName() + " " + lect.getLastName()
+				log.info("New user account for " + lect.getFirstName() + " " + lect.getLastName()
 						+ " has been successfully created.");
 			}
 		//Create user account only if user account does not alr exist but student exists in student table
@@ -65,11 +65,11 @@ public class UserServiceImplement implements UserService {
 			User user = new User(username, s.getAccessLevel(), pw, salt
 					);
 			urepo.save(user);
-			System.out.println("New user account for " + s.getFirstName() + " " + s.getLastName()
+			log.info("New user account for " + s.getFirstName() + " " + s.getLastName()
 					+ " has been successfully created.");
 		} else {
-			System.out.println("Error creating user account.");
-			System.out.println(
+			log.info("Error creating user account.");
+			log.info(
 					"There is an existing account with that username or person does not exist in the database.");
 		}
 	}
@@ -143,19 +143,18 @@ public class UserServiceImplement implements UserService {
 			log.info("Testpw is " + testpw);
 			log.info("datapw is " + user.getPassword());
 			if (testpw.equals(user.getPassword())) {
-				System.out.println("Password verified");
+				log.info("Password verified");
 				return true;
 			}
 			else {
-				System.out.println("Wrong password.");
+				log.info("Wrong password.");
 				return false;
 			}
 		}
 		else {
-			System.out.println("Username does not exist.");
+			log.info("Username does not exist.");
 			return false;
 		}
 	}
-
 
 }
