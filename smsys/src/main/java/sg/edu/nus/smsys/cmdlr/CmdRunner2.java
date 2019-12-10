@@ -73,6 +73,7 @@ public class CmdRunner2 implements CommandLineRunner {
 		try {
 			us.registerNewAccount(50001, "password");
 			us.registerNewAccount(50002, "admin");
+			
 		} catch (GeneralSecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
