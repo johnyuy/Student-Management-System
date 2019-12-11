@@ -9,15 +9,28 @@
 		<h1 th:text=${class.course.courseName}>Class Course Name</h1>
 		<h2>Class Details</h2>
 		<br />
-		<table class="w3-table-all w3-centered w3-hoverable">
+		<table class="w3-table-all w3-centered">
+		
+			<tr>
+				<th>Class ID</th>
+				<td th:text=${class.classId}>id</td>
+			</tr>
+			
 			<tr>
 				<th>Course</th>
-				<td th:text=${class.course.courseName}></td>
-			<tr>
-				<th>Semesters</th>
-				<td th:each="sem : ${class.semesterList}"><span  th:text=${sem.semCode}></span></td>
+				<td th:text="${class.course.courseName}+'&nbsp;('+${class.course.courseId}+')'">course</td>
 			</tr>
-		
+			
+			<tr>
+				<th>Level</th>
+				<td th:text=${class.level}>level</td>
+			</tr>
+			
+			<tr>
+				<th>Sem list</th>
+				<td th:text=${semlist}></td>
+			</tr>
+			
 		</table>
 
 		<form method="get" th:action="@{/classes/list}">

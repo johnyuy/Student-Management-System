@@ -38,9 +38,9 @@ public class Semester {
 		this.classList = classList;
 		this.semCode = String.valueOf(LocalDate.parse(startDate).getYear()%100) + "/" + String.valueOf(LocalDate.parse(startDate).getYear()%100+1);
 		if(LocalDate.parse(startDate).getMonthValue()>=7 && LocalDate.parse(startDate).getMonthValue()<=12) {
-			this.semCode += "/1";
+			this.semCode += "-S1";
 		} else {
-			this.semCode += "/2";
+			this.semCode += "-S2";
 		}
 	}
 	

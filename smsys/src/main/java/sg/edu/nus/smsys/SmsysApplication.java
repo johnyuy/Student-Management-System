@@ -48,10 +48,11 @@ public class SmsysApplication {
 	        TimeUnit.SECONDS.sleep(10);
 	    } catch (InterruptedException ex) {
 	        log.info("Ran into an error : "+  ex);
+	        log.info("APPLICATION ENDED");
 	        //throw new IllegalStateException(ex);
 	    } finally
 	    {
-	    	log.info("APPLICATION ENDED");
+	    	
 	    }
 	}
 }

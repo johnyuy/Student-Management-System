@@ -23,7 +23,9 @@
 					th:text="${class.course.courseName}+' ('+${class.course.courseId}+')'">Course</a></td>
 				<td th:text=${class.classId}>Class Id</td>
 				<td th:text=${class.level}>Class Level</td>
-				<td th:text="view">Details</td>
+				<td><a href="courseclassdetails.html"
+					th:href="@{/classes/details/}+${class.classId}"
+					th:text="view">view</a></td>
 			</tr>
 		</table>
 		<br />
