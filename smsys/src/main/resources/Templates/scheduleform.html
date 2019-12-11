@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="UTF-8">
+<title>Create Schedule</title>
+</head>
+<body>
+<div class="w3-responsive">
+
+<form  th:object="${schedule}" method="post" >
+
+	<fieldset>
+	Date:<input type="date" th:field="*{date}"/>
+	</fieldset>
+	
+	<fieldset>
+	Period:
+	<select th:field="*{period}" >
+	<option value="1">select period</option>
+	<option  th:value="1">Morning</option>
+  	<option  th:value="2">Afternoon</option>
+  	</select>
+	</fieldset>
+	
+	<fieldset>
+	LecturerName:
+	<select th:field="*{lecturer}" >
+	
+	<option th:each="lecturer:${lecturer}"
+		    th:value="${lecturer.staffId}" 
+		    th:text="${lecturer.firstName}">Name</option>
+	
+  	</select>
+	</fieldset>
+	
+	<fieldset>
+	SubjectName:
+	<select th:field="*{subject}" >
+	
+	<option th:each="subject:${subject}"
+		    th:value="${subject.subjectId}" 
+		    th:text="${subject.subjectName}">Name</option>
+	
+  	</select>
+
+
+	</fieldset>
+	
+	<fieldset>
+	CourseClassName:
+	<select th:field="*{clas}" >
+	
+	<option th:each="courseclass:${courseclass}"
+		    th:value="${courseclass.classId}" 
+		    th:text="${courseclass.course.courseName}">Name</option>
+	
+  	</select>
+	
+	</fieldset>
+	
+	<fieldset>
+	<button type="submit">Submit</button>
+	</fieldset>
+</form>
+
+
+</div>
+
+</body>
+</html>
