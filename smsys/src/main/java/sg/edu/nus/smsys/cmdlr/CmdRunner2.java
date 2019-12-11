@@ -45,7 +45,15 @@ public class CmdRunner2 implements CommandLineRunner {
 		Lecturer l1 = new Lecturer("Daniel", "Edward", "Foo", "male", LocalDate.of(1972, 02, 4), "Dr",
 				"Holland Village", "93336566", "danielEF@hotmail.com", "Available", 21, 21, null, null, null, null,
 				null, null);
+		Lecturer l2 = new Lecturer("Danny", "Kim", "DimSum", "female", LocalDate.of(1972, 01, 21), "Dr",
+				"Haw Par Villa", "91336506", "dimsumDA@hotmail.com", "Available", 21, 21, null, null, null, null,
+				null, null);
+		Lecturer l3 = new Lecturer("Boon", "Kom", "Tum", "male", LocalDate.of(1962, 11, 11), "Dr",
+				"Chinatown", "91346645", "chinaboi@hotmail.com", "Available", 21, 21, null, null, null, null,
+				null, null);
 		lrepo.save(l1);
+		lrepo.save(l2);
+		lrepo.save(l3);
 		// Insert Students
 		log.info("Adding Students..");
 		List<Student> initialStudents = new ArrayList<Student>();
@@ -73,6 +81,8 @@ public class CmdRunner2 implements CommandLineRunner {
 		try {
 			us.registerNewAccount(50001, "password");
 			us.registerNewAccount(50002, "admin");
+			us.registerNewAccount(50003, "l2");
+			us.registerNewAccount(50004, "l3");
 		} catch (GeneralSecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
