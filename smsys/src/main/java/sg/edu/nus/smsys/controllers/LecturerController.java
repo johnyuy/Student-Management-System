@@ -43,7 +43,7 @@ public class LecturerController {
 		} else {
 			model.addAttribute("lecturers", llist);
 		}
-		return "lecturerlist";
+		 return "lecturerlist";
 	}
 
 	@GetMapping("/details")
