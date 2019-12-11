@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="UTF-8">
+<title>Lecturer Form</title>
+</head>
+<body>
+	<form action="/lecturers/add" method="post" th:object="${staff}"
+		th:action="@{/lecturers/add}">
+		<table class="w3-table-all">
+			<tr>
+				<th>Title</th>
+				<td><input type="text" th:field="*{title}" /></td>
+			</tr>
+			<tr>
+				<th>First Name</th>
+				<td><input type="text" th:field="*{firstName}" /></td>
+			</tr>
+			<tr>
+				<th>Middle Name</th>
+				<td><input type="text" th:field="*{middleName}" /></td>
+			</tr>
+			<tr>
+				<th>Last Name</th>
+				<td><input type="text" th:field="*{lastName}" /></td>
+			</tr>
+			<tr>
+				<th>Birth Date</th>
+				<td><input type="date" th:field="*{birthDate}" /></td>
+			</tr>
+			<tr>
+				<th>Mobile</th>
+				<td><input type="text" th:field="*{mobile}" /></td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td><input type="text" th:field="*{email}" /></td>
+			</tr>
+			<tr>
+				<th>Gender</th>
+				<td><select th:field="*{gender}">
+						<option value="" selected hidden>Select Gender</option>
+						<option th:value="Male">Male</option>
+						<option th:value="Female">Female</option>
+					</select>
+				</td>
+			</tr>		
+			<tr>
+				<th>Address</th>
+				<td><input type="text" th:field="*{address}" /></td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td><input type="text" th:field="*{status}" /></td>
+			</tr>
+
+			<tr>
+				<td>
+					<button type="submit">Add Lecturer</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

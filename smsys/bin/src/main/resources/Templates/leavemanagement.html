@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta charset="UTF-8">
 <title>Leave Management Page</title>
 </head>
 <body>
-<div class="w3-responsive">
-
-<table class="w3-table-all w3-centered w3-hoverable">
+<table>
 	<tr>
 	<th>Application ID</th>
 	<th>Staff ID</th>
@@ -29,11 +26,16 @@
 	<td th:text=${leave.reason}>reason</td>
 	<td th:text=${leave.status}>status</td>
 	<td th:text=${leave.submittedByStaffID.annualLeaveBalance}>balance</td>
+	
+	<!--  
+	<td th:text="*{status == 'approve'}?  21-${leave.duration} : ${leave.submittedByStaffID.annualLeaveBalance}">balance</td>
+	-->
+	
 	<td ><a th:href="@{/leave/view/}+${leave.leaveId}">View Details</a></td>
 	</tr>
 	</table>
 	
 
-</div>
+
 </body>
 </html>

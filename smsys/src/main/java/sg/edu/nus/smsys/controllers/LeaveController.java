@@ -41,7 +41,7 @@ public class LeaveController {
 
 	@Autowired
 	CourseAdminRepository crepo;
-
+	
 	@Autowired
 	LecturerRepository lerepo;
 
@@ -74,14 +74,14 @@ public class LeaveController {
 		return "leaveapplication";
 	}
 
-	@PostMapping("/addleave")
-	public String applyLeave(@Valid Leave l, BindingResult bindingResult) {
+	@PostMapping("/add")
+	public String applyLeave(@Valid @ModelAttribute Leave l, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			bindingResult.getFieldErrors().stream()
 					.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
 			return "leaveapplication";
 		}
-		System.out.println(l.getDateStart().toString());
+		//System.out.println(l.getDateStart().toString());
 
 		lrepo.save(l);
 		String staffId = String.valueOf(l.getSubmittedByStaffID().getStaffId());
@@ -90,7 +90,7 @@ public class LeaveController {
 	}
 
 	@PostMapping("/edit/{id}")
-	public String submitLeave(@Valid  @ModelAttribute Leave l, BindingResult bindingResult, @PathVariable("id") int id) {
+	public String submitLeave(@Valid Leave l, BindingResult bindingResult, @PathVariable("id") Integer id) {
 		if (bindingResult.hasErrors()) {
 			bindingResult.getFieldErrors().stream()
 					.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
@@ -103,11 +103,11 @@ public class LeaveController {
 	}
 
 	@GetMapping("/edit/{id}")
-	public String showEditForm(Model model, @PathVariable("id") String id) {
+	public String showEditForm(Model model, @PathVariable("id") Integer id) {
 		//show a specific leave on page by leave id
 		Leave leave = lrepo.findById(Integer.valueOf(id)).get();
 		model.addAttribute("leave", leave);
-		return "leaveapplication.html";
+		return "leaveapplication";
 	}
 
 	@GetMapping("/delete/{id}")

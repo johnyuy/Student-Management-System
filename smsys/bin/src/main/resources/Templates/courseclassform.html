@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="UTF-8">
+<title>Add Class</title>
+</head>
+<body>
+	<h3>Add Class</h3>
+	<div class="w3-responsive">
+
+		<form action="/classes/add" method="post"
+			th:object="${courseClass}" th:action="@{/classes/add}">
+			<table class="w3-table-all">
+				<tr>
+					<th>Course</th>
+					<td><select th:field="${courseClass.course}">
+							<option value="" selected hidden>Select Course</option>
+							<option th:each="course: ${courseList}"
+								th:value="${course.courseId}" th:text="${course.courseName}"></option>
+					</select></td>
+				</tr>
+				<tr>
+					<th>Starting Semester</th>
+					<td><select th:field="${courseClass.semesterList}">
+							<option value="" selected hidden>Select Semester</option>
+							<option th:each="semester: ${semesterList}"
+								th:value="${semester.semId}" th:text="${semester.semCode}"></option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit">Add Class</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
