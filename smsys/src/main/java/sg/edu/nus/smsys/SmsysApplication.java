@@ -37,7 +37,7 @@ public class SmsysApplication {
 			CourseRepository Csrepo, UserService us) {
 
 		return (args) -> {
-			log.info("END OF PROGRAM");
+			log.info("END OF INITIALIZATION");
 		};
 	}
 	
@@ -48,7 +48,10 @@ public class SmsysApplication {
 	        TimeUnit.SECONDS.sleep(10);
 	    } catch (InterruptedException ex) {
 	        log.info("Ran into an error : "+  ex);
-	        throw new IllegalStateException(ex);
+	        //throw new IllegalStateException(ex);
+	    } finally
+	    {
+	    	log.info("APPLICATION ENDED");
 	    }
 	}
 }
