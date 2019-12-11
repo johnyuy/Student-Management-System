@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="schedule_table")
 @SequenceGenerator(name="schedule_id_seq", initialValue = 10000000)
@@ -23,10 +26,12 @@ public class Schedule {
 	@Max(19999999)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "schedule_id_seq")
 	private int scheduleId;
-	@NotNull
-	private String timeStart;
+	
 	@Min(1)
-	private int durationHours;
+	@Max(2)
+	private int period;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate date;
 	@ManyToOne
 	private Lecturer lecturer;
 	@ManyToOne
@@ -38,52 +43,81 @@ public class Schedule {
 	public Schedule() {
 		super();
 	}
-	public Schedule(int scheduleId, String timeStart, int durationHours, Lecturer lecturer, Subject subject) {
+	
+	
+	public Schedule(@NotNull @Min(10000000) @Max(19999999) int scheduleId, @Min(1) @Max(2) int period, LocalDate date,
+			Lecturer lecturer, Subject subject, CourseClass clas) {
 		super();
 		this.scheduleId = scheduleId;
-		this.timeStart = timeStart;
-		this.durationHours = durationHours;
+		this.period = period;
+		this.date = date;
 		this.lecturer = lecturer;
 		this.subject = subject;
+		this.clas = clas;
 	}
-	
 	//GETTERS AND SETTERS
+
+
 	public int getScheduleId() {
 		return scheduleId;
 	}
-	public String getTimeStart() {
-		return timeStart;
+
+
+	public int getPeriod() {
+		return period;
 	}
-	public int getDurationHours() {
-		return durationHours;
+
+
+	public LocalDate getDate() {
+		return date;
 	}
+
+
 	public Lecturer getLecturer() {
 		return lecturer;
 	}
+
+
 	public Subject getSubject() {
 		return subject;
 	}
+
+
 	public CourseClass getClas() {
 		return clas;
 	}
+
+
 	public void setScheduleId(int scheduleId) {
 		this.scheduleId = scheduleId;
 	}
-	public void setTimeStart(String timeStart) {
-		this.timeStart = timeStart;
+
+
+	public void setPeriod(int period) {
+		this.period = period;
 	}
-	public void setDurationHours(int durationHours) {
-		this.durationHours = durationHours;
+
+
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
+
+
 	public void setLecturer(Lecturer lecturer) {
 		this.lecturer = lecturer;
 	}
+
+
 	public void setSubject(Subject subject) {
 		this.subject = subject;
 	}
+
+
 	public void setClas(CourseClass clas) {
 		this.clas = clas;
 	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -91,6 +125,8 @@ public class Schedule {
 		result = prime * result + scheduleId;
 		return result;
 	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -104,9 +140,12 @@ public class Schedule {
 			return false;
 		return true;
 	}
+
+
 	@Override
 	public String toString() {
-		return "Schedule [scheduleId=" + scheduleId + ", timeStart=" + timeStart + ", durationHours=" + durationHours
-				+ ", lecturer=" + lecturer + ", subject=" + subject + ", clas=" + clas + "]";
-	}	
+		return "Schedule [scheduleId=" + scheduleId + ", period=" + period + ", date=" + date + ", lecturer=" + lecturer
+				+ ", subject=" + subject + ", clas=" + clas + "]";
+	}
+	
 }
