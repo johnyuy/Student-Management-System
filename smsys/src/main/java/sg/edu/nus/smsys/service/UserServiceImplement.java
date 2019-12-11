@@ -19,12 +19,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.*;
+import java.util.Optional;
 
 @Service
 public class UserServiceImplement implements UserService {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(UserServiceImplement.class);
-	
+
 	@Autowired
 	private UserRepository urepo;
 	@Autowired
@@ -39,38 +40,37 @@ public class UserServiceImplement implements UserService {
 		int userType = id / 10000;
 		byte[] salt = getSalt();
 		String pw = PasswordEncoder(password, salt);
-		
 		if (userType == 5) {
-			//Create user account only if user account does not alr exist but staff exists in staff table
+	
+			//Course Admin
 			if (UsernameExist("A" + id) == false && CourseAdminIdExist(id) == true) {
-
+				
 				CourseAdmin ca = crepo.findByStaffId(id);
 				String username = "A" + id;
-				User user = new User(username, ca.getAccessLevel(), pw, salt);
+				User user = new User(username, ca.getAccessLevel(), pw, salt, "ROLE_ADMIN", true);
 				urepo.save(user);
-				System.out.println("New user account for " + ca.getFirstName() + " " + ca.getLastName()
-						+ " has been successfully created.");
-			} else if (UsernameExist("L" + id) == false && LecturerIdExist(id) == true) {
+				log.info("New user account for " + ca.getFirstName() + " " + ca.getLastName()
+						+ " has been successfully created.");} 
+			//lecturer
+			else if (UsernameExist("L" + id) == false && LecturerIdExist(id) == true) {
 				Lecturer lect = lrepo.findByStaffId(id);
 				String username = "L" + id;
-				User user = new User(username, lect.getAccessLevel(), pw, salt);
+				User user = new User(username, lect.getAccessLevel(), pw, salt, "ROLE_LECTURER", true);
 				urepo.save(user);
-				System.out.println("New user account for " + lect.getFirstName() + " " + lect.getLastName()
+				log.info("New user account for " + lect.getFirstName() + " " + lect.getLastName()
 						+ " has been successfully created.");
 			}
-		//Create user account only if user account does not alr exist but student exists in student table
+		//student
 		} else if (userType == 1 && UsernameExist("S" + id) == false && StudentIdExist(id) == true) {
 			Student s = srepo.findByStudentId(id);
 			String username = "S" + id;
-			User user = new User(username, s.getAccessLevel(), pw, salt
-					);
+			User user = new User(username, s.getAccessLevel(), pw, salt, "ROLE_STUDENT", true);
 			urepo.save(user);
-			System.out.println("New user account for " + s.getFirstName() + " " + s.getLastName()
+			log.info("New user account for " + s.getFirstName() + " " + s.getLastName()
 					+ " has been successfully created.");
 		} else {
-			System.out.println("Error creating user account.");
-			System.out.println(
-					"There is an existing account with that username or person does not exist in the database.");
+			log.info("Error creating user account.");
+			log.info("There is an existing account with that username or person does not exist in the database.");
 		}
 	}
 
@@ -91,11 +91,11 @@ public class UserServiceImplement implements UserService {
 	}
 
 	private boolean UsernameExist(String username) {
-
-		if (urepo.findByUsername(username) != null) {
+		Optional<User> user =  urepo.findByUsername(username);
+		if(user.isPresent()==false)
+			return false;
+		else
 			return true;
-		}
-		return false;
 	}
 
 	private boolean StudentIdExist(int studentId) {
@@ -105,60 +105,49 @@ public class UserServiceImplement implements UserService {
 		}
 		return false;
 	}
-	
+
 	public String PasswordEncoder(String password, byte[] salt) {
 		String encodedPassword = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(salt);
-            byte[] bytes = md.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            encodedPassword = sb.toString();
-        } 
-        catch (NoSuchAlgorithmException e) 
-        {
-            e.printStackTrace();
-        }
-        return encodedPassword;
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-512");
+			md.update(salt);
+			byte[] bytes = md.digest(password.getBytes());
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++) {
+				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			encodedPassword = sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return encodedPassword;
 	}
-	
-	private static byte[] getSalt() throws NoSuchAlgorithmException
-    {
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-        byte[] salt = new byte[16];
-        sr.nextBytes(salt);
-        return salt;
-    }
-	
-	public boolean verifyUserAndPassword(String username, String password) 
-	{
-		if(UsernameExist(username)==true)
-		{
-			User user = urepo.findByUsername(username);
+
+	private static byte[] getSalt() throws NoSuchAlgorithmException {
+		SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+		byte[] salt = new byte[16];
+		sr.nextBytes(salt);
+		return salt;
+	}
+
+	public boolean verifyUserAndPassword(String username, String password) {
+		Optional<User> u = urepo.findByUsername(username);
+		if (u.isPresent()) {
+			User user = u.get();
 			byte[] salt = user.getSalt();
+			
 			String testpw = PasswordEncoder(password, salt);
-			log.info("Comparing passwords.");
-			log.info("Testpw is " + testpw);
-			log.info("datapw is " + user.getPassword());
-			if (testpw.equals(user.getPassword())) 
-			{
-				System.out.println("Password verified");
+			log.info("Username found, checking credentials...");
+			
+			if (testpw.equals(user.getPassword())) {
+				log.info("Authenthication successful!");
 				return true;
-			}
-			else 
-			{
-				System.out.println("Wrong password.");
-				return false;
+			} else {
+				log.info("Wrong password!");
 			}
 		}
-		else
-		{
-			System.out.println("Username does not exist.");
-			return false;
-		}
+		log.info("Authenthication failed!");
+		return false;
 	}
+	
 }

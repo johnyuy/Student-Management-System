@@ -23,8 +23,8 @@ import javax.validation.constraints.NotNull;
 @Table(name="STAFF_TABLE")
 @DiscriminatorColumn(name="STAFF_TYPE")
 @SequenceGenerator(name="staff_id_seq", initialValue = 50001)
-public abstract class Staff extends Person {
-	
+
+public class Staff extends Person {
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "staff_id_seq")
@@ -35,7 +35,7 @@ public abstract class Staff extends Person {
 	@Min(0)
 	private int annualLeaveBalance;
 	@Min(0)
-	private int annualLeaveEntitled;
+	private final int annualLeaveEntitled=21;
 	public final int accessLevel = 2;
 	
 	@OneToMany (mappedBy = "submittedByStaffID")
@@ -58,7 +58,7 @@ public abstract class Staff extends Person {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);
 		this.status = status;
 		this.annualLeaveBalance = annualLeaveBalance;
-		this.annualLeaveEntitled = annualLeaveEntitled;
+		//this.annualLeaveEntitled = annualLeaveEntitled;
 		this.annualLeaveList = annualLeaveList;
 		this.manager = manager;	
 	}
@@ -91,9 +91,9 @@ public abstract class Staff extends Person {
 		return annualLeaveEntitled;
 	}
 
-	public void setAnnualLeaveEntitled(int annualLeaveEntitled) {
+	/*public void setAnnualLeaveEntitled(int annualLeaveEntitled) {
 		this.annualLeaveEntitled = annualLeaveEntitled;
-	}
+	}*/
 
 	public List<Leave> getAnnualLeaveList() {
 		return annualLeaveList;

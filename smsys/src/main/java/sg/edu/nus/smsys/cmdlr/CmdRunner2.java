@@ -81,8 +81,12 @@ public class CmdRunner2 implements CommandLineRunner {
 		try {
 			us.registerNewAccount(50001, "password");
 			us.registerNewAccount(50002, "admin");
+<<<<<<< HEAD
 			us.registerNewAccount(50003, "l2");
 			us.registerNewAccount(50004, "l3");
+=======
+			
+>>>>>>> branch 'master' of https://github.com/johnyuy/Student-Management-System
 		} catch (GeneralSecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
