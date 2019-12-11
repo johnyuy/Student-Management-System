@@ -28,7 +28,6 @@ public class Staff extends Person {
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "staff_id_seq")
-	@Min(50001)
 	@Max(59999)
 	private int staffId;
 	private String status;

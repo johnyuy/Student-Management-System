@@ -33,16 +33,12 @@ public class LecturerController {
 	
 	@GetMapping("/list")
 	public String listLecturers(Model model, @RequestParam(defaultValue = "") String name) {
+		model.addAttribute("lecturerlist", null);
+		
 		ArrayList<Lecturer> llist = new ArrayList<Lecturer>();
 		llist.addAll(lrepo.findAll());
+		model.addAttribute("lecturers", llist);
 
-		if (llist.size() == 1) {
-			// 1 lecturer found
-			Lecturer lecturer = llist.get(0);
-			return "redirect:/lecturers/details?id=" + lecturer.getStaffId();
-		} else {
-			model.addAttribute("lecturers", llist);
-		}
 		 return "lecturerlist";
 	}
 
