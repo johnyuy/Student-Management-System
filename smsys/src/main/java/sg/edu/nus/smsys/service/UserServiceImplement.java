@@ -39,22 +39,25 @@ public class UserServiceImplement implements UserService {
 	public void registerNewAccount(Integer id, String password) throws GeneralSecurityException {
 		int userType = id / 10000;
 		byte[] salt = getSalt();
-		String pw = PasswordEncoder(password, salt);
+		System.out.println("HEY : " + id + "   " + password);
+		String pw = passwordEncoder(password, salt);
+		System.out.println("NEW : " + id + "   " + pw);
 		if (userType == 5) {
-
-	
 			//Course Admin
 			if (usernameExist("A" + id) == false && courseAdminIdExist(id) == true) {
-				
+				System.out.println("hereAA");
 				CourseAdmin ca = crepo.findByStaffId(id);
 				String username = "A" + id;
 				User user = new User(username, ca.getAccessLevel(), pw, salt, "ROLE_ADMIN", true);
+				
 				urepo.save(user);
+				
 				log.info("New user account for " + ca.getFirstName() + " " + ca.getLastName()
 
 						+ " has been successfully created.");} 
 			//lecturer
 			else if (usernameExist("L" + id) == false && lecturerIdExist(id) == true) {
+				System.out.println("hereLL");
 				Lecturer lect = lrepo.findByStaffId(id);
 				String username = "L" + id;
 				User user = new User(username, lect.getAccessLevel(), pw, salt, "ROLE_LECTURER", true);
@@ -65,6 +68,7 @@ public class UserServiceImplement implements UserService {
 
 		//student
 		} else if (userType == 1 && usernameExist("S" + id) == false && studentIdExist(id) == true) {
+			System.out.println("hereSS");
 			Student s = srepo.findByStudentId(id);
 			String username = "S" + id;
 			User user = new User(username, s.getAccessLevel(), pw, salt, "ROLE_STUDENT", true);
@@ -95,8 +99,9 @@ public class UserServiceImplement implements UserService {
 
 	private boolean usernameExist(String username) {
 
-		if (urepo.findByUsername(username) != null)
+		if (urepo.findByUsername(username).isPresent()) {
 			return true;
+		}
 		return false;
 	}
 
@@ -139,7 +144,7 @@ public class UserServiceImplement implements UserService {
 			User user = u.get();
 			byte[] salt = user.getSalt();
 			
-			String testpw = PasswordEncoder(password, salt);
+			String testpw = passwordEncoder(password, salt);
 			log.info("Username found, checking credentials...");
 			
 			if (testpw.equals(user.getPassword())) {
@@ -178,9 +183,4 @@ public class UserServiceImplement implements UserService {
 		return null;
 	}
 
-	@Override
-	public String PasswordEncoder(String password, byte[] salt) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

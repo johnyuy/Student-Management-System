@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public interface UserService {
 	
 	@Autowired
-	public String PasswordEncoder(String password, byte[] salt);
+	public String passwordEncoder(String password, byte[] salt);
 	@Autowired
 	public void registerNewAccount(Integer id, String password) throws GeneralSecurityException;
 	@Autowired

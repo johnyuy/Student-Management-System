@@ -33,7 +33,7 @@ public class smsAuthenticationProvider implements AuthenticationProvider{
         String password = authentication.getCredentials().toString();
         if(us.verifyUserAndPassword(name, password)) {
         	User user = uRepo.findByUsername(name).get();
-        	password = us.PasswordEncoder(password, uRepo.findByUsername(name).get().getSalt());
+        	password = us.passwordEncoder(password, uRepo.findByUsername(name).get().getSalt());
         	List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             grantedAuthorities.add(new SimpleGrantedAuthority(user.getRoles()));
         	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(name, password, grantedAuthorities);
