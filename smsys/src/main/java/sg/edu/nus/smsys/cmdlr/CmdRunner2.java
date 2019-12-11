@@ -124,10 +124,10 @@ public class CmdRunner2 implements CommandLineRunner {
 		log.info("Adding some courses..");
 		Course course1 = new Course("Graduate Diploma in Systems Analysis",
 				"The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry.",
-				100, 2, subjectlist, null);
+				"Open", 100, 2, subjectlist, null);
 		Course course2 = new Course("Master of Technology in Enterprise Business Analytics",
 				"The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.",
-				50, 2, null, null);
+				"Open", 50, 2, null, null);
 		courepo.save(course1);
 		courepo.save(course2);
 

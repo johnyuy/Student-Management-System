@@ -30,6 +30,8 @@ public class Course {
 	@NotNull
 	private String courseDesc;
 	@NotNull
+	@NotNull
+	private String courseStatus;
 	@Min(10)
 	private int classSize;
 	@Min(1)
@@ -44,11 +46,12 @@ public class Course {
 		super();
 	}
 	
-	public Course(String courseName, String courseDesc, int classSize, int durationSemesters,
+	public Course(String courseName, String courseDesc,String courseStatus, int classSize, int durationSemesters,
 			List<Subject> courseSubjectList, List<CourseClass> classesList) {
 		super();
 		this.courseName = courseName;
 		this.courseDesc = courseDesc;
+		this.courseStatus = courseStatus;
 		this.classSize = classSize;
 		this.durationSemesters = durationSemesters;
 		this.courseSubjectList = courseSubjectList;
@@ -58,6 +61,14 @@ public class Course {
 	//GETTERS & SETTERS
 	public int getCourseId() {
 		return courseId;
+	}
+	
+	public String getCourseStatus() {
+		return courseStatus;
+	}
+	
+	public void setCourseStatus(String courseStatus) {
+		this.courseStatus = courseStatus;
 	}
 
 	public String getCourseName() {
@@ -137,8 +148,10 @@ public class Course {
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDesc=" + courseDesc
-				+ ", classSize=" + classSize + ", durationSemesters=" + durationSemesters + ", courseSubjectList="
-				+ courseSubjectList + ", classesList=" + classesList + "]";
+				+ ", courseStatus=" + courseStatus + ", classSize=" + classSize + ", durationSemesters="
+				+ durationSemesters + ", courseSubjectList=" + courseSubjectList + ", classesList=" + classesList + "]";
 	}
+
+
 
 }

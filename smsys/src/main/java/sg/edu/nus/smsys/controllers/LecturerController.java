@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import sg.edu.nus.smsys.models.CourseClass;
+import sg.edu.nus.smsys.models.Course;
 import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Subject;
 import sg.edu.nus.smsys.repository.LecturerRepository;
@@ -46,14 +46,10 @@ public class LecturerController {
 		return "lecturerlist";
 	}
 
-	@GetMapping("/details/{staffId}")
+	@GetMapping("/details")
 	public String viewLecturer(Model model, @PathVariable("staffId") int id) {
 		Lecturer lecturer = lrepo.findByStaffId(id);
-		
-		ArrayList<Subject> subj = new ArrayList<Subject>();
-		subj.addAll(srepo.findByLecturerListContaining(lecturer));
-		lecturer.setSubjectList(subj);
-		subj.stream().forEach(s -> System.out.println(s.getSubjectName()));
+		model.addAttribute("staff",lecturer);
 		return "lecturerdetails";
 	}
 
@@ -74,31 +70,31 @@ public class LecturerController {
 			}
 			Lecturer l = new Lecturer();
 			l = lecturer;
-			lrepo.save(lecturer);
+			lrepo.save(l);
 			return "redirect:/lecturers/list";
 		}
 	}
 
-	@GetMapping("/edit/{id}")
-	public String editLecturerForm(Model model, @PathVariable("id") int id) {
+	@GetMapping("/edit/{staffId}")
+	public String editLecturerForm(Model model, @PathVariable("staffId") int id) {
 		Lecturer lecturer = lrepo.findById(id).get();
 		model.addAttribute("staff", lecturer);
 		return "lecturerform";
 	}
 
-	@PostMapping("/edit/{id}")
-	public String editLecturer(@Valid @ModelAttribute Lecturer l, BindingResult bindingResult,
-			@PathVariable("id") int id) {
+	@PostMapping("/edit/{staffId}")
+	public String editLecturer(@Valid @ModelAttribute Lecturer lecturer, BindingResult bindingResult,
+			@PathVariable("staffId") int id) {
 		if (bindingResult.hasErrors()) {
 			return "lecturerform";
 		}
-		l.setStaffId(id);
-		lrepo.save(l);
+		lecturer.setStaffId(id);
+		lrepo.save(lecturer);
 		return "redirect:/lecturers/list";
 	}
 
-	@GetMapping("/delete/{id}")
-	public String deleteLecturer(Model model, @PathVariable("id") int id) {
+	@GetMapping("/delete/{staffId}")
+	public String deleteLecturer(Model model, @PathVariable("staffId") int id) {
 		Lecturer lecturer = lrepo.findById(id).get();
 		lrepo.delete(lecturer);
 		return "redirect:/lecturers/list";

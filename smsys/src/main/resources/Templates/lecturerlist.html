@@ -125,7 +125,7 @@ body {
 					<td th:text=${lecturer.birthDate}>Birth Date</td>
 
 					<td><a type="submit"
-						th:href="@{/lecturer/details/{id}(id=${lecturer.staffId})}"
+						th:href="@{/lecturers/details/{id}(id=${lecturer.staffId})}"
 						class="btn btn-outline-dark">View Details</a></td>
 					<td><a type="submit"
 						th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}"
@@ -157,30 +157,6 @@ body {
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
 
-<!-- 	<script>
-		function myFunction() {
-			// Declare variables
-			var input, filter, table, tr, td, i, txtValue, k;
-			input = document.getElementById("studentsearch");
-			filter = input.value.toUpperCase();
-			table = document.getElementById("studentlist");
-			tr = table.getElementsByTagName("tr");
 
-			// Loop through all table rows, and hide those who don't match the search query
-			for (i = 0; i < tr.length; i++) {
-				for(k = 0; k < 6; k++){
-				td = tr[i].getElementsByTagName("td")[k];
-				if (td) {
-					txtValue = td.textContent || td.innerText;
-					if (txtValue.toUpperCase().indexOf(filter) > -1) {
-						tr[i].style.display = "";
-					} else {
-						tr[i].style.display = "none";
-					}
-				}
-			}
-			}
-		}
-	</script> -->
 </body>
 </html>

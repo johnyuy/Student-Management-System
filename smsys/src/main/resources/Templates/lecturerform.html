@@ -6,8 +6,7 @@
 <title>Lecturer Form</title>
 </head>
 <body>
-	<form action="/lecturers/add" method="post" th:object="${staff}"
-		th:action="@{/lecturers/add}">
+	<form method="post" th:object="${staff}">
 		<table class="w3-table-all">
 			<tr>
 				<th>Title</th>
@@ -40,7 +39,7 @@
 			<tr>
 				<th>Gender</th>
 				<td><select th:field="*{gender}">
-						<option value="" selected hidden>Select Gender</option>
+						<option value="" select>Select Gender</option>
 						<option th:value="Male">Male</option>
 						<option th:value="Female">Female</option>
 					</select>
