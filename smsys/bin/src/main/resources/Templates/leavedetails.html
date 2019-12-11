@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta charset="UTF-8">
 <title>Leave Details</title>
 </head>
 <body>
-<div class="w3-responsive">
-<table class="w3-table-all w3-centered w3-hoverable">
+<table>
 	<tr>
 	<th>Application ID</th>
 	<th>Staff ID</th>
@@ -78,7 +76,7 @@
 	<select th:field="*{status}" >
 	<option value="">select status</option>
 	<option  th:value="approve">approve</option>
-  	
+  	<option  th:value="pending">pending</option>
   	<option  th:value="reject">reject</option>
   	</select>
 	</td>
@@ -93,7 +91,7 @@
 
 
 
-</div>	
+	
 
 
 </body>

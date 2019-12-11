@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta charset="UTF-8">
 <title>Leave Application</title>
 </head>
 <body>
 
-<div class="w3-responsive">
-<form  th:object="${leave}" method="post" >
+
+<form  th:object="${leave}" method="post" th:action="@{addleave}">
 
 	<fieldset>
 	Staff ID:<input type="text" th:field="*{submittedByStaffID}"/>
@@ -35,6 +34,6 @@
 	<button type="submit">Submit</button>
 	</fieldset>
 </form>
-</div>
+
 </body>
 </html>
