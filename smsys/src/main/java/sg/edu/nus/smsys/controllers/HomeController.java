@@ -110,14 +110,14 @@ public class HomeController {
 	}
 
 			
-	@Scheduled(fixedRate = 1000)
-	public void printTime() {
-		System.out.println("Fixed Delay Task :: Execution Time -" + LocalDateTime.now().toString());
-	    try {
-	        TimeUnit.SECONDS.sleep(10);
-	    } catch (InterruptedException ex) {
-	        System.out.println("Ran into an error {} "+  ex);
-	        throw new IllegalStateException(ex);
-	    }
-	}
+//	@Scheduled(fixedRate = 1000)
+//	public void printTime() {
+//		System.out.println("Fixed Delay Task :: Execution Time -" + LocalDateTime.now().toString());
+//	    try {
+//	        TimeUnit.SECONDS.sleep(10);
+//	    } catch (InterruptedException ex) {
+//	        System.out.println("Ran into an error {} "+  ex);
+//	        throw new IllegalStateException(ex);
+//	    }
+//	}
 }

@@ -113,10 +113,10 @@ public class CmdRunner2 implements CommandLineRunner {
 		log.info("Adding some courses..");
 		Course course1 = new Course("Graduate Diploma in Systems Analysis",
 				"The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry.",
-				100, 2, subjectlist, null);
+				100, 2, subjectlist, null, true);
 		Course course2 = new Course("Master of Technology in Enterprise Business Analytics",
 				"The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.",
-				50, 2, null, null);
+				50, 2, null, null, true);
 		courepo.save(course1);
 		courepo.save(course2);
 
@@ -128,6 +128,8 @@ public class CmdRunner2 implements CommandLineRunner {
 		semrepo.save(new Semester(LocalDate.of(2021, 1, 1).toString(), LocalDate.of(2021, 5, 31).toString(), null));
 		semrepo.save(new Semester(LocalDate.of(2021, 8, 1).toString(), LocalDate.of(2021, 12, 31).toString(), null));
 		semrepo.save(new Semester(LocalDate.of(2022, 1, 1).toString(), LocalDate.of(2022, 5, 31).toString(), null));
+		semrepo.save(new Semester(LocalDate.of(2022, 8, 1).toString(), LocalDate.of(2022, 12, 31).toString(), null));
+		semrepo.save(new Semester(LocalDate.of(2023, 1, 1).toString(), LocalDate.of(2023, 5, 31).toString(), null));
 
 		// Create classes
 		log.info("Adding some classes..");
@@ -140,8 +142,12 @@ public class CmdRunner2 implements CommandLineRunner {
 		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
 		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
 		
-
-		
+		//Adding some Course Class for John
+//		log.info("Adding some course classes for John..");
+//		List<CourseClass> cc = new ArrayList<CourseClass>();
+//		Student student = srepo.findByStudentId(10001);
+//
+//		
 		log.info("End of CmdRunner2");
 
 	}
