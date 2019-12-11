@@ -46,12 +46,12 @@ public class ApplicationServiceImplement implements ApplicationService {
 		// check if student can apply based on enrolled course
 		List<CourseClass> courseList = student.getCourseClassList();
 
-		if (courseList == null || courseList.size()==0) {
+		if (courseList == null || courseList.size() == 0) {
 			return true;
 		} else {
 			System.out.println(courseList.size());
 			CourseClass lastCourse = courseList.get(courseList.size() - 1);
-			//lastcourseclass
+			// lastcourseclass
 			if (lastCourse.getLevel() < lastCourse.getCourse().getDurationSemesters()) {
 				return false;
 			} else
@@ -65,7 +65,7 @@ public class ApplicationServiceImplement implements ApplicationService {
 		courseList = crepo.findAll();
 		List<Course> openedCoursesList = new ArrayList<Course>();
 		for (Course course : courseList) {
-			if (course.getCourseStatus() == "Open") {
+			if (course.getCourseStatus().equals("Open")) {
 				openedCoursesList.add(course);
 			}
 		}
@@ -73,25 +73,35 @@ public class ApplicationServiceImplement implements ApplicationService {
 	}
 
 	public List<Course> displayEligibleCourses(Student student) {
-		//get list of courses taken
+		// get list of courses taken
 		List<CourseClass> stuCourseList = student.getCourseClassList();
-		//Get all courses which are currently "open"
+		System.out.println("Student Course List: " + stuCourseList.size());
+		// Get all courses which are currently "open"
 		List<Course> openedCoursesList = displayAvailableCourses();
-		
-		//find courses "open" AND not taken by student
+		System.out.println("Opened Course List: " + openedCoursesList.size());
+		// find courses "open" AND not taken by student
 		List<Course> eligibleCourses = new ArrayList<Course>();
-		
+
 		if (openedCoursesList.size() > 0) {
-			for (Course openedCourse : openedCoursesList) {
-				for (CourseClass courseClass : stuCourseList) {
-					//compare the two list and add only courses not found in student's list
-					int openedCourseId = openedCourse.getCourseId();
-					int completedCourseId = courseClass.getCourse().getCourseId();
-					if (openedCourseId != completedCourseId) {
-						eligibleCourses.add(openedCourse);
+			// if studentlist of courses zie>0
+			if (stuCourseList.size() > 0) {
+				for (Course openedCourse : openedCoursesList) {
+
+					for (CourseClass courseClass : stuCourseList) {
+						// compare the two list and add only courses not found in student's list
+						int openedCourseId = openedCourse.getCourseId();
+						int completedCourseId = courseClass.getCourse().getCourseId();
+						System.out.println("Comparing the Ids: " + openedCourseId + " and " + completedCourseId);
+						if (openedCourseId != completedCourseId) {
+							eligibleCourses.add(openedCourse);
+						}
 					}
 				}
+			} else {
+				// if student have never taken ANY courses before
+				eligibleCourses = openedCoursesList;
 			}
+
 		}
 
 		return eligibleCourses;

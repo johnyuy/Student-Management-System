@@ -31,6 +31,7 @@ public class Course {
 	private String courseDesc;
 	@NotNull
 	private String courseStatus;
+	//Status can either be Open or Closed
 	@Min(10)
 	private int classSize;
 	@Min(1)

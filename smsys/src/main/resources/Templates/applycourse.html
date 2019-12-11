@@ -11,14 +11,15 @@
 			<td>Application for Semester:</td>
 			<td th:text=${semester}>Semester Code</td>
 		</tr>
-		<tr th:if="${courselist.empty}">
+		<tr th:unless="${eligibility == true}">
 			<td colspan="3"> Not eligible to apply for courses. </td>
-		<tr th:if="${!courselist.empty}">
+
+			<tr th:if="${eligibility == true}">
 				<th>Id</th>
 				<th>Name</th>
 				<th>Description</th>
 			</tr>
-			<tr th:each="course:${courseslist}">
+			<tr th:each="course:${courselist}">
 				<td th:text="${course.courseId}"> Course Id</td>
             	<td th:text="${course.courseName}"> Course Name</td>
             	<td th:text="${course.courseDesc}"> Course Description</td>

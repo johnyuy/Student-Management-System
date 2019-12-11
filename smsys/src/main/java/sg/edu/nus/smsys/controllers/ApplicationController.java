@@ -30,10 +30,7 @@ public class ApplicationController {
 	
 	@GetMapping("/applycourse")
 	public String applyCourse(Model model, Student student) {
-//		LocalDate today = LocalDate.now();
-//		String semCode = as.displayNextSemCode(today);
-//		Semester semester = semrepo.findBySemCode(semCode);
-//		model.addAttribute("semester", semester);
+
 		List<Course> eligibleCourse = new ArrayList<Course>();
 		model.addAttribute("courselist", eligibleCourse);
 		
@@ -45,25 +42,25 @@ public class ApplicationController {
 		String semCode = as.displayNextSemCode(today);
 		model.addAttribute("semester", semCode);
 		
-//		List<Course> allCourses = as.displayAvailableCourses();
-//		model.addAttribute("courses", allCourses);
-		
-//		List<Course> eligibleCourse = as.displayEligibleCourses(student);
-//		model.addAttribute("courselist", eligibleCourse);
-		
 		boolean eligible = as.checkEligibility(student);
 		System.out.println("eligible student? " + eligible);
-		
-		
+		model.addAttribute("eligibility", eligible);
 		
 		if(eligible) {
 			eligibleCourse = as.displayEligibleCourses(student);
+			List<Course> availableCourses = as.displayAvailableCourses();
+			System.out.println("Available Courses: " + availableCourses.size());
 			model.addAttribute("courselist", eligibleCourse);
+			System.out.println("There are eligible courses!!");
+			System.out.println("Eligible Courses: " + eligibleCourse.size());
+			for(Course c : eligibleCourse) {
+				System.out.println(c.getCourseName());
+				System.out.println("My courses!!");
+			}
+			
+				
 		}
-//		else {
-//			String notEligible = "Sorry, you are not eligible to apply for any courses at the moment.";
-//			model.addAttribute("Courselist", notEligible);
-//		}
+
 		
 		return "applycourse";
 		
