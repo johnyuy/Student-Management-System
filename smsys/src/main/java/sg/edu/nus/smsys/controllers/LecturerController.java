@@ -32,7 +32,7 @@ public class LecturerController {
 	private SubjectRepository srepo;
 	
 	@GetMapping("/list")
-	public String findLecturers(Model model, @RequestParam(defaultValue = "") String name) {
+	public String listLecturers(Model model, @RequestParam(defaultValue = "") String name) {
 		ArrayList<Lecturer> llist = new ArrayList<Lecturer>();
 		llist.addAll(lrepo.findAll());
 
@@ -46,17 +46,17 @@ public class LecturerController {
 		 return "lecturerlist";
 	}
 
-	@GetMapping("/details")
+	@GetMapping("/details/{staffId}")
 	public String viewLecturer(Model model, @PathVariable("staffId") int id) {
 		Lecturer lecturer = lrepo.findByStaffId(id);
-		model.addAttribute("staff",lecturer);
+		model.addAttribute("lecturer",lecturer);
 		return "lecturerdetails";
 	}
 
 	@GetMapping("/add")
 	public String addLectuerForm(Model model) {
 		Lecturer lecturer = new Lecturer();
-		model.addAttribute("staff", lecturer);
+		model.addAttribute("lecturer", lecturer);
 		return "lecturerform";
 	}
 
@@ -77,17 +77,18 @@ public class LecturerController {
 
 	@GetMapping("/edit/{staffId}")
 	public String editLecturerForm(Model model, @PathVariable("staffId") int id) {
-		Lecturer lecturer = lrepo.findById(id).get();
-		model.addAttribute("staff", lecturer);
+		Lecturer lecturer = lrepo.findByStaffId(id);
+		model.addAttribute("lecturer", lecturer);
 		return "lecturerform";
 	}
 
-	@PostMapping("/edit/{staffId}")
+	@PostMapping("/edit/{id}")
 	public String editLecturer(@Valid @ModelAttribute Lecturer lecturer, BindingResult bindingResult,
-			@PathVariable("staffId") int id) {
+			@PathVariable("id") int id) {
 		if (bindingResult.hasErrors()) {
 			return "lecturerform";
 		}
+		System.out.println("Hi");
 		lecturer.setStaffId(id);
 		lrepo.save(lecturer);
 		return "redirect:/lecturers/list";
@@ -95,7 +96,7 @@ public class LecturerController {
 
 	@GetMapping("/delete/{staffId}")
 	public String deleteLecturer(Model model, @PathVariable("staffId") int id) {
-		Lecturer lecturer = lrepo.findById(id).get();
+		Lecturer lecturer = lrepo.findByStaffId(id);
 		lrepo.delete(lecturer);
 		return "redirect:/lecturers/list";
 	}

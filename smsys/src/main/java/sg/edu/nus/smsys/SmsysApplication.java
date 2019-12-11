@@ -40,6 +40,7 @@ public class SmsysApplication {
 			log.info("END OF PROGRAM");
 		};
 	}
+	
 	@Scheduled(fixedRate = 1000)
 	public void printTime() {
 		log.info("Fixed Delay Task :: Execution Time - " + LocalDateTime.now().toString());
