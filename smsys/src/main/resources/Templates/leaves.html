@@ -24,9 +24,9 @@
 	<td th:text=${leave.duration}>duration</td>
 	<td th:text=${leave.reason}>reason</td>
 	<td th:text=${leave.status}>status</td>
-	<td><a th:href="@{/leave/edit/}+${leave.leaveId}">Edit</a></td>
-	<td><a th:href="@{/leave/delete/}+${leave.leaveId}">Delete</a></td>
-	
+	<td><a th:href="@{/leave/edit/{id}(id=${leave.leaveId})}">Edit</a></td>
+	<td><a th:href="@{/leave/delete/{id}(id=${leave.leaveId})}">Delete</a></td>
+
 	</tr>
 	</table>
 	

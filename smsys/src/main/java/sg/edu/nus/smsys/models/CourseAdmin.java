@@ -39,4 +39,11 @@ public class CourseAdmin extends Staff {
 	public int getAccessLevel() {
 		return accessLevel;
 	}
+
+	@Override
+	public String toString() {
+		return "CourseAdmin [approvedLeaveList=" + approvedLeaveList + ", accessLevel=" + accessLevel + "]";
+	}
+	
+	
 }

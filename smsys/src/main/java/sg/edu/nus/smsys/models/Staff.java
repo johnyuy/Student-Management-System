@@ -114,8 +114,9 @@ public class Staff extends Person {
 	@Override
 	public String toString() {
 		return "Staff [staffId=" + staffId + ", status=" + status + ", annualLeaveBalance=" + annualLeaveBalance
-				+ ", annualLeaveEntitled=" + annualLeaveEntitled + ", annualLeaveList=" + annualLeaveList + ", manager="
-				+ manager + "]";
+				+ ", annualLeaveEntitled=" + annualLeaveEntitled + ", accessLevel=" + accessLevel + "]";
 	}
+
+	
 
 }

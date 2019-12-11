@@ -7,7 +7,7 @@
 <body>
 
 
-<form  th:object="${leave}" method="post" >
+<form  th:object="${leave}" method="post" th:action="@{addleave}">
 
 	<fieldset>
 	Staff ID:<input type="text" th:field="*{submittedByStaffID}"/>

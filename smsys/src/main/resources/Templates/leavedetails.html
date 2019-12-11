@@ -5,51 +5,67 @@
 <title>Leave Details</title>
 </head>
 <body>
+<table>
+	<tr>
+	<th>Application ID</th>
+	<th>Staff ID</th>
+	<th>Staff Name</th>
+	<th>LeaveStartTime</th>
+	<th>Duration</th>
+	<th>Reason</th>
+	<th>Status</th>
+	<th>Annual Leave Balance</th>
+	</tr>
+	<tr th:each="leave:${leave}" >
+	<td th:text=${leave.leaveId}>Id</td>
+	<td th:text=${leave.submittedByStaffID.staffId}>StaffID</td>
+	<td th:text=${leave.submittedByStaffID.firstName}>StaffName</td>
+	<td th:text=${leave.dateStart}>dateStart</td>
+	<td th:text=${leave.duration}>duration</td>
+	<td th:text=${leave.reason}>reason</td>
+	<td th:text=${leave.status}>status</td>
+	<td th:text=${leave.submittedByStaffID.annualLeaveBalance}>balance</td>
+</table>
 
-<form action="/leave/reply"  th:object="${leave}" method="post"th:action="@{/leave/reply}"  >
+
+
+<form th:object="${leave}" method="post" th:action="@{/leave/reply}"  >
 <table>
 
 <tr>
-	<td>Application Id</td>
 	<td >
-	<input type="text" th:field=*{leaveId} />
+	<input type="hidden" th:field=*{leaveId} />
 	</td>
 </tr>
 <tr>
-	<td>Staff Id</td>
 	<td >
-	<input type="text" th:field=*{submittedByStaffID.staffId} />
+	<input type="hidden" th:field=*{submittedByStaffID.staffId} />
 	</td>
 </tr>
 <tr>
-	<td>Staff Name</td>
 	<td >
-	<input type="text" th:field=*{submittedByStaffID.firstName} />
+	<input type="hidden" th:field=*{submittedByStaffID.firstName} />
 	</td>
 </tr>
 
 <tr>
-	<td>Leave Start Time</td>
 	<td >
-	<input type="text" th:field=*{dateStart} /></td>
+	<input type="hidden" th:field=*{dateStart} /></td>
 </tr>
 
 <tr>
-	<td>Duration</td>
 	<td >
-	<input type="text" th:field=*{duration} /></td>
+	<input type="hidden" th:field=*{duration} /></td>
 </tr>
 
 <tr>
-	<td>Reason</td>
 	<td >
-	<input type="text" th:field=*{reason} /></td>
+	<input type="hidden" th:field=*{reason} /></td>
 </tr>
 
 <tr>
-	<td>Annual Leave Balance</td>
 	<td >
-	<input type="text" th:field=*{submittedByStaffID.annualLeaveBalance} />
+	<input type="hidden" th:field=*{submittedByStaffID.annualLeaveBalance} />
 	
 	</td>
 </tr>
