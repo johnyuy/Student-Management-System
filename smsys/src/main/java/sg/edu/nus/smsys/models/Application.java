@@ -26,13 +26,13 @@ public class Application {
 	private Course course;
 	@ManyToOne
 	private Student student;
-	@Min(-2)
-	@Max(1)
-	private int status = 0;
-	//status = 0 is pending
-	//status = 1 is accepted (successful)
-	//status = -1 is rejected (unsuccessful)
-	//status = -2 is withdrawn
+	
+	private String status = "Pending";
+	//status = pending
+	//status = accepted (successful)
+	//status = rejected (unsuccessful)
+	//status = withdrawn
+	//status = expired (system triggered)
 	
 	
 	//CONSTRUCTORS
@@ -40,7 +40,7 @@ public class Application {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Application(int applicationId, Course course, int status, Student student) {
+	public Application(int applicationId, Course course, String status, Student student) {
 		super();
 		this.applicationId = applicationId;
 		this.course = course;
@@ -59,10 +59,10 @@ public class Application {
 		return student;
 	}
 	
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public void setApplicationId(int applicationId) {

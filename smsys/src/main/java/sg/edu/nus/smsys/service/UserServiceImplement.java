@@ -43,7 +43,7 @@ public class UserServiceImplement implements UserService {
 		if (userType == 5) {
 			// Create user account only if user account does not alr exist but staff exists
 			// in staff table
-			if (UsernameExist("A" + id) == false && CourseAdminIdExist(id) == true) {
+			if (usernameExist("A" + id) == false && courseAdminIdExist(id) == true) {
 
 				CourseAdmin ca = crepo.findByStaffId(id);
 				String username = "A" + id;
@@ -51,7 +51,7 @@ public class UserServiceImplement implements UserService {
 				urepo.save(user);
 				log.info("New user account for " + ca.getFirstName() + " " + ca.getLastName()
 						+ " has been successfully created.");
-			} else if (UsernameExist("L" + id) == false && LecturerIdExist(id) == true) {
+			} else if (usernameExist("L" + id) == false && lecturerIdExist(id) == true) {
 				Lecturer lect = lrepo.findByStaffId(id);
 				String username = "L" + id;
 				User user = new User(username, lect.getAccessLevel(), pw, salt);
@@ -61,7 +61,7 @@ public class UserServiceImplement implements UserService {
 			}
 			// Create user account only if user account does not alr exist but student
 			// exists in student table
-		} else if (userType == 1 && UsernameExist("S" + id) == false && StudentIdExist(id) == true) {
+		} else if (userType == 1 && usernameExist("S" + id) == false && studentIdExist(id) == true) {
 			Student s = srepo.findByStudentId(id);
 			String username = "S" + id;
 			User user = new User(username, s.getAccessLevel(), pw, salt);
@@ -74,7 +74,7 @@ public class UserServiceImplement implements UserService {
 		}
 	}
 
-	private boolean CourseAdminIdExist(int staffId) {
+	private boolean courseAdminIdExist(int staffId) {
 
 		if (crepo.findByStaffId(staffId) != null) {
 			return true;
@@ -82,7 +82,7 @@ public class UserServiceImplement implements UserService {
 		return false;
 	}
 
-	private boolean LecturerIdExist(int staffId) {
+	private boolean lecturerIdExist(int staffId) {
 
 		if (lrepo.findByStaffId(staffId) != null) {
 			return true;
@@ -90,7 +90,7 @@ public class UserServiceImplement implements UserService {
 		return false;
 	}
 
-	private boolean UsernameExist(String username) {
+	private boolean usernameExist(String username) {
 
 		if (urepo.findByUsername(username) != null) {
 			return true;
@@ -98,7 +98,7 @@ public class UserServiceImplement implements UserService {
 		return false;
 	}
 
-	private boolean StudentIdExist(int studentId) {
+	private boolean studentIdExist(int studentId) {
 
 		if (srepo.findByStudentId(studentId) != null) {
 			return true;
@@ -106,7 +106,7 @@ public class UserServiceImplement implements UserService {
 		return false;
 	}
 
-	public String PasswordEncoder(String password, byte[] salt) {
+	public String passwordEncoder(String password, byte[] salt) {
 		String encodedPassword = null;
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -131,7 +131,7 @@ public class UserServiceImplement implements UserService {
 	}
 
 	public boolean verifyUserAndPassword(String username, String password) {
-		if (UsernameExist(username) == true) {
+		if (usernameExist(username) == true) {
 			User user = urepo.findByUsername(username);
 			byte[] salt = user.getSalt();
 			String testpw = PasswordEncoder(password, salt);
@@ -147,5 +147,36 @@ public class UserServiceImplement implements UserService {
 		}
 		log.info("Authenthication failed!");
 		return false;
+	}
+	
+	
+	public Student getStudentByUser(User user) {
+		int id = Integer.parseInt(user.getUsername().substring(1));
+		if (user.getUsername().substring(0, 1) == "S") {
+			return srepo.findByStudentId(id);		
+		}
+		return null;
+	}
+	
+	public Lecturer getLecturerByUser(User user) {
+		int id = Integer.parseInt(user.getUsername().substring(1));
+		if (user.getUsername().substring(0, 1) == "L") {
+			return lrepo.findByStaffId(id);
+		}
+		return null;
+	}
+	
+	public CourseAdmin getCourseAdminByUser(User user) {
+		int id = Integer.parseInt(user.getUsername().substring(1));
+		if (user.getUsername().substring(0, 1) == "A") {
+			return crepo.findByStaffId(id);		
+		}
+		return null;
+	}
+
+	@Override
+	public String PasswordEncoder(String password, byte[] salt) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

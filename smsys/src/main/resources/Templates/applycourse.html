@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Apply Course</title>
+</head>
+<body>
+	<h2>Apply for course</h2>
+	<table>
+		<tr>
+			<td>Application for Semester:</td>
+			<td th:text=${semester}>Semester Code</td>
+		</tr>
+		<tr th:if="${courselist.empty}">
+			<td colspan="3"> Not eligible to apply for courses. </td>
+		<tr th:if="${!courselist.empty}">
+				<th>Id</th>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+			<tr th:each="course:${courseslist}">
+				<td th:text="${course.courseId}"> Course Id</td>
+            	<td th:text="${course.courseName}"> Course Name</td>
+            	<td th:text="${course.courseDesc}"> Course Description</td>
+			</tr>
+			
+	</table>
+
+	<p th:text="${Courselist}"></p>
+	
+</body>
+</html>

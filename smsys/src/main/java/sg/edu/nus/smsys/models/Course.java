@@ -34,6 +34,8 @@ public class Course {
 	private int classSize;
 	@Min(1)
 	private int durationSemesters;
+	private boolean status = false;
+	//Course status can only be Open (True) or Closed (False)
 	@ManyToMany
 	private List<Subject> courseSubjectList;
 	@OneToMany(mappedBy="course")
@@ -45,7 +47,7 @@ public class Course {
 	}
 	
 	public Course(String courseName, String courseDesc, int classSize, int durationSemesters,
-			List<Subject> courseSubjectList, List<CourseClass> classesList) {
+			List<Subject> courseSubjectList, List<CourseClass> classesList, boolean status) {
 		super();
 		this.courseName = courseName;
 		this.courseDesc = courseDesc;
@@ -53,6 +55,7 @@ public class Course {
 		this.durationSemesters = durationSemesters;
 		this.courseSubjectList = courseSubjectList;
 		this.classesList = classesList;
+		this.status = status;
 	}
 	
 	//GETTERS & SETTERS
@@ -139,6 +142,14 @@ public class Course {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDesc=" + courseDesc
 				+ ", classSize=" + classSize + ", durationSemesters=" + durationSemesters + ", courseSubjectList="
 				+ courseSubjectList + ", classesList=" + classesList + "]";
+	}
+
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 }

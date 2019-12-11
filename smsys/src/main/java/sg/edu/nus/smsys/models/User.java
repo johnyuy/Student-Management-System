@@ -22,7 +22,6 @@ public class User {
 	
 	private int accessLevel;
 	
-	@NotNull
 	@Length(min=4)
 	private String password;
 	
