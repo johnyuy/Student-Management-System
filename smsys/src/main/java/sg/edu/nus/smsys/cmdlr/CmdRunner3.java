@@ -24,11 +24,6 @@ public class CmdRunner3 implements CommandLineRunner{
     public void run(String[] args) {
         log.info("In CmdRunner3");    
         log.info("Testing log in...");
-        
-		us.verifyUserAndPassword("L50001", "password");
-		us.verifyUserAndPassword("L50001", "admin");
-   
-        
         log.info("End of CmdRunner3"); 
     }
 }

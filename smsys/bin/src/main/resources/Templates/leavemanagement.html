@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Leave Management Page</title>
+</head>
+<body>
+<table>
+	<tr>
+	<th>Application ID</th>
+	<th>Staff ID</th>
+	<th>Staff Name</th>
+	<th>LeaveStartTime</th>
+	<th>Duration</th>
+	<th>Reason</th>
+	<th>Status</th>
+	<th>Annual Leave Balance</th>
+	<th>View</th>
+	</tr>
+	<tr th:each="leave:${leave}" >
+	<td th:text=${leave.leaveId}>Id</td>
+	<td th:text=${leave.submittedByStaffID.staffId}>StaffID</td>
+	<td th:text=${leave.submittedByStaffID.firstName}>StaffName</td>
+	<td th:text=${leave.dateStart}>dateStart</td>
+	<td th:text=${leave.duration}>duration</td>
+	<td th:text=${leave.reason}>reason</td>
+	<td th:text=${leave.status}>status</td>
+	<td th:text=${leave.submittedByStaffID.annualLeaveBalance}>balance</td>
+	
+	<!--  
+	<td th:text="*{status == 'approve'}?  21-${leave.duration} : ${leave.submittedByStaffID.annualLeaveBalance}">balance</td>
+	-->
+	
+	<td ><a th:href="@{/leave/view/}+${leave.leaveId}">View Details</a></td>
+	</tr>
+	</table>
+	
+
+
+</body>
+</html>

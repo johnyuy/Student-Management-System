@@ -1,6 +1,7 @@
 package sg.edu.nus.smsys.controllers;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import jdk.internal.org.jline.utils.Log;
 import sg.edu.nus.smsys.SmsysApplication;
 import sg.edu.nus.smsys.UserSession;
 import sg.edu.nus.smsys.models.User;
@@ -30,7 +30,7 @@ import sg.edu.nus.smsys.repository.UserRepository;
 import sg.edu.nus.smsys.service.UserService;
 
 @Controller
-@RequestMapping("/home")
+//@RequestMapping("/home")
 public class HomeController {
 	@Autowired
 	private UserRepository urepo;
@@ -52,6 +52,8 @@ public class HomeController {
 		return "login";
 	}
 	
+	
+	
 	@GetMapping("/logout")
 	public String getLogoutPage(SessionStatus status) {
 		System.out.println(status);
@@ -69,55 +71,29 @@ public class HomeController {
 		}
 		if (us.verifyUserAndPassword(user.getUsername(), user.getPassword()) == true){
 			//LOGIN AUTHENTHICATION IS SUCCESSFUL
-			int accesslevel = urepo.findByUsername(user.getUsername()).getAccessRights();
+			Optional<User> u = urepo.findByUsername(user.getUsername());
+			int accesslevel = u.get().getAccessRights();
+			
 			UUID sessionId = UUID.randomUUID();
-			UserSession session = new UserSession(urepo.findByUsername(user.getUsername()), sessionId);
+			UserSession session = new UserSession(urepo.findByUsername(user.getUsername()).get(), sessionId);
 			httpSession.setAttribute("session", session);
 			System.out.println(session.getSessionId());
 			
 			//System.out.println("NEW SESSION IN TOWN!   " + UserSession.sessions.get(0).getSessionId());
 			if ( accesslevel == 1) {
-				return "redirect:/home/admin";
+				return "redirect:/admin";
 			} 
 			if (accesslevel == 2) {
-					return "redirect:/home/lecturer";
+					return "redirect:/lecturer";
 				} 
 			if (accesslevel == 3) {
-					return "redirect:/home/student";
+					return "redirect:/student";
 				}
 		}
 		
 		return "redirect:/home/login";
 		
 	}
-	
-	@GetMapping("/lecturer")
-	public String getLecturerPage(Model model) {
-		//model.addAttribute("user", new UserSession());
-		return "lecturerhome";
-	}
-	
-	@GetMapping("/admin")
-	public String getAdminPage(Model model) {
-		//model.addAttribute("user", new UserSession());
-		return "courseadminhome";
-	}
-	
-	@GetMapping("/student")
-	public String getStudentPage(Model model) {
-		//model.addAttribute("user", new UserSession());
-		return "studenthome";
-	}
 
-			
-//	@Scheduled(fixedRate = 1000)
-//	public void printTime() {
-//		System.out.println("Fixed Delay Task :: Execution Time -" + LocalDateTime.now().toString());
-//	    try {
-//	        TimeUnit.SECONDS.sleep(10);
-//	    } catch (InterruptedException ex) {
-//	        System.out.println("Ran into an error {} "+  ex);
-//	        throw new IllegalStateException(ex);
-//	    }
-//	}
+
 }

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta charset="UTF-8">
-<title>Leave List for One Staff  </title>
+<title>Leave List for Each Staff  </title>
 </head>
 <body>
 
-<table>
+<div class="w3-responsive">
+
+<table class="w3-table-all w3-centered w3-hoverable">
 	<tr>
 	<th>ApplicationID</th>
 	<th>LeaveStartTime</th>
@@ -24,18 +27,13 @@
 	<td th:text=${leave.duration}>duration</td>
 	<td th:text=${leave.reason}>reason</td>
 	<td th:text=${leave.status}>status</td>
-	<td><a th:href="@{/leave/edit/}+${leave.leaveId}">Edit</a></td>
-	<td><a th:href="@{/leave/delete/}+${leave.leaveId}">Delete</a></td>
-	
+	<td><a th:href="@{/leave/edit/{id}(id=${leave.leaveId})}">Edit</a></td>
+	<td><a th:href="@{/leave/delete/{id}(id=${leave.leaveId})}">Delete</a></td>
+
 	</tr>
 	</table>
 	
-	<!--  
-	<div>
-				<a class="btn btn-success" th:href="@{/leave/add}">Add New Application</a>
-			</div>
 	
-	-->
-			
+</div>			
 </body>
 </html>

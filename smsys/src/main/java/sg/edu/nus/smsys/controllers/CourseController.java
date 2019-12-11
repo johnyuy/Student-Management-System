@@ -2,11 +2,15 @@ package sg.edu.nus.smsys.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +48,7 @@ public class CourseController
 			return "courseform";
 		}
 		
-		@PostMapping("/insert")
+		@PostMapping("/add")
 		public String insertCourse(@ModelAttribute Course course)
 		{
 			cRepo.save(course);
@@ -57,5 +61,24 @@ public class CourseController
 			Course course = cRepo.findByCourseId(Integer.parseInt(courseId));
 			model.addAttribute("course",course);
 			return "coursedetails";
+		}
+		
+		@GetMapping("/edit/{courseId}")
+		public String editCourseForm(Model model, @PathVariable("courseId") int id) {
+
+			Course course = cRepo.findByCourseId(id);
+			model.addAttribute("course",course);
+			return "courseform";
+		}
+
+		@PostMapping("/edit/{courseId}")
+		public String editCourse(@Valid @ModelAttribute Course c, BindingResult bindingResult,
+				@RequestParam() String courseStatus) {
+			if (bindingResult.hasErrors()) {
+				return "courseform";
+			}
+			c.setCourseStatus(courseStatus);
+			cRepo.save(c);
+			return "redirect:/courses/list";
 		}
 	}

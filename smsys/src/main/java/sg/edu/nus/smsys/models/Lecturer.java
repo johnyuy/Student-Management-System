@@ -88,7 +88,5 @@ public class Lecturer extends Staff {
 		return "Lecturer [department=" + department + ", subjectList=" + subjectList + ", classList=" + classList
 				+ ", scheduleList=" + scheduleList + ", accessLevel=" + accessLevel + "]";
 	}
-	
-	
 
 }

@@ -22,6 +22,10 @@ public class UserSession {
 	
 	public UserSession(User user, UUID sessionId) {
 		super();
+		this.sessionId = UUID.randomUUID();
+		//this.user = user;
+		//this.map = new HashMap<String, Object>();
+
 		this.user = user;
 		this.sessionId = sessionId;
 	}

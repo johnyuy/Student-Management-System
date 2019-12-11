@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	crossorigin="anonymous">
+
+<title>Student</title>
+<!-- Custom styles for this template -->
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
+body {
+	padding-top: 5rem;
+}
+
+.starter-template {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}
+</style>
+<link href="starter-template.css" rel="stylesheet">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		<a class="navbar-brand" href="#">Home</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarsExampleDefault"
+			aria-controls="navbarsExampleDefault" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="#">Home
+						<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+				<li class="nav-item"><a class="nav-link disabled" href="#"
+					tabindex="-1" aria-disabled="true">Disabled</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="dropdown01"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown01">
+						<a class="dropdown-item" href="#">Action</a> <a
+							class="dropdown-item" href="#">Another action</a> <a
+							class="dropdown-item" href="#">Something else here</a>
+					</div></li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
+				method="get">
+				<input class="form-control mr-sm-2" name="name" type="text"
+					placeholder="Search Student" aria-label="Search" />
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+
+	<main role="main" class="container">
+
+
+		<div class="starter-template">
+			<h1>Student</h1>
+		</div>
+
+		<div class="container">
+			<h4 th:text="${student.studentId != 0}? 'Update Student' : 'Add New Student'">Add New Student</h4>
+		</div>
+		<div class="container">
+			<form th:object="${student}"
+				id="add-student-form" class="form-horizontal" method="post">
+
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="title">Title</label> <input class="form-control"
+							placeholder="e.g Mr,Ms,Dr" type="text" th:field="*{title}" />
+						<p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="firstName">First Name</label> <input
+							class="form-control" placeholder="Enter First Name" type="text"
+							th:field="*{firstName}" />
+						<p th:if="${#fields.hasErrors('firstName')}"
+							th:errors="*{firstName}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="middleName">Middle Name</label> <input
+							class="form-control" placeholder="Enter Middle Name" type="text"
+							th:field="*{middleName}" />
+						<p th:if="${#fields.hasErrors('middleName')}"
+							th:errors="*{middleName}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="lastName">Last Name</label> <input
+							class="form-control" placeholder="Enter Last Name" type="text"
+							th:field="*{lastName}" />
+						<p th:if="${#fields.hasErrors('lastName')}"
+							th:errors="*{lastName}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="birthDate">Birth Date</label> <input
+							class="form-control" type="date" th:field="*{birthDate}" />
+						<p th:if="${#fields.hasErrors('birthDate')}"
+							th:errors="*{{birthDate}}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="mobile">Mobile</label> <input class="form-control"
+							placeholder="Enter Mobile" type="text" th:field="*{mobile}" />
+						<p th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="email">Email</label> <input class="form-control"
+							placeholder="Enter Email" type="text" th:field="*{email}" />
+						<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+					<label for="gender">Gender</label><br />
+						<label class="radio-inline"><input type="radio"
+							name="gender" value="male" th:field="*{gender}">Male</label> <label
+							class="radio-inline"><input type="radio" name="gender"
+							value="female" th:field="*{gender}">Female</label>
+						<p th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></p>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="address">Address</label> <input class="form-control"
+							placeholder="Enter Address" type="text" th:field="*{address}" />
+						<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="status">Status</label> <input class="form-control"
+							placeholder="Enter Status" type="text" th:field="*{status}" />
+						<p th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></p>
+					</div>
+				</div>
+				<button
+					th:text="*{studentId != 0}? 'Update Student' : 'Add Student'"
+					class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
+			</form>
+			<div>
+				<button class="btn btn-outline-dark" th:href="@{/students/list}">Back to List</button>
+			</div>
+		</div>
+	</main>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
+</html>

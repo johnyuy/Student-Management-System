@@ -1,25 +1,99 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta charset="UTF-8">
 <title>Leave Details</title>
 </head>
 <body>
-<p th:text=${staff.name}>Name</p>
-<p th:text=${leave.submittedByStaffID}>Id</p>
-<p th:text=${leave.dateStart}>dateStart</p>
-<p th:text=${leave.duration}>Duration</p>
-<p th:text=${leave.reason}>reason</p>
+<div class="w3-responsive">
+<table class="w3-table-all w3-centered w3-hoverable">
+	<tr>
+	<th>Application ID</th>
+	<th>Staff ID</th>
+	<th>Staff Name</th>
+	<th>LeaveStartTime</th>
+	<th>Duration</th>
+	<th>Reason</th>
+	<th>Status</th>
+	<th>Annual Leave Balance</th>
+	</tr>
+	<tr th:each="leave:${leave}" >
+	<td th:text=${leave.leaveId}>Id</td>
+	<td th:text=${leave.submittedByStaffID.staffId}>StaffID</td>
+	<td th:text=${leave.submittedByStaffID.firstName}>StaffName</td>
+	<td th:text=${leave.dateStart}>dateStart</td>
+	<td th:text=${leave.duration}>duration</td>
+	<td th:text=${leave.reason}>reason</td>
+	<td th:text=${leave.status}>status</td>
+	<td th:text=${leave.submittedByStaffID.annualLeaveBalance}>balance</td>
+</table>
 
-<p th:text=${leave.status}>status</p>
 
-<select name="status">
-<option value ="approve">approve</option>
-<option value ="pending">pending</option>
-<option value ="reject">reject</option>
-</select>
 
-<button type="submit">Submit</button>
+<form th:object="${leave}" method="post" th:action="@{/leave/reply}"  >
+<table>
+
+<tr>
+	<td >
+	<input type="hidden" th:field=*{leaveId} />
+	</td>
+</tr>
+<tr>
+	<td >
+	<input type="hidden" th:field=*{submittedByStaffID.staffId} />
+	</td>
+</tr>
+<tr>
+	<td >
+	<input type="hidden" th:field=*{submittedByStaffID.firstName} />
+	</td>
+</tr>
+
+<tr>
+	<td >
+	<input type="hidden" th:field=*{dateStart} /></td>
+</tr>
+
+<tr>
+	<td >
+	<input type="hidden" th:field=*{duration} /></td>
+</tr>
+
+<tr>
+	<td >
+	<input type="hidden" th:field=*{reason} /></td>
+</tr>
+
+<tr>
+	<td >
+	<input type="hidden" th:field=*{submittedByStaffID.annualLeaveBalance} />
+	
+	</td>
+</tr>
+
+<tr>
+	<th>Status</th>
+	<td>
+	<select th:field="*{status}" >
+	<option value="">select status</option>
+	<option  th:value="approve">approve</option>
+  	
+  	<option  th:value="reject">reject</option>
+  	</select>
+	</td>
+</tr>
+</table>
+
+
+<button type="submit" >Submit</button>
+
+</form>
+
+
+
+
+</div>	
 
 
 </body>

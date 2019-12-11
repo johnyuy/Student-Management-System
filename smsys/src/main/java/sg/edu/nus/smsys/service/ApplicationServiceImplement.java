@@ -65,7 +65,7 @@ public class ApplicationServiceImplement implements ApplicationService {
 		courseList = crepo.findAll();
 		List<Course> openedCoursesList = new ArrayList<Course>();
 		for (Course course : courseList) {
-			if (course.getStatus() == true) {
+			if (course.getCourseStatus() == "Open") {
 				openedCoursesList.add(course);
 			}
 		}

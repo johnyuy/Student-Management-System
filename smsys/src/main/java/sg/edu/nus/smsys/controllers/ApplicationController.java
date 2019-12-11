@@ -37,7 +37,7 @@ public class ApplicationController {
 		List<Course> eligibleCourse = new ArrayList<Course>();
 		model.addAttribute("courselist", eligibleCourse);
 		
-		
+		 
 		
 		student = sturepo.findByStudentId(10001);
 		

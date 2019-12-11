@@ -31,12 +31,19 @@
 				<td th:text=${course.durationSemesters}></td>
 			</tr>
 			<tr>
+				<th>Status</th>
+				<td th:text=${course.courseStatus}></td>
+			</tr>
+			<tr>
 				<th>Subjects</th>
 				<td>link to see subjects here</td>
 			</tr>
-
-		</table>
-
+				
+		</table>	
+		<table>
+		<tr><td><a type="submit" th:href="@{/courses/edit/{id}(id=${course.courseId})}">Edit
+				</a>
+		</td></tr></table>			
 		<form action="/courses/list" method="get" th:action="@{/courses/list}">
 			<button>Back to courses</button>
 		</form>

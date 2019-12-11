@@ -17,7 +17,14 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+
+
 
 @Entity
 @Table(name="Leave_Table")
@@ -33,17 +40,21 @@ public class Leave {
 	@NotNull
 	@Future
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date dateStart;
+	private LocalDate dateStart;
 	@NotNull
 	@Min(1)
+	@Max(21)
 	private int duration;
 	@Size(min=2, max=100)
 	private String reason;
-	private String status;
+	
+	private String status = "Pending" ;
 	@ManyToOne
 	private CourseAdmin approvedByStaffID;
 	@ManyToOne
 	private Staff submittedByStaffID;
+	
+	
 	
 	//CONSTRUCTORS
 	public Leave() {
@@ -51,16 +62,18 @@ public class Leave {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Leave(int leaveId, Date dateStart, int duration, String reason, String status,
+	public Leave(int leaveId, LocalDate dateStart, int duration, String reason, String status,
 			CourseAdmin approvedByStaffID, Staff submittedByStaffID) {
 		super();
 		this.leaveId = leaveId;
 		this.dateStart = dateStart;
 		this.duration = duration;
 		this.reason = reason;
-		this.status = status;
+		this.status = "Pending";
 		this.approvedByStaffID = approvedByStaffID;
 		this.submittedByStaffID = submittedByStaffID;
+		
+		//status=“Pending”;
 	}
 	
 	//GETTERS AND SETTERS
@@ -72,11 +85,11 @@ public class Leave {
 		this.leaveId = leaveId;
 	}
 
-	public Date getDateStart() {
+	public LocalDate getDateStart() {
 		return dateStart;
 	}
 
-	public void setDateStart(Date dateStart) {
+	public void setDateStart(LocalDate dateStart) {
 		this.dateStart = dateStart;
 	}
 

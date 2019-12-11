@@ -45,7 +45,15 @@ public class CmdRunner2 implements CommandLineRunner {
 		Lecturer l1 = new Lecturer("Daniel", "Edward", "Foo", "male", LocalDate.of(1972, 02, 4), "Dr",
 				"Holland Village", "93336566", "danielEF@hotmail.com", "Available", 21, 21, null, null, null, null,
 				null, null);
+		Lecturer l2 = new Lecturer("Danny", "Kim", "DimSum", "female", LocalDate.of(1972, 01, 21), "Dr",
+				"Haw Par Villa", "91336506", "dimsumDA@hotmail.com", "Available", 21, 21, null, null, null, null,
+				null, null);
+		Lecturer l3 = new Lecturer("Boon", "Kom", "Tum", "male", LocalDate.of(1962, 11, 11), "Dr",
+				"Chinatown", "91346645", "chinaboi@hotmail.com", "Available", 21, 21, null, null, null, null,
+				null, null);
 		lrepo.save(l1);
+		lrepo.save(l2);
+		lrepo.save(l3);
 		// Insert Students
 		log.info("Adding Students..");
 		List<Student> initialStudents = new ArrayList<Student>();
@@ -73,6 +81,9 @@ public class CmdRunner2 implements CommandLineRunner {
 		try {
 			us.registerNewAccount(50001, "password");
 			us.registerNewAccount(50002, "admin");
+			us.registerNewAccount(50003, "l2");
+			us.registerNewAccount(50004, "l3");
+			
 		} catch (GeneralSecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,12 +122,9 @@ public class CmdRunner2 implements CommandLineRunner {
 
 		// Create Courses
 		log.info("Adding some courses..");
-		Course course1 = new Course("Graduate Diploma in Systems Analysis",
-				"The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry.",
-				100, 2, subjectlist, null, true);
-		Course course2 = new Course("Master of Technology in Enterprise Business Analytics",
-				"The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.",
-				50, 2, null, null, true);
+		
+		Course course1 = new Course("Graduate Diploma in Systems Analysis", "The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry.","Open", 100, 2, subjectlist, null);
+		Course course2 = new Course("Master of Technology in Enterprise Business Analytics", "The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.", "Closed", 50, 2, null, null);
 		courepo.save(course1);
 		courepo.save(course2);
 

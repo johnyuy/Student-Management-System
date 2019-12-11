@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="UTF-8">
+<title>Course Details</title>
+</head>
+<body>
+	<div class="w3-responsive">
+		<h1 th:text=${class.course.courseName}>Class Course Name</h1>
+		<h2>Class Details</h2>
+		<br />
+		<table class="w3-table-all w3-centered w3-hoverable">
+			<tr>
+				<th>Course</th>
+				<td th:text=${class.course.courseName}></td>
+			<tr>
+				<th>Semesters</th>
+				<td th:each="sem : ${class.semesterList}"><span  th:text=${sem.semCode}></span></td>
+			</tr>
+		
+		</table>
+
+		<form method="get" th:action="@{/classes/list}">
+			<button>Back to classes</button>
+		</form>
+
+	</div>
+</body>
+</html>

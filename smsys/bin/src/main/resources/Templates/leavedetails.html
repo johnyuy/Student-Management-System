@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Leave Details</title>
+</head>
+<body>
+<table>
+	<tr>
+	<th>Application ID</th>
+	<th>Staff ID</th>
+	<th>Staff Name</th>
+	<th>LeaveStartTime</th>
+	<th>Duration</th>
+	<th>Reason</th>
+	<th>Status</th>
+	<th>Annual Leave Balance</th>
+	</tr>
+	<tr th:each="leave:${leave}" >
+	<td th:text=${leave.leaveId}>Id</td>
+	<td th:text=${leave.submittedByStaffID.staffId}>StaffID</td>
+	<td th:text=${leave.submittedByStaffID.firstName}>StaffName</td>
+	<td th:text=${leave.dateStart}>dateStart</td>
+	<td th:text=${leave.duration}>duration</td>
+	<td th:text=${leave.reason}>reason</td>
+	<td th:text=${leave.status}>status</td>
+	<td th:text=${leave.submittedByStaffID.annualLeaveBalance}>balance</td>
+</table>
+
+
+
+<form th:object="${leave}" method="post" th:action="@{/leave/reply}"  >
+<table>
+
+<tr>
+	<td >
+	<input type="hidden" th:field=*{leaveId} />
+	</td>
+</tr>
+<tr>
+	<td >
+	<input type="hidden" th:field=*{submittedByStaffID.staffId} />
+	</td>
+</tr>
+<tr>
+	<td >
+	<input type="hidden" th:field=*{submittedByStaffID.firstName} />
+	</td>
+</tr>
+
+<tr>
+	<td >
+	<input type="hidden" th:field=*{dateStart} /></td>
+</tr>
+
+<tr>
+	<td >
+	<input type="hidden" th:field=*{duration} /></td>
+</tr>
+
+<tr>
+	<td >
+	<input type="hidden" th:field=*{reason} /></td>
+</tr>
+
+<tr>
+	<td >
+	<input type="hidden" th:field=*{submittedByStaffID.annualLeaveBalance} />
+	
+	</td>
+</tr>
+
+<tr>
+	<th>Status</th>
+	<td>
+	<select th:field="*{status}" >
+	<option value="">select status</option>
+	<option  th:value="approve">approve</option>
+  	<option  th:value="pending">pending</option>
+  	<option  th:value="reject">reject</option>
+  	</select>
+	</td>
+</tr>
+</table>
+
+
+<button type="submit" >Submit</button>
+
+</form>
+
+
+
+
+	
+
+
+</body>
+</html>

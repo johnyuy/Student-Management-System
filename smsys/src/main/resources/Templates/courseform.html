@@ -6,8 +6,7 @@
 <title>Course Form</title>
 </head>
 <body>
-	<form action="/courses/insert" method="post" th:object="${course}"
-		th:action="@{/courses/insert}">
+	<form  method="post" th:object="${course}">
 		<table class="w3-table-all">
 			<tr>
 				<th>Course Name</th>
@@ -25,8 +24,8 @@
 
 			<tr>
 				<th>Semesters</th>
-				<td><select th:field="*{durationSemesters}">
-						<option value="" selected hidden>Select Duration</option>
+				<td><select  th:field="*{durationSemesters}">
+						<option value ="0" selected>Select Duration</option>
 						<option th:value="1">1</option>
 						<option th:value="2">2</option>
 						<option th:value="3">3</option>
@@ -37,7 +36,15 @@
 						<option th:value="8">8</option>
 				</select></td>
 			</tr>
-
+			
+			<tr>
+				<th>Status</th>
+				<td><select th:field="*{courseStatus}">
+						<option  value="Open" selected>Select Status</option>
+						<option th:value="Open">Open</option>
+						<option th:value="Closed">Closed</option>
+				</select></td>
+			</tr>
 			<tr>
 				<td>
 					<button type="submit">Add Course</button>

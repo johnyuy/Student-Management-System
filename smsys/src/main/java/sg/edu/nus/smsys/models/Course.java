@@ -30,12 +30,11 @@ public class Course {
 	@NotNull
 	private String courseDesc;
 	@NotNull
+	private String courseStatus;
 	@Min(10)
 	private int classSize;
 	@Min(1)
 	private int durationSemesters;
-	private boolean status = false;
-	//Course status can only be Open (True) or Closed (False)
 	@ManyToMany
 	private List<Subject> courseSubjectList;
 	@OneToMany(mappedBy="course")
@@ -45,70 +44,79 @@ public class Course {
 	public Course() {
 		super();
 	}
-	
-	public Course(String courseName, String courseDesc, int classSize, int durationSemesters,
-			List<Subject> courseSubjectList, List<CourseClass> classesList, boolean status) {
+
+	public Course(@NotNull String courseName, @NotNull String courseDesc,
+			@NotNull String courseStatus, @Min(10) int classSize, @Min(1) int durationSemesters,
+			List<Subject> courseSubjectList, List<CourseClass> classesList) {
 		super();
 		this.courseName = courseName;
 		this.courseDesc = courseDesc;
+		this.courseStatus = courseStatus;
 		this.classSize = classSize;
 		this.durationSemesters = durationSemesters;
 		this.courseSubjectList = courseSubjectList;
 		this.classesList = classesList;
-		this.status = status;
 	}
-	
 	//GETTERS & SETTERS
+
 	public int getCourseId() {
 		return courseId;
-	}
-
-	public String getCourseName() {
-		return courseName;
-	}
-
-	public String getCourseDesc() {
-		return courseDesc;
-	}
-
-	public int getClassSize() {
-		return classSize;
-	}
-
-	public int getDurationSemesters() {
-		return durationSemesters;
-	}
-
-	public List<Subject> getCourseSubjectList() {
-		return courseSubjectList;
-	}
-
-	public List<CourseClass> getClassesList() {
-		return classesList;
 	}
 
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
 	}
 
+	public String getCourseName() {
+		return courseName;
+	}
+
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+
+	public String getCourseDesc() {
+		return courseDesc;
 	}
 
 	public void setCourseDesc(String courseDesc) {
 		this.courseDesc = courseDesc;
 	}
 
+	public String getCourseStatus() {
+		return courseStatus;
+	}
+
+	public void setCourseStatus(String courseStatus) {
+		this.courseStatus = courseStatus;
+	}
+
+	public int getClassSize() {
+		return classSize;
+	}
+
 	public void setClassSize(int classSize) {
 		this.classSize = classSize;
+	}
+
+	public int getDurationSemesters() {
+		return durationSemesters;
 	}
 
 	public void setDurationSemesters(int durationSemesters) {
 		this.durationSemesters = durationSemesters;
 	}
 
+	public List<Subject> getCourseSubjectList() {
+		return courseSubjectList;
+	}
+
 	public void setCourseSubjectList(List<Subject> courseSubjectList) {
 		this.courseSubjectList = courseSubjectList;
+	}
+
+	public List<CourseClass> getClassesList() {
+		return classesList;
 	}
 
 	public void setClassesList(List<CourseClass> classesList) {
@@ -140,16 +148,8 @@ public class Course {
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDesc=" + courseDesc
-				+ ", classSize=" + classSize + ", durationSemesters=" + durationSemesters + ", courseSubjectList="
-				+ courseSubjectList + ", classesList=" + classesList + "]";
-	}
-
-	public boolean getStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
+				+ ", courseStatus=" + courseStatus + ", classSize=" + classSize + ", durationSemesters="
+				+ durationSemesters + ", courseSubjectList=" + courseSubjectList + ", classesList=" + classesList + "]";
 	}
 
 }

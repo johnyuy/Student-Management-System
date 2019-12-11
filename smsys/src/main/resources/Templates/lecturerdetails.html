@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="UTF-8">
+<title>Lecturer Details</title>
+</head>
+<body>
+	<div class="w3-responsive">
+
+		<h2>Lecturer Details</h2>
+		<br />
+		<table th:object="${lecturer}">
+
+				<tr>
+					<th>Birth Date</th>
+					<td th:text="*{birthDate}" /></td>
+				</tr>
+				<tr>
+					<th>Address</th>
+					<td th:text="*{address}" /></td>
+				</tr>
+				<tr>
+					<th>Mobile</th>
+					<td th:text="*{mobile}" /></td>
+				</tr>
+				<tr>
+					<th>Email</th>
+					<td th:text="*{email}" /></td>
+				</tr>
+				<tr>
+					<th>Status</th>
+					<td th:text="*{status}" /></td>
+				</tr>
+			</table>
+				<table>
+		<tr><td><a type="submit" th:action="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit
+				</a>
+		</td></tr></table>
+		<form action="/lecturers/list" method="get" th:action="@{/lecturers/list}">
+			<button>Back to Lecturers List</button>
+		</form>
+
+	</div>
+</body>
+</html>

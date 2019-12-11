@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="UTF-8">
+<title>Courses</title>
+</head>
+<body>
+
+	<h1>Course Listing Table</h1>
+	<br />
+
+	<div class="w3-responsive">
+		<table class="w3-table-all w3-centered w3-hoverable">
+			<tr>
+				<th>Course ID</th>
+				<th>Course Name</th>
+				<th>Classes</th>
+
+			</tr>
+			<tr th:each="course:${courses}">
+				<td th:text=${course.courseId}>Id</td>
+
+				<td><a href="coursedetails.html"
+					th:href="@{/courses/details(courseId=${course.courseId})}"
+					th:text=${course.courseName}
+					class="btn btn-default">testing</a></td>
+
+				<td><a href="classlist.html"
+					th:href="@{/classes/list(courseId=${course.courseId})}"
+					class="btn btn-default"><span
+						th:text="${course.classesList.size()}+' Classes'">number of classes</span></a></td>
+				
+			</tr>
+		</table>
+		<br />
+		<!-- following tool bar below is dependant on user access level -->
+		<h3>Admin Tools</h3>
+		<form action="/classes/add" method="get" th:action="@{/courses/add}">
+			<table class="w3-table-all w3-centered">
+				<tr>
+					<td><button>Add course</button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
