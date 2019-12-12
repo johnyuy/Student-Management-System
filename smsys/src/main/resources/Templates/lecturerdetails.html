@@ -32,11 +32,15 @@
 					<th>Status</th>
 					<td th:text="*{status}" /></td>
 				</tr>
-			</table>
-				<table>
-		<tr><td><a type="submit" th:action="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit
+				<tr th:each="s:${lecturer.subjectList}">
+					<th>Teaching</th>
+					<td th:text="${s.subject.subjectName}">Subject Name</td>
+				</tr>
+				<tr><td><a type="submit" th:action="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit
 				</a>
-		</td></tr></table>
+				</td>
+				</tr>
+			</table>
 		<form action="/lecturers/list" method="get" th:action="@{/lecturers/list}">
 			<button>Back to Lecturers List</button>
 		</form>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.nus.smsys.models.Lecturer;
+import sg.edu.nus.smsys.models.Subject;
 import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.SubjectRepository;
 
@@ -43,6 +44,10 @@ public class LecturerController {
 	@GetMapping("/details/{staffId}")
 	public String viewLecturer(Model model, @PathVariable("staffId") int id) {
 		Lecturer lecturer = lrepo.findByStaffId(id);
+		ArrayList<Subject> s = new ArrayList<Subject>();
+		s.addAll(srepo.findByLecturerListContaining(lecturer));
+		lecturer.setSubjectList(s);
+		s.stream().forEach(ss -> System.out.println(ss.getSubjectName()));
 		model.addAttribute("lecturer",lecturer);
 		return "lecturerdetails";
 	}
