@@ -48,6 +48,13 @@ public class Application {
 		this.student = student;
 	}
 	
+	public Application(Course course, String status, Student student) {
+		super();
+		this.course = course;
+		this.status = status;
+		this.student = student;
+	}
+	
 	//GETTERS & SETTERS
 	public int getApplicationId() {
 		return applicationId;

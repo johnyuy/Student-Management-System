@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Course Application</title>
+</head>
+<body>
+	<h1>Course Application</h1>
+</body>
+
+<div class="w3-responsive">
+	<a th:href="@{/student/applycourse}">Apply Course</a>	
+
+<div th:if="application.empty">
+	<table class="w3-table-all w3-centered w3-hoverable">
+	<tr>
+		<th>My Course Application</th>
+	</tr>
+	<tr>
+		<td>There is no pending course application.</td>
+	</tr>
+	</table>
+</div>
+
+
+<div th:unless="application.empty">
+<table class="w3-table-all w3-centered w3-hoverable">
+	<tr>
+		<th colspan='6'>My Course Application</th>
+	</tr>
+	<tr>
+		<th>Application ID</th>
+		<th>Course Name</th>
+		<th>Description</th>
+		<th>Status</th>
+		<th></th>
+		<th></th>
+	</tr>
+	
+	<tr th:each="application:${application}">
+	
+	<td th:text=${application.applicationId}>id</td>
+	<td th:text=${application.course.courseName}>Course Name</td>
+	<td th:text=${application.course.courseDesc}>Description</td>
+	<td th:text=${application.status}>Status</td>
+	<td><a th:href="@{/student/edit/{id}(id=${application.applicationId})}">Edit</a></td>
+	<td><a th:href="@{/student/delete/{id}(id=${application.applicationId})}">Delete</a></td>
+
+	</tr>
+	</table>
+</div>	
+	
+</div>			
+</html>

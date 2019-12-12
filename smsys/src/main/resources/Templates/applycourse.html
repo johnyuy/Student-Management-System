@@ -2,18 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Apply Course</title>
 </head>
 <body>
 	<h2>Apply for course</h2>
+	<div class="w3-responsive">
+	<form action="/student/submit" th:action="@{/student/submit}" method="post">
 	<table>
 		<tr>
-			<td>Application for Semester:</td>
+			<th>Application for Semester:</th>
 			<td th:text=${semester}>Semester Code</td>
 		</tr>
+		<tr>
+			<th>Student ID:</th>
+			<td th:text=${studentid}>Student ID:</td>
+		</tr>
+	</table>
+		
+		<table class="w3-table-all w3-centered w3-hoverable">
+		 <tr>
+		 	<th>Courses</th>
+			<td><select th:if="${eligibility == true}">
+				<option value="">Select Course</option>
+				<option th:each="course:${courselist}" th:text="${course.courseName}"></option>
+			
+			</select></td>
+		</tr>
+		<tr>
+			<td colspan="2"><button type="submit" style="align:right">Submit</button></td>
+		</tr>
+		</table>
+		<div style="height:100px"></div>
+		<table class="w3-table-all w3-centered w3-hoverable">
 		<tr th:unless="${eligibility == true}">
 			<td colspan="3"> Not eligible to apply for courses. </td>
-
+		</tr>
+		
 			<tr th:if="${eligibility == true}">
 				<th>Id</th>
 				<th>Name</th>
@@ -24,8 +49,9 @@
             	<td th:text="${course.courseName}"> Course Name</td>
             	<td th:text="${course.courseDesc}"> Course Description</td>
 			</tr>
-			
-	</table>
+			</table>
+		</form>	
+	</div>
 	
 </body>
 </html>

@@ -12,6 +12,7 @@ import sg.edu.nus.smsys.models.Course;
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Semester;
 import sg.edu.nus.smsys.models.Student;
+import sg.edu.nus.smsys.repository.ApplicationRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
 import sg.edu.nus.smsys.repository.SemesterRepository;
 import sg.edu.nus.smsys.repository.StudentRepository;
@@ -25,6 +26,8 @@ public class ApplicationServiceImplement implements ApplicationService {
 	private StudentRepository srepo;
 	@Autowired
 	private SemesterRepository semrepo;
+	@Autowired
+	private ApplicationRepository arepo;
 
 	public String displayNextSemCode(LocalDate today) {
 		today = LocalDate.now();
@@ -107,8 +110,24 @@ public class ApplicationServiceImplement implements ApplicationService {
 		return eligibleCourses;
 	}
 
-//	public List<Application> submitApplication(Course course){
-//		
-//	}
+	public void submitApp(int courseId, int studentId){
+		Student student = srepo.findByStudentId(studentId);
+		Course appliedCourse = crepo.findByCourseId(courseId);
+		Application application = new Application (appliedCourse, "Pending", student);
+		arepo.save(application);
+		System.out.println("Application status: " + application.getStatus());
+	}
+	
+	public List<Application> displayStudentApplication (Student student){
+		List<Application> appList = new ArrayList<>();
+		List<Application> myApp = new ArrayList<>();
+		appList = arepo.findAll();
+		for(Application app : appList) {
+			if(app.getStudent().equals(student)) {
+				myApp.add(app);
+			}
+		}
+		return myApp;
+	}
 
 }
