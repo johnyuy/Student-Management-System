@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import sg.edu.nus.smsys.cmdlr.CmdRunner2;
 import sg.edu.nus.smsys.models.CourseAdmin;
 import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Student;
@@ -43,19 +42,20 @@ public class UserServiceImplement implements UserService {
 		String pw = passwordEncoder(password, salt);
 		System.out.println("NEW : " + id + "   " + pw);
 		if (userType == 5) {
-			//Course Admin
+			// Course Admin
 			if (usernameExist("A" + id) == false && courseAdminIdExist(id) == true) {
 				System.out.println("hereAA");
 				CourseAdmin ca = crepo.findByStaffId(id);
 				String username = "A" + id;
 				User user = new User(username, ca.getAccessLevel(), pw, salt, "ROLE_ADMIN", true);
-				
+
 				urepo.save(user);
-				
+
 				log.info("New user account for " + ca.getFirstName() + " " + ca.getLastName()
 
-						+ " has been successfully created.");} 
-			//lecturer
+						+ " has been successfully created.");
+			}
+			// lecturer
 			else if (usernameExist("L" + id) == false && lecturerIdExist(id) == true) {
 				System.out.println("hereLL");
 				Lecturer lect = lrepo.findByStaffId(id);
@@ -66,7 +66,7 @@ public class UserServiceImplement implements UserService {
 						+ " has been successfully created.");
 			}
 
-		//student
+			// student
 		} else if (userType == 1 && usernameExist("S" + id) == false && studentIdExist(id) == true) {
 			System.out.println("hereSS");
 			Student s = srepo.findByStudentId(id);
@@ -143,10 +143,10 @@ public class UserServiceImplement implements UserService {
 		if (u.isPresent()) {
 			User user = u.get();
 			byte[] salt = user.getSalt();
-			
+
 			String testpw = passwordEncoder(password, salt);
 			log.info("Username found, checking credentials...");
-			
+
 			if (testpw.equals(user.getPassword())) {
 				log.info("Authenthication successful!");
 				return true;
@@ -157,16 +157,15 @@ public class UserServiceImplement implements UserService {
 		log.info("Authenthication failed!");
 		return false;
 	}
-	
-	
+
 	public Student getStudentByUser(User user) {
 		int id = Integer.parseInt(user.getUsername().substring(1));
 		if (user.getUsername().substring(0, 1) == "S") {
-			return srepo.findByStudentId(id);		
+			return srepo.findByStudentId(id);
 		}
 		return null;
 	}
-	
+
 	public Lecturer getLecturerByUser(User user) {
 		int id = Integer.parseInt(user.getUsername().substring(1));
 		if (user.getUsername().substring(0, 1) == "L") {
@@ -174,21 +173,20 @@ public class UserServiceImplement implements UserService {
 		}
 		return null;
 	}
-	
+
 	public CourseAdmin getCourseAdminByUser(User user) {
 		int id = Integer.parseInt(user.getUsername().substring(1));
 		if (user.getUsername().substring(0, 1) == "A") {
-			return crepo.findByStaffId(id);		
+			return crepo.findByStaffId(id);
 		}
 		return null;
 	}
 
 	public int getUserAccessLevel(String username) {
-		System.out.println(username);
 		Optional<User> user = urepo.findByUsername(username);
-		if(user.isPresent()) {
+		if (user.isPresent()) {
 			return user.get().getAccessRights();
-		}		
+		}
 		return 4;
 	}
 

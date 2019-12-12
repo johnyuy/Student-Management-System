@@ -3,13 +3,9 @@ package sg.edu.nus.smsys.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import sg.edu.nus.smsys.SmsysApplication;
 import sg.edu.nus.smsys.models.*;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
@@ -111,5 +104,10 @@ public class CourseClassController {
 		model.addAttribute("semlist", str);
 
 		return ("courseclassdetails");
+	}
+	
+	@GetMapping("/students/{id}")
+	public String viewCourseClassStudents(Model model, @PathVariable("id") int id) {
+		return null;
 	}
 }

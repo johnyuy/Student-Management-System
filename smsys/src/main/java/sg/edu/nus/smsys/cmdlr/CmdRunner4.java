@@ -6,9 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import sg.edu.nus.smsys.models.*;
-import sg.edu.nus.smsys.repository.*;
-
 @Component
 @Order(4)
 public class CmdRunner4 implements CommandLineRunner{

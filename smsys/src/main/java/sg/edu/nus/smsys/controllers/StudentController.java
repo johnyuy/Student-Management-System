@@ -1,7 +1,6 @@
 package sg.edu.nus.smsys.controllers;
 
 
-import java.time.LocalDate;
 import java.util.*;
 
 import javax.validation.Valid;
@@ -10,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import sg.edu.nus.smsys.UserSession;
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Student;
 

@@ -1,9 +1,6 @@
 package sg.edu.nus.smsys.controllers;
 
 import java.util.ArrayList;
-import java.util.List;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.nus.smsys.models.CourseClass;
-import sg.edu.nus.smsys.models.Leave;
 import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Schedule;
-import sg.edu.nus.smsys.models.Staff;
 import sg.edu.nus.smsys.models.Subject;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.LecturerRepository;

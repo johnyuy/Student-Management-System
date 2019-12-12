@@ -1,8 +1,6 @@
 package sg.edu.nus.smsys.service;
 
 import java.security.GeneralSecurityException;
-import java.security.NoSuchAlgorithmException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 
