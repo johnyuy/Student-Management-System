@@ -20,7 +20,7 @@ import sg.edu.nus.smsys.service.UserService;
 
 
 @Controller
-@RequestMapping("/home/admin/useraccount")
+@RequestMapping("/accounts")
 public class UserAccountController {
 	
 	@Autowired
@@ -44,8 +44,9 @@ public class UserAccountController {
 	@PostMapping("/insert")
 	public String insertUser(@ModelAttribute User user ) throws GeneralSecurityException
 	{
+		System.out.println("hello is there a user? " + user);
 		us.registerNewAccount(Integer.parseInt(user.getUsername()), user.getPassword());
-		return "redirect:/home/login";
+		return "redirect:/login";
 	}
 	
 	

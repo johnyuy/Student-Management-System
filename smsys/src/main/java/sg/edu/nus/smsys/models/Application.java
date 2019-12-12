@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 public class Application {
 	@Id
 	@NotNull
-	@Min(1000000)
 	@Max(9999999)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "application_id_seq")
 	private int applicationId;
@@ -27,7 +26,7 @@ public class Application {
 	@ManyToOne
 	private Student student;
 	
-	private String status = "Pending";
+	private String status;
 	//status = pending
 	//status = accepted (successful)
 	//status = rejected (unsuccessful)
@@ -40,22 +39,12 @@ public class Application {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Application(int applicationId, Course course, String status, Student student) {
-		super();
-		this.applicationId = applicationId;
-		this.course = course;
-		this.status = status;
-		this.student = student;
-	}
-	
-	public Application(Course course, String status, Student student) {
+	public Application(Course course, Student student) {
 		super();
 		this.course = course;
-		this.status = status;
+		this.status = "pending";
 		this.student = student;
 	}
-	
-	//GETTERS & SETTERS
 	public int getApplicationId() {
 		return applicationId;
 	}
@@ -65,12 +54,8 @@ public class Application {
 	public Student getStudent() {
 		return student;
 	}
-	
 	public String getStatus() {
 		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
 	}
 	public void setApplicationId(int applicationId) {
 		this.applicationId = applicationId;
@@ -81,7 +66,9 @@ public class Application {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -108,5 +95,4 @@ public class Application {
 		return "Application [applicationId=" + applicationId + ", course=" + course + ", student=" + student
 				+ ", status=" + status + "]";
 	}
-	
 }

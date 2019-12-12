@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.nus.smsys.models.Application;
 import sg.edu.nus.smsys.models.Course;
@@ -30,7 +31,9 @@ import sg.edu.nus.smsys.repository.ApplicationRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
 import sg.edu.nus.smsys.repository.SemesterRepository;
 import sg.edu.nus.smsys.repository.StudentRepository;
+import sg.edu.nus.smsys.security.SmsUserDetailsService;
 import sg.edu.nus.smsys.service.ApplicationService;
+import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("/student")
@@ -45,18 +48,21 @@ public class ApplicationController {
 	private CourseRepository crepo;
 	@Autowired
 	private ApplicationRepository apprepo;
+	@Autowired
+	private UserService us;
+	@Autowired
+	private SmsUserDetailsService suds;
 	
 	
 	@GetMapping("/applycourse")
-	public String applyCourse(Model model, Student student) {
-
+	public String applyCourse(Model model) {
 		List<Course> eligibleCourse = new ArrayList<Course>();
 		model.addAttribute("courselist", eligibleCourse);
+
+		User user = us.getUserByUsername(suds.getAuthUsername());
+		Student student = us.getStudentByUser(user);
 		
-		 
-		
-		student = sturepo.findByStudentId(10001);
-		model.addAttribute("studentid", student.getStudentId());
+		model.addAttribute("student", student);
 		
 		LocalDate today = LocalDate.now();
 		String semCode = as.displayNextSemCode(today);
@@ -75,19 +81,15 @@ public class ApplicationController {
 		return "applycourse";
 	}
 	
-	@PostMapping("/applycourse")
-	public String applyCourse(@Valid @ModelAttribute Application app, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			bindingResult.getFieldErrors().stream()
-					.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
-			return "applycourse";
-		}
-		//System.out.println(l.getDateStart().toString());
-
+	@PostMapping("/submitapplication")
+	public String applyCourse(@RequestParam int selectedcourse) {
+		User user = us.getUserByUsername(suds.getAuthUsername());
+		Student student = us.getStudentByUser(user);
+		System.out.println( student.getFirstName() + " has applied for courseid = " + selectedcourse);
+		Course course = crepo.findByCourseId(selectedcourse);
+		Application app = new Application(course, student);
 		apprepo.save(app);
-		String studentId = String.valueOf(app.getStudent().getStudentId());
-		// return "redirect:/leave/leavelist?id="+staffId;
-		return "redirect:/student/leavelist?id=" + studentId;
+		return "redirect:/student/home";
 	}
 	
 	@GetMapping("/home")

@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Create User Account Form</h1>
-<form action="/home/courseadmin/useraccount/insert"  th:object="${user}" th:action="@{/home/courseadmin/useraccount/insert}" method="POST" enctype="utf8">
+<form action="/accounts/insert"  th:object="${user}" th:action="@{/accounts/insert}" method="POST" enctype="utf8">
     	<fieldset>
 			<p>User Id: <input type="text" th:field="*{username}"></p>
 		</fieldset>

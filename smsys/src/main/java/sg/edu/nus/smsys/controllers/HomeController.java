@@ -65,7 +65,7 @@ public class HomeController {
 		if (us.verifyUserAndPassword(user.getUsername(), user.getPassword()) == true){
 			//LOGIN AUTHENTHICATION IS SUCCESSFUL
 			Optional<User> u = urepo.findByUsername(user.getUsername());
-			int accesslevel = u.get().getAccessRights();
+			int accesslevel = u.get().getAccessLevel();
 			
 			UUID sessionId = UUID.randomUUID();
 			UserSession session = new UserSession(urepo.findByUsername(user.getUsername()).get(), sessionId);

@@ -20,8 +20,6 @@ public interface ApplicationService {
 	@Autowired
 	public List<Course> displayAvailableCourses();
 	@Autowired
-	public void submitApp(int courseId, int studentId);
-	@Autowired
 	List<Application> displayStudentApplication (Student student);
 }
 	

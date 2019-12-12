@@ -41,4 +41,17 @@ public class SmsUserDetailsService implements UserDetailsService {
 		}
 		return 4;
 	}
+	
+	public String getAuthUsername() {
+
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			return ((UserDetails) principal).getUsername();
+		}
+		if (principal instanceof String) {
+			System.out.println("username = " + principal.toString());
+			return principal.toString();
+		}
+		return null;
+	}
 }

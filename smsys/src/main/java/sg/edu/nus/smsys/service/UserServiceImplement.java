@@ -36,6 +36,7 @@ public class UserServiceImplement implements UserService {
 
 	@Transactional
 	public void registerNewAccount(Integer id, String password) throws GeneralSecurityException {
+		System.out.println("Hello : " + id + "   " + password);
 		int userType = id / 10000;
 		byte[] salt = getSalt();
 		System.out.println("HEY : " + id + "   " + password);
@@ -160,7 +161,10 @@ public class UserServiceImplement implements UserService {
 
 	public Student getStudentByUser(User user) {
 		int id = Integer.parseInt(user.getUsername().substring(1));
-		if (user.getUsername().substring(0, 1) == "S") {
+		System.out.println(user.getUsername().substring(0, 1));
+		System.out.println("only numbers = " + id);
+		if (user.getUsername().substring(0, 1).equals("S")) {
+			System.out.println("beta");
 			return srepo.findByStudentId(id);
 		}
 		return null;
@@ -168,7 +172,7 @@ public class UserServiceImplement implements UserService {
 
 	public Lecturer getLecturerByUser(User user) {
 		int id = Integer.parseInt(user.getUsername().substring(1));
-		if (user.getUsername().substring(0, 1) == "L") {
+		if (user.getUsername().substring(0, 1).equals("L")) {
 			return lrepo.findByStaffId(id);
 		}
 		return null;
@@ -176,7 +180,7 @@ public class UserServiceImplement implements UserService {
 
 	public CourseAdmin getCourseAdminByUser(User user) {
 		int id = Integer.parseInt(user.getUsername().substring(1));
-		if (user.getUsername().substring(0, 1) == "A") {
+		if (user.getUsername().substring(0, 1).equals("A")) {
 			return crepo.findByStaffId(id);
 		}
 		return null;
@@ -185,9 +189,17 @@ public class UserServiceImplement implements UserService {
 	public int getUserAccessLevel(String username) {
 		Optional<User> user = urepo.findByUsername(username);
 		if (user.isPresent()) {
-			return user.get().getAccessRights();
+			return user.get().getAccessLevel();
 		}
 		return 4;
 	}
-
+	
+	public User getUserByUsername(String username) {
+		Optional<User> user = urepo.findByUsername(username);
+		System.out.println("here is the username haha = " + user.get().getUsername());
+		if(user.isPresent()) {
+			return user.get();
+		}
+		return null;
+	}
 }

@@ -48,14 +48,16 @@ public class ApplicationServiceImplement implements ApplicationService {
 	public boolean checkEligibility(Student student) {
 		// check if student can apply based on enrolled course
 		List<CourseClass> courseList = student.getCourseClassList();
-
+		System.out.println("My Course List: " + courseList);
 		if (courseList == null || courseList.size() == 0) {
+			System.out.println("YOU ARE ELIGIBLE!");
 			return true;
 		} else {
 			System.out.println(courseList.size());
 			CourseClass lastCourse = courseList.get(courseList.size() - 1);
 			// lastcourseclass
 			if (lastCourse.getLevel() < lastCourse.getCourse().getDurationSemesters()) {
+				System.out.println("YOU ARE NOT ELIGIBLE!!");
 				return false;
 			} else
 				return true;
@@ -70,7 +72,7 @@ public class ApplicationServiceImplement implements ApplicationService {
 		for (Course course : courseList) {
 			if (course.getCourseStatus().equals("Open")) {
 				openedCoursesList.add(course);
-			}
+			} 
 		}
 		return openedCoursesList;
 	}
@@ -110,13 +112,6 @@ public class ApplicationServiceImplement implements ApplicationService {
 		return eligibleCourses;
 	}
 
-	public void submitApp(int courseId, int studentId){
-		Student student = srepo.findByStudentId(studentId);
-		Course appliedCourse = crepo.findByCourseId(courseId);
-		Application application = new Application (appliedCourse, "Pending", student);
-		arepo.save(application);
-		System.out.println("Application status: " + application.getStatus());
-	}
 	
 	public List<Application> displayStudentApplication (Student student){
 		List<Application> appList = new ArrayList<>();
@@ -129,5 +124,6 @@ public class ApplicationServiceImplement implements ApplicationService {
 		}
 		return myApp;
 	}
+
 
 }

@@ -7,51 +7,76 @@
 </head>
 <body>
 	<h2>Apply for course</h2>
-	<div class="w3-responsive">
-	<form action="/student/submit" th:action="@{/student/submit}" method="post">
-	<table>
+	<table class="w3-table-all w3-centered">
 		<tr>
-			<th>Application for Semester:</th>
-			<td th:text=${semester}>Semester Code</td>
+			<td>Student ID:</td>
+			<td th:text="${student.studentId}"></td>
 		</tr>
 		<tr>
-			<th>Student ID:</th>
-			<td th:text=${studentid}>Student ID:</td>
+			<td>Application for Semester:</td>
+			<td th:text=${semester}>
 		</tr>
 	</table>
-		
-		<table class="w3-table-all w3-centered w3-hoverable">
-		 <tr>
-		 	<th>Courses</th>
-			<td><select th:if="${eligibility == true}">
-				<option value="">Select Course</option>
-				<option th:each="course:${courselist}" th:text="${course.courseName}"></option>
-			
-			</select></td>
-		</tr>
-		<tr>
-			<td colspan="2"><button type="submit" style="align:right">Submit</button></td>
-		</tr>
+	<!-- 
+	<form th:object="${application}" method="post"
+		th:action="@{/student/submitapplication}">
+		<table>
+			<tr>
+				<td>Select Course</td>
+				<td><select th:field=*{course}>
+						<option value="">Select</option>
+						<option th:each="course:${courselist}"
+							th:text="${course.courseName}" ></option>
+				</select></td>
+			</tr>
+
+			<tr>
+				<td><input type="hidden" th:field=*{status} th:value="pending" /></td>
+			</tr>
+
+			<tr>
+				<td><input type="hidden" th:field=*{student}
+					th:value="${student}" /></td>
+			</tr>
+
 		</table>
-		<div style="height:100px"></div>
-		<table class="w3-table-all w3-centered w3-hoverable">
+
+		<button type="submit">Apply</button>
+	</form> -->
+
+
+	<form method="post" th:action="@{/student/submitapplication}">
+		<table>
+			<tr>
+				<td>Select Course</td>
+				<td><select name="selectedcourse">
+						<option value="">Select</option>
+						<option th:each="course:${courselist}"
+							th:text="${course.courseName}" th:value="${course.courseId}"></option>
+				</select></td>
+			</tr>
+
+		</table>
+
+		<button type="submit">Apply</button>
+	</form>
+
+	<table class="w3-table-all w3-centered w3-hoverable">
 		<tr th:unless="${eligibility == true}">
-			<td colspan="3"> Not eligible to apply for courses. </td>
+			<td colspan="3">Not eligible to apply for courses.</td>
 		</tr>
-		
-			<tr th:if="${eligibility == true}">
-				<th>Id</th>
-				<th>Name</th>
-				<th>Description</th>
-			</tr>
-			<tr th:each="course:${courselist}">
-				<td th:text="${course.courseId}"> Course Id</td>
-            	<td th:text="${course.courseName}"> Course Name</td>
-            	<td th:text="${course.courseDesc}"> Course Description</td>
-			</tr>
-			</table>
-		</form>	
-	</div>
-	
+
+		<tr th:if="${eligibility == true}">
+			<th>Id</th>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<tr th:each="course:${courselist}">
+			<td th:text="${course.courseId}">Course Id</td>
+			<td th:text="${course.courseName}">Course Name</td>
+			<td th:text="${course.courseDesc}">Course Description</td>
+		</tr>
+	</table>
+
 </body>
 </html>
