@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import sg.edu.nus.smsys.models.Course;
 import sg.edu.nus.smsys.models.Lecturer;
-import sg.edu.nus.smsys.models.Subject;
 import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.SubjectRepository;
 

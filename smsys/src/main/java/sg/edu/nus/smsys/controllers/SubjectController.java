@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.models.Subject;
-import sg.edu.nus.smsys.repository.StudentRepository;
 import sg.edu.nus.smsys.repository.SubjectRepository;
 
 @Controller

@@ -1,7 +1,5 @@
 package sg.edu.nus.smsys.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import sg.edu.nus.smsys.models.Semester;

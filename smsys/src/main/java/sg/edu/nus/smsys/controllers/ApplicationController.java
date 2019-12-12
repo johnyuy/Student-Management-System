@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.nus.smsys.models.Course;
-import sg.edu.nus.smsys.models.Semester;
 import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.repository.SemesterRepository;
 import sg.edu.nus.smsys.repository.StudentRepository;
