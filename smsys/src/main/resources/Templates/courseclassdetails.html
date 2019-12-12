@@ -31,6 +31,11 @@
 				<td th:text=${semlist}></td>
 			</tr>
 			
+			<tr th:if="${access == 1}">
+				<th>Edit</th>
+				<td>link</td>
+			</tr>
+			
 		</table>
 
 		<form method="get" th:action="@{/classes/list}">

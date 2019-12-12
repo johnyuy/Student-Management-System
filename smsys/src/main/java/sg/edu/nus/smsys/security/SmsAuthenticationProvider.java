@@ -21,7 +21,7 @@ import sg.edu.nus.smsys.repository.UserRepository;
 import sg.edu.nus.smsys.service.UserService;
 
 @Component
-public class smsAuthenticationProvider implements AuthenticationProvider{
+public class SmsAuthenticationProvider implements AuthenticationProvider{
 	@Autowired
 	UserService us;
 	@Autowired

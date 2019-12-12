@@ -183,4 +183,13 @@ public class UserServiceImplement implements UserService {
 		return null;
 	}
 
+	public int getUserAccessLevel(String username) {
+		System.out.println(username);
+		Optional<User> user = urepo.findByUsername(username);
+		if(user.isPresent()) {
+			return user.get().getAccessRights();
+		}		
+		return 4;
+	}
+
 }

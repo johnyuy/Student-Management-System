@@ -33,8 +33,7 @@ public class SmsysApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(LecturerRepository lrepo, StudentRepository Srepo, CourseAdminRepository Crepo,
-			CourseRepository Csrepo, UserService us) {
+	public CommandLineRunner demo() {
 
 		return (args) -> {
 			log.info("END OF INITIALIZATION");

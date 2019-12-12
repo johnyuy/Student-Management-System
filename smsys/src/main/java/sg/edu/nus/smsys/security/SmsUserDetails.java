@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import sg.edu.nus.smsys.models.User;
 import sg.edu.nus.smsys.service.UserService;
 
-public class smsUserDetails implements UserDetails{
+public class SmsUserDetails implements UserDetails{
 	
 	@Autowired
 	UserService us;
@@ -22,7 +22,7 @@ public class smsUserDetails implements UserDetails{
 	private boolean active;
 	private List<GrantedAuthority> authorities;
 	
-	public smsUserDetails(User user) {
+	public SmsUserDetails(User user) {
 		this.userName = user.getUsername();
 		this.active = user.isActive();
 		this.password = user.getPassword();

@@ -17,9 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Autowired
-	private smsUserDetailsService userservice;
+	private SmsUserDetailsService userservice;
 	
-	@Autowired smsAuthenticationProvider authProvider;
+	@Autowired SmsAuthenticationProvider authProvider;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
@@ -34,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		 	.antMatchers("/lecturer/**").hasAnyRole("ADMIN", "LECTURER")
 		 	.antMatchers("/leave/**").hasAnyRole("ADMIN", "LECTURER")
 		 	.antMatchers("/students/**").hasAnyRole("ADMIN", "STUDENT")
+		 	.antMatchers("/classes/**").hasAnyRole("ADMIN", "LECTURER", "STUDENT")
 		 	.antMatchers("/**").permitAll()
 		 	.anyRequest()
 		 	.authenticated()
