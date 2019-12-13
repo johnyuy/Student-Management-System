@@ -88,11 +88,11 @@ public class Student extends Person {
 		// TODO Auto-generated constructor stub
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Student [studentId=" + studentId + ", status=" + status +  ", appliedCourses="
-				+ appliedCourses + ", gradeList=" + gradeList + ", courseClassList=" + courseClassList
-				+ ", accessLevel=" + accessLevel + "]";
+		return "Student [studentId=" + studentId + ", status=" + status + ", accessLevel=" + accessLevel + "]";
 	}
 
 	@Override

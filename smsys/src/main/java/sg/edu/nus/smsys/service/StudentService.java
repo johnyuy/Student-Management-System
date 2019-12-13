@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import sg.edu.nus.smsys.models.Student;
 
 public interface StudentService {
-
+	
+	public boolean canViewClass(int id);
 	List<Student> findByFirstNameContaining(String firstName);
 	List<Student> findByMiddleNameContaining(String name);
 	List<Student> findByLastNameContaining(String name);
