@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -26,8 +27,11 @@ public class Schedule {
 	
 	@Max(2)
 	private int period;
+	
+	@NotNull
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate date;
+	
 	@ManyToOne
 	private Lecturer lecturer;
 	@ManyToOne
@@ -136,12 +140,4 @@ public class Schedule {
 			return false;
 		return true;
 	}
-
-
-	@Override
-	public String toString() {
-		return "Schedule [scheduleId=" + scheduleId + ", period=" + period + ", date=" + date + ", lecturer=" + lecturer
-				+ ", subject=" + subject + ", clas=" + clas + "]";
-	}
-	
 }

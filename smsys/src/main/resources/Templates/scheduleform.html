@@ -3,16 +3,18 @@
 <head>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta charset="UTF-8">
-<title>Create Schedule</title>
+<title>Schedule Form</title>
 </head>
 <body>
 <div class="w3-responsive">
 
-<form  th:object="${schedule}" method="post" >
+
+<form th:object="${schedule}" method="post" th:action="@{/schedule/add}" >
 
 	<fieldset>
 	Date:<input type="date" th:field="*{date}"/>
 	</fieldset>
+	
 	
 	<fieldset>
 	Period:
@@ -27,7 +29,7 @@
 	LecturerName:
 	<select th:field="*{lecturer}" >
 	
-	<option th:each="lecturer:${lecturer}"
+	<option th:each="lecturer:${lecturerlist}"
 		    th:value="${lecturer.staffId}" 
 		    th:text="${lecturer.firstName}">Name</option>
 	
@@ -36,9 +38,8 @@
 	
 	<fieldset>
 	SubjectName:
-	<select th:field="*{subject}" >
-	
-	<option th:each="subject:${subject}"
+	<select th:field="*{subject}" >	
+	<option th:each="subject:${subjectlist}"
 		    th:value="${subject.subjectId}" 
 		    th:text="${subject.subjectName}">Name</option>
 	
@@ -48,20 +49,21 @@
 	</fieldset>
 	
 	<fieldset>
-	CourseClassName:
-	<select th:field="*{clas}" >
-	
-	<option th:each="courseclass:${courseclass}"
+	Class-CourseName:
+	<select th:field="*{clas}" >	
+	<option th:each="courseclass:${courseclasslist}"
 		    th:value="${courseclass.classId}" 
-		    th:text="${courseclass.course.courseName}">Name</option>
-	
+		    th:text="${courseclass.classId+'-' +courseclass.course.courseId+' '+courseclass.course.courseName}">Name</option>
   	</select>
-	
-	</fieldset>
+  	</fieldset>
+   	
 	
 	<fieldset>
 	<button type="submit">Submit</button>
 	</fieldset>
+
+
+	
 </form>
 
 

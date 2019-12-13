@@ -1,6 +1,7 @@
 package sg.edu.nus.smsys.controllers;
 
 
+import java.time.LocalDate;
 import java.util.*;
 
 import javax.validation.Valid;
@@ -9,24 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import sg.edu.nus.smsys.UserSession;
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Student;
 
 import sg.edu.nus.smsys.repository.*;
-import sg.edu.nus.smsys.service.StudentServiceImpl;
 
 @Controller
 @RequestMapping("/students")
 public class StudentController {
-	
-	@Autowired
-	private StudentServiceImpl ss;
 
-	@Autowired
-	private GradeRepository grepo;
-	
 	@Autowired
 	private StudentRepository srepo;
 
@@ -46,7 +42,7 @@ public class StudentController {
 		if (slist.size() == 1) {
 			// 1 student found
 			Student student = slist.get(0);
-			return "redirect:/students/" + student.getStudentId();
+			return "redirect:/students/details?id=" + student.getStudentId();
 		} else {
 			model.addAttribute("students", slist);
 		}
@@ -55,29 +51,15 @@ public class StudentController {
 
 	@GetMapping("/details/{id}")
 	public String viewStudent(Model model, @PathVariable("id") int id) {
-		
-		//find student
 		Student student = srepo.findByStudentId(id);
 		
-		//find student course
-		ArrayList<CourseClass> cc = new ArrayList<CourseClass>();	
+		ArrayList<CourseClass> cc = new ArrayList<CourseClass>();
 		cc.addAll(ccrepo.findByStudentListContaining(student));
+		
 		student.setCourseClassList(cc);
+		
 		cc.stream().forEach(c -> System.out.println(c.getCourse().getCourseName()));
 		
-		for (CourseClass c: cc) {
-			c.setGradeList(grepo.findByStudentAndClas(student,c));	
-		}
-		//find student GPA
-		ArrayList<Float> gpa = new ArrayList<Float>();
-		for (CourseClass c : cc){
-			float f = ss.CalulateGPA(student, c);
-			gpa.add(f);
-		}
-		//find student grades
-		student.setGradeList(grepo.findByStudent(student));
-		
-		model.addAttribute("gpa" ,gpa );
 		model.addAttribute("student", student);
 		return "studentdetails";
 	}
