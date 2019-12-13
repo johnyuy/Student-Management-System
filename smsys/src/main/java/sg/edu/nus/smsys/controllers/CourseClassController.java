@@ -19,6 +19,7 @@ import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
 import sg.edu.nus.smsys.repository.SemesterRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
+import sg.edu.nus.smsys.service.CourseClassService;
 import sg.edu.nus.smsys.service.SemesterService;
 import sg.edu.nus.smsys.service.UserService;
 
@@ -34,14 +35,14 @@ public class CourseClassController {
 	@Autowired
 	private SmsUserDetailsService suds;
 	@Autowired
-	private UserService us;
+	private CourseClassService ccService;
 	@Autowired
 	private SemesterService semService;
 	private static final Logger log = LoggerFactory.getLogger(CourseClassController.class);
 
 	@GetMapping("/list")
 	public String viewCourseClasses(Model model) {
-		List<CourseClass> classlist = getClassesByUser();
+		List<CourseClass> classlist = ccService.getClassesByUser();
 		model.addAttribute("classes", classlist);
 		return ("classlist");
 	}
@@ -87,7 +88,7 @@ public class CourseClassController {
 		CourseClass cc = new CourseClass();
 		String str = "";
 		
-		if(canViewClass(id)) {
+		if(ccService.canViewClass(id)) {
 			cc = ccRepo.findByClassId(id);
 			str = semService.semestersToString(cc.getSemesterList());
 			model.addAttribute("class", cc);
@@ -102,58 +103,11 @@ public class CourseClassController {
 
 	@GetMapping("/students/{id}")
 	public String viewCourseClassStudents(Model model, @PathVariable("id") int id) {
-		if(canViewClass(id))
+		if(ccService.canViewClass(id))
 		{
 			model.addAttribute("access", suds.getAuthUserAccessLevel());
 			return("courseclassstudents");
 		}
 		return null;
 	}
-
-	public boolean canViewClass(int id) {
-		List<CourseClass> cclist = new ArrayList<CourseClass>();
-		boolean output = false;
-		int accesslevel = suds.getAuthUserAccessLevel();
-		if (accesslevel == 3) {
-			// get student
-			Student student = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername()));
-			// get list of enrolled classes
-			cclist = student.getCourseClassList();
-		} else if (accesslevel == 2) {
-			// get lecturer
-			Lecturer lecturer = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername()));
-			// get list of classes taught
-			cclist = lecturer.getClassList();
-		} else if (accesslevel == 1) {
-			return true;
-		}
-		if (!cclist.isEmpty()) {
-			for (CourseClass cc : cclist) {
-				if(cc.getClassId()==id)
-					return true;
-			}
-		}
-		return output;
-	}
-	
-	public List<CourseClass> getClassesByUser(){
-		List<CourseClass> cclist = new ArrayList<CourseClass>();
-		int accesslevel = suds.getAuthUserAccessLevel();
-		if (accesslevel == 3) {
-			// get student
-			Student student = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername()));
-			// get list of enrolled classes
-			cclist = student.getCourseClassList();
-		} else if (accesslevel == 2) {
-			// get lecturer
-			Lecturer lecturer = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername()));
-			// get list of classes taught
-			cclist = lecturer.getClassList();
-		} else if (accesslevel == 1) {
-			cclist = ccRepo.findAll();;
-		}
-		return cclist;
-	}
-	
-	
 }
