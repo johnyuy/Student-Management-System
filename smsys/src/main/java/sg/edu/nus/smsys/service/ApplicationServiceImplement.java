@@ -72,7 +72,7 @@ public class ApplicationServiceImplement implements ApplicationService {
 		for (Course course : courseList) {
 			if (course.getCourseStatus().equals("Open")) {
 				openedCoursesList.add(course);
-			} 
+			}
 		}
 		return openedCoursesList;
 	}
@@ -111,19 +111,33 @@ public class ApplicationServiceImplement implements ApplicationService {
 
 		return eligibleCourses;
 	}
+	
+	public void saveApplication(Course course, Student student) {
+		Application application = new Application(course, student);
+		arepo.save(application);
+	}
+
+	public List<Application> displayAllCourseApplication() {
+		List<Application> appList = new ArrayList<>();
+		appList = arepo.findAll();
+		return appList;
+		}
 
 	
-	public List<Application> displayStudentApplication (Student student){
+	public List<Application> displayMyApplication(Student student){
+		System.out.println("Entered displayMyApplication.");
 		List<Application> appList = new ArrayList<>();
 		List<Application> myApp = new ArrayList<>();
 		appList = arepo.findAll();
-		for(Application app : appList) {
-			if(app.getStudent().equals(student)) {
+		System.out.println("appList size is " + appList.size());
+		for (Application app : appList) {
+			System.out.println("Entered for loop");
+			if (app.getStudent().equals(student)) {
 				myApp.add(app);
 			}
 		}
+		System.out.println("myApp size is " + myApp.size());
 		return myApp;
 	}
-
 
 }
