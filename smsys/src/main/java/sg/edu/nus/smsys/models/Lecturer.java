@@ -17,10 +17,7 @@ public class Lecturer extends Staff {
 	@ManyToOne
 	private Department department;
 	
-	@ManyToMany(cascade = {
-		    CascadeType.PERSIST,
-		    CascadeType.MERGE
-		})
+	@ManyToMany
 	private List<Subject> subjectList;
 	
 	@ManyToMany

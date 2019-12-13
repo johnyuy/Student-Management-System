@@ -27,7 +27,7 @@ public class Subject {
 	@Min(0)
 	private int units;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy ="subjectList")
 	private List<Lecturer> lecturerList;
 	
 	@OneToMany(mappedBy = "subject")

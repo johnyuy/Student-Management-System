@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Lecturer;
+import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.models.Subject;
 import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.SubjectRepository;
@@ -46,6 +48,8 @@ public class LecturerController {
 		Lecturer lecturer = lrepo.findByStaffId(id);
 		ArrayList<Subject> s = new ArrayList<Subject>();
 		s.addAll(srepo.findByLecturerListContaining(lecturer));
+		System.out.println("imhere");
+		System.out.println(s.isEmpty());
 		lecturer.setSubjectList(s);
 		s.stream().forEach(ss -> System.out.println(ss.getSubjectName()));
 		model.addAttribute("lecturer",lecturer);
@@ -99,4 +103,6 @@ public class LecturerController {
 		lrepo.delete(lecturer);
 		return "redirect:/lecturers/list";
 	}
+	
+	
 }

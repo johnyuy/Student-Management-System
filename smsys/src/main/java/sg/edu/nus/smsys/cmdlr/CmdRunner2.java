@@ -40,16 +40,43 @@ public class CmdRunner2 implements CommandLineRunner {
 	@Override
 	public void run(String[] args) {
 
+		// Create Subjects
+		ArrayList<Subject> subjectlist = new ArrayList<Subject>();
+		log.info("Adding some subjects..");
+
+		Subject subject1 = new Subject("Foundations",
+						"This unit lays the foundation for programming and developing of system of records. This course will cover programming concepts using the C# Language as the vehicle. You will learn about Object Oriented Programming and acquire the technical knowledge necessary for developing a User Interface for Business Systems using Visual Studio.Net. The curriculum also covers the implementation of client/server development on .NET data objects with Visual Studio as the client side programming tool, ADO.NET as the enabling middleware, and RDBMS as the database server. It will also include the development web application using ASP.NET MVC.",
+						5);
+				Subject subject2 = new Subject("Design",
+						"This course will cover the Application Development Life Cycle using object oriented development technique with UML. You will learn how to understand users needs using user experience design techniques and user requirement gathering tools. You will also acquire skills to analyse and design IT solutions that address business problems. You will also acquire basic IT project management skills based on Agile practices.",
+						5);
+				Subject subject3 = new Subject("Web Applications",
+						"The course imparts the techniques and engineering skills needed for the end-to-end design, architecture, implementation, persistence and testing an enterprise web application. In this module, you will learn how to develop system of engagement using Java and JS components. You will also learn how to apply these newly acquired proficiencies by developing full stack web application project using Java Enterprise Edition (Java EE) for the Server Side and Java Script for the Client Side Libraries. The course covers a wide range of design concepts, development abilities, and integration skills, from analysing the requirements to implementing a complete solution.",
+						5);
+				Subject subject4 = new Subject("Mobility Applications",
+						"In this module, you will learn how to develop system of insights using Python with machine learning as well as native mobile apps using the Android Development Platform. You will attain skills in publishing server-side functionality as REST API with Python, adopt popular machine learning models such as k-nearest neighbors, random forest, logistic regression, k-means, naïve Bayes and artificial neural network. You will also build and evaluate performance of machine learning models using Python. You will develop and package Android application using Android Studio and integrate Android application with server-side functionality for full stack development",
+						5);
+				Subject subject5 = new Subject("Web Applications",
+						"This module includes the capstone project that links up all the concepts taught in the NUS-ISS Certificate in Digital Solutions Development – Foundations, Design, Web Applications and Mobility Applications. It also includes an internship programme where you will develop and propose IT solutions for your assigned internship company.",
+						5);
+
+				subjectlist.add(subject1);
+				subjectlist.add(subject2);
+				subjectlist.add(subject3);
+				subjectlist.add(subject4);
+				subjectlist.add(subject5);
+				subrepo.saveAll(subjectlist);
+
 		// Insert Lecturer
 		log.info("Adding Lecturer..");
 		Lecturer l1 = new Lecturer("Daniel", "Edward", "Foo", "male", LocalDate.of(1972, 02, 4), "Dr",
-				"Holland Village", "93336566", "danielEF@hotmail.com", "Available", 21, 21, null, null, null, null,
+				"Holland Village", "93336566", "danielEF@hotmail.com", "Available", 21, 21, null, null, null, subjectlist,
 				null, null);
 		Lecturer l2 = new Lecturer("Danny", "Kim", "DimSum", "female", LocalDate.of(1972, 01, 21), "Dr",
-				"Haw Par Villa", "91336506", "dimsumDA@hotmail.com", "Available", 21, 21, null, null, null, null,
+				"Haw Par Villa", "91336506", "dimsumDA@hotmail.com", "Available", 21, 21, null, null, null, subjectlist,
 				null, null);
 		Lecturer l3 = new Lecturer("Boon", "Kom", "Tum", "male", LocalDate.of(1962, 11, 11), "Dr",
-				"Chinatown", "91346645", "chinaboi@hotmail.com", "Available", 21, 21, null, null, null, null,
+				"Chinatown", "91346645", "chinaboi@hotmail.com", "Available", 21, 21, null, null, null, subjectlist,
 				null, null);
 		lrepo.save(l1);
 		lrepo.save(l2);
@@ -89,31 +116,6 @@ public class CmdRunner2 implements CommandLineRunner {
 			e.printStackTrace();
 		}
 
-		// Create Subjects
-		log.info("Adding some subjects..");
-		ArrayList<Subject> subjectlist = new ArrayList<Subject>();
-		Subject subject1 = new Subject("Foundations",
-				"This unit lays the foundation for programming and developing of system of records. This course will cover programming concepts using the C# Language as the vehicle. You will learn about Object Oriented Programming and acquire the technical knowledge necessary for developing a User Interface for Business Systems using Visual Studio.Net. The curriculum also covers the implementation of client/server development on .NET data objects with Visual Studio as the client side programming tool, ADO.NET as the enabling middleware, and RDBMS as the database server. It will also include the development web application using ASP.NET MVC.",
-				5);
-		Subject subject2 = new Subject("Design",
-				"This course will cover the Application Development Life Cycle using object oriented development technique with UML. You will learn how to understand users needs using user experience design techniques and user requirement gathering tools. You will also acquire skills to analyse and design IT solutions that address business problems. You will also acquire basic IT project management skills based on Agile practices.",
-				5);
-		Subject subject3 = new Subject("Web Applications",
-				"The course imparts the techniques and engineering skills needed for the end-to-end design, architecture, implementation, persistence and testing an enterprise web application. In this module, you will learn how to develop system of engagement using Java and JS components. You will also learn how to apply these newly acquired proficiencies by developing full stack web application project using Java Enterprise Edition (Java EE) for the Server Side and Java Script for the Client Side Libraries. The course covers a wide range of design concepts, development abilities, and integration skills, from analysing the requirements to implementing a complete solution.",
-				5);
-		Subject subject4 = new Subject("Mobility Applications",
-				"In this module, you will learn how to develop system of insights using Python with machine learning as well as native mobile apps using the Android Development Platform. You will attain skills in publishing server-side functionality as REST API with Python, adopt popular machine learning models such as k-nearest neighbors, random forest, logistic regression, k-means, naïve Bayes and artificial neural network. You will also build and evaluate performance of machine learning models using Python. You will develop and package Android application using Android Studio and integrate Android application with server-side functionality for full stack development",
-				5);
-		Subject subject5 = new Subject("Web Applications",
-				"This module includes the capstone project that links up all the concepts taught in the NUS-ISS Certificate in Digital Solutions Development – Foundations, Design, Web Applications and Mobility Applications. It also includes an internship programme where you will develop and propose IT solutions for your assigned internship company.",
-				5);
-
-		subjectlist.add(subject1);
-		subjectlist.add(subject2);
-		subjectlist.add(subject3);
-		subjectlist.add(subject4);
-		subjectlist.add(subject5);
-		subrepo.saveAll(subjectlist);
 
 		// Create grades
 		log.info("Adding some sample grades..");
@@ -151,6 +153,8 @@ public class CmdRunner2 implements CommandLineRunner {
 		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
 		
 		
+				
+				
 		log.info("End of CmdRunner2");
 
 	}

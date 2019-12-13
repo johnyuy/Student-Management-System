@@ -34,7 +34,7 @@
 				</tr>
 				<tr th:each="s:${lecturer.subjectList}">
 					<th>Teaching</th>
-					<td th:text="${s.subject.subjectName}">Subject Name</td>
+					<td th:text="${s.subjectName}">Subject Name</td>
 				</tr>
 				<tr><td><a type="submit" th:action="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit
 				</a>
