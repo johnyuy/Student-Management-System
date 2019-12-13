@@ -89,8 +89,8 @@ body {
 		<div class="container">
 			<h4>Student Details</h4>
 		</div>
-		<div class="container">
-			<table class="table table-striped" th:object="${student}">
+		<div class="container" th:object="${student}">
+			<table class="table table-striped">
 				<tr>
 					<th>Name</th>
 					<td><b
@@ -112,32 +112,50 @@ body {
 					<th>Email</th>
 					<td th:text="*{email}" /></td>
 				</tr>
+			</table>
+		</div>
+
+		<div class="container">
+			<table class="table table-striped"
+				th:each="c,i:${student.courseClassList}">
 				<tr>
-					<th>Status</th>
-					<td th:text="*{status}" /></td>
+					<th th:text="'Enrolled in: ' + ${i.index + 1} + '/' + ${i.size}">Enrolled in</th>
+					<th></th>
 				</tr>
 				<tr>
-					<th>GPAs</th>
-					<td th:text="*{gpa}" /></td>
-				</tr>
-				<tr th:each="c:${student.courseClassList}">
-					<th>Enrolled in</th>
 					<td th:text="${c.course.courseName}">Course Name</td>
+					<td th:text="${'GPA: ' + gpa[i.index]}">GPA</td>
+				</tr>
+				<tr>
+					<th>Subject</th>
+					<th>Grades</th>
+				</tr>
+				<tr th:each="g,k:${c.gradeList}">
+					<td th:text="${k.index + 1} + '. ' +  ${g.subject.subjectName}">Subject
+						Name</td>
+					<td th:text="${g.grade + ' (' + g.gradeToGPA + ')'}">Grade</td>
 				</tr>
 			</table>
-
-			<div>
-				<a class="btn btn-success" type="submit"
-					th:href="@{/students/edit/{id}(id=${student.studentId})}">Edit/Update</a>
-			</div>
-			<div>
-				<a class="btn btn-outline-dark" th:href="@{/students/list}">Back
-					to List</a>
-			</div>
+		</div>
+		<div class="container">
+			<a class="btn btn-success" type="submit"
+				th:href="@{/students/edit/{id}(id=${student.studentId})}">Edit/Update</a>
+		</div>
+		<div>
+			<a class="btn btn-outline-dark" th:href="@{/students/list}">Back
+				to List</a>
+		</div>
+		<div>
+			<a class="btn btn-outline-dark" th:href="@{/students/list}">Apply
+				Course</a>
+		</div>
 		</div>
 	</main>
 
 	<!-- Optional JavaScript -->
+
+
+
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
