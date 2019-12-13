@@ -7,10 +7,10 @@
 <body>
 	<div class="w3-responsive">
 		<h1 th:text=${class.course.courseName}>Class Course Name</h1>
-		<h2>Class Details</h2>
+
 		<br />
+		<h3>Class Details</h3>
 		<table class="w3-table-all w3-centered">
-		
 			<tr>
 				<th>Class ID</th>
 				<td th:text=${class.classId}>id</td>
@@ -37,7 +37,24 @@
 			</tr>
 			
 		</table>
-
+		
+		<br />
+		
+		<h3>Subjects</h3>
+		<table th:if="${class.course.courseSubjectList.size()>0}" class="w3-table-all w3-centered">
+			<tr th:each="subject:${class.course.courseSubjectList}"><td th:text="${subject.subjectName}"></td></tr>
+		</table>
+		<a href="/classes" th:if="${access == 1}">Edit</a>
+		
+		<br />
+		
+		<h3>Lecturer</h3>
+		<table th:if="${class.lecturerList.size()>0}" class="w3-table-all w3-centered">
+			<tr th:each="lecturer:${class.lecturerList}"><td th:text="${lecturer.firstName}+' '+${lecturer.lastName}"></td></tr>
+		</table>
+		<a href="/classes" th:if="${access == 1}">Edit</a>
+		<br />
+		
 		<form method="get" th:action="@{/classes}">
 			<button>Back to classes</button>
 		</form>

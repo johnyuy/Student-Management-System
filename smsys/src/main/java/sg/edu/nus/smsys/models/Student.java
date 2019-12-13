@@ -17,7 +17,6 @@ public class Student extends Person {
 	private int studentId;
 	private String status;
 
-	@Min(0)
 	private float gpa;
 
 	@OneToMany(mappedBy = "student")

@@ -21,7 +21,6 @@ public class Course {
 	
 	@Id
 	@NotNull
-	@Min(2000)
 	@Max(9999)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "course_id_seq")
 	private int courseId;

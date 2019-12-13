@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 public class Grade {
 	@Id
 	@NotNull
-//	@Min(1000010000)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "grade_id_seq")
 	private long gradeId;
 	@ManyToOne

@@ -20,12 +20,10 @@ public class Schedule {
 	
 	@Id
 	@NotNull
-	@Min(10000000)
 	@Max(19999999)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "schedule_id_seq")
 	private int scheduleId;
 	
-	@Min(1)
 	@Max(2)
 	private int period;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
