@@ -146,11 +146,11 @@ public class CmdRunner2 implements CommandLineRunner {
 		semlist.add(sem);
 		sem = semrepo.findBySemCode("19/20/2");
 		semlist.add(sem);
-		ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 0, semlist, null, null, null, null));
+		ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 0, semlist, initialStudents, null, null, null));
 		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
 		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
 		
-	
+		
 		log.info("End of CmdRunner2");
 
 	}

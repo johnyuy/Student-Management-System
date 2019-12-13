@@ -51,6 +51,7 @@ public class StudentController {
 		Student student = srepo.findByStudentId(id);
 		ArrayList<CourseClass> cc = new ArrayList<CourseClass>();
 		cc.addAll(ccrepo.findByStudentListContaining(student));
+		System.out.println(cc.isEmpty());
 		student.setCourseClassList(cc);
 		cc.stream().forEach(c -> System.out.println(c.getCourse().getCourseName()));
 		model.addAttribute("student", student);
