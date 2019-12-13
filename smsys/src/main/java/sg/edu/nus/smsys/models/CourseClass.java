@@ -32,10 +32,13 @@ public class CourseClass {
 	private List<Semester> semesterList;
 	@ManyToMany
 	private List<Student> studentList;
+	
 	@ManyToMany
 	private List<Lecturer> lecturerList;
+	
 	@OneToMany(mappedBy="clas")
 	private List<Grade> gradeList;
+	
 	@OneToMany(mappedBy ="clas")
 	private List<Schedule> scheduleList;
 	

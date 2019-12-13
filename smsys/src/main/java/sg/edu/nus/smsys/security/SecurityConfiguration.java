@@ -35,12 +35,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		 	.antMatchers("/students/**").hasAnyRole("ADMIN", "LECTURER","STUDENT")
 		 	.antMatchers("/student/**").hasAnyRole("ADMIN","LECTURER", "STUDENT")
 		 	.antMatchers("/classes/**").hasAnyRole("ADMIN", "LECTURER", "STUDENT")
+		 	.antMatchers("/subjects/**").hasAnyRole("ADMIN", "LECTURER", "STUDENT")
 		 	.antMatchers("/**").permitAll()
 		 	.anyRequest()
 		 	.authenticated()
 		 	.and().formLogin().permitAll()
 		 	.and().authorizeRequests()
 		 	.antMatchers(HttpMethod.POST, "/**").permitAll()
+		 	.antMatchers(HttpMethod.GET, "/**").permitAll()
 		 	.antMatchers(HttpMethod.PUT, "/**").permitAll()
 		 	.and().csrf().disable();
 	}

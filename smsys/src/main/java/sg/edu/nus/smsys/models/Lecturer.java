@@ -84,10 +84,13 @@ public class Lecturer extends Staff {
 	
 
 
+
 	@Override
 	public String toString() {
 		return "Lecturer [department=" + department + ", subjectList=" + subjectList + ", classList=" + classList
 				+ ", scheduleList=" + scheduleList + ", accessLevel=" + accessLevel + "]";
 	}
+	
+	
 
 }

@@ -84,26 +84,26 @@ public class LeaveController {
 		return "redirect:/leave/leavelist?id=" + staffId;
 	}
 
-	@PostMapping("/edit/{id}")
-	public String submitLeave(@Valid Leave l, BindingResult bindingResult, @PathVariable("id") Integer id) {
-		if (bindingResult.hasErrors()) {
-			bindingResult.getFieldErrors().stream()
-					.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
+		@PostMapping("/edit/{id}")
+		public String submitLeave(@Valid Leave l, BindingResult bindingResult, @PathVariable("id") Integer id) {
+			if (bindingResult.hasErrors()) {
+				bindingResult.getFieldErrors().stream()
+						.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
+				return "leaveapplication";
+			}
+			l.setLeaveId(id);
+			lrepo.save(l);
+			String staffId = String.valueOf(l.getSubmittedByStaffID().getStaffId());
+			return "redirect:/leave/leavelist?id=" + staffId;
+		}
+	
+		@GetMapping("/edit/{id}")
+		public String showEditForm(Model model, @PathVariable("id") Integer id) {
+			//show a specific leave on page by leave id
+			Leave leave = lrepo.findById(Integer.valueOf(id)).get();
+			model.addAttribute("leave", leave);
 			return "leaveapplication";
 		}
-		l.setLeaveId(id);
-		lrepo.save(l);
-		String staffId = String.valueOf(l.getSubmittedByStaffID().getStaffId());
-		return "redirect:/leave/leavelist?id=" + staffId;
-	}
-
-	@GetMapping("/edit/{id}")
-	public String showEditForm(Model model, @PathVariable("id") Integer id) {
-		//show a specific leave on page by leave id
-		Leave leave = lrepo.findById(Integer.valueOf(id)).get();
-		model.addAttribute("leave", leave);
-		return "leaveapplication";
-	}
 
 	@GetMapping("/delete/{id}")
 	public String deleteMethod(Model model, @PathVariable("id") Integer id) {

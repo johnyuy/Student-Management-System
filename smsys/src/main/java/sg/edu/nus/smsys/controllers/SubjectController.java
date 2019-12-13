@@ -42,6 +42,21 @@ public class SubjectController {
 		return "subjectlist";
 	}
 	
+//	@GetMapping("")
+//	public String findSubject(Model model) {
+//		ArrayList<Subject> sublist = new ArrayList<Subject>();
+//		sublist.addAll(subrepo.findBySubjectNameContaining(name));
+//		System.out.println(sublist);
+//		if (sublist.size() == 1) {
+//			// 1 subject found
+//			Subject subject = sublist.get(0);
+//			return "redirect:/subjects/details?id=" + subject.getSubjectId();
+//		} else {
+//			model.addAttribute("subjects", sublist);
+//		}
+//		return "subjectlist";
+//	}
+//	
 	@GetMapping("/details/{id}")
 	public String viewSubject(Model model, @PathVariable("id") int id) {
 		Subject subject = subrepo.findById(id).get();

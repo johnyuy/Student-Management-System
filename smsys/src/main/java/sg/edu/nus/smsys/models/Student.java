@@ -16,7 +16,6 @@ public class Student extends Person {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_id_seq")
 	private int studentId;
 	private String status;
-
 	@OneToMany(mappedBy = "student")
 	private List<Application> appliedCourses;
 

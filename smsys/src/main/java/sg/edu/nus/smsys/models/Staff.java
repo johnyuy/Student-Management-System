@@ -31,9 +31,7 @@ public class Staff extends Person {
 	@Max(59999)
 	private int staffId;
 	private String status;
-	@Min(0)
 	private int annualLeaveBalance;
-	@Min(0)
 	private final int annualLeaveEntitled=21;
 	public final int accessLevel = 2;
 	

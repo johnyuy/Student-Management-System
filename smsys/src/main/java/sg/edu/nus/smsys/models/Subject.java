@@ -22,7 +22,8 @@ public class Subject {
 	private int subjectId;
 	@NotNull
 	private String subjectName;
-	@Size(min=2, max=1000)
+	
+	@Size(max=1000)
 	private String subjectDesc;
 	@Min(0)
 	private int units;
@@ -138,9 +139,10 @@ public class Subject {
 	@Override
 	public String toString() {
 		return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", subjectDesc=" + subjectDesc
-				+ ", units=" + units + ", lecturerList=" + lecturerList + ", scheduleList=" + scheduleList
-				+ ", gradeList=" + gradeList + "]";
+				+ ", units=" + units + "]";
 	}
+
+	
 
 	
 

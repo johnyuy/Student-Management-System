@@ -26,8 +26,7 @@ public class Leave {
 	
 	@Id
 	@NotNull
-//	@Min(300000)
-//	@Max(399999)
+	@Max(399999)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "leave_id_seq")
 	private int leaveId;
 	@NotNull
