@@ -20,6 +20,10 @@ public interface ApplicationService {
 	@Autowired
 	public List<Course> displayAvailableCourses();
 	@Autowired
-	List<Application> displayStudentApplication (Student student);
+	public List<Application> displayAllCourseApplication();
+	@Autowired
+	public void saveApplication(Course course, Student student);
+	@Autowired
+	public List<Application> displayMyApplication(Student student);
 }
 	

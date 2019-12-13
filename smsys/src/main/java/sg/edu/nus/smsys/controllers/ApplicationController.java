@@ -24,7 +24,7 @@ import sg.edu.nus.smsys.models.Course;
 
 import sg.edu.nus.smsys.models.Leave;
 import sg.edu.nus.smsys.models.Semester;
-
+import sg.edu.nus.smsys.models.Staff;
 import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.models.User;
 import sg.edu.nus.smsys.repository.ApplicationRepository;
@@ -87,14 +87,17 @@ public class ApplicationController {
 		Student student = us.getStudentByUser(user);
 		System.out.println( student.getFirstName() + " has applied for courseid = " + selectedcourse);
 		Course course = crepo.findByCourseId(selectedcourse);
-		Application app = new Application(course, student);
-		apprepo.save(app);
-		return "redirect:/student/home";
+		as.saveApplication(course, student);
+		
+//		Application app = new Application(course, student);
+//		apprepo.save(app);
+		return "redirect:/student/home/appliedcourse";
 	}
 	
 	@GetMapping("/home")
 	public String displayHome(Model model, Student student) {
-		student = sturepo.findByStudentId(10001);
+		User user = us.getUserByUsername(suds.getAuthUsername());
+		student = us.getStudentByUser(user);
 		model.addAttribute("studentid", student.getStudentId());
 		
 		return "studenthome";
@@ -102,20 +105,33 @@ public class ApplicationController {
 	
 	@GetMapping("/home/appliedcourse")
 	public String displayAppliedCourse(Model model, Student student) {
-		student = sturepo.findByStudentId(10001);
+		System.out.println("Entered displayAppliedCourse");
+		User user = us.getUserByUsername(suds.getAuthUsername());
+		student = us.getStudentByUser(user);
+		System.out.println(student.getFirstName() + " applied");
+		
 		model.addAttribute("studentid", student.getStudentId());
 		
-		List<Application> myApp = as.displayStudentApplication(student);
-		model.addAttribute("application", myApp);
+		List<Application> myApp = as.displayMyApplication(student);
+		model.addAttribute("myapplicationlist", myApp);
 		
 		return "appliedcourse";
 	}
-//	
-//	
-//
-//	@GetMapping("student/delete/{id}")
-//	public String deleteMethod(Model model, @PathVariable("id") Integer id) {
-//		Leave leave = lrepo.findById(id).get();
+	
+//	@GetMapping("/myapplication")
+//	public String myApplicationList(Model model, @RequestParam(defaultValue = "") String id) {
+//		List<Application> myApplicationList = new ArrayList<Application>();
+//		if (!id.equals("")) {
+//			Student student = sturepo.findByStudentId(Integer.parseInt(id));
+//			myApplicationList = as.displayMyApplication(student);
+//		} 
+//		model.addAttribute("myapplicationlist", myApplicationList);
+//		return "";
+//	}
+
+//	@GetMapping("/delete/{id}")
+//	public String deleteApplication(Model model, @PathVariable("id") Integer id) {
+//		Application application = apprepo.findById(id).get();
 //		lrepo.delete(leave);
 //		String staffId = String.valueOf(leave.getSubmittedByStaffID().getStaffId());
 //		return "redirect:/leave/leavelist?id=" + staffId;

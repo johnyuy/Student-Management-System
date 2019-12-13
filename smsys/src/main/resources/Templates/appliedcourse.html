@@ -12,7 +12,7 @@
 <div class="w3-responsive">
 	<a th:href="@{/student/applycourse}">Apply Course</a>	
 
-<div th:if="application.empty">
+<div th:if="myapplicationlist.empty">
 	<table class="w3-table-all w3-centered w3-hoverable">
 	<tr>
 		<th>My Course Application</th>
@@ -24,7 +24,7 @@
 </div>
 
 
-<div th:unless="application.empty">
+<div th:unless="myapplicationlist.empty">
 <table class="w3-table-all w3-centered w3-hoverable">
 	<tr>
 		<th colspan='6'>My Course Application</th>
@@ -38,7 +38,7 @@
 		<th></th>
 	</tr>
 	
-	<tr th:each="application:${application}">
+	<tr th:each="application:${myapplicationlist}">
 	
 	<td th:text=${application.applicationId}>id</td>
 	<td th:text=${application.course.courseName}>Course Name</td>
