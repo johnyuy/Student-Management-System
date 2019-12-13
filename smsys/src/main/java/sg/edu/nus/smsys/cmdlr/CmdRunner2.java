@@ -39,56 +39,7 @@ public class CmdRunner2 implements CommandLineRunner {
 
 	@Override
 	public void run(String[] args) {
-
-		// Insert Lecturer
-		log.info("Adding Lecturer..");
-		Lecturer l1 = new Lecturer("Daniel", "Edward", "Foo", "male", LocalDate.of(1972, 02, 4), "Dr",
-				"Holland Village", "93336566", "danielEF@hotmail.com", "Available", 21, 21, null, null, null, null,
-				null, null);
-		Lecturer l2 = new Lecturer("Danny", "Kim", "DimSum", "female", LocalDate.of(1972, 01, 21), "Dr",
-				"Haw Par Villa", "91336506", "dimsumDA@hotmail.com", "Available", 21, 21, null, null, null, null,
-				null, null);
-		Lecturer l3 = new Lecturer("Boon", "Kom", "Tum", "male", LocalDate.of(1962, 11, 11), "Dr",
-				"Chinatown", "91346645", "chinaboi@hotmail.com", "Available", 21, 21, null, null, null, null,
-				null, null);
-		lrepo.save(l1);
-		lrepo.save(l2);
-		lrepo.save(l3);
-		// Insert Students
-		log.info("Adding Students..");
-		List<Student> initialStudents = new ArrayList<Student>();
-		initialStudents.add(new Student("John ", "Yue", "Yu", "male", LocalDate.of(1992, 11, 16), "Mr", "Tampines", "98076988", "yu.john92@gmail.com", "enrolled",  null, null, null));
-		initialStudents.add(new Student("Natalie", "Si Min", "Hong", "female", LocalDate.of(1989, 05, 02), "Ms",
-				"Bukit Panjang", "90019910", "natalie.hong@gmail.com", "Enrolled",  null, null, null));
-		initialStudents.add(new Student("Johann", "Cheok Arn", "Fong", "male", LocalDate.of(1992, 11, 07), "Mr",
-				"Pasir Ris", "98981123", "treedays@gmail.com", "Enrolled",  null, null,null));
-		initialStudents.add(new Student("Drake", "Lin Htet", "Ye", "male", LocalDate.of(1996, 04, 8), "Mr",
-				"Keppel Bay", "84524324", "drakelin21@gmail.com", "Enrolled", null,null,null));
-		initialStudents.add(new Student("Ettiyan", "", "Premalatha", "female", LocalDate.of(1990, 01, 04), "Ms",
-				"Clementi", "87654321", "e.premalatha@gmail.com", "Enrolled",  null,null,null));
-		initialStudents.add(new Student("Frank", "Minhao", "Liu", "male", LocalDate.of(1996, 3, 16), "Mr", "Clementi",
-				"83443543", "frankLiu@qq.com", "Enrolled", null,null,null));
-		initialStudents.add(new Student("Gail", "Yazhi", "Jiang", "female", LocalDate.of(1994, 12, 1), "Ms", "Jurong",
-				"98076988", "gailJiang@qq.com", "Enrolled",  null,null,null));
-		for (Student s : initialStudents) {
-			srepo.save(s);
-		}
-
-		log.info("In CmdRunner2");
-		// Create user accounts
-		log.info("Adding user account for lecturer..");
-
-		try {
-			us.registerNewAccount(50001, "password");
-			us.registerNewAccount(50002, "admin");
-			us.registerNewAccount(50003, "l2");
-			us.registerNewAccount(50004, "l3");
-			
-		} catch (GeneralSecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		
 		// Create Subjects
 		log.info("Adding some subjects..");
 		ArrayList<Subject> subjectlist = new ArrayList<Subject>();
@@ -134,6 +85,55 @@ public class CmdRunner2 implements CommandLineRunner {
 
 
 
+		// Insert Lecturer
+		log.info("Adding Lecturer..");
+		Lecturer l1 = new Lecturer("Daniel", "Edward", "Foo", "male", LocalDate.of(1972, 02, 4), "Dr",
+				"Holland Village", "93336566", "danielEF@hotmail.com", "Available", 21, 21, null, null, null, subjectlist,
+				null, null);
+		Lecturer l2 = new Lecturer("Danny", "Kim", "DimSum", "female", LocalDate.of(1972, 01, 21), "Dr",
+				"Haw Par Villa", "91336506", "dimsumDA@hotmail.com", "Available", 21, 21, null, null, null, subjectlist,
+				null, null);
+		Lecturer l3 = new Lecturer("Boon", "Kom", "Tum", "male", LocalDate.of(1962, 11, 11), "Dr",
+				"Chinatown", "91346645", "chinaboi@hotmail.com", "Available", 21, 21, null, null, null, subjectlist,
+				null, null);
+		lrepo.save(l1);
+		lrepo.save(l2);
+		lrepo.save(l3);
+		// Insert Students
+		log.info("Adding Students..");
+		List<Student> initialStudents = new ArrayList<Student>();
+		initialStudents.add(new Student("John ", "Yue", "Yu", "male", LocalDate.of(1992, 11, 16), "Mr", "Tampines", "98076988", "yu.john92@gmail.com", "enrolled",  null, null, null));
+		initialStudents.add(new Student("Natalie", "Si Min", "Hong", "female", LocalDate.of(1989, 05, 02), "Ms",
+				"Bukit Panjang", "90019910", "natalie.hong@gmail.com", "Enrolled",  null, null, null));
+		initialStudents.add(new Student("Johann", "Cheok Arn", "Fong", "male", LocalDate.of(1992, 11, 07), "Mr",
+				"Pasir Ris", "98981123", "treedays@gmail.com", "Enrolled",  null, null,null));
+		initialStudents.add(new Student("Drake", "Lin Htet", "Ye", "male", LocalDate.of(1996, 04, 8), "Mr",
+				"Keppel Bay", "84524324", "drakelin21@gmail.com", "Enrolled", null,null,null));
+		initialStudents.add(new Student("Ettiyan", "", "Premalatha", "female", LocalDate.of(1990, 01, 04), "Ms",
+				"Clementi", "87654321", "e.premalatha@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Frank", "Minhao", "Liu", "male", LocalDate.of(1996, 3, 16), "Mr", "Clementi",
+				"83443543", "frankLiu@qq.com", "Enrolled", null,null,null));
+		initialStudents.add(new Student("Gail", "Yazhi", "Jiang", "female", LocalDate.of(1994, 12, 1), "Ms", "Jurong",
+				"98076988", "gailJiang@qq.com", "Enrolled",  null,null,null));
+		for (Student s : initialStudents) {
+			srepo.save(s);
+		}
+
+		log.info("In CmdRunner2");
+		// Create user accounts
+		log.info("Adding user account for lecturer..");
+
+		try {
+			us.registerNewAccount(50001, "password");
+			us.registerNewAccount(50002, "admin");
+			us.registerNewAccount(50003, "l2");
+			us.registerNewAccount(50004, "l3");
+			
+		} catch (GeneralSecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		// Create Courses
 		log.info("Adding some courses..");
 		
@@ -176,10 +176,10 @@ public class CmdRunner2 implements CommandLineRunner {
 		log.info("Adding some sample grades..");
 		
 		// Student 10001 grades
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(1), "A+"));
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(2), "A"));
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "A"));
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(1), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(2), "B"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "C"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "D"));
 		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "A"));
 		
 		// Student 10002 grades

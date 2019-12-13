@@ -32,7 +32,7 @@ public class LeaveServiceImplement {
 		} else if (accesslevel == 2) {
 			// get lecturer
 			Lecturer lecturer = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername()));
-			// get list of classes taught
+			// get list
 			leavelist = lecturer.getAnnualLeaveList();
 		} else if (accesslevel == 1) {
 			//full access;

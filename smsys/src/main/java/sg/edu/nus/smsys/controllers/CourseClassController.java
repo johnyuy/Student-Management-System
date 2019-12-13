@@ -40,8 +40,11 @@ public class CourseClassController {
 	private SemesterService semService;
 	private static final Logger log = LoggerFactory.getLogger(CourseClassController.class);
 
-	@GetMapping("/list")
+	//show list of classes
+	@GetMapping("")
 	public String viewCourseClasses(Model model) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
+		System.out.println("level = " + suds.getAuthUserAccessLevel());
 		List<CourseClass> classlist = ccService.getClassesByUser();
 		model.addAttribute("classes", classlist);
 		return ("classlist");
@@ -79,12 +82,12 @@ public class CourseClassController {
 		courseClass.setSemesterList(semList);
 		ccRepo.save(courseClass);
 		System.out.println(courseClass.getSemesterList().size());
-		return "redirect:/classes/list";
+		return "redirect:/classes";
 	}
 
-	@GetMapping("/details/{id}")
+	@GetMapping("/{id}")
 	public String viewCourseClass(Model model, @PathVariable("id") int id) {
-		
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		CourseClass cc = new CourseClass();
 		String str = "";
 		
@@ -93,15 +96,13 @@ public class CourseClassController {
 			str = semService.semestersToString(cc.getSemesterList());
 			model.addAttribute("class", cc);
 			model.addAttribute("semlist", str);
-			
-			model.addAttribute("access", suds.getAuthUserAccessLevel());
 			return ("courseclassdetails");
 		}
 		return "NotFound";
 		
 	}
 
-	@GetMapping("/students/{id}")
+	@GetMapping("/{id}/students")
 	public String viewCourseClassStudents(Model model, @PathVariable("id") int id) {
 		if(ccService.canViewClass(id))
 		{

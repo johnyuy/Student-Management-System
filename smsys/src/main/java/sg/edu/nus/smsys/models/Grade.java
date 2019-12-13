@@ -21,7 +21,7 @@ public class Grade {
 	private CourseClass clas;
 	@ManyToOne
 	private Subject subject;
-	@Size(min=1,max=2)
+
 	private String grade;
 	
 	//CONSTRUCTORS
