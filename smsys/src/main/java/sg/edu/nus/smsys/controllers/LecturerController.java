@@ -48,7 +48,6 @@ public class LecturerController {
 		Lecturer lecturer = lrepo.findByStaffId(id);
 		ArrayList<Subject> s = new ArrayList<Subject>();
 		s.addAll(srepo.findByLecturerListContaining(lecturer));
-		System.out.println("imhere");
 		System.out.println(s.isEmpty());
 		lecturer.setSubjectList(s);
 		s.stream().forEach(ss -> System.out.println(ss.getSubjectName()));
