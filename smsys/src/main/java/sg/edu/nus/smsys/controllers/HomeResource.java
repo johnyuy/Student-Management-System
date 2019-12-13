@@ -1,28 +1,43 @@
 package sg.edu.nus.smsys.controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+import sg.edu.nus.smsys.models.Course;
+import sg.edu.nus.smsys.repository.CourseRepository;
+import sg.edu.nus.smsys.security.SmsUserDetailsService;
+
+@Controller
+@RequestMapping("")
 public class HomeResource {
-	@GetMapping("/")
-	public String home() {
-		return("<h1>Main Home Page</h1>");
+	@Autowired
+	SmsUserDetailsService suds;
+	@Autowired
+	CourseRepository courserepo;
+	
+	@GetMapping("/welcome")
+	public String landing(Model model) {
+		List<Course> courselist = courserepo.findAll();
+		model.addAttribute("courselist",courselist);
+		return "welcome.html";
 	}
 	
-	@GetMapping("/student")
-	public String getStudentHome(Model m) {
-		return("studenthome");
-	}
-	
-	@GetMapping("/admin")
-	public String getAdminHome(Model m) {
-		return("courseadminhome");
-	}
-	
-	@GetMapping("/lecturer")
-	public String getLecturerHome(Model m) {
-		return("lecturerhome");
+	@GetMapping("")
+	public String home(){
+		int accessLevel = suds.getAuthUserAccessLevel();
+		if(accessLevel==1)
+			return "redirect:/admin";
+		if(accessLevel==2)
+			return "<h1>Lecturer Home Page</h1>";
+		if(accessLevel==3)
+			return "<h1>Student Home Page</h1>";
+		
+		return "redirect:/welcome";
 	}
 }

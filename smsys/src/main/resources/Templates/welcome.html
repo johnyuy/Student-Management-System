@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<style type="text/css">
+.contactinfo {
+	display: block;
+	white-space: nowrap;
+	width: 500px;
+	overflow: auto;
+}
+
+.contactinfo li {
+	width: 150px;
+	height: 80px;
+	margin: 3px;
+	display: inline-block;
+}
+
+.manu {
+	display: block;
+	white-space: nowrap;
+	overflow: auto;
+}
+
+.manu li {
+	width: 180px;
+	height: 80px;
+	margin: 3px;
+	display: inline-block;
+}
+
+.company {
+	display: block;
+	white-space: nowrap;
+	overflow: auto;
+}
+
+.company li {
+	width: 180px;
+	height: 80px;
+	margin: 3px;
+	display: inline-block;
+}
+
+a#scrollUp {
+	bottom: 0px;
+	right: 10px;
+	padding: 5px 10px;
+	background: #FE980F;
+	color: #FFF;
+	-webkit-animation: bounce 2s ease infinite;
+	animation: bounce 2s ease infinite;
+}
+
+a#scrollUp i {
+	font-size: 30px;
+}
+
+.footer-bottom {
+	background: #D6D6D0;
+	padding-top: 10px;
+}
+
+.footer-bottom p {
+	color: #363432;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	margin-left: 15px;
+}
+
+td {
+	text-align: center
+}
+</style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="UTF-8">
+<title>Welcome</title>
+</head>
+<body bgcolor="#F5F5F5">
+
+	<header>
+		<!--header-->
+		<div class="header_top">
+			<!--header_top-->
+			<div class="contactinfo">
+				<ul class="nav nav-pills">
+					<li><a href=""><i class="fa fa-phone"></i>（65）6516 2006</a></li>
+					<li><a href=""><i class="fa fa-envelope"></i>
+							isstraining@nus.edu.sg</a></li>
+				</ul>
+			</div>
+		</div>
+		<!--/header_top-->
+		<div class="header-middle">
+			<!--header-middle-->
+
+			<div class="logo pull-left">
+				<img src="branding-iss.png" alt="Big Boat" />
+				<!--https://www.iss.nus.edu.sg/-->
+			</div>
+
+			<div class="btn-group clearfix pull-right">
+				<ul class="manu">
+					<li><a href="http://localhost:8080/student">Student</a></li>
+					<li></li>
+					<li><a href="http://localhost:8080/faculty">Faculty</a></li>
+					<li></li>
+					<li><a href="http://localhost:8080/admin">Administrator</a></li>
+					<li></li>
+					<li><a href="http://localhost:8080/courses/list">Courses</a></li>
+					<li></li>
+					<li><a href="http://localhost:8080/login">Login</a></li>
+				</ul>
+			</div>
+		</div>
+		<!--/header-middle-->
+			<div class="header-bottom">
+				<h3>Course</h3>
+				<table border="3">
+					<tr>
+						<th>Course Name</th>
+						<td>Graduate Diploma in Systems Analysis</td>
+						<td>Master of Technology in Enterprise Business Analytics</td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<th>Description</th>
+						<td>The Graduate Diploma in Systems Analysis programme
+							(GDipSA) is designed for non-IT graduates intending to craft a
+							new career path in the IT industry.</td>
+						<td>The NUS Master of Technology in Enterprise Business
+							Analytics programme (MTech EBAC) is specifically designed to meet
+							the industry demand for data scientists who can help
+							organisations achieve improved business outcomes through data
+							insights.</td>
+						<td></td>
+
+				</table>
+			</div>
+	</header>
+
+	<section id="photo">
+
+		<img src="nus-iss-building-2018.jpg" style="transform: scale(0.9)"
+			alt="Big Boat" />
+		<!--https://www.tcglobal.com/blog/why-choose-nus-iss-mtech-ebac.html-->
+
+	</section>
+
+	<!--Footer-->
+	<div class="js-smoothscroll">
+		<a href="#top" title="Back to top" class="js-scrolltop">Scrolltop</a>
+	</div>
+	<footer id="footer">
+		<div class="footer-top">
+				<div class="company">
+					<div class="container">
+						<strong>Company</strong>
+						<ul>
+							<li><a href="https://www.iss.nus.edu.sg/about-us"
+								title="About Us" target="_blank">About Us</a></li>
+							<li><a href="https://www.iss.nus.edu.sg/about-us/contact-us"
+								title="Contact Us" target="_blank">Contact Us</a></li>
+						</ul>
+					</div>
+				</div>
+		</div>
+			<div class="col-md-4">
+				<div class="footer-address">
+					<strong>Institute of Systems Science</strong>
+					<ul class="footer-addresslist">
+						<li><a
+							href="https://www.google.com.sg/maps/place/Institute+of+Systems+Science/@1.2922534,103.7744223,17z/data=!3m1!4b1!4m5!3m4!1s0x31da1a56784202d9:0xc3162c3946c3da12!8m2!3d1.292248!4d103.776611">29
+								Heng Mui Keng Terrace,</a></li>
+						<li><a
+							href="https://www.google.com.sg/maps/place/Institute+of+Systems+Science/@1.2922534,103.7744223,17z/data=!3m1!4b1!4m5!3m4!1s0x31da1a56784202d9:0xc3162c3946c3da12!8m2!3d1.292248!4d103.776611">Block
+								C, D &amp; E <br /> Singapore 119620
+						</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class='sfContentBlock'>
+					<p class="pull-left">&copy; National University of Singapore.
+						All Rights Reserved.</p>
+					<p class="pull-right">Designed by Team 9</p>
+				</div>
+			</div>
+	</footer>
+</body>
+</html>
