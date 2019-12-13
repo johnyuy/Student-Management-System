@@ -2,30 +2,81 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Apply Course</title>
 </head>
 <body>
 	<h2>Apply for course</h2>
-	<table>
+	<table class="w3-table-all w3-centered">
+		<tr>
+			<td>Student ID:</td>
+			<td th:text="${student.studentId}"></td>
+		</tr>
 		<tr>
 			<td>Application for Semester:</td>
-			<td th:text=${semester}>Semester Code</td>
+			<td th:text=${semester}>
 		</tr>
-		<tr th:unless="${eligibility == true}">
-			<td colspan="3"> Not eligible to apply for courses. </td>
-
-			<tr th:if="${eligibility == true}">
-				<th>Id</th>
-				<th>Name</th>
-				<th>Description</th>
-			</tr>
-			<tr th:each="course:${courselist}">
-				<td th:text="${course.courseId}"> Course Id</td>
-            	<td th:text="${course.courseName}"> Course Name</td>
-            	<td th:text="${course.courseDesc}"> Course Description</td>
-			</tr>
-			
 	</table>
-	
+	<!-- 
+	<form th:object="${application}" method="post"
+		th:action="@{/student/submitapplication}">
+		<table>
+			<tr>
+				<td>Select Course</td>
+				<td><select th:field=*{course}>
+						<option value="">Select</option>
+						<option th:each="course:${courselist}"
+							th:text="${course.courseName}" ></option>
+				</select></td>
+			</tr>
+
+			<tr>
+				<td><input type="hidden" th:field=*{status} th:value="pending" /></td>
+			</tr>
+
+			<tr>
+				<td><input type="hidden" th:field=*{student}
+					th:value="${student}" /></td>
+			</tr>
+
+		</table>
+
+		<button type="submit">Apply</button>
+	</form> -->
+
+
+	<form method="post" th:action="@{/student/submitapplication}">
+		<table>
+			<tr>
+				<td>Select Course</td>
+				<td><select name="selectedcourse">
+						<option value="">Select</option>
+						<option th:each="course:${courselist}"
+							th:text="${course.courseName}" th:value="${course.courseId}"></option>
+				</select></td>
+			</tr>
+
+		</table>
+
+		<button type="submit">Apply</button>
+	</form>
+
+	<table class="w3-table-all w3-centered w3-hoverable">
+		<tr th:unless="${eligibility == true}">
+			<td colspan="3">Not eligible to apply for courses.</td>
+		</tr>
+
+		<tr th:if="${eligibility == true}">
+			<th>Id</th>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<tr th:each="course:${courselist}">
+			<td th:text="${course.courseId}">Course Id</td>
+			<td th:text="${course.courseName}">Course Name</td>
+			<td th:text="${course.courseDesc}">Course Description</td>
+		</tr>
+	</table>
+
 </body>
 </html>

@@ -12,6 +12,7 @@ import sg.edu.nus.smsys.models.Course;
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Semester;
 import sg.edu.nus.smsys.models.Student;
+import sg.edu.nus.smsys.repository.ApplicationRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
 import sg.edu.nus.smsys.repository.SemesterRepository;
 import sg.edu.nus.smsys.repository.StudentRepository;
@@ -25,6 +26,8 @@ public class ApplicationServiceImplement implements ApplicationService {
 	private StudentRepository srepo;
 	@Autowired
 	private SemesterRepository semrepo;
+	@Autowired
+	private ApplicationRepository arepo;
 
 	public String displayNextSemCode(LocalDate today) {
 		today = LocalDate.now();
@@ -45,14 +48,16 @@ public class ApplicationServiceImplement implements ApplicationService {
 	public boolean checkEligibility(Student student) {
 		// check if student can apply based on enrolled course
 		List<CourseClass> courseList = student.getCourseClassList();
-
+		System.out.println("My Course List: " + courseList);
 		if (courseList == null || courseList.size() == 0) {
+			System.out.println("YOU ARE ELIGIBLE!");
 			return true;
 		} else {
 			System.out.println(courseList.size());
 			CourseClass lastCourse = courseList.get(courseList.size() - 1);
 			// lastcourseclass
 			if (lastCourse.getLevel() < lastCourse.getCourse().getDurationSemesters()) {
+				System.out.println("YOU ARE NOT ELIGIBLE!!");
 				return false;
 			} else
 				return true;
@@ -106,9 +111,33 @@ public class ApplicationServiceImplement implements ApplicationService {
 
 		return eligibleCourses;
 	}
+	
+	public void saveApplication(Course course, Student student) {
+		Application application = new Application(course, student);
+		arepo.save(application);
+	}
 
-//	public List<Application> submitApplication(Course course){
-//		
-//	}
+	public List<Application> displayAllCourseApplication() {
+		List<Application> appList = new ArrayList<>();
+		appList = arepo.findAll();
+		return appList;
+		}
+
+	
+	public List<Application> displayMyApplication(Student student){
+		System.out.println("Entered displayMyApplication.");
+		List<Application> appList = new ArrayList<>();
+		List<Application> myApp = new ArrayList<>();
+		appList = arepo.findAll();
+		System.out.println("appList size is " + appList.size());
+		for (Application app : appList) {
+			System.out.println("Entered for loop");
+			if (app.getStudent().equals(student)) {
+				myApp.add(app);
+			}
+		}
+		System.out.println("myApp size is " + myApp.size());
+		return myApp;
+	}
 
 }

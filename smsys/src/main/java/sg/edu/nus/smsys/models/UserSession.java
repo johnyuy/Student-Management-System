@@ -2,8 +2,6 @@ package sg.edu.nus.smsys.models;
 
 import java.util.UUID;
 
-import sg.edu.nus.smsys.service.UserService;
-
 
 
 public class UserSession {

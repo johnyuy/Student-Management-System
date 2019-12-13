@@ -1,11 +1,6 @@
 package sg.edu.nus.smsys;
 
-import java.security.GeneralSecurityException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -18,9 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import sg.edu.nus.smsys.models.*;
 import sg.edu.nus.smsys.repository.*;
-import sg.edu.nus.smsys.service.UserService;
 
 @SpringBootApplication
 @EnableScheduling

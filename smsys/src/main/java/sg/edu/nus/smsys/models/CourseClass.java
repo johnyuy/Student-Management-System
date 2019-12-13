@@ -20,7 +20,6 @@ public class CourseClass {
 	
 	@Id
 	@NotNull
-	@Min(1000)
 	@Max(9999)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "class_id_seq")
 	private int classId;
@@ -123,6 +122,28 @@ public class CourseClass {
 
 	public void setScheduleList(List<Schedule> scheduleList) {
 		this.scheduleList = scheduleList;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + classId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CourseClass other = (CourseClass) obj;
+		if (classId != other.classId)
+			return false;
+		return true;
 	}
 
 	@Override

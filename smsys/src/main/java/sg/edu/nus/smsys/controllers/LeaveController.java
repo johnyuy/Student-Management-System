@@ -1,7 +1,5 @@
 package sg.edu.nus.smsys.controllers;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import sg.edu.nus.smsys.models.CourseAdmin;
 import sg.edu.nus.smsys.models.Leave;
-import sg.edu.nus.smsys.models.Lecturer;
 //import sg.edu.nus.smsys.models.MyAnnotation;
 import sg.edu.nus.smsys.models.Staff;
 import sg.edu.nus.smsys.repository.CourseAdminRepository;

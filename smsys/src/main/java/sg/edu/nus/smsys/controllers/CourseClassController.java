@@ -3,13 +3,9 @@ package sg.edu.nus.smsys.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,14 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import sg.edu.nus.smsys.SmsysApplication;
 import sg.edu.nus.smsys.models.*;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
 import sg.edu.nus.smsys.repository.SemesterRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
+import sg.edu.nus.smsys.service.CourseClassService;
+import sg.edu.nus.smsys.service.SemesterService;
+import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("/classes")
@@ -38,21 +34,18 @@ public class CourseClassController {
 	private SemesterRepository semRepo;
 	@Autowired
 	private SmsUserDetailsService suds;
+	@Autowired
+	private CourseClassService ccService;
+	@Autowired
+	private SemesterService semService;
 	private static final Logger log = LoggerFactory.getLogger(CourseClassController.class);
 
-	@GetMapping("/list")
-	public String viewCourseClasses(Model model, @RequestParam(defaultValue = "") String courseId) {
-		// get all classes from database
-		List<CourseClass> classlist = ccRepo.findAll();
-		String title = "All Courses";
-		if (courseId.equals("")) {
-			classlist = ccRepo.findAll();
-			model.addAttribute("title", title);
-		} else {
-			Course course = couRepo.findByCourseId(Integer.parseInt(courseId));
-			classlist = ccRepo.findByCourse(course);
-			model.addAttribute("title", course.getCourseName());
-		}
+	//show list of classes
+	@GetMapping("")
+	public String viewCourseClasses(Model model) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
+		System.out.println("level = " + suds.getAuthUserAccessLevel());
+		List<CourseClass> classlist = ccService.getClassesByUser();
 		model.addAttribute("classes", classlist);
 		return ("classlist");
 	}
@@ -89,27 +82,33 @@ public class CourseClassController {
 		courseClass.setSemesterList(semList);
 		ccRepo.save(courseClass);
 		System.out.println(courseClass.getSemesterList().size());
-		return "redirect:/classes/list";
+		return "redirect:/classes";
 	}
 
-	@GetMapping("/details/{id}")
+	@GetMapping("/{id}")
 	public String viewCourseClass(Model model, @PathVariable("id") int id) {
-		// accesslevel can be dependant on the user session or security context
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
-
-		CourseClass cc = ccRepo.findByClassId(id);
-		model.addAttribute("class", cc);
-		
-		//List for semesters within courseclass passed as a string separated by commas
-		List<Semester> sems = cc.getSemesterList();
+		CourseClass cc = new CourseClass();
 		String str = "";
-		for (int i = 0; i < sems.size(); i++) {
-			if (i != 0)
-				str += ", ";
-			str += sems.get(i).getSemCode();
+		
+		if(ccService.canViewClass(id)) {
+			cc = ccRepo.findByClassId(id);
+			str = semService.semestersToString(cc.getSemesterList());
+			model.addAttribute("class", cc);
+			model.addAttribute("semlist", str);
+			return ("courseclassdetails");
 		}
-		model.addAttribute("semlist", str);
+		return "NotFound";
+		
+	}
 
-		return ("courseclassdetails");
+	@GetMapping("/{id}/students")
+	public String viewCourseClassStudents(Model model, @PathVariable("id") int id) {
+		if(ccService.canViewClass(id))
+		{
+			model.addAttribute("access", suds.getAuthUserAccessLevel());
+			return("courseclassstudents");
+		}
+		return null;
 	}
 }

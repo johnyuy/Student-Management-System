@@ -1,7 +1,5 @@
 package sg.edu.nus.smsys.models;
 
-import java.util.UUID;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -9,11 +7,12 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="grades_table")
-@SequenceGenerator(name="grade_id_seq", initialValue = 1000010000)
+@SequenceGenerator(name="grade_id_seq", initialValue = 10000100)
 public class Grade {
+	
 	@Id
 	@NotNull
-	@Min(1000010000)
+//	@Min(1000010000)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "grade_id_seq")
 	private long gradeId;
 	@ManyToOne
@@ -22,7 +21,7 @@ public class Grade {
 	private CourseClass clas;
 	@ManyToOne
 	private Subject subject;
-	@Size(min=1,max=2)
+
 	private String grade;
 	
 	//CONSTRUCTORS
@@ -77,6 +76,46 @@ public class Grade {
 
 	public void setGrade(String grade) {
 		this.grade = grade;
+	}
+	
+	public float getGradeToGPA() {
+		float result = 0.0f;
+		
+        switch (grade) 
+        { 
+        case "A+":
+        case "A":
+            result = 5.0f;
+            break;
+        case "A-":
+            result = 4.5f;
+            break;
+        case "B+":
+            result = 4.0f;
+            break;
+        case "B":
+            result = 3.5f;
+            break;
+        case "B-":
+            result = 3.0f;
+            break;
+        case "C+":
+            result = 2.5f;
+            break;
+        case "C":
+            result = 2.0f;
+            break;
+        case "D+":
+            result = 1.5f;
+            break;
+        case "D":
+            result = 1.0f;
+            break;
+        case "F":
+            result = 0.0f;
+            break;
+        } 
+	return result; 
 	}
 
 	@Override

@@ -16,6 +16,8 @@
 				<th>Class ID</th>
 				<th>Level</th>
 				<th>Details</th>
+				<th>Students</th>
+				<th>Faculty</th>
 			</tr>
 			<tr th:each="class:${classes}">
 				<td><a href="coursedetails.html"
@@ -23,22 +25,22 @@
 					th:text="${class.course.courseName}+' ('+${class.course.courseId}+')'">Course</a></td>
 				<td th:text=${class.classId}>Class Id</td>
 				<td th:text=${class.level}>Class Level</td>
-				<td><a href="courseclassdetails.html"
-					th:href="@{/classes/details/}+${class.classId}"
-					th:text="view">view</a></td>
+				<td><a th:href="@{/classes/}+${class.classId}" th:text="view">view</a></td>
+				<td><a th:href="@{/classes/}+${class.classId}+@{/students}" th:text="students">students</a></td>
+				<td><a th:href="@{/classes/faculty/}+${class.classId}" th:text="faculty">faculty</a></td>
 			</tr>
 		</table>
 		<br />
-
-		<h3>Admin Tools</h3>
-		<form action="/classes/add" method="get" th:action="@{/classes/add}">
-			<table class="w3-table-all w3-centered">
-				<tr>
-					<td><button>Add class</button></td>
-				</tr>
-			</table>
-		</form>
-
+		<div th:if="${access==1}">
+			<h3>Admin Tools</h3>
+			<form action="/classes/add" method="get" th:action="@{/classes/add}">
+				<table class="w3-table-all w3-centered">
+					<tr>
+						<td><button>Add new class</button></td>
+					</tr>
+				</table>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

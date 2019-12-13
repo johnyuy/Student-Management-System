@@ -1,13 +1,11 @@
 package sg.edu.nus.smsys.models;
 
+import java.util.Arrays;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.Length;
-
-import sg.edu.nus.smsys.repository.UserRepository;
 
 @Entity
 @Table(name="user")
@@ -57,36 +55,80 @@ public class User {
 		this.roles = roles;
 		this.active = active;
 	}
+
+
 	public int getPassid() {
 		return passid;
 	}
-	public void setPassid(int passid) {
-		this.passid = passid;
-	}
+
 	public String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public int getAccessRights() {
+
+	public int getAccessLevel() {
 		return accessLevel;
 	}
-	public void setAccessRights(int accessRights) {
-		this.accessLevel = accessRights;
-	}
+
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+
 	public byte[] getSalt() {
 		return salt;
 	}
+
+	public void setPassid(int passid) {
+		this.passid = passid;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setAccessLevel(int accessLevel) {
+		this.accessLevel = accessLevel;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public void setSalt(byte[] salt) {
 		this.salt = salt;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [passid=" + passid + ", username=" + username + ", accessLevel=" + accessLevel + ", roles=" + roles
+				+ ", active=" + active + ", password=" + password + ", salt=" + Arrays.toString(salt) + "]";
+	}
+
+	
 	
 	
 		
