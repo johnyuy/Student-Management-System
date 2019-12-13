@@ -3,6 +3,7 @@ package sg.edu.nus.smsys.service;
 import java.security.GeneralSecurityException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.models.User;
 
@@ -21,4 +22,6 @@ public interface UserService {
 	public Student getStudentByUser(User user);
 	@Autowired
 	public User getUserByUsername(String username);
+	@Autowired
+	public Lecturer getLecturerByUser(User user);
 }

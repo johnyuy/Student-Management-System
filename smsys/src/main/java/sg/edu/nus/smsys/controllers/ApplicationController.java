@@ -22,9 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sg.edu.nus.smsys.models.Application;
 import sg.edu.nus.smsys.models.Course;
 
-import sg.edu.nus.smsys.models.Leave;
-import sg.edu.nus.smsys.models.Semester;
-import sg.edu.nus.smsys.models.Staff;
 import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.models.User;
 import sg.edu.nus.smsys.repository.ApplicationRepository;

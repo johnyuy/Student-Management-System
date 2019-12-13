@@ -19,6 +19,9 @@ import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
 import sg.edu.nus.smsys.repository.SemesterRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
+import sg.edu.nus.smsys.service.CourseClassService;
+import sg.edu.nus.smsys.service.SemesterService;
+import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("/classes")
@@ -31,21 +34,15 @@ public class CourseClassController {
 	private SemesterRepository semRepo;
 	@Autowired
 	private SmsUserDetailsService suds;
+	@Autowired
+	private CourseClassService ccService;
+	@Autowired
+	private SemesterService semService;
 	private static final Logger log = LoggerFactory.getLogger(CourseClassController.class);
 
 	@GetMapping("/list")
-	public String viewCourseClasses(Model model, @RequestParam(defaultValue = "") String courseId) {
-		// get all classes from database
-		List<CourseClass> classlist = ccRepo.findAll();
-		String title = "All Courses";
-		if (courseId.equals("")) {
-			classlist = ccRepo.findAll();
-			model.addAttribute("title", title);
-		} else {
-			Course course = couRepo.findByCourseId(Integer.parseInt(courseId));
-			classlist = ccRepo.findByCourse(course);
-			model.addAttribute("title", course.getCourseName());
-		}
+	public String viewCourseClasses(Model model) {
+		List<CourseClass> classlist = ccService.getClassesByUser();
 		model.addAttribute("classes", classlist);
 		return ("classlist");
 	}
@@ -87,27 +84,30 @@ public class CourseClassController {
 
 	@GetMapping("/details/{id}")
 	public String viewCourseClass(Model model, @PathVariable("id") int id) {
-		// accesslevel can be dependant on the user session or security context
-		model.addAttribute("access", suds.getAuthUserAccessLevel());
-
-		CourseClass cc = ccRepo.findByClassId(id);
-		model.addAttribute("class", cc);
 		
-		//List for semesters within courseclass passed as a string separated by commas
-		List<Semester> sems = cc.getSemesterList();
+		CourseClass cc = new CourseClass();
 		String str = "";
-		for (int i = 0; i < sems.size(); i++) {
-			if (i != 0)
-				str += ", ";
-			str += sems.get(i).getSemCode();
+		
+		if(ccService.canViewClass(id)) {
+			cc = ccRepo.findByClassId(id);
+			str = semService.semestersToString(cc.getSemesterList());
+			model.addAttribute("class", cc);
+			model.addAttribute("semlist", str);
+			
+			model.addAttribute("access", suds.getAuthUserAccessLevel());
+			return ("courseclassdetails");
 		}
-		model.addAttribute("semlist", str);
-
-		return ("courseclassdetails");
+		return "NotFound";
+		
 	}
-	
+
 	@GetMapping("/students/{id}")
 	public String viewCourseClassStudents(Model model, @PathVariable("id") int id) {
+		if(ccService.canViewClass(id))
+		{
+			model.addAttribute("access", suds.getAuthUserAccessLevel());
+			return("courseclassstudents");
+		}
 		return null;
 	}
 }
