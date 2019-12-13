@@ -4,66 +4,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import sg.edu.nus.smsys.models.CourseClass;
+import sg.edu.nus.smsys.models.Leave;
 import sg.edu.nus.smsys.models.Lecturer;
-import sg.edu.nus.smsys.models.Student;
-import sg.edu.nus.smsys.repository.CourseClassRepository;
+import sg.edu.nus.smsys.repository.LeaveRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
 
 @Service
-public class CourseClassServiceImplement implements CourseClassService{
+public class LeaveServiceImplement {
 	@Autowired
-	private CourseClassRepository ccRepo;
+	private LeaveRepository lrepo;
 	@Autowired
 	private SmsUserDetailsService suds;
 	@Autowired
 	private UserService us;
 	
-	public boolean canViewClass(int id) {
-		List<CourseClass> cclist = new ArrayList<CourseClass>();
+	public boolean canViewLeave(int id) {
+		List<Leave> leavelist = new ArrayList<Leave>();
 		boolean output = false;
 		int accesslevel = suds.getAuthUserAccessLevel();
 		if (accesslevel == 3) {
-			// get student
-			Student student = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername()));
-			// get list of enrolled classes
-			cclist = student.getCourseClassList();
+			// access denied
+			return false;
 		} else if (accesslevel == 2) {
 			// get lecturer
 			Lecturer lecturer = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername()));
 			// get list of classes taught
-			cclist = lecturer.getClassList();
+			leavelist = lecturer.getAnnualLeaveList();
 		} else if (accesslevel == 1) {
+			//full access;
 			return true;
 		}
-		if (!cclist.isEmpty()) {
-			for (CourseClass cc : cclist) {
-				if(cc.getClassId()==id)
+		if (!leavelist.isEmpty()) {
+			for (Leave leave : leavelist) {
+				if(leave.getLeaveId()==id)
 					return true;
 			}
 		}
 		return output;
 	}
 	
-	
-	public List<CourseClass> getClassesByUser(){
-		List<CourseClass> cclist = new ArrayList<CourseClass>();
+	public List<Leave> getLeaveListByUser(){
+		List<Leave> leavelist = new ArrayList<Leave>();
 		int accesslevel = suds.getAuthUserAccessLevel();
 		if (accesslevel == 3) {
-			// get student
-			Student student = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername()));
-			// get list of enrolled classes
-			cclist = student.getCourseClassList();
+			//access denied
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Access denied");
 		} else if (accesslevel == 2) {
 			// get lecturer
 			Lecturer lecturer = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername()));
 			// get list of classes taught
-			cclist = lecturer.getClassList();
+			leavelist = lecturer.getAnnualLeaveList();
 		} else if (accesslevel == 1) {
-			cclist = ccRepo.findAll();;
+			//full access
+			leavelist = lrepo.findAll();;
 		}
-		return cclist;
+		return leavelist;
 	}
 }
