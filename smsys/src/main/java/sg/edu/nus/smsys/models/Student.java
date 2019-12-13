@@ -17,9 +17,6 @@ public class Student extends Person {
 	private int studentId;
 	private String status;
 
-	@Min(0)
-	private float gpa;
-
 	@OneToMany(mappedBy = "student")
 	private List<Application> appliedCourses;
 
@@ -52,14 +49,6 @@ public class Student extends Person {
 		this.status = status;
 	}
 
-	public float getGpa() {
-		return gpa;
-	}
-
-	public void setGpa(float gpa) {
-		this.gpa = gpa;
-	}
-
 	public List<Application> getAppliedCourses() {
 		return appliedCourses;
 	}
@@ -89,11 +78,10 @@ public class Student extends Person {
 	}
 
 	public Student(String firstName, String middleName, String lastName, String gender, LocalDate birthDate,
-			String title, String address, String mobile, String email, String status, @Min(0) float gpa,
+			String title, String address, String mobile, String email, String status,
 			List<Application> appliedCourses, List<Grade> gradeList, List<CourseClass> courseClassList) {
 		super(firstName, middleName, lastName, gender, birthDate, title, address, mobile, email);
 		this.status = status;
-		this.gpa = gpa;
 		this.appliedCourses = appliedCourses;
 		this.gradeList = gradeList;
 		this.courseClassList = courseClassList;
@@ -102,7 +90,7 @@ public class Student extends Person {
 
 	@Override
 	public String toString() {
-		return "Student [studentId=" + studentId + ", status=" + status + ", gpa=" + gpa + ", appliedCourses="
+		return "Student [studentId=" + studentId + ", status=" + status +  ", appliedCourses="
 				+ appliedCourses + ", gradeList=" + gradeList + ", courseClassList=" + courseClassList
 				+ ", accessLevel=" + accessLevel + "]";
 	}

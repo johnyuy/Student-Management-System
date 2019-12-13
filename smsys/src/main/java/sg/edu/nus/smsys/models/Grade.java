@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 @Table(name="grades_table")
 @SequenceGenerator(name="grade_id_seq", initialValue = 10000100)
 public class Grade {
+	
 	@Id
 	@NotNull
 //	@Min(1000010000)
@@ -75,6 +76,46 @@ public class Grade {
 
 	public void setGrade(String grade) {
 		this.grade = grade;
+	}
+	
+	public float getGradeToGPA() {
+		float result = 0.0f;
+		
+        switch (grade) 
+        { 
+        case "A+":
+        case "A":
+            result = 5.0f;
+            break;
+        case "A-":
+            result = 4.5f;
+            break;
+        case "B+":
+            result = 4.0f;
+            break;
+        case "B":
+            result = 3.5f;
+            break;
+        case "B-":
+            result = 3.0f;
+            break;
+        case "C+":
+            result = 2.5f;
+            break;
+        case "C":
+            result = 2.0f;
+            break;
+        case "D+":
+            result = 1.5f;
+            break;
+        case "D":
+            result = 1.0f;
+            break;
+        case "F":
+            result = 0.0f;
+            break;
+        } 
+	return result; 
 	}
 
 	@Override

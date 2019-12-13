@@ -57,19 +57,19 @@ public class CmdRunner2 implements CommandLineRunner {
 		// Insert Students
 		log.info("Adding Students..");
 		List<Student> initialStudents = new ArrayList<Student>();
-		initialStudents.add(new Student("John ", "Yue", "Yu", "male", LocalDate.of(1992, 11, 16), "Mr", "Tampines", "98076988", "yu.john92@gmail.com", "enrolled", 3.5f, null, null, null));
+		initialStudents.add(new Student("John ", "Yue", "Yu", "male", LocalDate.of(1992, 11, 16), "Mr", "Tampines", "98076988", "yu.john92@gmail.com", "enrolled",  null, null, null));
 		initialStudents.add(new Student("Natalie", "Si Min", "Hong", "female", LocalDate.of(1989, 05, 02), "Ms",
-				"Bukit Panjang", "90019910", "natalie.hong@gmail.com", "Enrolled", 4.2f, null, null, null));
+				"Bukit Panjang", "90019910", "natalie.hong@gmail.com", "Enrolled",  null, null, null));
 		initialStudents.add(new Student("Johann", "Cheok Arn", "Fong", "male", LocalDate.of(1992, 11, 07), "Mr",
-				"Pasir Ris", "98981123", "treedays@gmail.com", "Enrolled", 4.5f, null, null,null));
+				"Pasir Ris", "98981123", "treedays@gmail.com", "Enrolled",  null, null,null));
 		initialStudents.add(new Student("Drake", "Lin Htet", "Ye", "male", LocalDate.of(1996, 04, 8), "Mr",
-				"Keppel Bay", "84524324", "drakelin21@gmail.com", "Enrolled", 4.1f, null,null,null));
+				"Keppel Bay", "84524324", "drakelin21@gmail.com", "Enrolled", null,null,null));
 		initialStudents.add(new Student("Ettiyan", "", "Premalatha", "female", LocalDate.of(1990, 01, 04), "Ms",
-				"Clementi", "87654321", "e.premalatha@gmail.com", "Enrolled", 4.2f, null,null,null));
+				"Clementi", "87654321", "e.premalatha@gmail.com", "Enrolled",  null,null,null));
 		initialStudents.add(new Student("Frank", "Minhao", "Liu", "male", LocalDate.of(1996, 3, 16), "Mr", "Clementi",
-				"83443543", "frankLiu@qq.com", "Enrolled", 4.9f, null,null,null));
+				"83443543", "frankLiu@qq.com", "Enrolled", null,null,null));
 		initialStudents.add(new Student("Gail", "Yazhi", "Jiang", "female", LocalDate.of(1994, 12, 1), "Ms", "Jurong",
-				"98076988", "gailJiang@qq.com", "Enrolled", 5.0f, null,null,null));
+				"98076988", "gailJiang@qq.com", "Enrolled",  null,null,null));
 		for (Student s : initialStudents) {
 			srepo.save(s);
 		}
@@ -114,13 +114,32 @@ public class CmdRunner2 implements CommandLineRunner {
 		subjectlist.add(subject4);
 		subjectlist.add(subject5);
 		subrepo.saveAll(subjectlist);
+		
+		ArrayList<Subject> subjectlist2 = new ArrayList<Subject>();
+		
+		Subject subject6 = new Subject("Analytics Project Management and Delivery", "Students will be equipped with practice-oriented data analytics skills and knowledge in managing analytics project.", 10);
+		Subject subject7 = new Subject("Core Analytics Techniques", "Students will learn the foundation skills to understand, design and solve analytics problems in the industry involving structured and unstructured data.", 10);
+		Subject subject8 = new Subject("Customer Analytics", "Students will be equipped with the skills to manage the customer data and build analytics solutions for customer relationship management.", 10);
+		Subject subject9 = new Subject("Big Data Processing", "Students will learn various aspects of data engineering while building resilient distributed datasets. Participants will learn to apply key practices, identify multiple data sources appraised against their business value, design the right storage, and implement proper access model(s).", 10);
+		Subject subject10 = new Subject("Practical Language Processing", "Students will be taught advanced skills in practical language processing. This includes fundamental text processing, text analytics, deep learning techniques and their application in sentiment mining and chatbots development.", 10);
+		Subject subject11 = new Subject("Advanced Predictive Modelling Techniques", "Students will be taught the advanced concepts of predictive modeling and Time Series Forecasting and their application in few special areas like Health Care & Service Industry in addition to other domains like Public Services, IT Services, Finance, Airlines, Logistics, Transport, Hotel & Tourism Industries.", 10);
+
+		subjectlist2.add(subject6);
+		subjectlist2.add(subject7);
+		subjectlist2.add(subject8);
+		subjectlist2.add(subject9);
+		subjectlist2.add(subject10);
+		subjectlist2.add(subject11);
+		subrepo.saveAll(subjectlist2);
+
 
 
 		// Create Courses
 		log.info("Adding some courses..");
 		
 		Course course1 = new Course("Graduate Diploma in Systems Analysis", "The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry.","Open", 100, 2, subjectlist, null);
-		Course course2 = new Course("Master of Technology in Enterprise Business Analytics", "The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.", "Closed", 50, 2, null, null);
+		Course course2 = new Course("Master of Technology in Enterprise Business Analytics", "The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.", "Open", 50, 2, subjectlist2, null);
+
 		courepo.save(course1);
 		courepo.save(course2);
 
@@ -138,12 +157,19 @@ public class CmdRunner2 implements CommandLineRunner {
 		// Create classes
 		log.info("Adding some classes..");
 		List<Semester> semlist = new ArrayList<Semester>();
-		Semester sem = semrepo.findBySemCode("19/20/1");
+		Semester sem = semrepo.findBySemCode("19/20-S2");
 		semlist.add(sem);
-		sem = semrepo.findBySemCode("19/20/2");
+		sem = semrepo.findBySemCode("20/21-S1");
 		semlist.add(sem);
-		ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 0, semlist, initialStudents, null, null, null));
-		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
+		List<Semester> semlist2 = new ArrayList<Semester>();
+		sem = semrepo.findBySemCode("21/22-S1");
+		semlist2.add(sem);
+		sem = semrepo.findBySemCode("21/22-S2");
+		semlist2.add(sem);
+
+		
+		ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 0, semlist, srepo.findAll(), null, null, null));
+		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist2, srepo.findByStudentFullNameLike("Johann"), null, null, null));
 		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
 		
 		// Create grades
@@ -151,9 +177,9 @@ public class CmdRunner2 implements CommandLineRunner {
 		
 		// Student 10001 grades
 		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(1), "A+"));
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(2), "B"));
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "C"));
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "D"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(2), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "A"));
 		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "A"));
 		
 		// Student 10002 grades
@@ -169,6 +195,9 @@ public class CmdRunner2 implements CommandLineRunner {
 		grepo.save(new Grade(srepo.findByStudentId(10003), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "A"));
 		grepo.save(new Grade(srepo.findByStudentId(10003), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "A"));
 		grepo.save(new Grade(srepo.findByStudentId(10003), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "B"));
+		grepo.save(new Grade(srepo.findByStudentId(10003), ccrepo.findByClassId(1001), subrepo.findBySubjectId(6), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10003), ccrepo.findByClassId(1001), subrepo.findBySubjectId(7), "B"));
+
 		
 		// Student 10004  grades
 		grepo.save(new Grade(srepo.findByStudentId(10004), ccrepo.findByClassId(1000), subrepo.findBySubjectId(1), "C"));
@@ -198,6 +227,7 @@ public class CmdRunner2 implements CommandLineRunner {
 		grepo.save(new Grade(srepo.findByStudentId(10007), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "C"));
 		grepo.save(new Grade(srepo.findByStudentId(10007), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "D"));
 
+		
 		log.info("End of CmdRunner2");
 
 	}
