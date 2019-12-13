@@ -21,7 +21,6 @@ public class Schedule {
 	
 	@Id
 	@NotNull
-	
 	@Max(19999999)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "schedule_id_seq")
 	private int scheduleId;
@@ -141,11 +140,4 @@ public class Schedule {
 			return false;
 		return true;
 	}
-
-
-	
-
-
-	
-	
 }
