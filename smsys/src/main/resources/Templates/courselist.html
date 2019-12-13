@@ -27,7 +27,7 @@
 					class="btn btn-default">testing</a></td>
 
 				<td><a href="classlist.html"
-					th:href="@{/classes/list(courseId=${course.courseId})}"
+					th:href="@{/classes/(courseId=${course.courseId})}"
 					class="btn btn-default"><span
 						th:text="${course.classesList.size()}+' Classes'">number of classes</span></a></td>
 				
