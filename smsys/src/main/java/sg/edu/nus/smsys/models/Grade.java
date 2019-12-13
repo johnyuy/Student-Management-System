@@ -7,11 +7,11 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="grades_table")
-@SequenceGenerator(name="grade_id_seq", initialValue = 1000010000)
+@SequenceGenerator(name="grade_id_seq", initialValue = 10000100)
 public class Grade {
 	@Id
 	@NotNull
-	@Min(1000010000)
+//	@Min(1000010000)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "grade_id_seq")
 	private long gradeId;
 	@ManyToOne
