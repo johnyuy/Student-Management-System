@@ -52,10 +52,14 @@ public class StudentController {
 	@GetMapping("/details/{id}")
 	public String viewStudent(Model model, @PathVariable("id") int id) {
 		Student student = srepo.findByStudentId(id);
+		
 		ArrayList<CourseClass> cc = new ArrayList<CourseClass>();
 		cc.addAll(ccrepo.findByStudentListContaining(student));
+		
 		student.setCourseClassList(cc);
+		
 		cc.stream().forEach(c -> System.out.println(c.getCourse().getCourseName()));
+		
 		model.addAttribute("student", student);
 		return "studentdetails";
 	}

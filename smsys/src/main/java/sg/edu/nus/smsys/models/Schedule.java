@@ -23,12 +23,11 @@ public class Schedule {
 	
 	@Id
 	@NotNull
-	@Min(10000000)
+	
 	@Max(19999999)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "schedule_id_seq")
 	private int scheduleId;
 	
-	@Min(1)
 	@Max(2)
 	private int period;
 	
@@ -146,10 +145,9 @@ public class Schedule {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Schedule [scheduleId=" + scheduleId + ", period=" + period + ", date=" + date + ", lecturer=" + lecturer
-				+ ", subject=" + subject + ", clas=" + clas + "]";
-	}
+	
+
+
+	
 	
 }

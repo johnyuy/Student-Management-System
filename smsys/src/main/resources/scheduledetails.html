@@ -15,8 +15,7 @@
 	<th>Lecturer</th>
 	<th>Subject</th>
 	<th>Class-CourseName</th>
-	<th>Edit</th>
-	<th>Delete</th>
+	
 </tr>
 
 <tr th:each="schedule:${schedule}">
@@ -26,8 +25,6 @@
 	<td th:text=${schedule.lecturer.firstName}>lecturer</td>
 	<td th:text=${schedule.subject.subjectName}>subject</td>
 	<td th:text="${schedule.clas.classId+'-'+schedule.clas.course.courseName}">courseName</td>	
-	<td><a th:href="@{/schedule/edit/}+${schedule.scheduleId}">Edit</a></td>
-	<td><a th:href="@{/schedule/delete/}+${schedule.scheduleId}">Delete</a></td>
 </tr>
 
 </table>

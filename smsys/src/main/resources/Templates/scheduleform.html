@@ -8,13 +8,13 @@
 <body>
 <div class="w3-responsive">
 
-<!-- th:action="@{/schedule/add}" -->
 
-<form th:object="${schedule}" method="post" >
+<form th:object="${schedule}" method="post" th:action="@{/schedule/add}" >
 
 	<fieldset>
 	Date:<input type="date" th:field="*{date}"/>
 	</fieldset>
+	
 	
 	<fieldset>
 	Period:
@@ -29,7 +29,7 @@
 	LecturerName:
 	<select th:field="*{lecturer}" >
 	
-	<option th:each="lecturer:${lecturer}"
+	<option th:each="lecturer:${lecturerlist}"
 		    th:value="${lecturer.staffId}" 
 		    th:text="${lecturer.firstName}">Name</option>
 	
@@ -39,7 +39,7 @@
 	<fieldset>
 	SubjectName:
 	<select th:field="*{subject}" >	
-	<option th:each="subject:${subject}"
+	<option th:each="subject:${subjectlist}"
 		    th:value="${subject.subjectId}" 
 		    th:text="${subject.subjectName}">Name</option>
 	
@@ -51,16 +51,18 @@
 	<fieldset>
 	Class-CourseName:
 	<select th:field="*{clas}" >	
-	<option th:each="courseclass:${courseclass}"
+	<option th:each="courseclass:${courseclasslist}"
 		    th:value="${courseclass.classId}" 
 		    th:text="${courseclass.classId+'-' +courseclass.course.courseId+' '+courseclass.course.courseName}">Name</option>
   	</select>
   	</fieldset>
-  	
+   	
 	
 	<fieldset>
 	<button type="submit">Submit</button>
 	</fieldset>
+
+
 	
 </form>
 

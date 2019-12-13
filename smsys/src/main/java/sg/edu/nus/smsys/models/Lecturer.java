@@ -83,10 +83,13 @@ public class Lecturer extends Staff {
 		this.scheduleList = scheduleList;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Lecturer [department=" + department + ", subjectList=" + subjectList + ", classList=" + classList
 				+ ", scheduleList=" + scheduleList + ", accessLevel=" + accessLevel + "]";
 	}
+	
+	
 
 }
