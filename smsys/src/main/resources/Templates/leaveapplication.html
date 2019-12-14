@@ -1,40 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<meta charset="UTF-8">
-<title>Leave Application</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Custom styles for this template -->
+<style>
+body {
+	padding-top: 5rem;
+}
+
+.starter-template {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}
+</style>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+<title>SMS</title>
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
-
-<div class="w3-responsive">
-<form  th:object="${leave}" method="post" >
-
-	<fieldset>
-	Staff ID:<input type="text" th:field="*{submittedByStaffID}"/>
-	</fieldset>
-	
-	<fieldset>
-	Leave Start Time:<input type="date" th:field="*{dateStart}"/>
-	<p th:if="${#fields.hasErrors('dateStart')}" th:errors="*{dateStart}"></p>
-	</fieldset>
-	
-	<fieldset>
-	Duration:<input type="text" th:field="*{duration}"/>
-	<p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></p>
-	</fieldset>
-	
-	<fieldset>
-	Reason:<input type="text" th:field="*{reason}"/>
-	<p th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}"></p>
-	</fieldset>
-	
-	
-
-	<fieldset>
-	<button type="submit">Submit</button>
-	</fieldset>
-</form>
-</div>
+	<div th:replace="fragments/header :: header_admin"></div>
+	<main role="main" class="container">
+		<form th:object="${leave}" method="post">
+			<fieldset>
+				Staff ID:<input type="text" th:field="*{submittedByStaffID}" />
+			</fieldset>
+			<fieldset>
+				Leave Start Time:<input type="date" th:field="*{dateStart}" />
+				<p th:if="${#fields.hasErrors('dateStart')}"
+					th:errors="*{dateStart}"></p>
+			</fieldset>
+			<fieldset>
+				Duration:<input type="text" th:field="*{duration}" />
+				<p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></p>
+			</fieldset>
+			<fieldset>
+				Reason:<input type="text" th:field="*{reason}" />
+				<p th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}"></p>
+			</fieldset>
+			<fieldset>
+				<button type="submit">Submit</button>
+			</fieldset>
+		</form>
+	</main>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

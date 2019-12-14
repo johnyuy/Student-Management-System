@@ -1,13 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<title>Apply Course</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Custom styles for this template -->
+<style>
+body {
+	padding-top: 5rem;
+}
+.starter-template {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}
+</style>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+<title>SMS</title>
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
+<div th:replace="fragments/header :: header_admin"></div>
+<main role="main" class="container">
 	<h2>Apply for course</h2>
-	<table class="w3-table-all w3-centered">
+	<table class="table table-striped">
 		<tr>
 			<td>Student ID:</td>
 			<td th:text="${student.studentId}"></td>
@@ -17,34 +39,6 @@
 			<td th:text=${semester}>
 		</tr>
 	</table>
-	<!-- 
-	<form th:object="${application}" method="post"
-		th:action="@{/student/submitapplication}">
-		<table>
-			<tr>
-				<td>Select Course</td>
-				<td><select th:field=*{course}>
-						<option value="">Select</option>
-						<option th:each="course:${courselist}"
-							th:text="${course.courseName}" ></option>
-				</select></td>
-			</tr>
-
-			<tr>
-				<td><input type="hidden" th:field=*{status} th:value="pending" /></td>
-			</tr>
-
-			<tr>
-				<td><input type="hidden" th:field=*{student}
-					th:value="${student}" /></td>
-			</tr>
-
-		</table>
-
-		<button type="submit">Apply</button>
-	</form> -->
-
-
 	<form method="post" th:action="@{/student/submitapplication}">
 		<table>
 			<tr>
@@ -61,7 +55,7 @@
 		<button type="submit">Apply</button>
 	</form>
 
-	<table class="w3-table-all w3-centered w3-hoverable">
+	<table class="table table-striped">
 		<tr th:unless="${eligibility == true}">
 			<td colspan="3">Not eligible to apply for courses.</td>
 		</tr>
@@ -77,6 +71,7 @@
 			<td th:text="${course.courseDesc}">Course Description</td>
 		</tr>
 	</table>
-
+</main>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

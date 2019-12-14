@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<meta charset="UTF-8">
-<title>Application Details</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Custom styles for this template -->
+<style>
+body {
+	padding-top: 5rem;
+}
+.starter-template {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}
+</style>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+<title>SMS</title>
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
-	<div class="w3-responsive">
+<div th:replace="fragments/header :: header_admin"></div>
+<main role="main" class="container">
 		<form th:object="${app}" method="post" th:action="@{/student/app/{id}(id=${app.applicationId})}">
-			<table class="w3-table-all w3-centered w3-hoverable">
+			<table class="table table-striped">
 				<tr>
 					<th>Application ID</th>
 					<th>Course ID</th>
@@ -41,10 +62,11 @@
 				</tr>
 			</table>
 		</form>
-	</div>
 	<div>
 		<a th:href="@{/student/home/applications}"><button type="submit">Back
 				to Application Home</button> </a>
 	</div>
+	</main>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

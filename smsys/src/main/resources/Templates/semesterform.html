@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Semester Form</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Custom styles for this template -->
+<style>
+body {
+	padding-top: 5rem;
+}
+.starter-template {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}
+</style>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+<title>SMS</title>
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
+<div th:replace="fragments/header :: header_admin"></div>
+<main role="main" class="container">
 	<form action="/semester/insert" method="post" th:object="${semester}" th:action="@{/semester/insert}">
 
 	<fieldset>
@@ -15,6 +38,7 @@
 	</fieldset>
 		<button type="submit">Add Semester</button>
 	</form>
-
+	</main>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
