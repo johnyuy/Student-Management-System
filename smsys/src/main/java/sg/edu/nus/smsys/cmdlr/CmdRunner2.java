@@ -65,13 +65,15 @@ public class CmdRunner2 implements CommandLineRunner {
 		ArrayList<Subject> subjectlistA = new ArrayList<Subject>();
 		subjectlist1.add(subject1); subjectlistA.add(subject1); 
 		subjectlist1.add(subject2); subjectlistA.add(subject2); 
+		subrepo.saveAll(subjectlist1);
+		//lecturer1
 		subjectlist2.add(subject3); subjectlistA.add(subject3); 
 		subjectlist2.add(subject4); subjectlistA.add(subject4); 
 		subjectlist2.add(subject5); subjectlistA.add(subject5); 
-		subrepo.saveAll(subjectlist1);
 		subrepo.saveAll(subjectlist2);
+		//lecturer2
 		
-		ArrayList<Subject> subjectlist3 = new ArrayList<Subject>();
+		
 		
 		Subject subject6 = new Subject("Analytics Project Management and Delivery", "Students will be equipped with practice-oriented data analytics skills and knowledge in managing analytics project.", 10);
 		Subject subject7 = new Subject("Core Analytics Techniques", "Students will learn the foundation skills to understand, design and solve analytics problems in the industry involving structured and unstructured data.", 10);
@@ -79,14 +81,14 @@ public class CmdRunner2 implements CommandLineRunner {
 		Subject subject9 = new Subject("Big Data Processing", "Students will learn various aspects of data engineering while building resilient distributed datasets. Participants will learn to apply key practices, identify multiple data sources appraised against their business value, design the right storage, and implement proper access model(s).", 10);
 		Subject subject10 = new Subject("Practical Language Processing", "Students will be taught advanced skills in practical language processing. This includes fundamental text processing, text analytics, deep learning techniques and their application in sentiment mining and chatbots development.", 10);
 		Subject subject11 = new Subject("Advanced Predictive Modelling Techniques", "Students will be taught the advanced concepts of predictive modeling and Time Series Forecasting and their application in few special areas like Health Care & Service Industry in addition to other domains like Public Services, IT Services, Finance, Airlines, Logistics, Transport, Hotel & Tourism Industries.", 10);
-
+		ArrayList<Subject> subjectlist3 = new ArrayList<Subject>();
 		subjectlist3.add(subject6);
 		subjectlist3.add(subject7);
 		subjectlist3.add(subject8);
 		subjectlist3.add(subject9);
 		subjectlist3.add(subject10);
 		subjectlist3.add(subject11);
-		subrepo.saveAll(subjectlist3);
+		subrepo.saveAll(subjectlist3); //lecturer2
 
 		// Insert Students
 		log.info("Adding Students..");
