@@ -180,15 +180,32 @@ public class CmdRunner2 implements CommandLineRunner {
 		}
 
 		log.info("In CmdRunner2");
-		// Create user accounts
-		log.info("Adding user account for lecturer..");
-
+		// Create user account
 		try {
-			us.registerNewAccount(50001, "password");
-			us.registerNewAccount(50002, "admin");
-			us.registerNewAccount(50003, "l2");
-			us.registerNewAccount(50004, "l3");
-			us.registerNewAccount(10001, "password");
+			//admin
+			us.registerNewAccount(50001, "admin");
+			//lecturer
+			us.registerNewAccount(50002, "pass");
+			us.registerNewAccount(50003, "pass");
+			us.registerNewAccount(50004, "pass");
+			//students in gdipsa
+			us.registerNewAccount(10001, "123");
+			us.registerNewAccount(10002, "123");
+			us.registerNewAccount(10003, "123");
+			us.registerNewAccount(10004, "123");
+			us.registerNewAccount(10005, "123");
+			//students in masters prog
+			us.registerNewAccount(10011, "123");
+			us.registerNewAccount(10012, "123");
+			us.registerNewAccount(10013, "123");
+			us.registerNewAccount(10014, "123");
+			us.registerNewAccount(10015, "123");
+			//students without accounts
+			us.registerNewAccount(10023, "123");
+			us.registerNewAccount(10024, "123");
+			us.registerNewAccount(10025, "123");
+
+			
 
 			
 		} catch (GeneralSecurityException e) {
