@@ -26,6 +26,6 @@ public interface ApplicationService {
 	@Autowired
 	public List<Application> displayMyApplication(Student student);
 	@Autowired
-	public List<Application> getAcceptedApplications();
+	public List<Application> getAcceptedApplications(Course course);
 }
 	
