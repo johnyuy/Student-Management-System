@@ -101,7 +101,9 @@ public class CmdRunner2 implements CommandLineRunner {
 		lrepo.save(l3);
 		// Insert Students
 		log.info("Adding Students..");
+		
 		List<Student> initialStudents = new ArrayList<Student>();
+		
 		initialStudents.add(new Student("John ", "Yue", "Yu", "male", LocalDate.of(1992, 11, 16), "Mr", "Tampines", "98076988", "yu.john92@gmail.com", "enrolled",  null, null, null));
 		initialStudents.add(new Student("Natalie", "Si Min", "Hong", "female", LocalDate.of(1989, 05, 02), "Ms",
 				"Bukit Panjang", "90019910", "natalie.hong@gmail.com", "Enrolled",  null, null, null));
@@ -115,6 +117,63 @@ public class CmdRunner2 implements CommandLineRunner {
 				"83443543", "frankLiu@qq.com", "Enrolled", null,null,null));
 		initialStudents.add(new Student("Gail", "Yazhi", "Jiang", "female", LocalDate.of(1994, 12, 1), "Ms", "Jurong",
 				"98076988", "gailJiang@qq.com", "Enrolled",  null,null,null));
+		
+		initialStudents.add(new Student("Jennifer", "", "Aniston", "female", LocalDate.of(1993, 2, 1), "Ms", "Tampines",
+				"89884276", "jenniferan@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Courteney", "Monica", "Geller", "female", LocalDate.of(1995, 1, 1), "Ms", "West Coast",
+				"95687438", "ccmonica@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Lisa", "Phoeba", "Buffay", "female", LocalDate.of(1991, 12, 11), "Ms", "East Coast",
+				"99882341", "lisa1234@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Matt", "Joey", "Tribbiani", "male", LocalDate.of(1992, 9, 4), "Mr", "Queens Town",
+				"80780983", "mattjoey@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Perry", "Chandler", "Bing", "male", LocalDate.of(1990, 8, 15), "Mr", "Keppel Bay",
+				"86981432", "perrypenny@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("David", "Ross", "Geller", "male", LocalDate.of(1994, 7, 12), "Mr", "Novena",
+				"98885631", "davidross@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Anita", "Carol", "Willick", "female", LocalDate.of(1996, 9, 21), "Ms", "Paya Lebar",
+				"98124254", "anitawillick@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Maggie", "Janice", "Hosenstein", "female", LocalDate.of(1997, 6, 12), "Ms", "Seletar",
+				"80766345", "maggiejanice@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Jessica", "Susan", "Bunch", "male", LocalDate.of(1994, 2, 18), "Mr", "Changi",
+				"98071238", "jessicabunch@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("James", "Michael", "Tyler", "male", LocalDate.of(1995, 11, 11), "Mr", "Clementi",
+				"81296076", "jamestyler@gmail.com", "Enrolled",  null,null,null));
+		
+		initialStudents.add(new Student("Phoebe", "Waller", "Bridge", "female", LocalDate.of(1991, 10, 21), "Ms", "Mandai",
+				"95223438", "phoebewaller@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Sian", "Clifford", "Bridge", "female", LocalDate.of(1990, 12, 13), "Ms", "Ang Mo Kio",
+				"99105437", "sian9012@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Olivia", "", "Colman", "female", LocalDate.of(1992, 9, 15), "Ms", "Bishan",
+				"94385687", "oliviacolman@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Bill", "", "Paterson", "male", LocalDate.of(1994, 7, 4), "Mr", "Toa Payoh",
+				"85386758", "bill9474@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Brett", "Martin", "Gelman", "male", LocalDate.of(1993, 2, 20), "Mr", "Orchard",
+				"83800981", "brettgelman@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Hugh", "Harry", "Skinner", "male", LocalDate.of(1988, 3, 28), "Mr", "Outram",
+				"83854390", "hughhs@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Hugh", "Ben", "Dennis", "male", LocalDate.of(1989, 8, 16), "Mr", "Clarke Quay",
+				"97481244", "hugnben89@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Jamie", "", "Demetriou", "female", LocalDate.of(1994, 7, 30), "Ms", "Bukit Merah",
+				"85344009", "jamie9407@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Andrew", "Shaw", "Scott", "male", LocalDate.of(1990, 11, 19), "Mr", "Kallang",
+				"95633541", "andrewshaw@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Fiona", "Ray", "Fearon", "female", LocalDate.of(1995, 10, 22), "Ms", "Sengkang",
+				"85740091", "fionaray@gmail.com", "Enrolled",  null,null,null));
+		
+		initialStudents.add(new Student("Anne", "", "Hathaway", "female", LocalDate.of(1991, 4, 3), "Ms", "Hougang",
+				"85091332", "anne910403y@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Tina", "Sarah", "Fey", "female", LocalDate.of(1992, 1, 2), "Ms", "Bedok",
+				"95740987", "tinafay@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Dey", "Joshua", "Patel", "male", LocalDate.of(1989, 6, 5), "Mr", "Toa Payoh",
+				"89176919", "deypatel@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("John", "Dennis", "Slattery", "male", LocalDate.of(1990, 9, 17), "Mr", "Jurong West",
+				"95916687", "johnsla@gmail.com", "Enrolled",  null,null,null));
+		initialStudents.add(new Student("Julia", "Maddy", "Garner", "female", LocalDate.of(1995, 8, 29), "Ms", "Bukit Timah",
+				"81294062", "juliagarner@gmail.com", "Enrolled",  null,null,null));
+		
+		
+		
+		
 		for (Student s : initialStudents) {
 			srepo.save(s);
 		}
