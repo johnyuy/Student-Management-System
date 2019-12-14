@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Schedule;
 import sg.edu.nus.smsys.models.Semester;
 import sg.edu.nus.smsys.models.Subject;
+import sg.edu.nus.smsys.models.UserSession;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.ScheduleRepository;
@@ -92,33 +95,6 @@ public class ScheduleController {
 		return schlist;
 	}
 
-	@GetMapping("/add")
-	public String createSchedule(Model model) {
-
-		ArrayList<Lecturer> llist = new ArrayList<Lecturer>();
-		llist.addAll(lrepo.findAll());
-		model.addAttribute("lecturerlist", llist);
-
-		ArrayList<Subject> sulist = new ArrayList<Subject>();
-		sulist.addAll(surepo.findAll());
-		model.addAttribute("subjectlist", sulist);
-
-		ArrayList<CourseClass> clist = new ArrayList<CourseClass>();
-		clist.addAll(crepo.findAll());
-		model.addAttribute("courseclasslist", clist);
-
-		Schedule schedule = new Schedule();
-		model.addAttribute("schedule", schedule);
-
-		return "scheduleform";
-	}
-
-	@PostMapping("/add")
-	public String showSchedule(@ModelAttribute Schedule schedule) {
-		srepo.save(schedule);
-		return "redirect:/schedule/list";
-	}
-
 	@GetMapping("/edit/{id}")
 	public String editSchedule(Model model, @PathVariable("id") String id) {
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
@@ -133,18 +109,14 @@ public class ScheduleController {
 			schedule = srepo.findById(Integer.parseInt(id)).get();
 			classid = schedule.getClas().getClassId();
 		}
-		CourseClass cc = crepo.findByClassId(classid);
-		
+		CourseClass cc = crepo.findByClassId(classid);	
 		ArrayList<Lecturer> llist = new ArrayList<Lecturer>();
 		llist.addAll(cc.getLecturerList());
 		model.addAttribute("lecturerlist", llist);
-
 		ArrayList<Subject> sulist = new ArrayList<Subject>();
 		sulist.addAll(cc.getCourse().getCourseSubjectList());
 		model.addAttribute("subjectlist", sulist);
-		
 		model.addAttribute("courseclass", cc);
-
 		model.addAttribute("schedule", schedule);
 		return "scheduleform";
 	}
@@ -152,15 +124,23 @@ public class ScheduleController {
 	@PostMapping("/edit/{id}")
 	public String insertSchdule(@Valid @ModelAttribute Schedule s, BindingResult bindingResult,
 			@PathVariable("id") String id) {	
+		
 		Integer classid;
 		if (id.contains("-")) {
 			String[] parts = id.split("X");
 			classid = Integer.parseInt(parts[1]);
+			LocalDate date = LocalDate.parse(parts[0]);
 			s.setClas(crepo.findByClassId(classid));
+			CourseClass found = crepo.findByClassId(classid);
 			srepo.save(s);
 		} else {
+			Schedule sch = srepo.findByScheduleId(Integer.parseInt(id));
+			CourseClass cc = sch.getClas();
 			s.setScheduleId(Integer.parseInt(id));
+			s.setClas(cc);
 			classid = s.getClas().getClassId();
+			LocalDate date = s.getDate();
+			CourseClass found = crepo.findByClassId(classid);
 			srepo.save(s);
 		}
 		return "redirect:/schedule/courseclassschedule/" + classid;
@@ -181,7 +161,7 @@ public class ScheduleController {
 	public String deleteMethod(Model model, @PathVariable("id") String id) {
 		Integer classid;
 		Schedule schedule = new Schedule();
-		if (id.contains("-")) {
+		if (id.contains("X")) {
 			String[] parts = id.split("X");
 			classid = Integer.parseInt(parts[1]);
 			return "redirect:/schedule/courseclassschedule/" + classid;
@@ -191,51 +171,4 @@ public class ScheduleController {
 			return "redirect:/schedule/courseclassschedule/" + schedule.getClas().getClassId();
 		}
 	}
-
-	@GetMapping("/list")
-	public String displaySchedulelist(Model model) {
-
-		List<Schedule> slist = new ArrayList<Schedule>();
-
-		slist.addAll(srepo.findAll());
-		// Collections.sort(slist);
-
-		model.addAttribute("schedule", slist);
-		return "schedulelist";
-
-	}
-
-//	
-//	@GetMapping("/courseclassschedule/{id}")
-//	public String showSchedule(Model model, @PathVariable("id") int id) {
-//		CourseClass cc = crepo.findByClassId(id);
-//		List<Semester> semlist = new ArrayList<Semester>();
-//		List<Schedule> schlist = new ArrayList<Schedule>();
-//	    int numberOfDays = 0;
-//	    Calendar c = Calendar.getInstance();    
-//		semlist.addAll(cc.getSemesterList());
-//		for(Semester s: semlist) {
-//			LocalDate sd = s.getStartDate();
-//			LocalDate ed = s.getEndDate();
-////			for(Date date = java.sql.Date.valueOf(sd); date.before(java.sql.Date.valueOf(ed)); date = ((LocalDate) date).plusDays(1)) {
-//////				Schedule schdule = new Schedule(date,null,null,null);
-////				schlist.add(schdule);
-////       	     	c.setTime(date);
-////
-////		        if ((Calendar.SATURDAY != c.get(Calendar.DAY_OF_WEEK)) &&(Calendar.SUNDAY != c.get(Calendar.DAY_OF_WEEK))) {	            
-////		        	
-////		                 numberOfDays++;
-////		             }
-////		             c.add(Calendar.DATE,1);
-////				
-//				
-//				
-//			}
-//			model.addAttribute("courseclass",cc);
-//
-//			model.addAttribute("schedule",schlist);
-//		}
-//		return "courseclassschdule";	
-//	}
-
 }

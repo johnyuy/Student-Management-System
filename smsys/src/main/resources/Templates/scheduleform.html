@@ -88,7 +88,15 @@ body {
 		<div class="container">
 			<h4
 				th:text="${schedule.scheduleId!= 0}? 'Update Schdule' : 'Add New Schdule'">Add
-				New Student</h4>
+				New Schedule</h4>
+		</div>
+		<div>
+			<div class="col-md-4 mb-3">
+				<label for="class">For Class: </label>
+				<h5 th:value="${courseclass.classId}"
+					th:text="${courseclass.classId} + '-' + ${courseclass.course.courseId} + ' ' +${courseclass.course.courseName}">Course
+					Class</h5>
+			</div>
 		</div>
 		<div class="container">
 			<form th:object="${schedule}" id="add-student-form"
@@ -96,8 +104,9 @@ body {
 
 				<div class="row">
 					<div class="col-md-4 mb-3">
-						<label for="date">Date</label> <input class="form-control"
-							type="date" placeholder="date" th:field="*{date}" />
+						<label for="date">Date: </label><label th:text="*{date}">Date</label>
+						<input type="hidden" class="form-control"
+							placeholder="date" th:field="*{date}" />
 					</div>
 				</div>
 				<div class="row">
@@ -117,14 +126,6 @@ body {
 						</select>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-4 mb-3">
-						<label for="class">Class</label> <a
-							th:value="${courseclass.classId}"
-							th:text="${courseclass.classId} + '-' + ${courseclass.course.courseId} + ' ' +${courseclass.course.courseName}">Course
-							Class</a>
-					</div>
-				</div>
 				<button
 					th:text="*{scheduleId != 0}? 'Update Schedule' : 'Add Schedule'"
 					class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
@@ -136,7 +137,7 @@ body {
 					class="btn btn-outline-success my-2 my-sm-0" type="submit">Clear</a>
 			</div>
 			<div th:if="${access==1 and schedule.scheduleId  > 0}">
-				<a 
+				<a
 					th:text="${schedule.scheduleId != 0}? 'Clear Schedule' : 'Cancel'"
 					th:href="@{/schedule/delete/{id}(id=${schedule.scheduleId})}"
 					class="btn btn-outline-success my-2 my-sm-0" type="submit">Clear</a>

@@ -89,15 +89,19 @@ body {
 			<h4 th:text="'ClassCode: ' + ${courseclass.classId}">ClassCode</h4>
 		</div>
 		<div class="container">
+			<input class="form-control mr-sm-2" type="text" id="myInput"
+				onkeyup="myFunction()" placeholder="Search for date..">
+		</div>
+		<div class="container">
 			<table class="table table-striped" id="schedule"
 				th:each="timetable,i:${timetables}">
 				<tr>
 					<th
 						th:text="' Semester: ' + ${i.index + 1} + '/' + ${i.size} + ' - ' +  ${timetable.key.semCode}"></th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
 					<th th:if="${access==1}"></th>
 				</tr>
 				<tr>
@@ -105,7 +109,7 @@ body {
 					<th>Day</th>
 					<th>Lecturer</th>
 					<th>Subject</th>
-					<td></td>
+					<th></th>
 					<th th:if="${access==1}"></th>
 				</tr>
 				<tr th:each="s:${timetable.value}">
@@ -116,7 +120,7 @@ body {
 					<td th:text="${s.subject.subjectName}">Subject</td>
 					<td th:text="${timetable.key.semCode}">Subject</td>
 					<td th:if="${access==1 and s.scheduleId == 0}"><a
-						type="submit" 
+						type="submit"
 						th:href="@{/schedule/edit/{id}(id=${s.date} + 'X' + ${courseclass.classId})}"
 						class="btn btn-outline-dark">Edit</a></td>
 					<td th:if="${access==1 and s.scheduleId > 0}"><a type="submit"
@@ -141,19 +145,18 @@ body {
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
 
-	<!-- 	<script>
+	<script>
 		function myFunction() {
 			// Declare variables
-			var input, filter, table, tr, td, i, txtValue, k;
-			input = document.getElementById("studentsearch");
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("myInput");
 			filter = input.value.toUpperCase();
-			table = document.getElementById("studentlist");
+			table = document.getElementById("schedule");
 			tr = table.getElementsByTagName("tr");
 
 			// Loop through all table rows, and hide those who don't match the search query
 			for (i = 0; i < tr.length; i++) {
-				for(k = 0; k < 6; k++){
-				td = tr[i].getElementsByTagName("td")[k];
+				td = tr[i].getElementsByTagName("td")[0];
 				if (td) {
 					txtValue = td.textContent || td.innerText;
 					if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -163,8 +166,7 @@ body {
 					}
 				}
 			}
-			}
 		}
-	</script> -->
+	</script>
 </body>
 </html>
