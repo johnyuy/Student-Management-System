@@ -90,7 +90,7 @@ public class ApplicationController {
 
 //		Application app = new Application(course, student);
 //		apprepo.save(app);
-		return "redirect:/student/home/appliedcourse";
+		return "redirect:/student/appliedcourse";
 	}
 
 	@GetMapping("/home")
@@ -102,8 +102,10 @@ public class ApplicationController {
 		return "studenthome";
 	}
 
-	@GetMapping("/home/appliedcourse")
+	@GetMapping("/appliedcourse")
 	public String displayAppliedCourse(Model model, Student student) {
+		//for Student to see his applications
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		System.out.println("Entered displayAppliedCourse");
 		User user = us.getUserByUsername(suds.getAuthUsername());
 		student = us.getStudentByUser(user);
@@ -111,38 +113,35 @@ public class ApplicationController {
 
 		model.addAttribute("studentid", student.getStudentId());
 
-		List<Application> myApp = as.displayMyApplication(student);
+		List<Application> myApp = new ArrayList<Application>();
 		model.addAttribute("myapplicationlist", myApp);
-
+		myApp = as.displayMyApplication(student);
+		model.addAttribute("myapplicationlist", myApp);
+		System.out.println("Number of applications: " + myApp);
 		return "appliedcourse";
 	}
 
-//	@GetMapping("/myapplication")
-//	public String myApplicationList(Model model, @RequestParam(defaultValue = "") String id) {
-//		List<Application> myApplicationList = new ArrayList<Application>();
-//		if (!id.equals("")) {
-//			Student student = sturepo.findByStudentId(Integer.parseInt(id));
-//			myApplicationList = as.displayMyApplication(student);
-//		} 
-//		model.addAttribute("myapplicationlist", myApplicationList);
-//		return "";
-//	}
+	@GetMapping("/home/applications")
+	//for Admin to see all the applications
+	public String displayCourseApplications(Model model, @RequestParam(defaultValue = "") String id) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
+		
+		List<Application> applicationList = new ArrayList<Application>();
+		applicationList = as.displayAllCourseApplication();
+	
+		model.addAttribute("applicationlist", applicationList);
+		return "appliedcourse";
+	}
+	
+	@PostMapping("/reply")
+	public String replyApplication(@ModelAttribute Application app) {
+		Student student = app.getStudent();
+		if(app.getStatus().equals("approved")) {
+			student.setStatus("Enrolled");
+		}
+		return "appliedcourse";
+		
+	}
 
-//	@GetMapping("/delete/{id}")
-//	public String deleteApplication(Model model, @PathVariable("id") Integer id) {
-//		Application application = apprepo.findById(id).get();
-//		lrepo.delete(leave);
-//		String staffId = String.valueOf(leave.getSubmittedByStaffID().getStaffId());
-//		return "redirect:/leave/leavelist?id=" + staffId;
-//	}
-//
-//	@GetMapping("/view/{id}")
-//	public String viewLeaveDetails(Model model, @ModelAttribute Leave leave, @PathVariable("id") Integer id) {
-//		leave = lrepo.findById(id).get();
-//
-//		model.addAttribute("leave", leave);
-//
-//		return "leavedetails";
-//	}
 
 }
