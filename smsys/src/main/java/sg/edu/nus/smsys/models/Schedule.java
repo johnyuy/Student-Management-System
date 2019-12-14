@@ -1,6 +1,9 @@
 package sg.edu.nus.smsys.models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,9 +28,6 @@ public class Schedule {
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "schedule_id_seq")
 	private int scheduleId;
 	
-	@Max(2)
-	private int period;
-	
 	@NotNull
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate date;
@@ -45,11 +45,9 @@ public class Schedule {
 	}
 	
 	
-	public Schedule(@NotNull @Min(10000000) @Max(19999999) int scheduleId, @Min(1) @Max(2) int period, LocalDate date,
+	public Schedule( LocalDate date,
 			Lecturer lecturer, Subject subject, CourseClass clas) {
 		super();
-		this.scheduleId = scheduleId;
-		this.period = period;
 		this.date = date;
 		this.lecturer = lecturer;
 		this.subject = subject;
@@ -62,10 +60,17 @@ public class Schedule {
 		return scheduleId;
 	}
 
-
-	public int getPeriod() {
-		return period;
+	public String getDay() {
+		return this.date.getDayOfWeek().name();
 	}
+
+	public String getDateFormat() {
+		
+		String dateformat = this.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));	
+		return dateformat;
+	}
+
+
 
 
 	public LocalDate getDate() {
@@ -92,10 +97,6 @@ public class Schedule {
 		this.scheduleId = scheduleId;
 	}
 
-
-	public void setPeriod(int period) {
-		this.period = period;
-	}
 
 
 	public void setDate(LocalDate date) {

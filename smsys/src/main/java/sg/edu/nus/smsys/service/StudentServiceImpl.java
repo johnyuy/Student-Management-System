@@ -79,10 +79,10 @@ public class StudentServiceImpl {
 			// get student
 			Student student = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername()));
 			// get list of enrolled classes
-			cclist = student.getCourseClassList();
-			for (CourseClass cc : cclist) {
-				slist.addAll(cc.getStudentList());
+			if(student.getStudentId()== id) {
+				return true;
 			}
+
 		} else if (accesslevel == 2) {
 			// get lecturer
 			Lecturer lecturer = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername()));

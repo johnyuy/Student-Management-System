@@ -31,11 +31,6 @@
 				<td th:text=${semlist}></td>
 			</tr>
 			
-			<tr th:if="${access == 1}">
-				<th>Edit</th>
-				<td>link</td>
-			</tr>
-			
 		</table>
 		
 		<br />
@@ -44,7 +39,6 @@
 		<table th:if="${class.course.courseSubjectList.size()>0}" class="w3-table-all w3-centered">
 			<tr th:each="subject:${class.course.courseSubjectList}"><td th:text="${subject.subjectName}"></td></tr>
 		</table>
-		<a href="/classes" th:if="${access == 1}">Edit</a>
 		
 		<br />
 		

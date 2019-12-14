@@ -36,13 +36,14 @@ public class CmdRunner2 implements CommandLineRunner {
 	CourseClassRepository ccrepo;
 	@Autowired
 	SubjectRepository subrepo;
+	
 
 	@Override
 	public void run(String[] args) {
 		
 		// Create Subjects
 		log.info("Adding some subjects..");
-		ArrayList<Subject> subjectlist = new ArrayList<Subject>();
+		
 		Subject subject1 = new Subject("Foundations",
 				"This unit lays the foundation for programming and developing of system of records. This course will cover programming concepts using the C# Language as the vehicle. You will learn about Object Oriented Programming and acquire the technical knowledge necessary for developing a User Interface for Business Systems using Visual Studio.Net. The curriculum also covers the implementation of client/server development on .NET data objects with Visual Studio as the client side programming tool, ADO.NET as the enabling middleware, and RDBMS as the database server. It will also include the development web application using ASP.NET MVC.",
 				5);
@@ -58,15 +59,21 @@ public class CmdRunner2 implements CommandLineRunner {
 		Subject subject5 = new Subject("Web Applications",
 				"This module includes the capstone project that links up all the concepts taught in the NUS-ISS Certificate in Digital Solutions Development – Foundations, Design, Web Applications and Mobility Applications. It also includes an internship programme where you will develop and propose IT solutions for your assigned internship company.",
 				5);
-
-		subjectlist.add(subject1);
-		subjectlist.add(subject2);
-		subjectlist.add(subject3);
-		subjectlist.add(subject4);
-		subjectlist.add(subject5);
-		subrepo.saveAll(subjectlist);
 		
+		ArrayList<Subject> subjectlist1 = new ArrayList<Subject>();
 		ArrayList<Subject> subjectlist2 = new ArrayList<Subject>();
+		ArrayList<Subject> subjectlistA = new ArrayList<Subject>();
+		subjectlist1.add(subject1); subjectlistA.add(subject1); 
+		subjectlist1.add(subject2); subjectlistA.add(subject2); 
+		subrepo.saveAll(subjectlist1);
+		//lecturer1
+		subjectlist2.add(subject3); subjectlistA.add(subject3); 
+		subjectlist2.add(subject4); subjectlistA.add(subject4); 
+		subjectlist2.add(subject5); subjectlistA.add(subject5); 
+		subrepo.saveAll(subjectlist2);
+		//lecturer2
+		
+		
 		
 		Subject subject6 = new Subject("Analytics Project Management and Delivery", "Students will be equipped with practice-oriented data analytics skills and knowledge in managing analytics project.", 10);
 		Subject subject7 = new Subject("Core Analytics Techniques", "Students will learn the foundation skills to understand, design and solve analytics problems in the industry involving structured and unstructured data.", 10);
@@ -74,31 +81,15 @@ public class CmdRunner2 implements CommandLineRunner {
 		Subject subject9 = new Subject("Big Data Processing", "Students will learn various aspects of data engineering while building resilient distributed datasets. Participants will learn to apply key practices, identify multiple data sources appraised against their business value, design the right storage, and implement proper access model(s).", 10);
 		Subject subject10 = new Subject("Practical Language Processing", "Students will be taught advanced skills in practical language processing. This includes fundamental text processing, text analytics, deep learning techniques and their application in sentiment mining and chatbots development.", 10);
 		Subject subject11 = new Subject("Advanced Predictive Modelling Techniques", "Students will be taught the advanced concepts of predictive modeling and Time Series Forecasting and their application in few special areas like Health Care & Service Industry in addition to other domains like Public Services, IT Services, Finance, Airlines, Logistics, Transport, Hotel & Tourism Industries.", 10);
+		ArrayList<Subject> subjectlist3 = new ArrayList<Subject>();
+		subjectlist3.add(subject6);
+		subjectlist3.add(subject7);
+		subjectlist3.add(subject8);
+		subjectlist3.add(subject9);
+		subjectlist3.add(subject10);
+		subjectlist3.add(subject11);
+		subrepo.saveAll(subjectlist3); //lecturer2
 
-		subjectlist2.add(subject6);
-		subjectlist2.add(subject7);
-		subjectlist2.add(subject8);
-		subjectlist2.add(subject9);
-		subjectlist2.add(subject10);
-		subjectlist2.add(subject11);
-		subrepo.saveAll(subjectlist2);
-
-
-
-		// Insert Lecturer
-		log.info("Adding Lecturer..");
-		Lecturer l1 = new Lecturer("Daniel", "Edward", "Foo", "male", LocalDate.of(1972, 02, 4), "Dr",
-				"Holland Village", "93336566", "danielEF@hotmail.com", "Available", 21, 21, null, null, null, subjectlist,
-				null, null);
-		Lecturer l2 = new Lecturer("Danny", "Kim", "DimSum", "female", LocalDate.of(1972, 01, 21), "Dr",
-				"Haw Par Villa", "91336506", "dimsumDA@hotmail.com", "Available", 21, 21, null, null, null, subjectlist,
-				null, null);
-		Lecturer l3 = new Lecturer("Boon", "Kom", "Tum", "male", LocalDate.of(1962, 11, 11), "Dr",
-				"Chinatown", "91346645", "chinaboi@hotmail.com", "Available", 21, 21, null, null, null, subjectlist,
-				null, null);
-		lrepo.save(l1);
-		lrepo.save(l2);
-		lrepo.save(l3);
 		// Insert Students
 		log.info("Adding Students..");
 		
@@ -177,61 +168,80 @@ public class CmdRunner2 implements CommandLineRunner {
 		for (Student s : initialStudents) {
 			srepo.save(s);
 		}
-
-		log.info("In CmdRunner2");
-		// Create user accounts
-		log.info("Adding user account for lecturer..");
-
-		try {
-			us.registerNewAccount(50001, "password");
-			us.registerNewAccount(50002, "admin");
-			us.registerNewAccount(50003, "l2");
-			us.registerNewAccount(50004, "l3");
-			us.registerNewAccount(10001, "password");
-
-			
-		} catch (GeneralSecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		
+		// Insert Lecturer
+		log.info("Adding Lecturer..");
+		Lecturer l1 = new Lecturer("Suria", "R", "Asai", "female", LocalDate.of(1972, 02, 4), "Ms",
+				"Holland Village", "93336566", "issspa@nus.edu.sg", "Available", 21, 21, null, null, null, subjectlist1,
+				null, null);
+		Lecturer l2 = new Lecturer("Ignatius", "Corden", "Fairfield", "male", LocalDate.of(1972, 01, 21), "Dr",
+				"Haw Par Villa", "91336506", "ignatiusCF@hotmail.com", "Available", 21, 21, null, null, null, subjectlist2,
+				null, null);
+		Lecturer l3 = new Lecturer("Jessica", "Vaness", "Lee", "female", LocalDate.of(1962, 11, 11), "Ms",
+				"Chinatown", "91346645", "chinaboi@hotmail.com", "Available", 21, 21, null, null, null, subjectlist3,
+				null, null);
+		lrepo.save(l1);
+		lrepo.save(l2);
+		lrepo.save(l3);
+		List<Lecturer> lecturerlist1 = new ArrayList<Lecturer>();
+		lecturerlist1.add(l1);
+		lecturerlist1.add(l2);
+		List<Lecturer> lecturerlist2 = new ArrayList<Lecturer>();
+		lecturerlist2.add(l3);
 		// Create Courses
 		log.info("Adding some courses..");
 		
-		Course course1 = new Course("Graduate Diploma in Systems Analysis", "The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry.","Open", 100, 2, subjectlist, null);
-		Course course2 = new Course("Master of Technology in Enterprise Business Analytics", "The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.", "Open", 50, 2, subjectlist2, null);
-
+		Course course1 = new Course("Graduate Diploma in Systems Analysis", "The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry.","Open", 100, 2, subjectlistA, null);
+		Course course2 = new Course("Master of Technology in Enterprise Business Analytics", "The NUS Master of Technology in Enterprise Business Analytics programme (MTech EBAC) is specifically designed to meet the industry demand for data scientists who can help organisations achieve improved business outcomes through data insights.", "Open", 50, 2, subjectlist3, null);
+		
 		courepo.save(course1);
 		courepo.save(course2);
-
+		
+		
 		// Create Semesters
 		log.info("Adding some semesters..");
-		semrepo.save(new Semester(LocalDate.of(2019, 8, 1).toString(), LocalDate.of(2019, 12, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2020, 1, 1).toString(), LocalDate.of(2020, 5, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2020, 8, 1).toString(), LocalDate.of(2020, 12, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2021, 1, 1).toString(), LocalDate.of(2021, 5, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2021, 8, 1).toString(), LocalDate.of(2021, 12, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2022, 1, 1).toString(), LocalDate.of(2022, 5, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2022, 8, 1).toString(), LocalDate.of(2022, 12, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2023, 1, 1).toString(), LocalDate.of(2023, 5, 31).toString(), null));
+		semrepo.save(new Semester(LocalDate.of(2019, 8, 1), LocalDate.of(2019, 12, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2020, 1, 1), LocalDate.of(2020, 5, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2020, 8, 1), LocalDate.of(2020, 12, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2021, 1, 1), LocalDate.of(2021, 5, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2021, 8, 1), LocalDate.of(2021, 12, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2022, 1, 1), LocalDate.of(2022, 5, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2022, 8, 1), LocalDate.of(2022, 12, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2023, 1, 1), LocalDate.of(2023, 5, 31), null));
 
 		// Create classes
 		log.info("Adding some classes..");
-		List<Semester> semlist = new ArrayList<Semester>();
+		List<Semester> semlist1 = new ArrayList<Semester>();
 		Semester sem = semrepo.findBySemCode("19/20-S2");
-		semlist.add(sem);
+		semlist1.add(sem);
 		sem = semrepo.findBySemCode("20/21-S1");
-		semlist.add(sem);
+		semlist1.add(sem);
 		List<Semester> semlist2 = new ArrayList<Semester>();
+		sem = semrepo.findBySemCode("20/21-S1");
+		semlist2.add(sem);
+		sem = semrepo.findBySemCode("20/21-S2");
+		semlist2.add(sem);
+		List<Semester> semlist3 = new ArrayList<Semester>();
+		sem = semrepo.findBySemCode("20/21-S2");
+		semlist3.add(sem);
 		sem = semrepo.findBySemCode("21/22-S1");
-		semlist2.add(sem);
-		sem = semrepo.findBySemCode("21/22-S2");
-		semlist2.add(sem);
 
 		
-		ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 0, semlist, srepo.findAll(), null, null, null));
-		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist2, srepo.findByStudentFullNameLike("Johann"), null, null, null));
-		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
+		List<Student> studentlist1 = new ArrayList<Student>();
+		for(int i = 10001; i<=10010; i ++){
+			studentlist1.add(srepo.findByStudentId(i));
+		}
+		List<Student> studentlist2 = new ArrayList<Student>();
+		for(int i = 10011; i<=10022; i ++){
+			studentlist2.add(srepo.findByStudentId(i));
+		}
+		
+		
+		//Create course classes
+		CourseClass class1 = new CourseClass(courepo.findByCourseId(2000), 0, semlist1, studentlist1, lecturerlist1, null, null);
+		ccrepo.save(class1);
+		CourseClass class2 = new CourseClass(courepo.findByCourseId(2001), 0, semlist1, studentlist2, lecturerlist2, null, null);
+		ccrepo.save(class2);
 		
 		// Create grades
 		log.info("Adding some sample grades..");
