@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Students</title>
 </head>
 <body>
-
+	<h2 th:text="'Class ' + ${classId} + ' (Students)'">Students</h2>
+	<br/>
+	<div class="w3-responsive">
+		<table class="w3-table-all w3-centered">
+			<tr>
+				<th>&nbsp;</th>
+				<th>Name</th>
+				<th>Student ID</th>
+			</tr>
+			<tr th:each="student:${studentlist}">
+				<td th:text="${studentlist.indexOf(student)+1}"></td>
+				<td th:text="${student.getFirstName()}+' '+${student.getLastName()}"></td>
+				<td th:text="${student.getStudentId()}">
+			</tr>
+		</table>
+	</div>
 </body>
 </html>
