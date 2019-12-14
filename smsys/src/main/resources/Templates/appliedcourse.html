@@ -75,7 +75,7 @@
 				<td th:text=${app.status}>Status</td>
 			</tr>
 		</table>
-		<form th:object="${app}" method="post" th:action="@{/application/reply}">
+		<form th:object="${app}" method="post" th:action="@{/student/reply}">
 			<table>
 				<tr>
 					<td><input type="hidden" th:field=*{leaveId} /></td>
