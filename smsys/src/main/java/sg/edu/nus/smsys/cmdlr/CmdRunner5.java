@@ -17,7 +17,7 @@ import sg.edu.nus.smsys.service.UserService;
 
 @Component
 @Order(5)
-public class CmdRunner5 implements CommandLineRunner{
+public class CmdRunner5 implements CommandLineRunner {
 	private static final Logger log = LoggerFactory.getLogger(CmdRunner5.class);
 	@Autowired
 	private CourseRepository courseRepo;
@@ -25,6 +25,7 @@ public class CmdRunner5 implements CommandLineRunner{
 	private StudentRepository stuRepo;
 	@Autowired
 	private ApplicationRepository appRepo;
+
 	@Override
     public void run(String[] args) {
 		log.info("...");    
@@ -38,9 +39,9 @@ public class CmdRunner5 implements CommandLineRunner{
         
         Application app3 = new Application(courseRepo.findByCourseId(2000), stuRepo.findByStudentId(10027));
         app3.setStatus("pending");
-        
+              
         Application app4 = new Application(courseRepo.findByCourseId(2001), stuRepo.findByStudentId(10027));
-        app4.setStatus("accepted");
+        app4.setStatus("enrolled");
         
         appRepo.save(app1);
         appRepo.save(app2);
@@ -55,6 +56,16 @@ public class CmdRunner5 implements CommandLineRunner{
         	Application app2001 = new Application(courseRepo.findByCourseId(2001), stuRepo.findByStudentId(i)); app2001.setStatus("enrolled");
         	appRepo.save(app2001);
         }
+        for(int i=10028; i<=10029; i++) {
+        	Application app2001 = new Application(courseRepo.findByCourseId(2001), stuRepo.findByStudentId(i)); app2001.setStatus("pending");
+        	appRepo.save(app2001);
+        }
+//        for (int i=0; i<=5; i++) {
+//        	Application app2001 = new Application(courseRepo.findByCourseId(2000), stuRepo.findByStudentId(10027)); app2001.setStatus("pending");
+//        	appRepo.save(app2001);
+//        }
+        
+        
         log.info("End of CmdRunner4"); 
     }
 }
