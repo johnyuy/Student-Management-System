@@ -210,7 +210,7 @@ public class CmdRunner3 implements CommandLineRunner {
 		schrepo.save(new Schedule(LocalDate.of(2019, 8, 6), lrepo.findByStaffId(50004), subrepo.findBySubjectId(7),crepo.findByClassId(1001)));
 		schrepo.save(new Schedule(LocalDate.of(2019, 8, 7), lrepo.findByStaffId(50004), subrepo.findBySubjectId(7),crepo.findByClassId(1001)));
 		schrepo.save(new Schedule(LocalDate.of(2019, 8, 8), lrepo.findByStaffId(50004), subrepo.findBySubjectId(7),crepo.findByClassId(1001)));
-		schrepo.save(new Schedule(LocalDate.of(2019, 8, 9), lrepo.findByStaffId(50002), subrepo.findBySubjectId(7),crepo.findByClassId(1001)));
+		schrepo.save(new Schedule(LocalDate.of(2019, 8, 9), lrepo.findByStaffId(50004), subrepo.findBySubjectId(7),crepo.findByClassId(1001)));
 //		schrepo.save(new Schedule(LocalDate.of(2019, 8, 10), lrepo.findByStaffId(50002), subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
 //		schrepo.save(new Schedule(LocalDate.of(2019, 8, 11), lrepo.findByStaffId(50002), subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
 		schrepo.save(new Schedule(LocalDate.of(2019, 8, 12), lrepo.findByStaffId(50004), subrepo.findBySubjectId(8),crepo.findByClassId(1001)));
@@ -275,7 +275,7 @@ public class CmdRunner3 implements CommandLineRunner {
 		schrepo.save(new Schedule(LocalDate.of(2019, 10, 7), lrepo.findByStaffId(50004), subrepo.findBySubjectId(11),crepo.findByClassId(1001)));
 		schrepo.save(new Schedule(LocalDate.of(2019, 10, 8), lrepo.findByStaffId(50004), subrepo.findBySubjectId(11),crepo.findByClassId(1001)));
 		schrepo.save(new Schedule(LocalDate.of(2019, 10, 9), lrepo.findByStaffId(50004), subrepo.findBySubjectId(11),crepo.findByClassId(1001)));
-		schrepo.save(new Schedule(LocalDate.of(2019, 10, 10), lrepo.findByStaffId(5004), subrepo.findBySubjectId(11),crepo.findByClassId(1001)));
+		schrepo.save(new Schedule(LocalDate.of(2019, 10, 10), lrepo.findByStaffId(50004), subrepo.findBySubjectId(11),crepo.findByClassId(1001)));
 		schrepo.save(new Schedule(LocalDate.of(2019, 10, 11), lrepo.findByStaffId(50004), subrepo.findBySubjectId(11),crepo.findByClassId(1001)));
 //		schrepo.save(new Schedule(LocalDate.of(2019, 10, 12), lrepo.findByStaffId(50003), subrepo.findBySubjectId(5),crepo.findByClassId(1000)));
 //		schrepo.save(new Schedule(LocalDate.of(2019, 10, 13), lrepo.findByStaffId(50003), subrepo.findBySubjectId(5),crepo.findByClassId(1000)));

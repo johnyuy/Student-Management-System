@@ -150,9 +150,9 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDesc=" + courseDesc
-				+ ", courseStatus=" + courseStatus + ", classSize=" + classSize + ", durationSemesters="
-				+ durationSemesters + ", courseSubjectList=" + courseSubjectList + ", classesList=" + classesList + "]";
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + "]";
 	}
+
+
 
 }
