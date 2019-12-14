@@ -141,8 +141,8 @@ public class ApplicationServiceImplement implements ApplicationService {
 		return myApp;
 	}
 	
-	public List<Application> getAcceptedApplications(Course course){
-		List<Application> applist = arepo.findByStatus("accepted");
+	public List<Application> getApplicationsByStatus(Course course, String status){
+		List<Application> applist = arepo.findByStatus(status);
 		List<Application> output = new ArrayList<Application>();
 		for(Application app: applist) {
 			if(app.getCourse().equals(course)) {
@@ -151,4 +151,5 @@ public class ApplicationServiceImplement implements ApplicationService {
 		}
 		return applist;
 	}
+	
 }

@@ -105,9 +105,9 @@ public class StudentServiceImpl {
 		return output;
 	}
 
-	public List<Student> getAcceptedStudents(Course course){
+	public List<Student> getStudentsByApplicationStatus(Course course, String status){
 		List<Student> studentlist = new ArrayList<Student>();
-		List<Application> applist = as.getAcceptedApplications(course);
+		List<Application> applist = as.getApplicationsByStatus(course, status);
 		if(applist!=null) {
 			if(applist.size()>0) {
 				for(Application app: applist) {

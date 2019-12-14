@@ -22,7 +22,7 @@ public interface StudentService {
 	@Autowired
 	Student findByStudentId(int id);
 	@Autowired
-	public List<Student> getAcceptedStudents(Course course);
+	public List<Student> getStudentsByApplicationStatus(Course course, String status);
 	@Autowired
 	@Query("select s from Student s where s.firstName like %?1% or s.middleName "
 			+ "like %?1% or s.lastName like %?1% or s.email like %?1%  ")
