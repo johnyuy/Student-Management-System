@@ -40,7 +40,7 @@ public class CourseClassController {
 	private SemesterService semService;
 	private static final Logger log = LoggerFactory.getLogger(CourseClassController.class);
 
-	//show list of classes
+	//view classes by user
 	@GetMapping("")
 	public String viewCourseClasses(Model model) {
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
@@ -104,11 +104,20 @@ public class CourseClassController {
 
 	@GetMapping("/{id}/students")
 	public String viewCourseClassStudents(Model model, @PathVariable("id") int id) {
+		//id is course class id
+		
 		if(ccService.canViewClass(id))
 		{
-			model.addAttribute("access", suds.getAuthUserAccessLevel());
-			return("courseclassstudents");
+			CourseClass cc = ccService.findByClassId(id);
+			if(cc!=null) {
+				model.addAttribute("classId", cc.getClassId());
+				List<Student> studentlist = cc.getStudentList();
+				model.addAttribute("studentlist", studentlist);
+				//studentlist.get(0).get
+				model.addAttribute("access", suds.getAuthUserAccessLevel());
+				return("courseclassstudents");
+			}
 		}
-		return null;
+		return "NotFound";
 	}
 }
