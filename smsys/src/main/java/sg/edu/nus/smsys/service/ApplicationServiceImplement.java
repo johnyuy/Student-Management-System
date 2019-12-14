@@ -46,23 +46,25 @@ public class ApplicationServiceImplement implements ApplicationService {
 	}
 
 	public boolean checkEligibility(Student student) {
+		boolean output = false;
 		// check if student can apply based on enrolled course
-		List<CourseClass> courseList = student.getCourseClassList();
-		System.out.println("My Course List: " + courseList);
-		if (courseList == null || courseList.size() == 0) {
-			System.out.println("YOU ARE ELIGIBLE!");
-			return true;
-		} else {
-			System.out.println(courseList.size());
-			CourseClass lastCourse = courseList.get(courseList.size() - 1);
-			// lastcourseclass
-			if (lastCourse.getLevel() < lastCourse.getCourse().getDurationSemesters()) {
-				System.out.println("YOU ARE NOT ELIGIBLE!!");
-				return false;
-			} else
+		List<CourseClass> classList = student.getCourseClassList();
+		System.out.println("My Course List: " + classList);
+		if (classList != null) {
+			if (classList.size() == 0) {
+				System.out.println("YOU ARE ELIGIBLE!");
 				return true;
+			} else {
+				//check the level of current class
+				CourseClass lastCourse = classList.get(classList.size() - 1);
+				if (lastCourse.getLevel() < lastCourse.getCourse().getDurationSemesters()) {
+					System.out.println("YOU ARE NOT ELIGIBLE!!");
+					return false;
+				} else
+					return true;
+			}
 		}
-
+		return output;
 	}
 
 	public List<Course> displayAvailableCourses() {
@@ -111,7 +113,7 @@ public class ApplicationServiceImplement implements ApplicationService {
 
 		return eligibleCourses;
 	}
-	
+
 	public void saveApplication(Course course, Student student) {
 		Application application = new Application(course, student);
 		arepo.save(application);
@@ -121,10 +123,9 @@ public class ApplicationServiceImplement implements ApplicationService {
 		List<Application> appList = new ArrayList<>();
 		appList = arepo.findAll();
 		return appList;
-		}
+	}
 
-	
-	public List<Application> displayMyApplication(Student student){
+	public List<Application> displayMyApplication(Student student) {
 		System.out.println("Entered displayMyApplication.");
 		List<Application> appList = new ArrayList<>();
 		List<Application> myApp = new ArrayList<>();
