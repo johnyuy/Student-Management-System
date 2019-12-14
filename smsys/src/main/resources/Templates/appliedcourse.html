@@ -54,9 +54,10 @@
 	</div>
 
 	<div th:if="${access}==1">
+	<!-- <form method="post" th:action="@{/student/reply}"> -->
 		<table class="w3-table-all w3-centered">
 			<tr>
-				<th colspan='6'><h2>Manage Student Course Applications</h2></th>
+				<th colspan='7'><h2>Manage Student Course Applications</h2></th>
 			</tr>
 			<tr>
 				<th>Application ID</th>
@@ -65,24 +66,39 @@
 				<th>Student ID</th>
 				<th>Student Name</th>
 				<th>Status</th>
+				<th>Details</th>
 			<tr th:each="app:${applicationlist}">
 
 				<td th:text=${app.applicationId}>Application ID</td>
 				<td th:text=${app.course.courseId}>Course ID</td>
 				<td th:text=${app.course.courseName}>Course Name</td>
-				<td th:text=${app.student.studentId}>Course Name</td>
+				<td th:text=${app.student.studentId}>Student ID</td>
 				<td th:text=${app.student.firstName}>Student Name</td>
 				<td th:text=${app.status}>Status</td>
+				<td ><a th:href="@{/student/view/}+${app.applicationId}">View Details</a></td>
 			</tr>
 		</table>
-		<form th:object="${app}" method="post" th:action="@{/student/reply}">
-			<table>
+		
+			<!-- <table>
 				<tr>
-					<td><input type="hidden" th:field=*{leaveId} /></td>
+					<td><input name="applicationId" type="hidden" th:value=${app.applicationId} /></td>
+				</tr>
+				
+				<tr>
+					<th th:text="${app.status}=='pending'?'Change Status':''">change
+						status or not</th>
+					<td th:if="${app.status}=='pending'"><select
+						name="status">
+							<option value="pending">select status</option>
+							<option th:value="accept">Approve</option>
+							<option th:value="reject">Reject</option>
+					</select>
+
+						<button type="submit">Submit</button></td>
 				</tr>
 
 			</table>
-		</form>
+		</form> -->
 
 	</div>
 

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.nus.smsys.models.Application;
 import sg.edu.nus.smsys.models.Course;
-
+import sg.edu.nus.smsys.models.Leave;
 import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.models.User;
 import sg.edu.nus.smsys.repository.ApplicationRepository;
@@ -134,14 +134,26 @@ public class ApplicationController {
 	}
 	
 	@PostMapping("/reply")
-	public String replyApplication(@RequestParam int applicationId) {
+	public String replyApplication(@RequestParam int applicationId, String status) {
 		Application app = as.getApplicationById(applicationId);
 		Student student = app.getStudent();
-		if(app.getStatus().equals("approved")) {
+		if(status.equals("approved")) {
 			student.setStatus("enrolled");
+		}
+		if(status.equals("rejected")) {
+			app.setStatus("rejected");
 		}
 		return "appliedcourse";
 		
+	}
+	
+	@GetMapping("/view/{id}")
+	public String viewApplicationDetails(Model model, @ModelAttribute Application app, @PathVariable("id") Integer id) {
+		app = as.getApplicationById(id);
+
+		model.addAttribute("app", app);
+
+		return "applicationdetails";
 	}
 
 

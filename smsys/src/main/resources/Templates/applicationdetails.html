@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="UTF-8">
+<title>Leave Details</title>
+</head>
+<body>
+	<div class="w3-responsive">
+		<table class="w3-table-all w3-centered w3-hoverable">
+			<tr>
+				<th>Application ID</th>
+				<th>Course ID</th>
+				<th>Course Name</th>
+				<th>Student ID</th>
+				<th>Student Name</th>
+				<th>Status</th>
+				<th>Status</th>
+				<th>Annual Leave Balance</th>
+			</tr>
+			<tr th:each="apps:${app}">
+				<td th:text=${apps.applicationId}>applicationId</td>
+				<td th:text=${apps.course.courseId}>courseId</td>
+				<td th:text=${apps.course.courseName}>courseName</td>
+				<td th:text=${apps.student.studentId}>studentId</td>
+				<td th:text=${apps.student.firstName}>studentName</td>
+				<td th:text=${apps.status}>status</td>
+		</table>
+
+
+
+		<form th:object="${app}" method="post" th:action="@{/student/reply}">
+			<table>
+
+				<tr>
+					<td><input type="hidden" th:field=*{applicationId} /></td>
+				</tr>
+				<tr>
+					<td><input type="hidden" th:field=*{course} /></td>
+				</tr>
+				<tr>
+					<td><input type="hidden"
+						th:field=*{submittedByStaffID.firstName} /></td>
+				</tr>
+
+				<tr>
+					<td><input type="hidden" th:field=*{dateStart} /></td>
+				</tr>
+
+				<tr>
+					<td><input type="hidden" th:field=*{duration} /></td>
+				</tr>
+
+				<tr>
+					<td><input type="hidden" th:field=*{reason} /></td>
+				</tr>
+
+				<tr>
+					<td><input type="hidden"
+						th:field=*{submittedByStaffID.annualLeaveBalance} /></td>
+				</tr>
+
+				<tr>
+
+					<th th:text="${leave.status}=='Pending'?'Change Status':''">change
+						status or not</th>
+					<td th:if="${leave.status}=='Pending'"><select
+						th:field="*{status}">
+							<option value="Pending">select status</option>
+							<option th:value="Approve">Approve</option>
+							<option th:value="Reject">Reject</option>
+					</select>
+
+						<button type="submit">Submit</button></td>
+
+
+
+				</tr>
+
+			</table>
+
+		</form>
+
+		<p></p>
+		<p></p>
+
+		<a th:href="@{/leave/alllist}"><button type="submit">Back
+				to Leave List</button> </a>
+
+
+	</div>
+
+
+</body>
+</html>
