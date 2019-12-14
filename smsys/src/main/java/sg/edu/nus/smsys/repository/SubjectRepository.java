@@ -18,9 +18,5 @@ public interface SubjectRepository extends JpaRepository<Subject,Integer> {
 
 	List<Subject> findByLecturerListContaining(Lecturer lecturer);
 
-	List<Subject>  findByCourseClass(CourseClass cc);
-
-	Collection<? extends Subject> findByCourse(Course course);
-
 
 }

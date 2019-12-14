@@ -251,12 +251,12 @@ public class CmdRunner2 implements CommandLineRunner {
 		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(2), "A"));
 		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "A"));
 		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "A+"));
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "A+"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "B"));
 		
 		// Student 10002 grades
 		grepo.save(new Grade(srepo.findByStudentId(10002), ccrepo.findByClassId(1000), subrepo.findBySubjectId(1), "A"));
 		grepo.save(new Grade(srepo.findByStudentId(10002), ccrepo.findByClassId(1000), subrepo.findBySubjectId(2), "A"));
-		grepo.save(new Grade(srepo.findByStudentId(10002), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10002), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "B+"));
 		grepo.save(new Grade(srepo.findByStudentId(10002), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "A"));
 		grepo.save(new Grade(srepo.findByStudentId(10002), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "A"));
 		
@@ -266,14 +266,11 @@ public class CmdRunner2 implements CommandLineRunner {
 		grepo.save(new Grade(srepo.findByStudentId(10003), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "A"));
 		grepo.save(new Grade(srepo.findByStudentId(10003), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "A"));
 		grepo.save(new Grade(srepo.findByStudentId(10003), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "B"));
-		grepo.save(new Grade(srepo.findByStudentId(10003), ccrepo.findByClassId(1001), subrepo.findBySubjectId(6), "A"));
-		grepo.save(new Grade(srepo.findByStudentId(10003), ccrepo.findByClassId(1001), subrepo.findBySubjectId(7), "B"));
 
-		
 		// Student 10004  grades
-		grepo.save(new Grade(srepo.findByStudentId(10004), ccrepo.findByClassId(1000), subrepo.findBySubjectId(1), "C"));
+		grepo.save(new Grade(srepo.findByStudentId(10004), ccrepo.findByClassId(1000), subrepo.findBySubjectId(1), "A-"));
 		grepo.save(new Grade(srepo.findByStudentId(10004), ccrepo.findByClassId(1000), subrepo.findBySubjectId(2), "A"));
-		grepo.save(new Grade(srepo.findByStudentId(10004), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10004), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "B+"));
 		grepo.save(new Grade(srepo.findByStudentId(10004), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "A"));
 		grepo.save(new Grade(srepo.findByStudentId(10004), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "C"));
 		
@@ -284,21 +281,30 @@ public class CmdRunner2 implements CommandLineRunner {
 		grepo.save(new Grade(srepo.findByStudentId(10005), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "D"));
 		grepo.save(new Grade(srepo.findByStudentId(10005), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "D"));
 
-		// Student 10006  grades
-		grepo.save(new Grade(srepo.findByStudentId(10006), ccrepo.findByClassId(1000), subrepo.findBySubjectId(1), "D"));
-		grepo.save(new Grade(srepo.findByStudentId(10006), ccrepo.findByClassId(1000), subrepo.findBySubjectId(2), "A"));
-		grepo.save(new Grade(srepo.findByStudentId(10006), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "A"));
-		grepo.save(new Grade(srepo.findByStudentId(10006), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "C"));
-		grepo.save(new Grade(srepo.findByStudentId(10006), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "D"));
-
-		// Student 10007  grades
-		grepo.save(new Grade(srepo.findByStudentId(10007), ccrepo.findByClassId(1000), subrepo.findBySubjectId(1), "D"));
-		grepo.save(new Grade(srepo.findByStudentId(10007), ccrepo.findByClassId(1000), subrepo.findBySubjectId(2), "A"));
-		grepo.save(new Grade(srepo.findByStudentId(10007), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "A"));
-		grepo.save(new Grade(srepo.findByStudentId(10007), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "C"));
-		grepo.save(new Grade(srepo.findByStudentId(10007), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "D"));
-
+		//Student 10011 grades
+		grepo.save(new Grade(srepo.findByStudentId(10011), ccrepo.findByClassId(1001), subrepo.findBySubjectId(6), "B"));
+		grepo.save(new Grade(srepo.findByStudentId(10011), ccrepo.findByClassId(1001), subrepo.findBySubjectId(7), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10011), ccrepo.findByClassId(1001), subrepo.findBySubjectId(8), "B-"));
+		grepo.save(new Grade(srepo.findByStudentId(10011), ccrepo.findByClassId(1001), subrepo.findBySubjectId(9), "C+"));
+		grepo.save(new Grade(srepo.findByStudentId(10011), ccrepo.findByClassId(1001), subrepo.findBySubjectId(10), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10011), ccrepo.findByClassId(1001), subrepo.findBySubjectId(11), "B-"));
 		
+		//Student 10012 grades
+		grepo.save(new Grade(srepo.findByStudentId(10012), ccrepo.findByClassId(1001), subrepo.findBySubjectId(6), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10012), ccrepo.findByClassId(1001), subrepo.findBySubjectId(7), "B"));
+		grepo.save(new Grade(srepo.findByStudentId(10012), ccrepo.findByClassId(1001), subrepo.findBySubjectId(8), "A-"));
+		grepo.save(new Grade(srepo.findByStudentId(10012), ccrepo.findByClassId(1001), subrepo.findBySubjectId(9), "B+"));
+		grepo.save(new Grade(srepo.findByStudentId(10012), ccrepo.findByClassId(1001), subrepo.findBySubjectId(10), "B+"));
+		grepo.save(new Grade(srepo.findByStudentId(10012), ccrepo.findByClassId(1001), subrepo.findBySubjectId(11), "B-"));
+		
+		//Student 10013 grades
+		grepo.save(new Grade(srepo.findByStudentId(10013), ccrepo.findByClassId(1001), subrepo.findBySubjectId(6), "C+"));
+		grepo.save(new Grade(srepo.findByStudentId(10013), ccrepo.findByClassId(1001), subrepo.findBySubjectId(7), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10013), ccrepo.findByClassId(1001), subrepo.findBySubjectId(8), "B-"));
+		grepo.save(new Grade(srepo.findByStudentId(10013), ccrepo.findByClassId(1001), subrepo.findBySubjectId(9), "B+"));
+		grepo.save(new Grade(srepo.findByStudentId(10013), ccrepo.findByClassId(1001), subrepo.findBySubjectId(10), "B"));
+		grepo.save(new Grade(srepo.findByStudentId(10013), ccrepo.findByClassId(1001), subrepo.findBySubjectId(11), "A"));
+				
 		log.info("End of CmdRunner2");
 
 	}

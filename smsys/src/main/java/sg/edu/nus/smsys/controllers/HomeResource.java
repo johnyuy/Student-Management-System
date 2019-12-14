@@ -34,7 +34,7 @@ public class HomeResource {
 		if(accessLevel==1)
 			return "adminhome";
 		if(accessLevel==2)
-			return "lectuererhome";
+			return "lecturerhome";
 		if(accessLevel==3)
 			return "studenthome";
 		
