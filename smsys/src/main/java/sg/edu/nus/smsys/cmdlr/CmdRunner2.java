@@ -128,6 +128,8 @@ public class CmdRunner2 implements CommandLineRunner {
 			us.registerNewAccount(50002, "admin");
 			us.registerNewAccount(50003, "l2");
 			us.registerNewAccount(50004, "l3");
+			us.registerNewAccount(10001, "password");
+
 			
 		} catch (GeneralSecurityException e) {
 			// TODO Auto-generated catch block
@@ -177,10 +179,10 @@ public class CmdRunner2 implements CommandLineRunner {
 		
 		// Student 10001 grades
 		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(1), "A"));
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(2), "B"));
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "C"));
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "D"));
-		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(2), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(3), "A"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(4), "A+"));
+		grepo.save(new Grade(srepo.findByStudentId(10001), ccrepo.findByClassId(1000), subrepo.findBySubjectId(5), "A+"));
 		
 		// Student 10002 grades
 		grepo.save(new Grade(srepo.findByStudentId(10002), ccrepo.findByClassId(1000), subrepo.findBySubjectId(1), "A"));

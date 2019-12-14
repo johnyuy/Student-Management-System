@@ -119,7 +119,8 @@ body {
 			<table class="table table-striped"
 				th:each="c,i:${student.courseClassList}">
 				<tr>
-					<th th:text="'Enrolled in: ' + ${i.index + 1} + '/' + ${i.size}">Enrolled in</th>
+					<th th:text="'Enrolled in: ' + ${i.index + 1} + '/' + ${i.size}">Enrolled
+						in</th>
 					<th></th>
 				</tr>
 				<tr>
@@ -137,18 +138,25 @@ body {
 				</tr>
 			</table>
 		</div>
-		<div class="container">
+		<div class="container" th:if="${access==1}">
 			<a class="btn btn-success" type="submit"
 				th:href="@{/students/edit/{id}(id=${student.studentId})}">Edit/Update</a>
 		</div>
-		<div>
+		<div class="container" th:if="${access==3}">
+			<a class="btn btn-success" type="submit"
+				th:href="@{/students/edit/{id}(id=${student.studentId})}">Edit/Update</a>
+		</div>
+		<div class="container" th:if="${access==1}">
 			<a class="btn btn-outline-dark" th:href="@{/students/list}">Back
 				to List</a>
 		</div>
-		<div>
+		<div class="container" th:if="${access==2}">
+			<a class="btn btn-outline-dark" th:href="@{/students/list}">Back
+				to List</a>
+		</div>
+		<div class="container" th:if="${access==3}">
 			<a class="btn btn-outline-dark" th:href="@{/students/list}">Apply
 				Course</a>
-		</div>
 		</div>
 	</main>
 

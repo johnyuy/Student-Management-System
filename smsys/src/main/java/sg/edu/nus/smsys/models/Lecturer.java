@@ -1,6 +1,7 @@
 package sg.edu.nus.smsys.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -63,6 +64,7 @@ public class Lecturer extends Staff {
 	public List<Schedule> getScheduleList() {
 		return scheduleList;
 	}
+	
 
 	public void setDepartment(Department department) {
 		this.department = department;
@@ -79,6 +81,8 @@ public class Lecturer extends Staff {
 	public void setScheduleList(List<Schedule> scheduleList) {
 		this.scheduleList = scheduleList;
 	}
+	
+
 
 
 	@Override
