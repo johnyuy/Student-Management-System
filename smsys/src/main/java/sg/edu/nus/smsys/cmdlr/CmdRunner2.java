@@ -217,21 +217,39 @@ public class CmdRunner2 implements CommandLineRunner {
 
 		// Create classes
 		log.info("Adding some classes..");
-		List<Semester> semlist = new ArrayList<Semester>();
+		List<Semester> semlist1 = new ArrayList<Semester>();
 		Semester sem = semrepo.findBySemCode("19/20-S2");
-		semlist.add(sem);
+		semlist1.add(sem);
 		sem = semrepo.findBySemCode("20/21-S1");
-		semlist.add(sem);
+		semlist1.add(sem);
 		List<Semester> semlist2 = new ArrayList<Semester>();
+		sem = semrepo.findBySemCode("20/21-S1");
+		semlist2.add(sem);
+		sem = semrepo.findBySemCode("20/21-S2");
+		semlist2.add(sem);
+		List<Semester> semlist3 = new ArrayList<Semester>();
+		sem = semrepo.findBySemCode("20/21-S2");
+		semlist3.add(sem);
 		sem = semrepo.findBySemCode("21/22-S1");
-		semlist2.add(sem);
-		sem = semrepo.findBySemCode("21/22-S2");
-		semlist2.add(sem);
-
+		semlist3.add(sem);
 		
-		ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 0, semlist, srepo.findAll(), null, null, null));
-		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist2, srepo.findByStudentFullNameLike("Johann"), null, null, null));
-		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
+		
+		List<Student> studentlist1 = new ArrayList<Student>();
+		for(int i = 10001; i<=10010; i ++){
+			studentlist1.add(srepo.findByStudentId(i));
+		}
+		List<Student> studentlist2 = new ArrayList<Student>();
+		for(int i = 10011; i<=10022; i ++){
+			studentlist2.add(srepo.findByStudentId(i));
+		}
+		
+		
+		//Create course classes
+		ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 0, semlist1, studentlist1, null, null, null));
+		//ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist2, srepo.findByStudentFullNameLike("Johann"), null, null, null));
+		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist1, studentlist2, null, null, null));
+		
+		
 		
 		// Create grades
 		log.info("Adding some sample grades..");
