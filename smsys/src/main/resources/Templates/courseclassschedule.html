@@ -81,26 +81,13 @@ body {
 	</nav>
 
 	<main role="main" class="container">
-
-
 		<div class="starter-template">
 			<h1>Timetable</h1>
 		</div>
-
 		<div class="container">
 			<h4 th:text="${courseclass.course.courseName}">CourseClass</h4>
 			<h4 th:text="'ClassCode: ' + ${courseclass.classId}">ClassCode</h4>
 		</div>
-
-		<!-- 		<div class="container">
-			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
-				method="get">
-				<input class="form-control mr-sm-2" name="name" type="text"
-					placeholder="Search Student" aria-label="Search" />
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-			</form>
-		</div> -->
-
 		<div class="container">
 			<table class="table table-striped" id="schedule"
 				th:each="timetable,i:${timetables}">
@@ -132,15 +119,14 @@ body {
 					<td th:text="${s.lecturer.firstName}">Lecturer</td>
 					<td th:text="${s.subject.subjectName}">Subject</td>
 					<td th:text="${timetable.key.semCode}">Subject</td>
-
 					<td th:if="${access==1}"><a type="submit"
-						th:href="@{/students/details/{id}(id=${student.studentId})}"
+						th:href="@{/schedule/details/{id}(id=${s.scheduleId})}"
 						class="btn btn-outline-dark">View Details</a></td>
 					<td th:if="${access==1}"><a type="submit"
-						th:href="@{/students/edit/{id}(id=${student.studentId})}"
+						th:href="@{/schedule/edit/{id}(id=${s.scheduleId})}"
 						class="btn btn-outline-dark">Edit</a></td>
 					<td th:if="${access==1}"><a type="submit"
-						th:href="@{/students/delete/{id}(id=${student.studentId})}"
+						th:href="@{/schedule/delete/{id}(id=${s.scheduleId})}"
 						class="btn btn-outline-dark">Delete</a></td>
 				</tr>
 			</table>
