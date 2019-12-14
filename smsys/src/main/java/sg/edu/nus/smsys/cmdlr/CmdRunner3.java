@@ -34,8 +34,8 @@ public class CmdRunner3 implements CommandLineRunner{
 	@Override
     public void run(String[] args) {
         log.info("In CmdRunner3");   
-        log.info("Create Schdule");   
-        // Month of August 2019
+        log.info("Creating Schdule...");   
+        // Month of August 2020
 //        schrepo.save(new Schedule(LocalDate.of(2019, 8, 1),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(2000)));
 //        schrepo.save(new Schedule(LocalDate.of(2019, 8, 2),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(2000)));
         schrepo.save(new Schedule(LocalDate.of(2020, 8, 3),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
@@ -52,31 +52,59 @@ public class CmdRunner3 implements CommandLineRunner{
         schrepo.save(new Schedule(LocalDate.of(2020, 8, 14),lrepo.findByStaffId(50003),subrepo.findBySubjectId(2),crepo.findByClassId(1000)));
 //        schrepo.save(new Schedule(LocalDate.of(2019, 8, 15),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(2000)));
 //        schrepo.save(new Schedule(LocalDate.of(2019, 8, 16),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(2000)));
-        schrepo.save(new Schedule(LocalDate.of(2020, 8, 17),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
-        schrepo.save(new Schedule(LocalDate.of(2020, 8, 18),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
-        schrepo.save(new Schedule(LocalDate.of(2020, 8, 19),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
-        schrepo.save(new Schedule(LocalDate.of(2020, 8, 20),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
-        schrepo.save(new Schedule(LocalDate.of(2020, 8, 21),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 8, 17),lrepo.findByStaffId(50002),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 8, 18),lrepo.findByStaffId(50002),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 8, 19),lrepo.findByStaffId(50002),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 8, 20),lrepo.findByStaffId(50002),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 8, 21),lrepo.findByStaffId(50002),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
 //        schrepo.save(new Schedule(LocalDate.of(2019, 8, 22),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(2000)));
 //        schrepo.save(new Schedule(LocalDate.of(2019, 8, 23),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(2000)));
-        schrepo.save(new Schedule(LocalDate.of(2020, 8, 24),lrepo.findByStaffId(50004),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
-        schrepo.save(new Schedule(LocalDate.of(2020, 8, 25),lrepo.findByStaffId(50004),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
-        schrepo.save(new Schedule(LocalDate.of(2020, 8, 26),lrepo.findByStaffId(50004),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
-        schrepo.save(new Schedule(LocalDate.of(2020, 8, 27),lrepo.findByStaffId(50004),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
-        schrepo.save(new Schedule(LocalDate.of(2020, 8, 28),lrepo.findByStaffId(50004),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 8, 24),lrepo.findByStaffId(50004),subrepo.findBySubjectId(4),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 8, 25),lrepo.findByStaffId(50004),subrepo.findBySubjectId(4),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 8, 26),lrepo.findByStaffId(50004),subrepo.findBySubjectId(4),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 8, 27),lrepo.findByStaffId(50004),subrepo.findBySubjectId(4),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 8, 28),lrepo.findByStaffId(50004),subrepo.findBySubjectId(4),crepo.findByClassId(1000)));
 //        schrepo.save(new Schedule(LocalDate.of(2019, 8, 29),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(2000)));
 //        schrepo.save(new Schedule(LocalDate.of(2019, 8, 30),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(2000)));
         schrepo.save(new Schedule(LocalDate.of(2020, 8, 31),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
 
-        // Month of Sept 2019
+        // Month of Sept 2020
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 1),lrepo.findByStaffId(50002),subrepo.findBySubjectId(5),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 2),lrepo.findByStaffId(50002),subrepo.findBySubjectId(5),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 3),lrepo.findByStaffId(50002),subrepo.findBySubjectId(5),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 4),lrepo.findByStaffId(50002),subrepo.findBySubjectId(5),crepo.findByClassId(1000)));
+//        schrepo.save(new Schedule(LocalDate.of(2020, 9, 5),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+//        schrepo.save(new Schedule(LocalDate.of(2020, 9, 6),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 7),lrepo.findByStaffId(50003),subrepo.findBySubjectId(4),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 8),lrepo.findByStaffId(50003),subrepo.findBySubjectId(4),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 9),lrepo.findByStaffId(50003),subrepo.findBySubjectId(4),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 10),lrepo.findByStaffId(50003),subrepo.findBySubjectId(4),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 11),lrepo.findByStaffId(50003),subrepo.findBySubjectId(4),crepo.findByClassId(1000)));
+//        schrepo.save(new Schedule(LocalDate.of(2020, 9, 12),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+//        schrepo.save(new Schedule(LocalDate.of(2020, 9, 13),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 14),lrepo.findByStaffId(50004),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 15),lrepo.findByStaffId(50004),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 16),lrepo.findByStaffId(50004),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 17),lrepo.findByStaffId(50004),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 18),lrepo.findByStaffId(50004),subrepo.findBySubjectId(3),crepo.findByClassId(1000)));
+//        schrepo.save(new Schedule(LocalDate.of(2020, 9, 19),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+//        schrepo.save(new Schedule(LocalDate.of(2020, 9, 20),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 21),lrepo.findByStaffId(50002),subrepo.findBySubjectId(2),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 22),lrepo.findByStaffId(50002),subrepo.findBySubjectId(2),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 23),lrepo.findByStaffId(50002),subrepo.findBySubjectId(2),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 24),lrepo.findByStaffId(50002),subrepo.findBySubjectId(2),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 25),lrepo.findByStaffId(50002),subrepo.findBySubjectId(2),crepo.findByClassId(1000)));
+//        schrepo.save(new Schedule(LocalDate.of(2020, 9, 26),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+//        schrepo.save(new Schedule(LocalDate.of(2020, 9, 27),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 28),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 29),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+        schrepo.save(new Schedule(LocalDate.of(2020, 9, 30),lrepo.findByStaffId(50002),subrepo.findBySubjectId(1),crepo.findByClassId(1000)));
+
 
         // Month of Oct 2019
 
         // Month of Nov 2019
 
-
-        
-        
         log.info("Testing log in...");
         log.info("End of CmdRunner3"); 
     }
