@@ -146,11 +146,11 @@ public class ApplicationServiceImplement implements ApplicationService {
 		List<Application> applist = arepo.findByStatus(status);
 		List<Application> output = new ArrayList<Application>();
 		for(Application app: applist) {
-			if(app.getCourse().equals(course)) {
+			if(app.getCourse().getCourseId()==course.getCourseId()) {
 				output.add(app);
 			}
 		}
-		return applist;
+		return output;
 	}
 	
 	public Application getApplicationById(int applicationId) {

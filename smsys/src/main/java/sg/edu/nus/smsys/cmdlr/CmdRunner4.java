@@ -36,16 +36,33 @@ public class CmdRunner4 implements CommandLineRunner{
 			us.registerNewAccount(10003, "123");
 			us.registerNewAccount(10004, "123");
 			us.registerNewAccount(10005, "123");
+			us.registerNewAccount(10006, "123");
+			us.registerNewAccount(10007, "123");
+			us.registerNewAccount(10008, "123");
+			us.registerNewAccount(10009, "123");
+			us.registerNewAccount(10010, "123");
 			//students in masters prog
 			us.registerNewAccount(10011, "123");
 			us.registerNewAccount(10012, "123");
 			us.registerNewAccount(10013, "123");
 			us.registerNewAccount(10014, "123");
 			us.registerNewAccount(10015, "123");
-			//students without accounts
+			us.registerNewAccount(10016, "123");
+			us.registerNewAccount(10017, "123");
+			us.registerNewAccount(10018, "123");
+			us.registerNewAccount(10019, "123");
+			us.registerNewAccount(10020, "123");
+			us.registerNewAccount(10021, "123");
+			us.registerNewAccount(10022, "123");
+			//students without classes
 			us.registerNewAccount(10023, "123");
 			us.registerNewAccount(10024, "123");
 			us.registerNewAccount(10025, "123");
+			us.registerNewAccount(10026, "123");
+			us.registerNewAccount(10027, "123");
+			us.registerNewAccount(10028, "123");
+			us.registerNewAccount(10029, "123");
+			us.registerNewAccount(10030, "123");
 			
 		} catch (GeneralSecurityException e) {
 			// TODO Auto-generated catch block

@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.edu.nus.smsys.models.Application;
 import sg.edu.nus.smsys.models.Course;
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Student;
+import sg.edu.nus.smsys.repository.ApplicationRepository;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
 
@@ -21,6 +23,8 @@ public class CourseClassServiceImplement implements CourseClassService{
 	private SmsUserDetailsService suds;
 	@Autowired
 	private UserService us;
+	@Autowired
+	private ApplicationRepository appRepo;
 	
 	public boolean canViewClass(int id) {
 		List<CourseClass> cclist = new ArrayList<CourseClass>();
@@ -72,4 +76,38 @@ public class CourseClassServiceImplement implements CourseClassService{
 		return ccRepo.findByClassId(id);
 	}
 	
+	public void addStudentToClass(Student s, int classId) {
+		CourseClass cc = ccRepo.findByClassId(classId);
+		if(cc!=null) {
+			//update application status if not enrolled
+			List<Application> applist = s.getAppliedCourses();
+			for(Application app:applist) {
+				if(app.getCourse().getCourseId() == cc.getCourse().getCourseId()) {
+					if(app.getStatus().equals("accepted")) {
+						app.setStatus("enrolled");
+						appRepo.save(app);
+					}
+				}
+			}
+			//add student to class
+			List<Student> sl = cc.getStudentList();
+			sl.add(s);
+			cc.setStudentList(sl);
+			ccRepo.save(cc);
+		} else {System.out.println("ERROR in adding student!");}
+	}
+
+
+	@Override
+	public void removeStudentFromClass(Student s, int classId) {
+		CourseClass cc = ccRepo.findByClassId(classId);
+		if(cc!=null) {
+			//update application status if not enrolled
+			//remove student from class
+			List<Student> sl = cc.getStudentList();
+			sl.remove(s);
+			cc.setStudentList(sl);
+			ccRepo.save(cc);
+		} else {System.out.println("ERROR in removing student!");}
+	}
 }

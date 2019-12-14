@@ -18,6 +18,7 @@ import sg.edu.nus.smsys.models.*;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
 import sg.edu.nus.smsys.repository.SemesterRepository;
+import sg.edu.nus.smsys.repository.StudentRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
 import sg.edu.nus.smsys.service.CourseClassService;
 import sg.edu.nus.smsys.service.SemesterService;
@@ -42,6 +43,8 @@ public class CourseClassController {
 	private SemesterService semService;
 	@Autowired
 	private StudentServiceImpl stuService;
+	@Autowired
+	private StudentRepository stuRepo;
 	
 	private static final Logger log = LoggerFactory.getLogger(CourseClassController.class);
 
@@ -158,5 +161,34 @@ public class CourseClassController {
 		return "NotFound";
 	}
 	
+	@GetMapping("/{id}/students/add")
+	public String addCourseClassStudents(@PathVariable("id") int id, @RequestParam String code) {
+		
+		if(suds.getAuthUserAccessLevel()==1)
+		{
+			System.out.println(code);
+			Student s = stuRepo.findByStudentId(Integer.parseInt(code));
+			ccService.addStudentToClass(s, id);
+			
+			String redirect = "redirect:/classes/" + id + "/students";
+			return redirect;
+		}
+		return "NotFound";
+	}
 	
+	@GetMapping("/{id}/students/remove")
+	public String removeCourseClassStudents(@PathVariable("id") int id, @RequestParam String code) {
+		
+		if(suds.getAuthUserAccessLevel()==1)
+		{
+			System.out.println(code);
+			Student s = stuRepo.findByStudentId(Integer.parseInt(code));
+			//ccService.addStudentToClass(s, id);
+			ccService.removeStudentFromClass(s, id);
+			
+			String redirect = "redirect:/classes/" + id + "/students";
+			return redirect;
+		}
+		return "NotFound";
+	}
 }

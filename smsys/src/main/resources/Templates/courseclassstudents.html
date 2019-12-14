@@ -14,21 +14,27 @@
 				<th>&nbsp;</th>
 				<th>Name</th>
 				<th>Student ID</th>
+				<th th:if="${access==1}"></th>
 			</tr>
 			<tr th:each="student:${studentlist}">
 				<td th:text="${studentlist.indexOf(student)+1}"></td>
 				<td th:text="${student.getFirstName()}+' '+${student.getLastName()}"></td>
 				<td th:text="${student.getStudentId()}">
+				<td th:if="${access==1}"><a th:href="@{/classes/} +${classId}+ @{/students/remove?code=} + ${student.getStudentId()} " class="btn" type="submit">remove</a></td>
 			</tr>
 		</table>
 	</div>
-	<div th:if="${access==1}">
-		<table>
+	<br />
+	<div th:if="${access==1} and ${addable.size()>0}" class="w3-responsive">
+		<h3>Add Students</h3>
+		<table class="w3-table-all w3-centered">
 			<tr th:each="adds:${addable}">
-			<td th:text="${adds.getFirstName()}">name</td>
-			
+			<td th:text="${adds.getFirstName()} + ' ' + ${adds.getLastName()}">name</td>
+			<td th:text="${adds.getStudentId()}">id</td>
+			<td><a th:href="@{/classes/} +${classId}+ @{/students/add?code=} + ${adds.getStudentId()} " class="btn" type="submit">add</a></td>
 			</tr>
 		</table>
+		
 	</div>
 </body>
 </html>
