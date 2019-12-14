@@ -35,8 +35,8 @@ public class ApplicationServiceImplement implements ApplicationService {
 		semList = semrepo.findAll();
 		int nextSemId = 0;
 		for (Semester sem : semList) {
-			if (today.isBefore(LocalDate.parse(sem.getEndDate()))
-					&& today.isAfter(LocalDate.parse(sem.getStartDate()))) {
+			if (today.isBefore(sem.getEndDate())
+					&& today.isAfter(sem.getStartDate())) {
 				nextSemId = sem.getSemId() + 1;
 			}
 		}

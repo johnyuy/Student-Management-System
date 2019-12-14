@@ -44,6 +44,10 @@ public class Lecturer extends Staff {
 		this.classList = classList;
 		this.scheduleList = scheduleList;
 	}
+	
+	public Lecturer(String firstName) {
+		this.setFirstName(firstName);
+	}
 
 	public Department getDepartment() {
 		return department;
