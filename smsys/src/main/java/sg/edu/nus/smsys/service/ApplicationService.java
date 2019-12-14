@@ -27,5 +27,7 @@ public interface ApplicationService {
 	public List<Application> displayMyApplication(Student student);
 	@Autowired
 	public List<Application> getApplicationsByStatus(Course course, String status);
+	@Autowired
+	public Application getApplicationById(int applicationId);
 }
 	

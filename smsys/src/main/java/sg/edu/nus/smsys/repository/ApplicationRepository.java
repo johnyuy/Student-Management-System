@@ -8,4 +8,5 @@ import sg.edu.nus.smsys.models.Application;
 
 public interface ApplicationRepository extends JpaRepository<Application, Integer> {
 	public List<Application> findByStatus(String status);
+	public Application findByApplicationId(int applicationId);
 }

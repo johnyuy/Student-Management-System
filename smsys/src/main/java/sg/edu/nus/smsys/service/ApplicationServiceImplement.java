@@ -3,6 +3,7 @@ package sg.edu.nus.smsys.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -150,6 +151,11 @@ public class ApplicationServiceImplement implements ApplicationService {
 			}
 		}
 		return applist;
+	}
+	
+	public Application getApplicationById(int applicationId) {
+		Application app = arepo.findByApplicationId(applicationId);
+		return app;
 	}
 	
 }

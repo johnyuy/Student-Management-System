@@ -134,10 +134,11 @@ public class ApplicationController {
 	}
 	
 	@PostMapping("/reply")
-	public String replyApplication(@ModelAttribute Application app) {
+	public String replyApplication(@RequestParam int applicationId) {
+		Application app = as.getApplicationById(applicationId);
 		Student student = app.getStudent();
 		if(app.getStatus().equals("approved")) {
-			student.setStatus("Enrolled");
+			student.setStatus("enrolled");
 		}
 		return "appliedcourse";
 		
