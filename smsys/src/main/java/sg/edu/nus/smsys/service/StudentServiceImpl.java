@@ -1,6 +1,5 @@
 package sg.edu.nus.smsys.service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +15,7 @@ import sg.edu.nus.smsys.security.SmsUserDetailsService;
 
 @Service
 public class StudentServiceImpl {
-	
+
 	@Autowired
 	private StudentRepository srepo;
 	@Autowired
@@ -28,24 +27,24 @@ public class StudentServiceImpl {
 	@Autowired
 	private ApplicationService as;
 
-	
 	public float CalulateGPA(Student student, CourseClass cc) {
 		ArrayList<Grade> gradelist = new ArrayList<Grade>();
-		gradelist.addAll(grepo.findByStudentAndClas(student,cc));
-		float gpa= sumOfGpa(gradelist)/sumOfCredits(gradelist);
-		return gpa;	
+		gradelist.addAll(grepo.findByStudentAndClas(student, cc));
+		float gpa = sumOfGpa(gradelist) / sumOfCredits(gradelist);
+		return gpa;
 	}
-	
+
 	public float sumOfGpa(ArrayList<Grade> gradelist) {
-		float sumofgrades = (float) gradelist.stream().mapToDouble(g -> g.getGradeToGPA()*g.getSubject().getUnits()).sum();
+		float sumofgrades = (float) gradelist.stream().mapToDouble(g -> g.getGradeToGPA() * g.getSubject().getUnits())
+				.sum();
 		return sumofgrades;
 	}
-	
+
 	public float sumOfCredits(ArrayList<Grade> subjectlist) {
-		float sumofcredits = (float) subjectlist.stream().mapToDouble(g -> g.getSubject().getUnits()).sum();		
-				return sumofcredits;
+		float sumofcredits = (float) subjectlist.stream().mapToDouble(g -> g.getSubject().getUnits()).sum();
+		return sumofcredits;
 	}
-	
+
 	public List<Student> getStudentByUser() {
 		List<Student> slist = new ArrayList<Student>();
 		List<CourseClass> cclist = new ArrayList<CourseClass>();
@@ -71,7 +70,7 @@ public class StudentServiceImpl {
 		}
 		return slist;
 	}
-	
+
 	public boolean canViewStudent(int id) {
 		List<CourseClass> cclist = new ArrayList<CourseClass>();
 		List<Student> slist = new ArrayList<Student>();
@@ -81,7 +80,7 @@ public class StudentServiceImpl {
 			// get student
 			Student student = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername()));
 			// get list of enrolled classes
-			if(student.getStudentId()== id) {
+			if (student.getStudentId() == id) {
 				return true;
 			}
 
@@ -98,24 +97,46 @@ public class StudentServiceImpl {
 		}
 		if (!slist.isEmpty()) {
 			for (Student s : slist) {
-				if(s.getStudentId()==id)
+				if (s.getStudentId() == id)
 					return true;
 			}
 		}
 		return output;
 	}
 
-	public List<Student> getStudentsByApplicationStatus(Course course, String status){
+	public List<Student> getStudentsByApplicationStatus(Course course, String status) {
 		List<Student> studentlist = new ArrayList<Student>();
 		List<Application> applist = as.getApplicationsByStatus(course, status);
-		if(applist!=null) {
-			if(applist.size()>0) {
-				for(Application app: applist) {
+		if (applist != null) {
+			if (applist.size() > 0) {
+				for (Application app : applist) {
 					studentlist.add(app.getStudent());
 				}
 			}
 		}
-		
 		return studentlist;
+	}
+
+	public List<Student> getEnrolledBalanceStudents(Course course) {
+		List<Student> enrolledstudents = this.getStudentsByApplicationStatus(course, "enrolled");
+		List<Student> output = new ArrayList<Student>();
+		if (enrolledstudents != null) {
+			for (Student s : enrolledstudents) {
+				boolean hasCourse = false;
+				List<CourseClass> studentenrolledclasses = s.getCourseClassList();
+				if (studentenrolledclasses != null) {
+					for (CourseClass cc : studentenrolledclasses) {
+						if (cc.getCourse().equals(course)) {
+							hasCourse = true;
+							break;
+						}
+					}
+				}
+				if (!hasCourse) {
+					output.add(s);
+				}
+			}
+		}
+		return output;
 	}
 }

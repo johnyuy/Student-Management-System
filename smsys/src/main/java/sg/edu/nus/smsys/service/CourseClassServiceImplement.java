@@ -72,5 +72,4 @@ public class CourseClassServiceImplement implements CourseClassService{
 		return ccRepo.findByClassId(id);
 	}
 	
-
 }

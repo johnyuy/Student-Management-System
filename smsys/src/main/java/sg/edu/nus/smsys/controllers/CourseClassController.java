@@ -21,6 +21,8 @@ import sg.edu.nus.smsys.repository.SemesterRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
 import sg.edu.nus.smsys.service.CourseClassService;
 import sg.edu.nus.smsys.service.SemesterService;
+import sg.edu.nus.smsys.service.StudentService;
+import sg.edu.nus.smsys.service.StudentServiceImpl;
 import sg.edu.nus.smsys.service.UserService;
 
 @Controller
@@ -38,6 +40,9 @@ public class CourseClassController {
 	private CourseClassService ccService;
 	@Autowired
 	private SemesterService semService;
+	@Autowired
+	private StudentServiceImpl stuService;
+	
 	private static final Logger log = LoggerFactory.getLogger(CourseClassController.class);
 
 	//view classes by user
@@ -110,14 +115,48 @@ public class CourseClassController {
 		{
 			CourseClass cc = ccService.findByClassId(id);
 			if(cc!=null) {
+				
 				model.addAttribute("classId", cc.getClassId());
 				List<Student> studentlist = cc.getStudentList();
 				model.addAttribute("studentlist", studentlist);
+				int accesslevel = suds.getAuthUserAccessLevel();
 				//studentlist.get(0).get
-				model.addAttribute("access", suds.getAuthUserAccessLevel());
+				model.addAttribute("access", accesslevel);
+				
+				if(accesslevel==1)
+				{
+					List<Student> addableStudents = new ArrayList<Student>();
+					//get list of students who are accepted for this course
+					List<Student> acceptedStudents = stuService.getStudentsByApplicationStatus(cc.getCourse(), "accepted");
+					if(acceptedStudents!=null) {
+						for(Student s : acceptedStudents) {
+							addableStudents.add(s);
+						}
+					} else {System.out.println("no outstanding accepted applications for this course");}
+					//enrolled students without a class
+					List<Student> availableStudents = new ArrayList<Student>();
+					availableStudents = stuService.getEnrolledBalanceStudents(cc.getCourse());
+					if(availableStudents!=null) {
+						for(Student s : availableStudents) {
+							addableStudents.add(s);
+						}
+					} else {System.out.println("no enrolled students w/o class for this course");}
+					System.out.println("size of addable students list " + addableStudents.size());
+					
+					
+					model.addAttribute("addable", addableStudents);
+				}
+				
+				
+				
+				
+				
+				
 				return("courseclassstudents");
 			}
 		}
 		return "NotFound";
 	}
+	
+	
 }
