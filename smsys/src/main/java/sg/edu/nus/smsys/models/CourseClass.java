@@ -160,10 +160,10 @@ public class CourseClass {
 
 	@Override
 	public String toString() {
-		return "CourseClass [classId=" + classId + ", level=" + level + ", course=" + course + ", semesterList="
-				+ semesterList + ", studentList=" + studentList + ", lecturerList=" + lecturerList + ", gradeList=" + gradeList
-				+ ", scheduleList=" + scheduleList + "]";
+		return "CourseClass [classId=" + classId + ", level=" + level + ", course=" + course + "]";
 	}
+
+
 
 }
 

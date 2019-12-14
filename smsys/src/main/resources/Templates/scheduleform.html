@@ -119,21 +119,28 @@ body {
 				</div>
 				<div class="row">
 					<div class="col-md-4 mb-3">
-						<label for="class">Class</label> <select th:field="*{clas}">
-							<option th:each="courseclass:${courseclasslist}"
-								th:value="${courseclass.classId}"
-								th:text="${courseclass.classId} + '-' + ${courseclass.course.courseId} + ' ' +${courseclass.course.courseName}">Name</option>
-						</select>
+						<label for="class">Class</label> <a
+							th:value="${courseclass.classId}"
+							th:text="${courseclass.classId} + '-' + ${courseclass.course.courseId} + ' ' +${courseclass.course.courseName}">Course
+							Class</a>
 					</div>
 				</div>
 				<button
 					th:text="*{scheduleId != 0}? 'Update Schedule' : 'Add Schedule'"
 					class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
 			</form>
-<!-- 			<div>
-				<button class="btn btn-outline-dark" th:href="@{/schedule/courseclassschedule/{id}(id=${schedule.clas.classId})}">Back
-					to List</button>
-			</div> -->
+			<div th:if="${access==1 and schedule.scheduleId == 0}">
+				<a
+					th:text="${schedule.scheduleId != 0}? 'Clear Schedule' : 'Cancel'"
+					th:href="@{/schedule/delete/{id}(id=${schedule.scheduleId} + 'X' + ${courseclass.classId})}"
+					class="btn btn-outline-success my-2 my-sm-0" type="submit">Clear</a>
+			</div>
+			<div th:if="${access==1 and schedule.scheduleId  > 0}">
+				<a 
+					th:text="${schedule.scheduleId != 0}? 'Clear Schedule' : 'Cancel'"
+					th:href="@{/schedule/delete/{id}(id=${schedule.scheduleId})}"
+					class="btn btn-outline-success my-2 my-sm-0" type="submit">Clear</a>
+			</div>
 		</div>
 	</main>
 	<!-- Optional JavaScript -->

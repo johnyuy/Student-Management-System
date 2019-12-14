@@ -99,8 +99,6 @@ body {
 					<td></td>
 					<td></td>
 					<th th:if="${access==1}"></th>
-					<th th:if="${access==1}"></th>
-					<th th:if="${access==1}"></th>
 				</tr>
 				<tr>
 					<th>Date</th>
@@ -108,8 +106,6 @@ body {
 					<th>Lecturer</th>
 					<th>Subject</th>
 					<td></td>
-					<th th:if="${access==1}"></th>
-					<th th:if="${access==1}"></th>
 					<th th:if="${access==1}"></th>
 				</tr>
 				<tr th:each="s:${timetable.value}">
@@ -119,23 +115,15 @@ body {
 					<td th:text="${s.lecturer.firstName}">Lecturer</td>
 					<td th:text="${s.subject.subjectName}">Subject</td>
 					<td th:text="${timetable.key.semCode}">Subject</td>
-					<td th:if="${access==1}"><a type="submit"
-						th:href="@{/schedule/details/{id}(id=${s.scheduleId})}"
-						class="btn btn-outline-dark">View Details</a></td>
-					<td th:if="${access==1}"><a type="submit"
+					<td th:if="${access==1 and s.scheduleId == 0}"><a
+						type="submit" 
+						th:href="@{/schedule/edit/{id}(id=${s.date} + 'X' + ${courseclass.classId})}"
+						class="btn btn-outline-dark">Edit</a></td>
+					<td th:if="${access==1 and s.scheduleId > 0}"><a type="submit"
 						th:href="@{/schedule/edit/{id}(id=${s.scheduleId})}"
 						class="btn btn-outline-dark">Edit</a></td>
-					<td th:if="${access==1}"><a type="submit"
-						th:href="@{/schedule/delete/{id}(id=${s.scheduleId})}"
-						class="btn btn-outline-dark">Delete</a></td>
 				</tr>
 			</table>
-		</div>
-
-		<div th:if="${access==1}">
-			<a class="btn btn-success" th:href="@{/students/add}">Add New
-				Student</a>
-		</div>
 		</div>
 	</main>
 
