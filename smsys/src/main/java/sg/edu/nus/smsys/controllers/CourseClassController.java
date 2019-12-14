@@ -149,12 +149,7 @@ public class CourseClassController {
 					
 					model.addAttribute("addable", addableStudents);
 				}
-				
-				
-				
-				
-				
-				
+
 				return("courseclassstudents");
 			}
 		}

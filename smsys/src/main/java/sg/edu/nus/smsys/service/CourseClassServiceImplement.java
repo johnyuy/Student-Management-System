@@ -38,8 +38,13 @@ public class CourseClassServiceImplement implements CourseClassService{
 		} else if (accesslevel == 2) {
 			// get lecturer
 			Lecturer lecturer = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername()));
-			// get list of classes taught
-			cclist = lecturer.getClassList();
+			List<CourseClass> fullcclist = ccRepo.findAll();
+			if(fullcclist!=null) {
+				for(CourseClass cc: fullcclist) {
+					if(cc.getLecturerList().contains(lecturer))
+						cclist.add(cc);
+				}
+			}
 		} else if (accesslevel == 1) {
 			return true;
 		}
@@ -62,10 +67,14 @@ public class CourseClassServiceImplement implements CourseClassService{
 			// get list of enrolled classes
 			cclist = student.getCourseClassList();
 		} else if (accesslevel == 2) {
-			// get lecturer
 			Lecturer lecturer = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername()));
-			// get list of classes taught
-			cclist = lecturer.getClassList();
+			List<CourseClass> fullcclist = ccRepo.findAll();
+			if(fullcclist!=null) {
+				for(CourseClass cc: fullcclist) {
+					if(cc.getLecturerList().contains(lecturer))
+						cclist.add(cc);
+				}
+			}
 		} else if (accesslevel == 1) {
 			cclist = ccRepo.findAll();;
 		}

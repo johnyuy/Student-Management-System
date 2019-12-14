@@ -173,6 +173,7 @@ public class UserServiceImplement implements UserService {
 	public Lecturer getLecturerByUser(User user) {
 		int id = Integer.parseInt(user.getUsername().substring(1));
 		if (user.getUsername().substring(0, 1).equals("L")) {
+			Lecturer l =lrepo.findByStaffId(id);
 			return lrepo.findByStaffId(id);
 		}
 		return null;
@@ -196,7 +197,6 @@ public class UserServiceImplement implements UserService {
 	
 	public User getUserByUsername(String username) {
 		Optional<User> user = urepo.findByUsername(username);
-		System.out.println("here is the username haha = " + user.get().getUsername());
 		if(user.isPresent()) {
 			return user.get();
 		}
