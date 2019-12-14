@@ -10,14 +10,16 @@
 <div class="w3-responsive">
 
 <table class="w3-table-all w3-centered w3-hoverable">
-	<tr>
+	<tr >
 	<th>ApplicationID</th>
 	<th>LeaveStartTime</th>
 	<th>Duration</th>
 	<th>Reason</th>
 	<th>Status</th>
-	<th>Edit</th>
-	<th>Cancel</th>
+	
+	<th>  </th>
+	
+	<th>  </th>
 	</tr>
 	
 	<tr th:each="leave:${leave}">
@@ -27,9 +29,15 @@
 	<td th:text=${leave.duration}>duration</td>
 	<td th:text=${leave.reason}>reason</td>
 	<td th:text=${leave.status}>status</td>
-	<td><a th:href="@{/leave/edit/{id}(id=${leave.leaveId})}">Edit</a></td>
-	<td><a th:href="@{/leave/delete/{id}(id=${leave.leaveId})}">Delete</a></td>
+	<td th:if="${leave.status}=='Pending'">
+		<a th:href="@{/leave/delete/{id}(id=${leave.leaveId})}">Cancel</a>
+	</td>
 
+	<td th:if="${leave.status}=='Pending'">
+	
+		<a th:href="@{/leave/edit/{id}(id=${leave.leaveId})}">Edit</a>
+	
+	</td>
 	</tr>
 	</table>
 	

@@ -36,7 +36,7 @@ public class Leave {
 	@NotNull
 	@Min(1)
 	@Max(21)
-	private int duration;
+	private int duration=1;
 	@Size(min=2, max=100)
 	private String reason;
 	

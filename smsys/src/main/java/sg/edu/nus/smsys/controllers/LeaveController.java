@@ -129,7 +129,7 @@ public class LeaveController {
 		Staff staff = new Staff();
 		staff = srepo.findByStaffId(leave.getSubmittedByStaffID().getStaffId());
 
-		if (leave.getStatus().equals("approve")) {
+		if (leave.getStatus().equals("Approve")) {
 
 			staff.setAnnualLeaveBalance(leave.getSubmittedByStaffID().getAnnualLeaveBalance() - leave.getDuration());
 
