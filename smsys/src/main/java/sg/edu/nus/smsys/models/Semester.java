@@ -8,18 +8,19 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="semester")
+@SequenceGenerator(name="sem_id_seq", initialValue = 1)
 public class Semester {
 	
 	@Id
 	@NotNull
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "sem_id_seq")
 	private int semId;
 	@NotNull
 	private String semCode;
 	@NotNull
-	private String startDate;
+	private LocalDate startDate;
 	@NotNull
-	private String endDate;
+	private LocalDate endDate;
 	
 	@ManyToMany(mappedBy = "semesterList")
 	private List<CourseClass> classList;
@@ -29,25 +30,25 @@ public class Semester {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Semester(String startDate, String endDate, List<CourseClass> classList) {
+	public Semester(LocalDate startDate, LocalDate endDate, List<CourseClass> classList) {
 		super();
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.classList = classList;
-		this.semCode = String.valueOf(LocalDate.parse(startDate).getYear()%100) + "/" + String.valueOf(LocalDate.parse(startDate).getYear()%100+1);
-		if(LocalDate.parse(startDate).getMonthValue()>=7 && LocalDate.parse(startDate).getMonthValue()<=12) {
-			this.semCode += "-S1";
-		} else {
+		this.semCode = String.valueOf(startDate.getYear()%100) + "/" + String.valueOf(startDate.getYear()%100+1);
+		if(startDate.getMonthValue()>=7 && startDate.getMonthValue()<=12) {
 			this.semCode += "-S2";
+		} else {
+			this.semCode += "-S1";
 		}
 	}
 	
 	public Semester updatedSemster() {
-		this.semCode = String.valueOf(LocalDate.parse(this.startDate).getYear()%100) + "/" + String.valueOf(LocalDate.parse(this.startDate).getYear()%100+1);
-		if(LocalDate.parse(this.startDate).getMonthValue()>=7 && LocalDate.parse(this.startDate).getMonthValue()<=12) {
-			this.semCode += "/1";
-		} else {
+		this.semCode = String.valueOf(this.startDate.getYear()%100) + "/" + String.valueOf(this.startDate.getYear()%100+1);
+		if(this.startDate.getMonthValue()>=7 && this.startDate.getMonthValue()<=12) {
 			this.semCode += "/2";
+		} else {
+			this.semCode += "/1";
 		}
 		return this;
 	}
@@ -61,11 +62,11 @@ public class Semester {
 		return semCode;
 	}
 
-	public String getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public String getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
@@ -81,11 +82,11 @@ public class Semester {
 		this.semCode = semCode;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 

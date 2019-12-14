@@ -36,6 +36,7 @@ public class CmdRunner2 implements CommandLineRunner {
 	CourseClassRepository ccrepo;
 	@Autowired
 	SubjectRepository subrepo;
+	
 
 	@Override
 	public void run(String[] args) {
@@ -206,14 +207,14 @@ public class CmdRunner2 implements CommandLineRunner {
 
 		// Create Semesters
 		log.info("Adding some semesters..");
-		semrepo.save(new Semester(LocalDate.of(2019, 8, 1).toString(), LocalDate.of(2019, 12, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2020, 1, 1).toString(), LocalDate.of(2020, 5, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2020, 8, 1).toString(), LocalDate.of(2020, 12, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2021, 1, 1).toString(), LocalDate.of(2021, 5, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2021, 8, 1).toString(), LocalDate.of(2021, 12, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2022, 1, 1).toString(), LocalDate.of(2022, 5, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2022, 8, 1).toString(), LocalDate.of(2022, 12, 31).toString(), null));
-		semrepo.save(new Semester(LocalDate.of(2023, 1, 1).toString(), LocalDate.of(2023, 5, 31).toString(), null));
+		semrepo.save(new Semester(LocalDate.of(2019, 8, 1), LocalDate.of(2019, 12, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2020, 1, 1), LocalDate.of(2020, 5, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2020, 8, 1), LocalDate.of(2020, 12, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2021, 1, 1), LocalDate.of(2021, 5, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2021, 8, 1), LocalDate.of(2021, 12, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2022, 1, 1), LocalDate.of(2022, 5, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2022, 8, 1), LocalDate.of(2022, 12, 31), null));
+		semrepo.save(new Semester(LocalDate.of(2023, 1, 1), LocalDate.of(2023, 5, 31), null));
 
 		// Create classes
 		log.info("Adding some classes..");
@@ -227,9 +228,14 @@ public class CmdRunner2 implements CommandLineRunner {
 		semlist2.add(sem);
 		sem = semrepo.findBySemCode("21/22-S2");
 		semlist2.add(sem);
+		List<Semester> semlist3 = new ArrayList<Semester>();
+		sem = semrepo.findBySemId(3);
+		semlist3.add(sem);
+		sem = semrepo.findBySemId(4);
+		semlist3.add(sem);
 
 		
-		ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 0, semlist, srepo.findAll(), null, null, null));
+		ccrepo.save(new CourseClass(courepo.findByCourseId(2000), 0, semlist3, srepo.findAll(), null, null, null));
 		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist2, srepo.findByStudentFullNameLike("Johann"), null, null, null));
 		ccrepo.save(new CourseClass(courepo.findByCourseId(2001), 0, semlist, null, null, null, null));
 		

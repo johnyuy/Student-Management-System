@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.models;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -41,6 +42,17 @@ public class CourseClass {
 	
 	@OneToMany(mappedBy ="clas")
 	private List<Schedule> scheduleList;
+	
+	private HashMap< Semester, List<Schedule>> timetable;
+
+	
+	public HashMap<Semester, List<Schedule>> getTimetable() {
+		return timetable;
+	}
+
+	public void setTimetable(HashMap<Semester, List<Schedule>> timetable) {
+		this.timetable = timetable;
+	}
 	
 	//CONSTRUCTORS
 	public CourseClass() {

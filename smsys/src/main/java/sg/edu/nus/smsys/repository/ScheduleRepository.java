@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,10 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Integer> {
 //	@Query("select s from Schedule s where s.clas.classId=id ")
 	
 	List<Schedule> findByClas(CourseClass clas);
+
+	Schedule findByDate(LocalDate date);
+
+	Schedule findByDateAndClas(LocalDate date, CourseClass clas);
 	
 	//List<Schedule> findByCourseClass(CourseClass Courseclass );
 
