@@ -32,6 +32,7 @@ import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.ScheduleRepository;
 import sg.edu.nus.smsys.repository.SubjectRepository;
+import sg.edu.nus.smsys.security.SmsUserDetailsService;
 
 @Controller
 @RequestMapping("/schedule")
@@ -48,9 +49,13 @@ public class ScheduleController {
 
 	@Autowired
 	CourseClassRepository crepo;
+	
+	@Autowired
+	private SmsUserDetailsService suds;
 
 	@GetMapping("/courseclassschedule/{id}")
 	public String showCourseClassSchedule(Model model, @PathVariable("id") int id) {
+//		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		CourseClass cc = crepo.findByClassId(id);
 		int courseduration = cc.getCourse().getDurationSemesters();
 		System.out.println(courseduration);
@@ -66,7 +71,7 @@ public class ScheduleController {
 		}
 		model.addAttribute("courseclass", cc);
 		model.addAttribute("timetables", timetables);
-		return "courseclassschdule";
+		return "courseclassschedule";
 	}
 
 	public ArrayList<Schedule> getHashMapOfSchdule(Semester s, CourseClass clas) {
