@@ -32,7 +32,7 @@ public class HomeResource {
 	public String home(){
 		int accessLevel = suds.getAuthUserAccessLevel();
 		if(accessLevel==1)
-			return "redirect:/admin";
+			return "adminhome";
 		if(accessLevel==2)
 			return "<h1>Lecturer Home Page</h1>";
 		if(accessLevel==3)
