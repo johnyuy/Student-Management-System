@@ -53,7 +53,7 @@ public class ScheduleController {
 	@Autowired
 	private SmsUserDetailsService suds;
 
-	@GetMapping("/courseclassschedule/{id}")
+	@GetMapping("/{id}")
 	public String showCourseClassSchedule(Model model, @PathVariable("id") int id) {
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		CourseClass cc = crepo.findByClassId(id);
@@ -143,7 +143,7 @@ public class ScheduleController {
 			CourseClass found = crepo.findByClassId(classid);
 			srepo.save(s);
 		}
-		return "redirect:/schedule/courseclassschedule/" + classid;
+		return "redirect:/schedule/" + classid;
 	}
 
 	public static boolean isValidDate(String inDate) {
@@ -164,11 +164,11 @@ public class ScheduleController {
 		if (id.contains("X")) {
 			String[] parts = id.split("X");
 			classid = Integer.parseInt(parts[1]);
-			return "redirect:/schedule/courseclassschedule/" + classid;
+			return "redirect:/schedule/" + classid;
 		} else {
 			schedule = srepo.findById(Integer.parseInt(id)).get();
 			srepo.delete(schedule);
-			return "redirect:/schedule/courseclassschedule/" + schedule.getClas().getClassId();
+			return "redirect:/schedule/" + schedule.getClas().getClassId();
 		}
 	}
 }

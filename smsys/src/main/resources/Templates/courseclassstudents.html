@@ -23,6 +23,7 @@
 				<td th:if="${access==1}"><a th:href="@{/classes/} +${classId}+ @{/students/remove?code=} + ${student.getStudentId()} " class="btn" type="submit">remove</a></td>
 			</tr>
 		</table>
+		<a th:href="@{/classes}" class="btn" type="submit">back to classes</a>
 	</div>
 	<br />
 	<div th:if="${access==1} and ${addable.size()>0}" class="w3-responsive">
@@ -34,7 +35,6 @@
 			<td><a th:href="@{/classes/} +${classId}+ @{/students/add?code=} + ${adds.getStudentId()} " class="btn" type="submit">add</a></td>
 			</tr>
 		</table>
-		
 	</div>
 </body>
 </html>

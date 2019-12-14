@@ -243,6 +243,13 @@ public class CmdRunner2 implements CommandLineRunner {
 		CourseClass class2 = new CourseClass(courepo.findByCourseId(2001), 0, semlist1, studentlist2, lecturerlist2, null, null);
 		ccrepo.save(class2);
 		
+		List<CourseClass> cc1 = new ArrayList<CourseClass>();
+		cc1.add(class1);
+		l1.setClassList(cc1);
+		l2.setClassList(cc1);
+		List<CourseClass> cc2 = new ArrayList<CourseClass>();
+		cc2.add(class2);
+		
 		// Create grades
 		log.info("Adding some sample grades..");
 		

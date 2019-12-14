@@ -27,7 +27,7 @@
 				<td th:text=${class.level}>Class Level</td>
 				<td><a th:href="@{/classes/}+${class.classId}" th:text="view">view</a></td>
 				<td><a th:href="@{/classes/}+${class.classId}+@{/students}" th:text="students">students</a></td>
-				<td><a th:href="@{/schedule/class?=}+${class.classId}" th:text="Schedule">schedule</a></td>
+				<td><a th:href="@{/schedule/}+${class.classId}" th:text="Schedule">schedule</a></td>
 			</tr>
 		</table>
 		<br />
