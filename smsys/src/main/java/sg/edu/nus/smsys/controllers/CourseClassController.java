@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sg.edu.nus.smsys.models.*;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
+import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.SemesterRepository;
 import sg.edu.nus.smsys.repository.StudentRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
@@ -45,16 +46,20 @@ public class CourseClassController {
 	private StudentServiceImpl stuService;
 	@Autowired
 	private StudentRepository stuRepo;
+	@Autowired
+	private LecturerRepository lectRepo;
 	
 	private static final Logger log = LoggerFactory.getLogger(CourseClassController.class);
 
 	//view classes by user
 	@GetMapping("")
 	public String viewCourseClasses(Model model) {
-		model.addAttribute("access", suds.getAuthUserAccessLevel());
+		int accesslevel = suds.getAuthUserAccessLevel();
+		model.addAttribute("access", accesslevel);
 		System.out.println("level = " + suds.getAuthUserAccessLevel());
 		List<CourseClass> classlist = ccService.getClassesByUser();
 		model.addAttribute("classes", classlist);
+		
 		return ("classlist");
 	}
 
@@ -95,7 +100,8 @@ public class CourseClassController {
 
 	@GetMapping("/{id}")
 	public String viewCourseClass(Model model, @PathVariable("id") int id) {
-		model.addAttribute("access", suds.getAuthUserAccessLevel());
+		int accesslevel = suds.getAuthUserAccessLevel();
+		model.addAttribute("access", accesslevel);
 		CourseClass cc = new CourseClass();
 		String str = "";
 		
@@ -104,7 +110,15 @@ public class CourseClassController {
 			str = semService.semestersToString(cc.getSemesterList());
 			model.addAttribute("class", cc);
 			model.addAttribute("semlist", str);
+			
+			if(accesslevel==1) {
+				//available lecturers
+				List<Lecturer> ll = ccService.getAvailableLecturers(cc);
+				model.addAttribute("addable", ll);
+			}
+			
 			return ("courseclassdetails");
+			
 		}
 		return "NotFound";
 		
@@ -176,12 +190,40 @@ public class CourseClassController {
 		
 		if(suds.getAuthUserAccessLevel()==1)
 		{
-			System.out.println(code);
 			Student s = stuRepo.findByStudentId(Integer.parseInt(code));
 			//ccService.addStudentToClass(s, id);
 			ccService.removeStudentFromClass(s, id);
 			
 			String redirect = "redirect:/classes/" + id + "/students";
+			return redirect;
+		}
+		return "NotFound";
+	}
+	
+	@GetMapping("/{id}/lecturer/add")
+	public String addCourseClassLecturer(@PathVariable("id") int id, @RequestParam String code) {
+		
+		if(suds.getAuthUserAccessLevel()==1)
+		{
+			Lecturer l = lectRepo.findByStaffId(Integer.parseInt(code));
+			ccService.addLecturerToClass(l, id);
+			
+			String redirect = "redirect:/classes/" + id;
+			return redirect;
+		}
+		return "NotFound";
+	}
+	@GetMapping("/{id}/lecturer/remove")
+	public String removeCourseClassLecturer(@PathVariable("id") int id, @RequestParam String code) {
+		
+		if(suds.getAuthUserAccessLevel()==1)
+		{
+			System.out.println(code);
+			Lecturer l = lectRepo.findByStaffId(Integer.parseInt(code));
+			//ccService.addStudentToClass(s, id);
+			ccService.removeLecturerFromClass(l, id);
+			
+			String redirect = "redirect:/classes/" + id;
 			return redirect;
 		}
 		return "NotFound";

@@ -11,8 +11,10 @@ import sg.edu.nus.smsys.models.Course;
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Student;
+import sg.edu.nus.smsys.models.Subject;
 import sg.edu.nus.smsys.repository.ApplicationRepository;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
+import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
 
 @Service
@@ -25,6 +27,8 @@ public class CourseClassServiceImplement implements CourseClassService{
 	private UserService us;
 	@Autowired
 	private ApplicationRepository appRepo;
+	@Autowired
+	private LecturerRepository lectRepo;
 	
 	public boolean canViewClass(int id) {
 		List<CourseClass> cclist = new ArrayList<CourseClass>();
@@ -56,7 +60,6 @@ public class CourseClassServiceImplement implements CourseClassService{
 		}
 		return output;
 	}
-	
 	
 	public List<CourseClass> getClassesByUser(){
 		List<CourseClass> cclist = new ArrayList<CourseClass>();
@@ -106,7 +109,6 @@ public class CourseClassServiceImplement implements CourseClassService{
 		} else {System.out.println("ERROR in adding student!");}
 	}
 
-
 	@Override
 	public void removeStudentFromClass(Student s, int classId) {
 		CourseClass cc = ccRepo.findByClassId(classId);
@@ -118,5 +120,60 @@ public class CourseClassServiceImplement implements CourseClassService{
 			cc.setStudentList(sl);
 			ccRepo.save(cc);
 		} else {System.out.println("ERROR in removing student!");}
+	}
+
+
+	@Override
+	public void removeLecturerFromClass(Lecturer l, int classId) {
+		CourseClass cc = ccRepo.findByClassId(classId);
+		if(cc!=null) {
+			List<Lecturer> ll= cc.getLecturerList();
+			ll.remove(l);
+			cc.setLecturerList(ll);
+			ccRepo.save(cc);
+		}
+		
+	}
+
+	@Override
+	public List<Lecturer> getAvailableLecturers(CourseClass cc) {
+		List<Lecturer> output = new ArrayList<Lecturer>();
+		List<Lecturer> ccll = cc.getLecturerList();
+		List<Lecturer> lectlist = lectRepo.findAll();
+		if(ccll!=null) {
+			for(Lecturer l:lectlist) {
+				if(!ccll.contains(l)) {
+					for(Subject s: l.getSubjectList()) {
+						if(cc.getCourse().getCourseSubjectList().contains(s)) {
+							output.add(l);
+							break;
+						}
+					}
+				}
+			}
+		} else {
+			for(Lecturer l:lectlist) {
+				for(Subject s: l.getSubjectList()) {
+					if(cc.getCourse().getCourseSubjectList().contains(s)) {
+						output.add(l);
+						break;
+					}
+				}
+			}
+		}
+		return output;
+	}
+
+	@Override
+	public void addLecturerToClass(Lecturer l, int classId) {
+		
+		CourseClass cc = ccRepo.findByClassId(classId);
+		if(cc!=null) {
+			//add lecturer to class
+			List<Lecturer> ll = cc.getLecturerList();
+			ll.add(l);
+			cc.setLecturerList(ll);
+			ccRepo.save(cc);
+		} else {System.out.println("ERROR in adding lecturer!");}
 	}
 }

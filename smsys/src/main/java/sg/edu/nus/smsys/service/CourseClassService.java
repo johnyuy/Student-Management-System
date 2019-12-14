@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import sg.edu.nus.smsys.models.Course;
 import sg.edu.nus.smsys.models.CourseClass;
+import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Student;
 
 public interface CourseClassService {
@@ -18,5 +19,11 @@ public interface CourseClassService {
 	@Autowired
 	public void addStudentToClass(Student s, int classId);
 	@Autowired
+	public void addLecturerToClass(Lecturer l, int classId);
+	@Autowired
 	public void removeStudentFromClass(Student s, int classId);
+	@Autowired
+	public void removeLecturerFromClass(Lecturer l, int classId);
+	@Autowired
+	public List<Lecturer> getAvailableLecturers(CourseClass cc);
 }
