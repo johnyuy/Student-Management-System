@@ -34,9 +34,9 @@ public class HomeResource {
 		if(accessLevel==1)
 			return "adminhome";
 		if(accessLevel==2)
-			return "<h1>Lecturer Home Page</h1>";
+			return "lectuererhome";
 		if(accessLevel==3)
-			return "<h1>Student Home Page</h1>";
+			return "studenthome";
 		
 		return "redirect:/welcome";
 	}
