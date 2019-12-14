@@ -25,5 +25,7 @@ public interface ApplicationService {
 	public void saveApplication(Course course, Student student);
 	@Autowired
 	public List<Application> displayMyApplication(Student student);
+	@Autowired
+	public List<Application> getAcceptedApplications();
 }
 	

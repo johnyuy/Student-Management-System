@@ -14,7 +14,7 @@ public interface StudentService {
 	List<Student> findByLastNameContaining(String name);
 	List<Student> findByEmailContaining(String name);
 	Student findByStudentId(int id);
-
+	public List<Student> getAcceptedStudents();
 	
 	@Query("select s from Student s where s.firstName like %?1% or s.middleName "
 			+ "like %?1% or s.lastName like %?1% or s.email like %?1%  ")

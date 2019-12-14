@@ -25,6 +25,8 @@ public class StudentServiceImpl {
 	private SmsUserDetailsService suds;
 	@Autowired
 	private UserService us;
+	@Autowired
+	private ApplicationService as;
 
 	
 	public float CalulateGPA(Student student, CourseClass cc) {
@@ -103,4 +105,17 @@ public class StudentServiceImpl {
 		return output;
 	}
 
+	public List<Student> getAcceptedStudents(){
+		List<Student> studentlist = new ArrayList<Student>();
+		List<Application> applist = as.getAcceptedApplications();
+		if(applist!=null) {
+			if(applist.size()>0) {
+				for(Application app: applist) {
+					studentlist.add(app.getStudent());
+				}
+			}
+		}
+		
+		return studentlist;
+	}
 }
