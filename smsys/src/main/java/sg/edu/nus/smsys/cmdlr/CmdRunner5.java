@@ -47,7 +47,7 @@ public class CmdRunner5 implements CommandLineRunner{
         appRepo.save(app3);
         appRepo.save(app4);
         
-        for(int i=10001; i<=100010; i++) {
+        for(int i=10001; i<=10010; i++) {
         	Application app2000 = new Application(courseRepo.findByCourseId(2000), stuRepo.findByStudentId(i)); app2000.setStatus("enrolled");
         	appRepo.save(app2000);
         }
