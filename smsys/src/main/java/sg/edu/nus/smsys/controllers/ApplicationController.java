@@ -88,8 +88,6 @@ public class ApplicationController {
 		Course course = crepo.findByCourseId(selectedcourse);
 		as.saveApplication(course, student);
 
-//		Application app = new Application(course, student);
-//		apprepo.save(app);
 		return "redirect:/student/appliedcourse";
 	}
 
@@ -104,57 +102,79 @@ public class ApplicationController {
 
 	@GetMapping("/appliedcourse")
 	public String displayAppliedCourse(Model model, Student student) {
-		//for Student to see his applications
+		// for Student to see his applications
+
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		System.out.println("Entered displayAppliedCourse");
 		User user = us.getUserByUsername(suds.getAuthUsername());
 		student = us.getStudentByUser(user);
 		System.out.println(student.getFirstName() + " applied");
-
 		model.addAttribute("studentid", student.getStudentId());
-
-		List<Application> myApp = new ArrayList<Application>();
-		model.addAttribute("myapplicationlist", myApp);
-		myApp = as.displayMyApplication(student);
-		model.addAttribute("myapplicationlist", myApp);
-		System.out.println("Number of applications: " + myApp);
+		List<Application> applications = new ArrayList<Application>();
+		applications.addAll(apprepo.findByStudent(student));
+		model.addAttribute("myapplicationlist", applications);
 		return "appliedcourse";
 	}
 
 	@GetMapping("/home/applications")
-	//for Admin to see all the applications
+	// for Admin to see all the applications
 	public String displayCourseApplications(Model model, @RequestParam(defaultValue = "") String id) {
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
-		
+
 		List<Application> applicationList = new ArrayList<Application>();
+
+		List<Application> pending = new ArrayList<Application>();
+
+		List<Application> accepted = new ArrayList<Application>();
+
+		List<Application> others = new ArrayList<Application>();
+
 		applicationList = as.displayAllCourseApplication();
-	
+
+		for (Application a : applicationList) {
+			if (a.getStatus().equals("pending")) {
+				pending.add(a);
+			} else if (a.getStatus().equals("accepted")) {
+				accepted.add(a);
+			} else {
+				others.add(a);
+			}
+		}
+		model.addAttribute("pending", pending);
+		model.addAttribute("others", others);
+		model.addAttribute("accepted", accepted);
 		model.addAttribute("applicationlist", applicationList);
 		return "appliedcourse";
 	}
-	
-	@PostMapping("/reply")
-	public String replyApplication(@RequestParam int applicationId, String status) {
-		Application app = as.getApplicationById(applicationId);
-		Student student = app.getStudent();
-		if(status.equals("approved")) {
-			student.setStatus("enrolled");
-		}
-		if(status.equals("rejected")) {
-			app.setStatus("rejected");
-		}
-		return "appliedcourse";
-		
-	}
-	
-	@GetMapping("/view/{id}")
-	public String viewApplicationDetails(Model model, @ModelAttribute Application app, @PathVariable("id") Integer id) {
-		app = as.getApplicationById(id);
 
+	@PostMapping("/app/{id}")
+	public String replyApplication(@ModelAttribute Application a, @PathVariable("id") int id) {
+		Student student = a.getStudent();
+		List<Application> alist = new ArrayList<Application>();
+		alist.addAll(apprepo.findByStudent(student));
+		for (Application app : alist) {
+			if (app.getApplicationId() == id) {
+				alist.remove(app);
+				break;
+			}
+		}
+		for (Application app : alist) {
+			if (app.getStatus().equals("pending")) {
+				app.setStatus("expired");
+			}
+		}
+		apprepo.saveAll(alist);
+		a.setApplicationId(id);
+		apprepo.save(a);
+		return "redirect:/student/home/applications";
+	}
+
+	@GetMapping("/app/{id}")
+	public String viewApplicationDetails(Model model, @PathVariable("id") Integer id) {
+		Application app = as.getApplicationById(id);
 		model.addAttribute("app", app);
 
 		return "applicationdetails";
 	}
-
 
 }

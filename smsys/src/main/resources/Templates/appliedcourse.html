@@ -12,20 +12,19 @@
 <div class="w3-responsive">
 	<div th:if="${access}==3">
 		<a th:href="@{/student/applycourse}">Apply Course</a>
-
-		<div th:if="myapplicationlist.empty">
-			<table class="w3-table-all w3-centered">
-				<tr>
-					<th><h3>My Course Application</h3></th>
-				</tr>
-				<tr>
-					<td>There is no pending course application.</td>
-				</tr>
-			</table>
+		<div th:if="${#lists.isEmpty(myapplicationlist)}">
+			<div>
+				<table class="w3-table-all w3-centered">
+					<tr>
+						<th><h3>My Course Application</h3></th>
+					</tr>
+					<tr>
+						<td>There is no course application.</td>
+					</tr>
+				</table>
+			</div>
 		</div>
-
-
-		<div th:unless="myapplicationlist.empty">
+		<div th:if="${not #lists.isEmpty(myapplicationlist)}">
 			<table class="w3-table-all w3-centered">
 				<tr>
 					<th colspan='6'>My Course Application</th>
@@ -54,10 +53,13 @@
 	</div>
 
 	<div th:if="${access}==1">
-	<!-- <form method="post" th:action="@{/student/reply}"> -->
+		<!-- <form method="post" th:action="@{/student/reply}"> -->
 		<table class="w3-table-all w3-centered">
 			<tr>
 				<th colspan='7'><h2>Manage Student Course Applications</h2></th>
+			</tr>
+			<tr>
+				<th colspan='7'><h5>Pending Applications</h5></th>
 			</tr>
 			<tr>
 				<th>Application ID</th>
@@ -67,7 +69,7 @@
 				<th>Student Name</th>
 				<th>Status</th>
 				<th>Details</th>
-			<tr th:each="app:${applicationlist}">
+			<tr th:each="app:${pending}">
 
 				<td th:text=${app.applicationId}>Application ID</td>
 				<td th:text=${app.course.courseId}>Course ID</td>
@@ -75,31 +77,60 @@
 				<td th:text=${app.student.studentId}>Student ID</td>
 				<td th:text=${app.student.firstName}>Student Name</td>
 				<td th:text=${app.status}>Status</td>
-				<td ><a th:href="@{/student/view/}+${app.applicationId}">View Details</a></td>
+				<td><a th:href="@{/student/app/}+${app.applicationId}">View
+						Details</a></td>
 			</tr>
 		</table>
-		
-			<!-- <table>
-				<tr>
-					<td><input name="applicationId" type="hidden" th:value=${app.applicationId} /></td>
-				</tr>
-				
-				<tr>
-					<th th:text="${app.status}=='pending'?'Change Status':''">change
-						status or not</th>
-					<td th:if="${app.status}=='pending'"><select
-						name="status">
-							<option value="pending">select status</option>
-							<option th:value="accept">Approve</option>
-							<option th:value="reject">Reject</option>
-					</select>
 
-						<button type="submit">Submit</button></td>
-				</tr>
+		<table class="w3-table-all w3-centered">
+			<tr>
+				<th colspan='7'><h5>Accepted Applications</h5></th>
+			</tr>
+			<tr>
+				<th>Application ID</th>
+				<th>Course ID</th>
+				<th>Course Name</th>
+				<th>Student ID</th>
+				<th>Student Name</th>
+				<th>Status</th>
+				<th>Details</th>
+			<tr th:each="app:${accepted}">
 
-			</table>
-		</form> -->
+				<td th:text=${app.applicationId}>Application ID</td>
+				<td th:text=${app.course.courseId}>Course ID</td>
+				<td th:text=${app.course.courseName}>Course Name</td>
+				<td th:text=${app.student.studentId}>Student ID</td>
+				<td th:text=${app.student.firstName}>Student Name</td>
+				<td th:text=${app.status}>Status</td>
+				<td><a th:href="@{/student/app/}+${app.applicationId}">View
+						Details</a></td>
+			</tr>
+		</table>
 
+		<table class="w3-table-all w3-centered">
+			<tr>
+				<th colspan='7'><h5>Other Applications</h5></th>
+			</tr>
+			<tr>
+				<th>Application ID</th>
+				<th>Course ID</th>
+				<th>Course Name</th>
+				<th>Student ID</th>
+				<th>Student Name</th>
+				<th>Status</th>
+				<th>Details</th>
+			<tr th:each="app:${others}">
+
+				<td th:text=${app.applicationId}>Application ID</td>
+				<td th:text=${app.course.courseId}>Course ID</td>
+				<td th:text=${app.course.courseName}>Course Name</td>
+				<td th:text=${app.student.studentId}>Student ID</td>
+				<td th:text=${app.student.firstName}>Student Name</td>
+				<td th:text=${app.status}>Status</td>
+				<td><a th:href="@{/student/app/}+${app.applicationId}">View
+						Details</a></td>
+			</tr>
+		</table>
 	</div>
 
 </div>
