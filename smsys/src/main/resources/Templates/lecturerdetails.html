@@ -104,18 +104,18 @@ body {
 		</div>
 		<div th:if="${access==1}">
 			<div class="container">
-				<a type="submit" class="btn btn-outline-dark"
-					th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit
+				<a type="submit" class="btn btn-success"
+					th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}" style="float:left;margin-right:20px;">Edit
 				</a>
 			</div>
 			<div class="container">
 				<a type="submit" class="btn btn-outline-dark"
-					th:href="@{/lecturers/list}"> Back to Lecturers List</a>
+					th:href="@{/lecturers/list}" style="float:left;" > Back to Lecturers List</a>
 			</div>
 		</div>
 		<div th:if="${access==2}">
-			<a type="submit" class="btn btn-outline-dark"
-				th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit </a>
+			<a type="submit" class="btn btn-success"
+				th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}" style="float:left;" >Edit</a>
 		</div>
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>

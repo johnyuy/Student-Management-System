@@ -35,12 +35,9 @@ body {
 		th:include="fragments/header :: header_student"></div>
 	<main role="main" class="container">
 		<div class="starter-template">
-			<h1>Lecturer List</h1>
+			<h1>Faculty Registry</h1>
 		</div>
 
-		<div class="container">
-			<h4>List of Lecturers</h4>
-		</div>
 		<div th:if="${access==1}">
 			<a style="float:right;" class="btn btn-success" th:href="@{/lecturers/add}">Add New
 				Lecturer</a>
