@@ -122,7 +122,7 @@ public class Course {
 	public void setClassesList(List<CourseClass> classesList) {
 		this.classesList = classesList;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
