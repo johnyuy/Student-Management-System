@@ -35,7 +35,7 @@ import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("")
-@SessionAttributes({ "name", "classid", "date", "access" })
+@SessionAttributes({ "name", "classid", "date", "access","staffid", "studentid" })
 public class HomeResource {
 	@Autowired
 	SmsUserDetailsService suds;
@@ -103,7 +103,7 @@ public class HomeResource {
 		if (accessLevel == 2) {
 			name = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
 			lecturer = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername()));
-
+			int staffid = lecturer.getStaffId();
 			List<Schedule> schlist = new ArrayList<Schedule>();
 			schlist.addAll(schrepo.findByLecturer(lecturer));
 			Schedule today = new Schedule();
@@ -127,6 +127,7 @@ public class HomeResource {
 				model.addAttribute("today", today);
 				model.addAttribute("next", next);
 				session.setAttribute("name", name);
+				session.setAttribute("staffid", staffid);
 				return "lecturerhome";
 			}
 		}
@@ -135,6 +136,7 @@ public class HomeResource {
 			student = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername()));
 			Schedule today = new Schedule();
 			Schedule next = new Schedule();
+			int studentid = student.getStudentId();
 
 			if (!student.getCourseClassList().isEmpty()) {
 				clas = student.getCourseClassList().get(student.getCourseClassList().size() - 1);
@@ -179,6 +181,7 @@ public class HomeResource {
 			model.addAttribute("next", next);
 			session.setAttribute("name", name);
 			session.setAttribute("classid", 0);
+			session.setAttribute("studentid", studentid);
 			return "studenthome";
 		}
 		return "redirect:/welcome";
