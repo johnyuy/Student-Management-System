@@ -80,9 +80,6 @@ public class LeaveController {
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		Leave leave = new Leave();
 		model.addAttribute("leave", leave);
-
-		
-		
 		User user=us.getUserByUsername(suds.getAuthUsername());
 		Staff staff=new Staff();
 		if(user.getAccessLevel()==1)
@@ -107,16 +104,6 @@ public class LeaveController {
 					.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
 			return "leaveapplication";
 		}
-		//System.out.println(l.getDateStart().toString());
-
-		
-		//model.addAttribute("session",session);
-		//String staffId=session.getId();
-		//;String.valueOf( staff.getStaffId());
-		//String.valueOf(l.getSubmittedByStaffID().getStaffId());
-		// return "redirect:/leave/leavelist?id="+staffId;
-		//User user=us.getUserByUsername(suds.getAuthUsername());
-		//Staff staff=us.getLecturerByUser(user);
 		
 		User user=us.getUserByUsername(suds.getAuthUsername());
 		Staff staff=new Staff();
@@ -167,6 +154,7 @@ public class LeaveController {
 		@GetMapping("/edit/{id}")
 		public String showEditForm(Model model, @PathVariable("id") Integer id) {
 			model.addAttribute("access", suds.getAuthUserAccessLevel());
+			
 			//show a specific leave on page by leave id
 			Leave leave = lrepo.findById(Integer.valueOf(id)).get();
 			model.addAttribute("leave", leave);
@@ -215,18 +203,16 @@ public class LeaveController {
 
 		model.addAttribute("leave", leave);
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
-		//model.addAttribute("session",session);
+		
 		
 		User user=us.getUserByUsername(suds.getAuthUsername());
-		//Staff staf=new Staff();
+		
 		
 		CourseAdmin	ca=us.getCourseAdminByUser(user);
 	
 		leave.setApprovedByStaffID(ca);
 		
-		model.addAttribute("courseadmin",ca);
-		
-		
+		model.addAttribute("courseadmin",ca);		
 		
 		if(suds.getAuthUserAccessLevel()==1)
 			return "leavedetails";
@@ -238,12 +224,8 @@ public class LeaveController {
 	public String replyLeave(@ModelAttribute Leave leave,Model model) {
 		
 		User user=us.getUserByUsername(suds.getAuthUsername());
-		//Staff staf=new Staff();
-		
 		CourseAdmin	ca=us.getCourseAdminByUser(user);
-	
 		leave.setApprovedByStaffID(ca);
-		
 		model.addAttribute("courseadmin",ca);
 		
 		lrepo.save(leave);
