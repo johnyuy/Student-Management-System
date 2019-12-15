@@ -84,7 +84,7 @@ public class HomeResource {
 			ll.addAll(lrepo.findAll());
 			int leavecount = 0;
 			for (Leave l : ll) {
-				if (l.getStatus().equals("pending"))
+				if (l.getStatus().equals("Pending"))
 					leavecount++;
 			}
 			System.out.println(ll.size());
