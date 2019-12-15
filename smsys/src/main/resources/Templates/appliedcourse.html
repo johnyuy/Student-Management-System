@@ -66,7 +66,7 @@ body {
 					<td th:text=${app.course.courseName}>Course Name</td>
 					<td th:text=${app.course.courseDesc}>Description</td>
 					<td th:text=${app.status}>Status</td>
-					<td><a
+					<td><a class="btn btn-outline-dark"
 						th:href="@{/student/delete/{id}(id=${app.applicationId})}">Delete</a></td>
 
 				</tr>
@@ -99,7 +99,7 @@ body {
 				<td th:text=${app.student.studentId}>Student ID</td>
 				<td th:text=${app.student.firstName}>Student Name</td>
 				<td th:text=${app.status}>Status</td>
-				<td><a th:href="@{/student/app/}+${app.applicationId}">View
+				<td><a class="btn btn-outline-dark" th:href="@{/student/app/}+${app.applicationId}">View
 						Details</a></td>
 			</tr>
 		</table>
@@ -124,7 +124,7 @@ body {
 				<td th:text=${app.student.studentId}>Student ID</td>
 				<td th:text=${app.student.firstName}>Student Name</td>
 				<td th:text=${app.status}>Status</td>
-				<td><a th:href="@{/student/app/}+${app.applicationId}">View
+				<td><a class="btn btn-outline-dark" th:href="@{/student/app/}+${app.applicationId}">View
 						Details</a></td>
 			</tr>
 		</table>
@@ -149,7 +149,7 @@ body {
 				<td th:text=${app.student.studentId}>Student ID</td>
 				<td th:text=${app.student.firstName}>Student Name</td>
 				<td th:text=${app.status}>Status</td>
-				<td><a th:href="@{/student/app/}+${app.applicationId}">View
+				<td><a class="btn btn-outline-dark" th:href="@{/student/app/}+${app.applicationId}">View
 						Details</a></td>
 			</tr>
 		</table>

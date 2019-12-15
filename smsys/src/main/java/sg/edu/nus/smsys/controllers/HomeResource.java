@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import sg.edu.nus.smsys.models.Application;
 import sg.edu.nus.smsys.models.Course;
+import sg.edu.nus.smsys.models.CourseAdmin;
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Leave;
 import sg.edu.nus.smsys.models.Lecturer;
@@ -63,6 +64,7 @@ public class HomeResource {
 	public String home(HttpSession session, Model model) {
 		String name = "";
 		Student student = new Student();
+		CourseAdmin ca = new CourseAdmin();
 		Lecturer lecturer = new Lecturer();
 		CourseClass clas = new CourseClass();
 		LocalDate now = LocalDate.now();
@@ -73,6 +75,8 @@ public class HomeResource {
 
 		if (accessLevel == 1) {
 			name = us.getCourseAdminByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
+			ca = us.getCourseAdminByUser(us.getUserByUsername(suds.getAuthUsername()));
+
 			System.out.println(name);
 
 			// Pending Leave Count
@@ -97,6 +101,7 @@ public class HomeResource {
 			System.out.println(appcount);
 			session.setAttribute("name", name);
 			model.addAttribute("leavecount", leavecount);
+			session.setAttribute("staffid", ca.getStaffId());
 			model.addAttribute("appcount", appcount);
 			return "adminhome";
 		}
@@ -150,6 +155,7 @@ public class HomeResource {
 			CourseClass cclass = new CourseClass();
 			if (student.getCourseClassList().size() > 0) {
 				cclass = student.getCourseClassList().get(student.getCourseClassList().size() - 1);
+				session.setAttribute("classid", cclass.getClassId());
 				Semester sem = cclass.getSemesterList().get(cclass.getSemesterList().size() - 1);
 				LocalDate ed = sem.getEndDate();
 				List<Schedule> schlist = new ArrayList<Schedule>();
@@ -175,12 +181,12 @@ public class HomeResource {
 				Subject subject = new Subject("Not Enrolled");
 				today = new Schedule(now, noclass, subject, new CourseClass());
 				next = new Schedule(now, noclass, subject, new CourseClass());
+				session.setAttribute("classid", 0);
 
 			}
 			model.addAttribute("today", today);
 			model.addAttribute("next", next);
 			session.setAttribute("name", name);
-			session.setAttribute("classid", 0);
 			session.setAttribute("studentid", studentid);
 			return "studenthome";
 		}

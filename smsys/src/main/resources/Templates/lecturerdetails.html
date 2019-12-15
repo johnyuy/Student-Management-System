@@ -27,53 +27,56 @@ body {
 <link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
-<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
-<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
-<div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
+	<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
+	<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
+	<div th:if="${access==3}"
+		th:include="fragments/header :: header_student"></div>
 	<main role="main" class="container">
-		
-
-			<h2>Lecturer Details</h2>
-			<br />
-			<table th:object="${lecturer}" class="table table-striped">
-
-				<tr>
-					<th>Birth Date</th>
-					<td th:text="*{birthDate}" /></td>
-				</tr>
-				<tr>
-					<th>Address</th>
-					<td th:text="*{address}" /></td>
-				</tr>
-				<tr>
-					<th>Mobile</th>
-					<td th:text="*{mobile}" /></td>
-				</tr>
-				<tr>
-					<th>Email</th>
-					<td th:text="*{email}" /></td>
-				</tr>
-				<tr>
-					<th>Status</th>
-					<td th:text="*{status}" /></td>
-				</tr>
-				<tr th:each="s:${lecturer.subjectList}">
-					<th>Teaching</th>
-					<td th:text="${s.subjectName}">Subject Name</td>
-				</tr>
-				<tr>
-					<td><a type="submit"
-						th:action="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit
-					</a></td>
-				</tr>
-			</table>
-			<form action="/lecturers/list" method="get"
-				th:action="@{/lecturers/list}">
-				<button>Back to Lecturers List</button>
-			</form>
-
-		
-
+		<h2>Lecturer Details</h2>
+		<br />
+		<table th:object="${lecturer}" class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<td><b
+					th:text="*{title + '. ' + firstName + ' ' + middleName + ' ' + lastName + ', ' + age}"></b></td>
+			</tr>
+			<tr>
+				<th>Birth Date</th>
+				<td th:text="*{birthDate}" /></td>
+			</tr>
+			<tr>
+				<th>Address</th>
+				<td th:text="*{address}" /></td>
+			</tr>
+			<tr>
+				<th>Mobile</th>
+				<td th:text="*{mobile}" /></td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td th:text="*{email}" /></td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td th:text="*{status}" /></td>
+			</tr>
+			<tr>
+				<th colspan="2" style="text-align:center" >Teaching</th>
+			</tr>
+			<tr th:each="s,k:${lecturer.subjectList}">
+				<td th:text="${k.index + 1} + '. ' +  ${s.subjectName}">Subject Name</td>
+				<td></td>
+			</tr>
+		</table>
+		<div class="container">
+			<a type="submit" class="btn btn-outline-dark"
+				th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit
+			</a>
+		</div>
+		<div class="container">
+			<a type="submit" class="btn btn-outline-dark"
+				th:href="@{/lecturers/list}"> Back to Lecturers List</a>
+		</div>
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

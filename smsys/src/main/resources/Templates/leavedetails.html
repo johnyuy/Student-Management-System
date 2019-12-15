@@ -87,7 +87,7 @@ body {
 					<tr>
 						<th th:text="${leave.status}=='Pending'?'Change Status':''">change
 							status or not</th>
-						<td th:if="${leave.status}=='Pending'"><select
+						<td th:if="${leave.status}=='Pending'"><select class="form-control"
 							th:field="*{status}">
 								<option value="Pending">select status</option>
 								<option th:value="Approve">Approve</option>
