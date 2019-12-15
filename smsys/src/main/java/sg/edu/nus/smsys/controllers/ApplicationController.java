@@ -52,6 +52,7 @@ public class ApplicationController {
 
 	@GetMapping("/applycourse")
 	public String applyCourse(Model model) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		List<Course> eligibleCourse = new ArrayList<Course>();
 		model.addAttribute("courselist", eligibleCourse);
 
@@ -93,6 +94,7 @@ public class ApplicationController {
 
 	@GetMapping("/home")
 	public String displayHome(Model model, Student student) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		User user = us.getUserByUsername(suds.getAuthUsername());
 		student = us.getStudentByUser(user);
 		model.addAttribute("studentid", student.getStudentId());
@@ -103,7 +105,6 @@ public class ApplicationController {
 	@GetMapping("/appliedcourse")
 	public String displayAppliedCourse(Model model, Student student) {
 		// for Student to see his applications
-
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		System.out.println("Entered displayAppliedCourse");
 		User user = us.getUserByUsername(suds.getAuthUsername());
@@ -149,6 +150,7 @@ public class ApplicationController {
 
 	@PostMapping("/app/{id}")
 	public String replyApplication(@ModelAttribute Application a, @PathVariable("id") int id) {
+		
 		Student student = a.getStudent();
 		List<Application> alist = new ArrayList<Application>();
 		alist.addAll(apprepo.findByStudent(student));
@@ -171,6 +173,8 @@ public class ApplicationController {
 
 	@GetMapping("/app/{id}")
 	public String viewApplicationDetails(Model model, @PathVariable("id") Integer id) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
+
 		Application app = as.getApplicationById(id);
 		model.addAttribute("app", app);
 
@@ -179,6 +183,8 @@ public class ApplicationController {
 	
 	@GetMapping("/delete/{id}")
 	public String deleteMethod(Model model, @PathVariable("id") Integer id) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
+
 		Application app = as.getApplicationById(id);
 		as.deleteApplication(app);
 		Student student = app.getStudent();
