@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Grades</title>
+</head>
+<body>
+	<h2>Student Performance Management</h2>
+	<form method="post" th:action="@{/grades/changegrade}">
+		<table>
+			<tr>
+				<th>Class ID</th>
+				<td th:text="${classid}">class</td>
+			</tr>
+			<tr>
+				<th>Student ID</th>
+				<td th:text="${student.studentId}" >id</td>
+			<tr>
+			<tr>
+				<th>Name</th>
+				<td th:text="${student.firstName} + ' ' + ${student.LastName}">name</td>
+			<tr>
+			<tr>
+				<th>Subject</th>
+				<td th:text="${subject.subjectName}">subject</td>
+			<tr>
+			<tr>
+				<th>Grade</th>
+				<td><select th:name="newgrade">
+						<option th:selected="${grade==' '}" value=" ">Select</option>
+						<option th:selected="${grade=='A+'}" value="A+">A+</option>
+						<option th:selected="${grade=='A'}" value="A">A</option>
+						<option th:selected="${grade=='A-'}" value="A-">A-</option>
+						<option th:selected="${grade=='B+'}" value="B+">B+</option>
+						<option th:selected="${grade=='B'}" value="B}">B</option>
+						<option th:selected="${grade=='B-'}" value="B-">B-</option>
+						<option th:selected="${grade=='C+'}" value="C+">C+</option>
+						<option th:selected="${grade=='C'}" value="C">C</option>
+						<option th:selected="${grade=='D+'}" value="D+">D+</option>
+						<option th:selected="${grade=='D'}" value="D">D</option>
+						<option th:selected="${grade=='F'}" value="F">F</option>
+				</select></td>
+			<tr>
+		</table>
+		<input type="hidden" th:value="${classid}" th:name="classId" />
+		<input type="hidden" th:value="${student.studentId}" th:name="stuid" />
+		<input type="hidden" th:value="${subject.subjectId}" th:name="subid" />
+	<button type="submit">Save</button>
+	</form>
+
+</body>
+</html>
