@@ -1,5 +1,8 @@
 package sg.edu.nus.smsys.controllers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,18 +16,23 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import sg.edu.nus.smsys.models.Course;
+import sg.edu.nus.smsys.models.CourseClass;
+import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.repository.CourseRepository;
+import sg.edu.nus.smsys.repository.StudentRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
 import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("")
-@SessionAttributes("name")
-public class HomeController {
+@SessionAttributes({"name","classid","date"})
+public class HomeResource {
 	@Autowired
 	SmsUserDetailsService suds;
 	@Autowired
 	CourseRepository courserepo;
+	@Autowired
+	StudentRepository srepo;
 	@Autowired
 	UserService us;
 	
@@ -38,12 +46,15 @@ public class HomeController {
 	@GetMapping("")
 	public String home(HttpSession session){
 		String name = "";
+		Student student = new Student();
+		CourseClass clas = new CourseClass();
+		String date = LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
 		int accessLevel = suds.getAuthUserAccessLevel();
 		if(accessLevel==1) {
 			name = us.getCourseAdminByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
 			System.out.println(name);
 			session.setAttribute("name", name);
-			return "adminhome.html";
+			return "adminhome";
 		}
 		if(accessLevel==2) {
 			name = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
@@ -52,7 +63,21 @@ public class HomeController {
 		}
 		if(accessLevel==3) {
 			name = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
+			student = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername()));
+			
+			if (! student.getCourseClassList().isEmpty()) {
+				clas = student.getCourseClassList().get(student.getCourseClassList().size()-1);	
+				System.out.println("Class Id is:");
+				System.out.println(clas.getClassId());
+			}else {
+				clas.setClassId(0);
+				System.out.println(clas.getClassId());
+			}
+
 			session.setAttribute("name", name);
+			session.setAttribute("classid", clas.getClassId());
+			session.setAttribute("date", date);
+
 			return "studenthome";
 		}
 		return "redirect:/welcome";

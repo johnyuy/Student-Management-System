@@ -36,8 +36,7 @@ public class ApplicationServiceImplement implements ApplicationService {
 		semList = semrepo.findAll();
 		int nextSemId = 0;
 		for (Semester sem : semList) {
-			if (today.isBefore(sem.getEndDate())
-					&& today.isAfter(sem.getStartDate())) {
+			if (today.isBefore(sem.getEndDate()) && today.isAfter(sem.getStartDate())) {
 				nextSemId = sem.getSemId() + 1;
 			}
 		}
@@ -51,12 +50,13 @@ public class ApplicationServiceImplement implements ApplicationService {
 		// check if student can apply based on enrolled course
 		List<CourseClass> classList = student.getCourseClassList();
 		System.out.println("My Course List: " + classList);
+		List<Application> appList = arepo.findByStudent(student);
 		if (classList != null) {
 			if (classList.size() == 0) {
 				System.out.println("YOU ARE ELIGIBLE!");
 				return true;
 			} else {
-				//check the level of current class
+				// check the level of current class
 				CourseClass lastCourse = classList.get(classList.size() - 1);
 				if (lastCourse.getLevel() < lastCourse.getCourse().getDurationSemesters()) {
 					System.out.println("YOU ARE NOT ELIGIBLE!!");
@@ -65,6 +65,14 @@ public class ApplicationServiceImplement implements ApplicationService {
 					return true;
 			}
 		}
+		if (appList != null) {
+			for (Application app : appList) {
+				if (app.getStatus().equals("accepted"));
+				System.out.println("YOU'RE ACCEPTED INTO A COURSE ALREADY");
+				return false;
+			}
+		}
+
 		return output;
 	}
 
@@ -88,6 +96,16 @@ public class ApplicationServiceImplement implements ApplicationService {
 		List<Course> openedCoursesList = displayAvailableCourses();
 		System.out.println("Opened Course List: " + openedCoursesList.size());
 		// find courses "open" AND not taken by student
+		List<Application> appList = arepo.findByStudent(student);
+		System.out.println("In displayEligibleCourses appList");
+		List<Application> pendingList = new ArrayList<Application>();
+		if (appList.size() > 0) {
+			for (Application app : appList) {
+				if (app.getStatus().equals("pending")) {
+					pendingList.add(app);
+				}
+			}
+		}
 		List<Course> eligibleCourses = new ArrayList<Course>();
 
 		if (openedCoursesList.size() > 0) {
@@ -100,12 +118,32 @@ public class ApplicationServiceImplement implements ApplicationService {
 						int openedCourseId = openedCourse.getCourseId();
 						int completedCourseId = courseClass.getCourse().getCourseId();
 						System.out.println("Comparing the Ids: " + openedCourseId + " and " + completedCourseId);
-						if (openedCourseId != completedCourseId) {
+						for (Course eCourse : eligibleCourses) {
+						if (openedCourseId != completedCourseId && openedCourseId != eCourse.getCourseId()) {
 							eligibleCourses.add(openedCourse);
+						}
 						}
 					}
 				}
-			} else {
+			}
+
+			if (pendingList.size() > 0) {
+				System.out.println("Size of pendingList: " + pendingList.size());
+				for (Application app : pendingList) {
+					int pendingCourseId = app.getCourse().getCourseId();
+					for (Course openedCourse : openedCoursesList) {
+						for (Course eCourse : eligibleCourses) {
+							if (openedCourse.getCourseId() != pendingCourseId
+									&& openedCourse.getCourseId() != eCourse.getCourseId()) {
+								eligibleCourses.add(openedCourse);
+							}
+
+						}
+					}
+				}
+			}
+
+			else {
 				// if student have never taken ANY courses before
 				eligibleCourses = openedCoursesList;
 			}
@@ -134,28 +172,33 @@ public class ApplicationServiceImplement implements ApplicationService {
 		System.out.println("appList size is " + appList.size());
 		for (Application app : appList) {
 			System.out.println("Entered for loop");
-			if (app.getStudent().equals(student)) {
+			if (app.getStudent().getStudentId() == student.getStudentId()) {
 				myApp.add(app);
+				System.out.println(myApp.size());
 			}
 		}
 		System.out.println("myApp size is " + myApp.size());
 		return myApp;
 	}
-	
-	public List<Application> getApplicationsByStatus(Course course, String status){
+
+	public List<Application> getApplicationsByStatus(Course course, String status) {
 		List<Application> applist = arepo.findByStatus(status);
 		List<Application> output = new ArrayList<Application>();
-		for(Application app: applist) {
-			if(app.getCourse().getCourseId()==course.getCourseId()) {
+		for (Application app : applist) {
+			if (app.getCourse().getCourseId() == course.getCourseId()) {
 				output.add(app);
 			}
 		}
 		return output;
 	}
-	
+
 	public Application getApplicationById(int applicationId) {
 		Application app = arepo.findByApplicationId(applicationId);
 		return app;
 	}
-	
+
+	public void deleteApplication(Application app) {
+		arepo.delete(app);
+	}
+
 }

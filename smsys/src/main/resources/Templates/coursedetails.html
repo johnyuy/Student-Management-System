@@ -26,8 +26,9 @@ body {
 <link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
-<div th:replace="fragments/header :: header_admin"></div>
-<main role="main" class="container">
+<div th:if="${access==1}" th:replace="fragments/header :: header_admin"></div>
+<div th:if="${access==2}" th:replace="fragments/header :: header_lect"></div>
+<div th:if="${access==3}" th:replace="fragments/header :: header_student"></div><main role="main" class="container">
 	<div>
 		<h1 th:text=${course.courseName}>Course Name</h1>
 		<h2>Course Details</h2>
