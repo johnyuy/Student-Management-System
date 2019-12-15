@@ -48,11 +48,11 @@ body {
 					<td th:text="${student.getStudentId()}">
 					<td th:if="${access==1}"><a
 						th:href="@{/classes/} +${classId}+ @{/students/remove?code=} + ${student.getStudentId()} "
-						class="btn" type="submit">remove</a></td>
+						class="btn btn-outline-dark" type="submit">Remove</a></td>
 				</tr>
 			</table>
-			<a th:href="@{/classes}" class="btn" type="submit">back to
-				classes</a>
+			<a th:href="@{/classes}" class="btn btn-outline-dark" type="submit">Back to
+				Classes</a>
 		
 		<br />
 		<div th:if="${access==1} and ${addable.size()>0}"
@@ -64,7 +64,7 @@ body {
 					<td th:text="${adds.getStudentId()}">id</td>
 					<td><a
 						th:href="@{/classes/} +${classId}+ @{/students/add?code=} + ${adds.getStudentId()} "
-						class="btn" type="submit">add</a></td>
+						class="btn btn-outline-dark" type="submit">Add</a></td>
 				</tr>
 			</table>
 		</div>

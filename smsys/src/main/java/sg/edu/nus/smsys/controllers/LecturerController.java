@@ -21,6 +21,7 @@ import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.models.Subject;
 import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.SubjectRepository;
+import sg.edu.nus.smsys.security.SmsUserDetailsService;
 
 @Controller
 @RequestMapping("/lecturers")
@@ -32,8 +33,12 @@ public class LecturerController {
 	@Autowired
 	private SubjectRepository srepo;
 	
+	@Autowired
+	private SmsUserDetailsService suds;
+	
 	@GetMapping("/list")
 	public String listLecturers(Model model, @RequestParam(defaultValue = "") String name) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		model.addAttribute("lecturerlist", null);
 		
 		ArrayList<Lecturer> llist = new ArrayList<Lecturer>();
@@ -45,6 +50,7 @@ public class LecturerController {
 
 	@GetMapping("/details/{staffId}")
 	public String viewLecturer(Model model, @PathVariable("staffId") int id) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		Lecturer lecturer = lrepo.findByStaffId(id);
 		ArrayList<Subject> s = new ArrayList<Subject>();
 		s.addAll(srepo.findByLecturerListContaining(lecturer));
@@ -57,6 +63,7 @@ public class LecturerController {
 
 	@GetMapping("/add")
 	public String addLectuerForm(Model model) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		Lecturer lecturer = new Lecturer();
 		model.addAttribute("lecturer", lecturer);
 		return "lecturerform";
@@ -79,6 +86,7 @@ public class LecturerController {
 
 	@GetMapping("/edit/{staffId}")
 	public String editLecturerForm(Model model, @PathVariable("staffId") int id) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		Lecturer lecturer = lrepo.findByStaffId(id);
 		model.addAttribute("lecturer", lecturer);
 		return "lecturerform";
@@ -98,6 +106,7 @@ public class LecturerController {
 
 	@GetMapping("/delete/{staffId}")
 	public String deleteLecturer(Model model, @PathVariable("staffId") int id) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		Lecturer lecturer = lrepo.findByStaffId(id);
 		lrepo.delete(lecturer);
 		return "redirect:/lecturers/list";

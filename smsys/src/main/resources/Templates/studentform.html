@@ -119,13 +119,6 @@ body {
 						<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-4 mb-3">
-						<label for="status">Status</label> <input class="form-control"
-							placeholder="Enter Status" type="text" th:field="*{status}" />
-						<p th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></p>
-					</div>
-				</div>
 				<button
 					th:text="*{studentId != 0}? 'Update Student' : 'Add Student'"
 					class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
