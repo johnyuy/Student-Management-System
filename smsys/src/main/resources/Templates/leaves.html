@@ -31,9 +31,8 @@ body {
 <div th:if="${access==2}" th:replace="fragments/header :: header_lect"></div>
 <div th:if="${access==3}" th:replace="fragments/header :: header_student"></div></div>
 	<main role="main" class="container">
-		<div class="w3-responsive">
-
-			<table class="w3-table-all w3-centered w3-hoverable">
+		
+			<table class="table table-striped">
 				<tr>
 					<th>ApplicationID</th>
 					<th>LeaveStartTime</th>
@@ -55,7 +54,7 @@ body {
 						th:href="@{/leave/edit/{id}(id=${leave.leaveId})}">Edit</a></td>
 				</tr>
 			</table>
-		</div>
+		
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
