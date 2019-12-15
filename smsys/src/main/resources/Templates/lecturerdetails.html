@@ -68,7 +68,7 @@ body {
 			class="table table-striped">
 			<tr th:each="subject:${unremovable}">
 				<td th:text="${subject.subjectName}">name</td>
-				<td></td>
+				<td>Scheduled to Teach</td>
 			</tr>
 		</table>
 		<table th:if="${lecturer.subjectList.size()>0}"
@@ -92,6 +92,7 @@ body {
 				</tr>
 			</table>
 		</div>
+		<div th:if="${access==1}">
 		<div class="container">
 			<a type="submit" class="btn btn-outline-dark"
 				th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit </a>
@@ -99,6 +100,11 @@ body {
 		<div class="container">
 			<a type="submit" class="btn btn-outline-dark"
 				th:href="@{/lecturers/list}"> Back to Lecturers List</a>
+		</div>
+		</div>
+		<div th:if="${access==2}">
+					<a type="submit" class="btn btn-outline-dark"
+				th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit </a>
 		</div>
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>

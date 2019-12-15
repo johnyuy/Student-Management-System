@@ -29,9 +29,10 @@ body {
 <link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
-<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
-<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
-<div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
+	<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
+	<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
+	<div th:if="${access==3}"
+		th:include="fragments/header :: header_student"></div>
 	<main role="main" class="container">
 		<div class="starter-template">
 			<h1>Lecturer List</h1>
@@ -40,8 +41,9 @@ body {
 		<div class="container">
 			<h4>List of Lecturers</h4>
 		</div>
-		<div class="container">
-		<p th:text="${session.string}">UserSession.Name</p> 
+		<div th:if="${access==1}">
+			<a style="float:right;" class="btn btn-success" th:href="@{/lecturers/add}">Add New
+				Lecturer</a>
 		</div>
 
 
@@ -78,13 +80,8 @@ body {
 						class="btn btn-outline-dark">Delete</a></td>
 				</tr>
 			</table>
-
-			<div>
-				<a class="btn btn-success" th:href="@{/lecturers/add}">Add New
-					Lecturer</a>
-			</div>
 		</div>
 	</main>
-<div th:replace="fragments/footer :: footer"></div>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

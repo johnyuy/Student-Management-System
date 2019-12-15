@@ -10,6 +10,7 @@
 body {
 	padding-top: 5rem;
 }
+
 .starter-template {
 	padding: 3rem 1.5rem;
 	text-align: center;
@@ -27,62 +28,67 @@ body {
 </head>
 <body>
 
-<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
-<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
-<div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
-<main role="main" class="container">
-	<form th:object="${lecturer}" method="post">
-		<table class="table table-striped">
-			<tr>
-				<th>Title</th>
-			 	<td><input class="form-control"  type="text" th:field="*{title}" /></td>
-			</tr>
-			<tr>
-				<th>First Name</th>
-				<td><input class="form-control"  type="text" th:field="*{firstName}" /></td>
-			</tr>
-			<tr>
-				<th>Middle Name</th>
-				<td><input class="form-control"  type="text" th:field="*{middleName}" /></td>
-			</tr>
-			<tr>
-				<th>Last Name</th>
-				<td><input class="form-control"  type="text" th:field="*{lastName}" /></td>
-			</tr>
-			<tr>
-				<th>Birth Date</th>
-				<td><input class="form-control"  type="date" th:field="*{birthDate}" /></td>
-			</tr>
-			<tr>
-				<th>Mobile</th>
-				<td><input class="form-control"  type="text" th:field="*{mobile}" /></td>
-			</tr>
-			<tr>
-				<th>Email</th>
-				<td><input class="form-control"  type="text" th:field="*{email}" /></td>
-			</tr>
-			<tr>
-				<th>Gender</th>
-				<td><select th:field="*{gender}">
-						<option th:value="None" hidden>Select Gender</option>
-						<option th:value="male">Male</option>
-						<option th:value="female">Female</option>
-					</select>
-				</td>
-			</tr>		
-			<tr>
-				<th>Address</th>
-				<td><input class="form-control"  type="text" th:field="*{address}" /></td>
-			</tr>
-			<tr>
-				<th>Status</th>
-				<td><input class="form-control"  type="text" th:field="*{status}" /></td>
-			</tr>
-
-		</table>
-		<button type="submit">Add Lecturer</button>
-	</form>
+	<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
+	<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
+	<div th:if="${access==3}"
+		th:include="fragments/header :: header_student"></div>
+	<main role="main" class="container">
+		<form th:object="${lecturer}" method="post">
+			<table class="table table-striped">
+				<tr>
+					<th>Title</th>
+					<td><input class="form-control" type="text"
+						th:field="*{title}" /></td>
+				</tr>
+				<tr>
+					<th>First Name</th>
+					<td><input class="form-control" type="text"
+						th:field="*{firstName}" /></td>
+				</tr>
+				<tr>
+					<th>Middle Name</th>
+					<td><input class="form-control" type="text"
+						th:field="*{middleName}" /></td>
+				</tr>
+				<tr>
+					<th>Last Name</th>
+					<td><input class="form-control" type="text"
+						th:field="*{lastName}" /></td>
+				</tr>
+				<tr>
+					<th>Birth Date</th>
+					<td><input class="form-control" type="date"
+						th:field="*{birthDate}" /></td>
+				</tr>
+				<tr>
+					<th>Mobile</th>
+					<td><input class="form-control" type="text"
+						th:field="*{mobile}" /></td>
+				</tr>
+				<tr>
+					<th>Email</th>
+					<td><input class="form-control" type="text"
+						th:field="*{email}" /></td>
+				</tr>
+				<tr>
+					<th>Gender</th>
+					<td><select th:field="*{gender}">
+							<option th:value="None" >Select Gender</option>
+							<option th:value="male">Male</option>
+							<option th:value="female">Female</option>
+					</select></td>
+				</tr>
+				<tr>
+					<th>Address</th>
+					<td><input class="form-control" type="text"
+						th:field="*{address}" /></td>
+				</tr>
+			</table>
+			<button
+				th:text="*{studentId != 0}? 'Update Lecturer' : 'Add Lecturer'"
+				class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
+		</form>
 	</main>
-<div th:replace="fragments/footer :: footer"></div>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

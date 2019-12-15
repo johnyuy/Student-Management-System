@@ -72,10 +72,9 @@ public class LecturerController {
 		int accesslevel = suds.getAuthUserAccessLevel();
 		model.addAttribute("access", accesslevel);
 		Lecturer l = new Lecturer();
-		System.out.println("sl");
-		String str = "";
 		l = lrepo.findByStaffId(id);
 		List<Subject> ls = l.getSubjectList();
+		
 
 		model.addAttribute("lecturer", l);
 		List<Subject> unremovable = new ArrayList<Subject>();
@@ -83,13 +82,13 @@ public class LecturerController {
 		if (accesslevel == 1) {
 			// available lecturers
 			List<Subject> sl = getAvailableSubjects(l);
-			List<Subject> con = getAvailableSubjects(l);
+			List<Subject> con = new ArrayList<Subject>();
 
 			model.addAttribute("addable", sl);
 
 			List<Schedule> schlist = new ArrayList<Schedule>();
 			schlist.addAll(screpo.findByLecturer(l));
-			
+			System.out.println("SchList Size: ");
 			System.out.println(schlist.size());
 			
 			for (Schedule s : schlist) {
@@ -97,25 +96,19 @@ public class LecturerController {
 					con.add(s.getSubject());
 				}
 			}
-			
+			System.out.println("Con Size: ");
 			System.out.println(con.size());
 			
-			
-			for (Schedule s : schlist) {
-				for (Subject su : sl) {
-					if (s.getSubject().getSubjectName().equals(su.getSubjectName())) {
-						
-						unremovable.add(su);
-					}
+			for (Subject s : con) {
+				if(ls.contains(s)) {
+					unremovable.add(s);
+					l.getSubjectList().remove(s);
 				}
 			}
 			
-			
-			l.setSubjectList(ls);
 			System.out.println("unr");
 			System.out.println(unremovable.size());
 		}
-		
 		model.addAttribute("lecturer", l);
 		model.addAttribute("unremovable", unremovable);
 		return ("lecturerdetails");
@@ -215,7 +208,13 @@ public class LecturerController {
 		System.out.println("Hi");
 		lecturer.setStaffId(id);
 		lrepo.save(lecturer);
-		return "redirect:/lecturers/list";
+		
+		if (suds.getAuthUserAccessLevel() == 1) {
+			return "redirect:/lecturers/list";
+		}
+		else {
+			return "redirect:/lecturers/details/" + lecturer.getStaffId();
+		}
 	}
 
 	@GetMapping("/delete/{staffId}")
