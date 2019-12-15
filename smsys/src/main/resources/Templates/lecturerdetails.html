@@ -31,11 +31,11 @@ body {
 <div th:if="${access==2}" th:replace="fragments/header :: header_lect"></div>
 <div th:if="${access==3}" th:replace="fragments/header :: header_student"></div>
 	<main role="main" class="container">
-		<div class="w3-responsive">
+		
 
 			<h2>Lecturer Details</h2>
 			<br />
-			<table th:object="${lecturer}">
+			<table th:object="${lecturer}" class="table table-striped">
 
 				<tr>
 					<th>Birth Date</th>
@@ -72,7 +72,7 @@ body {
 				<button>Back to Lecturers List</button>
 			</form>
 
-		</div>
+		
 
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>

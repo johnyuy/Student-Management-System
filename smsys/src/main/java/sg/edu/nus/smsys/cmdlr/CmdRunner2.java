@@ -36,8 +36,13 @@ public class CmdRunner2 implements CommandLineRunner {
 	CourseClassRepository ccrepo;
 	@Autowired
 	SubjectRepository subrepo;
+	@Autowired
+	LeaveRepository lerepo;
+	@Autowired
+	CourseAdminRepository carepo;
+	@Autowired
+	StaffRepository strepo;
 	
-
 	@Override
 	public void run(String[] args) {
 		
@@ -311,7 +316,21 @@ public class CmdRunner2 implements CommandLineRunner {
 		grepo.save(new Grade(srepo.findByStudentId(10013), ccrepo.findByClassId(1001), subrepo.findBySubjectId(9), "B+"));
 		grepo.save(new Grade(srepo.findByStudentId(10013), ccrepo.findByClassId(1001), subrepo.findBySubjectId(10), "B"));
 		grepo.save(new Grade(srepo.findByStudentId(10013), ccrepo.findByClassId(1001), subrepo.findBySubjectId(11), "A"));
-				
+		
+		
+		// Insert Students
+		log.info("Adding Leaves..");
+
+		Leave le1=new Leave(300000,LocalDate.of(2019, 12, 26),1,"holiday","Pending",carepo.findByStaffId(50001),strepo.findByStaffId(50002));
+		Leave le2=new Leave(300001,LocalDate.of(2019,12,21),2,"private","Pending",carepo.findByStaffId(50001),strepo.findByStaffId(50003));
+		Leave le3=new Leave(300002,LocalDate.of(2019,12,17),3,"sick","Pending",carepo.findByStaffId(50001),strepo.findByStaffId(50004));
+								
+		lerepo.save(le1);
+		lerepo.save(le2);
+		lerepo.save(le3);				
+
+		log.info("After adding Leaves..");
+		
 		log.info("End of CmdRunner2");
 
 	}

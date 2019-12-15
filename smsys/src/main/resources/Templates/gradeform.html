@@ -32,6 +32,7 @@ body {
 <main role="main" class="container">
 <form  th:object="${grade}" method="post" >
  	<fieldset>
+ 	<div class="col-md-4 mb-3">
 	Grade:
 	<select th:field="*{grade}" >
 	<option th:value="None">Select Grade</option>
@@ -41,33 +42,43 @@ body {
   	<option  th:value="D">D</option>
   	<option  th:value="F">F</option>
   	</select>
+	</div>
 	</fieldset> 
+	
 	<fieldset>
+	<div class="col-md-4 mb-3">
 	Student Name:
 	<select th:field="*{student}" >
 	<option th:each="student:${student}"
 		    th:value="${student.studentId}" 
 		    th:text="${student.firstName}">Name</option>
   	</select>
+	</div>
 	</fieldset>
 	<fieldset>
+	<div class="col-md-4 mb-3">
 	Course Name:
 	<select th:field="*{clas}" >
 	<option th:each="courseclass:${courseclass}"
 		    th:value="${courseclass.classId}" 
 		    th:text="${courseclass.course.courseName}">Name</option>
   	</select>
+	</div>
 	</fieldset>
 	<fieldset>
+	<div class="col-md-4 mb-3">
 	Subject Name:
 	<select th:field="*{subject}" >
 	<option th:each="subject:${subject}"
 		    th:value="${subject.subjectId}" 
 		    th:text="${subject.subjectName}">Name</option>
   	</select>
+	</div>
 	</fieldset>
 	<fieldset>
+	<div class="col-md-4 mb-3">
 	<button type="submit">Submit</button>
+	</div>
 	</fieldset>
 </form>
 </main>

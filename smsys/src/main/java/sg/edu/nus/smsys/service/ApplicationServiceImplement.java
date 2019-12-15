@@ -52,7 +52,14 @@ public class ApplicationServiceImplement implements ApplicationService {
 		System.out.println("My Course List: " + classList);
 		List<Application> appList = arepo.findByStudent(student);
 		if (classList != null) {
-			if (classList.size() == 0) {
+			if (classList.size() == 0 && appList != null) {
+				for (Application app : appList) {
+					System.out.println("CHecking eligibility. appList size is: " + appList);
+					if (app.getStatus().equals("accepted")) {
+						System.out.println("YOU'RE ACCEPTED INTO A COURSE ALREADY");
+						return false;
+					}
+				}
 				System.out.println("YOU ARE ELIGIBLE!");
 				return true;
 			} else {
@@ -65,13 +72,14 @@ public class ApplicationServiceImplement implements ApplicationService {
 					return true;
 			}
 		}
-		if (appList != null) {
-			for (Application app : appList) {
-				if (app.getStatus().equals("accepted"));
-				System.out.println("YOU'RE ACCEPTED INTO A COURSE ALREADY");
-				return false;
-			}
-		}
+//		if (appList != null) {
+//			for (Application app : appList) {
+//				System.out.println("CHecking eligibility. appList size is: " + appList);
+//				if (app.getStatus().equals("accepted"));
+//				System.out.println("YOU'RE ACCEPTED INTO A COURSE ALREADY");
+//				return false;
+//			}
+//		}
 
 		return output;
 	}
@@ -118,30 +126,29 @@ public class ApplicationServiceImplement implements ApplicationService {
 						int openedCourseId = openedCourse.getCourseId();
 						int completedCourseId = courseClass.getCourse().getCourseId();
 						System.out.println("Comparing the Ids: " + openedCourseId + " and " + completedCourseId);
-						for (Course eCourse : eligibleCourses) {
-						if (openedCourseId != completedCourseId && openedCourseId != eCourse.getCourseId()) {
+						if (openedCourseId != completedCourseId) {
 							eligibleCourses.add(openedCourse);
 						}
-						}
 					}
 				}
 			}
 
-			if (pendingList.size() > 0) {
-				System.out.println("Size of pendingList: " + pendingList.size());
-				for (Application app : pendingList) {
-					int pendingCourseId = app.getCourse().getCourseId();
-					for (Course openedCourse : openedCoursesList) {
-						for (Course eCourse : eligibleCourses) {
-							if (openedCourse.getCourseId() != pendingCourseId
-									&& openedCourse.getCourseId() != eCourse.getCourseId()) {
-								eligibleCourses.add(openedCourse);
-							}
-
-						}
-					}
-				}
-			}
+//			else if (pendingList.size() > 0) {
+//				System.out.println("Size of pendingList: " + pendingList.size());
+//				for (Application app : pendingList) {
+//					int pendingCourseId = app.getCourse().getCourseId();
+//					for (Course openedCourse : openedCoursesList) {
+//						for (Course eCourse : eligibleCourses) {
+//							if (openedCourse.getCourseId() != pendingCourseId
+//									&& openedCourse.getCourseId() != eCourse.getCourseId()) {
+//								eligibleCourses.add(openedCourse);
+//								System.out.println("Size of eligible course: " + eligibleCourses.size());
+//							}
+//
+//						}
+//					}
+//				}
+//			}
 
 			else {
 				// if student have never taken ANY courses before

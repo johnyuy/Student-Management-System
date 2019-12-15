@@ -33,10 +33,14 @@ body {
 	<form action="/semester/insert" method="post" th:object="${semester}" th:action="@{/semester/insert}">
 
 	<fieldset>
-	Start Date: <input type="date" th:field="*{startDate}"/>
+	<div class="col-md-4 mb-3">
+	Start Date: <input class="form-control" type="date" th:field="*{startDate}"/>
+	</div>
 	</fieldset>
-		<fieldset>
-	End Date: <input type="date" th:field="*{endDate}"/>
+	<fieldset>
+	<div class="col-md-4 mb-3">
+	End Date: <input class="form-control" type="date" th:field="*{endDate}"/>
+	</div>
 	</fieldset>
 		<button type="submit">Add Semester</button>
 	</form>

@@ -33,8 +33,8 @@ body {
 	<main role="main" class="container">
 		<h1>Grade List</h1>
 		<br />
-		<div class="w3-responsive">
-			<table class="w3-table-all w3-centered w3-hoverable">
+		
+			<table class="table table-striped">
 				<tr>
 					<th>Student Name</th>
 					<th>Course Name</th>
@@ -48,7 +48,7 @@ body {
 					<td th:text=${grade.grade}>Grade</td>
 				</tr>
 			</table>
-		</div>
+		
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

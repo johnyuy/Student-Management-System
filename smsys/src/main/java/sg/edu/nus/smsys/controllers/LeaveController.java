@@ -23,6 +23,7 @@ import sg.edu.nus.smsys.repository.CourseAdminRepository;
 import sg.edu.nus.smsys.repository.LeaveRepository;
 import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.StaffRepository;
+import sg.edu.nus.smsys.security.SmsUserDetailsService;
 
 @Controller
 @RequestMapping("/leave")
@@ -36,7 +37,8 @@ public class LeaveController {
 
 	@Autowired
 	CourseAdminRepository crepo;
-	
+	@Autowired
+	private SmsUserDetailsService suds;
 	@Autowired
 	LecturerRepository lerepo;
 
@@ -45,6 +47,7 @@ public class LeaveController {
 		List<Leave> alllist = new ArrayList<Leave>();
 		alllist = lrepo.findAll();
 		model.addAttribute("leave", alllist);
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		return "leavemanagement";
 	}
 
@@ -57,13 +60,14 @@ public class LeaveController {
 		} else {
 			leavelist.addAll(lrepo.findAll());
 		}
-
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		model.addAttribute("leave", leavelist);
 		return "leaves";
 	}
 
 	@GetMapping("/add")
 	public String showAddForm(Model model) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		Leave leave = new Leave();
 		model.addAttribute("leave", leave);
 		return "leaveapplication";
@@ -99,6 +103,7 @@ public class LeaveController {
 	
 		@GetMapping("/edit/{id}")
 		public String showEditForm(Model model, @PathVariable("id") Integer id) {
+			model.addAttribute("access", suds.getAuthUserAccessLevel());
 			//show a specific leave on page by leave id
 			Leave leave = lrepo.findById(Integer.valueOf(id)).get();
 			model.addAttribute("leave", leave);
@@ -107,6 +112,7 @@ public class LeaveController {
 
 	@GetMapping("/delete/{id}")
 	public String deleteMethod(Model model, @PathVariable("id") Integer id) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		Leave leave = lrepo.findById(id).get();
 		lrepo.delete(leave);
 		String staffId = String.valueOf(leave.getSubmittedByStaffID().getStaffId());
@@ -115,6 +121,7 @@ public class LeaveController {
 
 	@GetMapping("/view/{id}")
 	public String viewLeaveDetails(Model model, @ModelAttribute Leave leave, @PathVariable("id") Integer id) {
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		leave = lrepo.findById(id).get();
 
 		model.addAttribute("leave", leave);
@@ -124,6 +131,7 @@ public class LeaveController {
 
 	@PostMapping("/reply")
 	public String replyLeave(@ModelAttribute Leave leave) {
+		
 		lrepo.save(leave);
 
 		Staff staff = new Staff();
