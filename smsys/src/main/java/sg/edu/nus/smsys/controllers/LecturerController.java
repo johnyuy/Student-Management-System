@@ -74,6 +74,8 @@ public class LecturerController {
 		Lecturer l = new Lecturer();
 		l = lrepo.findByStaffId(id);
 		List<Subject> ls = l.getSubjectList();
+		model.addAttribute("rawlist", ls);
+
 		
 
 		model.addAttribute("lecturer", l);
@@ -206,14 +208,22 @@ public class LecturerController {
 			return "lecturerform";
 		}
 		System.out.println("Hi");
-		lecturer.setStaffId(id);
-		lrepo.save(lecturer);
-		
+		Lecturer l = lrepo.findByStaffId(id);
+		l.setTitle(lecturer.getTitle());
+		l.setFirstName(lecturer.getFirstName());
+		l.setMiddleName(lecturer.getMiddleName());
+		l.setLastName(lecturer.getLastName());
+		l.setBirthDate(lecturer.getBirthDate());
+		l.setMobile(lecturer.getMobile());
+		l.setEmail(lecturer.getEmail());
+		l.setGender(lecturer.getGender());
+		l.setAddress(lecturer.getAddress());
+		lrepo.save(l);
 		if (suds.getAuthUserAccessLevel() == 1) {
 			return "redirect:/lecturers/list";
 		}
 		else {
-			return "redirect:/lecturers/details/" + lecturer.getStaffId();
+			return "redirect:/lecturers/details/" + l.getStaffId();
 		}
 	}
 
