@@ -1,52 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Grades</title>
-</head>
-<body>
-	<h2>Student Performance Management</h2>
-	<form method="post" th:action="@{/grades/changegrade}">
-		<table>
-			<tr>
-				<th>Class ID</th>
-				<td th:text="${classid}">class</td>
-			</tr>
-			<tr>
-				<th>Student ID</th>
-				<td th:text="${student.studentId}" >id</td>
-			<tr>
-			<tr>
-				<th>Name</th>
-				<td th:text="${student.firstName} + ' ' + ${student.LastName}">name</td>
-			<tr>
-			<tr>
-				<th>Subject</th>
-				<td th:text="${subject.subjectName}">subject</td>
-			<tr>
-			<tr>
-				<th>Grade</th>
-				<td><select th:name="newgrade">
-						<option th:selected="${grade==' '}" value=" ">Select</option>
-						<option th:selected="${grade=='A+'}" value="A+">A+</option>
-						<option th:selected="${grade=='A'}" value="A">A</option>
-						<option th:selected="${grade=='A-'}" value="A-">A-</option>
-						<option th:selected="${grade=='B+'}" value="B+">B+</option>
-						<option th:selected="${grade=='B'}" value="B}">B</option>
-						<option th:selected="${grade=='B-'}" value="B-">B-</option>
-						<option th:selected="${grade=='C+'}" value="C+">C+</option>
-						<option th:selected="${grade=='C'}" value="C">C</option>
-						<option th:selected="${grade=='D+'}" value="D+">D+</option>
-						<option th:selected="${grade=='D'}" value="D">D</option>
-						<option th:selected="${grade=='F'}" value="F">F</option>
-				</select></td>
-			<tr>
-		</table>
-		<input type="hidden" th:value="${classid}" th:name="classId" />
-		<input type="hidden" th:value="${student.studentId}" th:name="stuid" />
-		<input type="hidden" th:value="${subject.subjectId}" th:name="subid" />
-	<button type="submit">Save</button>
-	</form>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Custom styles for this template -->
+<style>
+body {
+	padding-top: 5rem;
+}
 
+.starter-template {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}
+</style>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+<title>Grades</title>
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
+<meta charset="UTF-8">
+</head>
+
+<body>
+	<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
+	<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
+	<div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
+
+	<main role="main" class="container">
+		<h2>Student Performance Management</h2>
+		<form method="post" th:action="@{/grades/changegrade}">
+			<table class="table table-striped">
+				<tr align="center">
+					<th>Class ID</th>
+					<td th:text="${classid}">class</td>
+				</tr>
+				<tr align="center">
+					<th>Student ID</th>
+					<td th:text="${student.studentId}">id</td>
+				</tr>
+				<tr align="center">
+					<th>Name</th>
+					<td th:text="${student.firstName} + ' ' + ${student.LastName}">name</td>
+				</tr>
+				<tr align="center">
+					<th>Subject</th>
+					<td th:text="${subject.subjectName}">subject</td>
+				</tr>
+				<tr align="center">
+					<th>Grade</th>
+					<td><select th:name="newgrade">
+							<option th:selected="${grade==' '}" value=" ">Select</option>
+							<option th:selected="${grade=='A+'}" value="A+">A+</option>
+							<option th:selected="${grade=='A'}" value="A">A</option>
+							<option th:selected="${grade=='A-'}" value="A-">A-</option>
+							<option th:selected="${grade=='B+'}" value="B+">B+</option>
+							<option th:selected="${grade=='B'}" value="B}">B</option>
+							<option th:selected="${grade=='B-'}" value="B-">B-</option>
+							<option th:selected="${grade=='C+'}" value="C+">C+</option>
+							<option th:selected="${grade=='C'}" value="C">C</option>
+							<option th:selected="${grade=='D+'}" value="D+">D+</option>
+							<option th:selected="${grade=='D'}" value="D">D</option>
+							<option th:selected="${grade=='F'}" value="F">F</option>
+					</select></td>
+				</tr>
+			</table>
+			<input type="hidden" th:value="${classid}" th:name="classId" /> <input
+				type="hidden" th:value="${student.studentId}" th:name="stuid" /> <input
+				type="hidden" th:value="${subject.subjectId}" th:name="subid" />
+			<button class="btn btn-outline-dark" type="submit" style="position: relative; top: 40px;left: 250px; width:100px;">Save</button>
+		</form>
+		<a th:href="@{/grades/} +${classid+'/'}+ ${subject.subjectId}"
+			class="btn btn-outline-dark" type="submit">Cancel</a>
+	</main>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

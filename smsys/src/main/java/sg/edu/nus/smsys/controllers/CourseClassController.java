@@ -126,7 +126,7 @@ public class CourseClassController {
 			return ("courseclassdetails");
 			
 		}
-		return "NotFound";
+		return "redirect:/";
 		
 	}
 
