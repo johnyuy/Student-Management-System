@@ -130,25 +130,28 @@ public class HomeResource {
 				return "lecturerhome";
 			}
 		}
-			if (accessLevel == 3) {
-				name = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
-				student = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername()));
+		if (accessLevel == 3) {
+			name = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
+			student = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername()));
+			Schedule today = new Schedule();
+			Schedule next = new Schedule();
 
-				if (!student.getCourseClassList().isEmpty()) {
-					clas = student.getCourseClassList().get(student.getCourseClassList().size() - 1);
-					System.out.println("Class Id is:");
-					System.out.println(clas.getClassId());
-				} else {
-					clas.setClassId(0);
-					System.out.println(clas.getClassId());
-				}
-				CourseClass cclass = student.getCourseClassList().get(student.getCourseClassList().size() - 1);
+			if (!student.getCourseClassList().isEmpty()) {
+				clas = student.getCourseClassList().get(student.getCourseClassList().size() - 1);
+				System.out.println("Class Id is:");
+				System.out.println(clas.getClassId());
+			} else {
+				clas.setClassId(0);
+				System.out.println(clas.getClassId());
+			}
+
+			CourseClass cclass = new CourseClass();
+			if (student.getCourseClassList().size() > 0) {
+				cclass = student.getCourseClassList().get(student.getCourseClassList().size() - 1);
 				Semester sem = cclass.getSemesterList().get(cclass.getSemesterList().size() - 1);
 				LocalDate ed = sem.getEndDate();
 				List<Schedule> schlist = new ArrayList<Schedule>();
 				schlist.addAll(schrepo.findByClas(cclass));
-				Schedule today = new Schedule();
-				Schedule next = new Schedule();
 
 				if (!schlist.isEmpty()) {
 					// TODAY
@@ -165,13 +168,21 @@ public class HomeResource {
 					}
 					next = getNextSchedule(cclass);
 				}
-				model.addAttribute("today", today);
-				model.addAttribute("next", next);
-				session.setAttribute("name", name);
-				session.setAttribute("classid", clas.getClassId());
-				return "studenthome";
+			} else {
+				Lecturer noclass = new Lecturer("Not Enrolled");
+				Subject subject = new Subject("Not Enrolled");
+				today = new Schedule(now, noclass, subject, new CourseClass());
+				next = new Schedule(now, noclass, subject, new CourseClass());
+
 			}
+			model.addAttribute("today", today);
+			model.addAttribute("next", next);
+			session.setAttribute("name", name);
+			session.setAttribute("classid", 0);
+			return "studenthome";
+		}
 		return "redirect:/welcome";
+
 	}
 
 	public Schedule getNextSchedule(CourseClass cc) {
