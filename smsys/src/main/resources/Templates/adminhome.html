@@ -1,48 +1,60 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
-</style>
-<title>Home</title>
-</head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<!-- Custom styles for this template -->
+<style>
+body {
+	padding-top: 5rem;
+}
+
+.starter-template {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}
+</style>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+<title>SMS</title>
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
+</head>
 <body>
-<div th:fragment="header">
-<div class="w3-top">
- <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-  <a th:href="@{/admin}" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>HOME</a>
-  <div class="w3-dropdown-hover w3-hide-small">
-    <button class="w3-button w3-padding-large" title="Manage"><i class="fa fa-bars "></i>  Manage</button>     
-    <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
-      
-      <a th:href="@{/home/useraccounts/add}" class="w3-bar-item w3-button">User Accounts</a>
-      <a th:href="@{/lecturers/list}" class="w3-bar-item w3-button">Faculty</a>
-      <a th:href="@{/classes}" class="w3-bar-item w3-button">Classes</a>
-      <a th:href="@{/students/list}" class="w3-bar-item w3-button">Student</a>
-      <a th:href="@{/leave/alllist}" class="w3-bar-item w3-button">Leave</a>
-      <a th:href="@{/schedule/add}" class="w3-bar-item w3-button"> Schedule</a>
-      <a th:href="@{/subjects/list}" class="w3-bar-item w3-button">Subject</a>
-      <a th:href="@{/courses/list}" class="w3-bar-item w3-button">Course</a>
-    </div>
-  </div>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="angle-double-down w3-margin-right"></i>  MyLeave</a>
-  <a th:href="@{/logout}" class="w3-padding-large w3-hover-white w3-hide-small w3-right"><i class="fa fa-arrow-right">  Logout</i></a>
-  <a th:href="@{/logout}" class="w3-padding-large w3-hover-white w3-hide-small w3-right"><i class="fa fa-user">  Profile</i></a>
-  <a th:href="@{/logout}" class="w3-padding-large w3-hover-white w3-hide-small w3-right"><i class="fa fa-address-card">  Contact</i></a>
-  </div>
-  </div>
- </div>
- </body>
- <div class="w3-panel w3-padding-24 w3-grey">
-  <h1>Welcome back, User</h1>
-  <p>Date/Time: <span id="datetime"></span></p><script>var dt = new Date();
-document.getElementById("datetime").innerHTML=dt.toLocaleString();</script>
-</div>
+	<div th:if="${access==1}" th:replace="fragments/header :: header_admin"></div>
+	<main role="main" class="container">
+		<div class="starter-template">
+			<h1>Course Administrator Home Page</h1>
+		</div>
+
+		<div class="container">
+			<h4>Your Attention Needed:</h4>
+		</div>
+		<div class="container">
+			<table class="table table-striped">
+				<tr>
+					<th>Pending Leave</th>
+					<th>Pending Application</th>
+				</tr>
+				<tr>
+					<td th:text="${leavecount}">Count</td>
+					<td th:text="${appcount}">Count</td>
+				</tr>
+				<tr>
+					<td th:href="@{/leave/leavelist}">Manage Leave</td>
+					<td th:href="@{/student/home/applications}">Manage Application</td>
+				</tr>
+			</table>
+		</div>
+	</main>
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
