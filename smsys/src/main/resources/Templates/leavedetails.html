@@ -31,8 +31,8 @@ body {
 <div th:if="${access==2}" th:replace="fragments/header :: header_lect"></div>
 <div th:if="${access==3}" th:replace="fragments/header :: header_student"></div>
 	<main role="main" class="container">
-		<div class="w3-responsive">
-			<table class="w3-table-all w3-centered w3-hoverable">
+		
+			<table class="table table-striped">
 				<tr>
 					<th>Application ID</th>
 					<th>Staff ID</th>
@@ -54,7 +54,7 @@ body {
 					<td th:text=${leave.submittedByStaffID.annualLeaveBalance}>balance</td>
 			</table>
 			<form th:object="${leave}" method="post" th:action="@{/leave/reply}">
-				<table>
+				<table >
 					<tr>
 						<td><input type="hidden" th:field=*{leaveId} /></td>
 					</tr>
@@ -96,7 +96,7 @@ body {
 			<p></p>
 			<a th:href="@{/leave/alllist}"><button type="submit">Back
 					to Leave List</button> </a>
-		</div>
+		
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
