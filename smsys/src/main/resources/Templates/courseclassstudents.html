@@ -33,8 +33,8 @@ body {
 	<main role="main" class="container">
 		<h2 th:text="'Class ' + ${classId} + ' (Students)'">Students</h2>
 		<br />
-		<div class="w3-responsive">
-			<table class="w3-table-all w3-centered">
+		
+			<table class="table table-striped">
 				<tr>
 					<th>&nbsp;</th>
 					<th>Name</th>
@@ -53,12 +53,12 @@ body {
 			</table>
 			<a th:href="@{/classes}" class="btn" type="submit">back to
 				classes</a>
-		</div>
+		
 		<br />
 		<div th:if="${access==1} and ${addable.size()>0}"
 			class="w3-responsive">
 			<h3>Add Students</h3>
-			<table class="w3-table-all w3-centered">
+			<table class="table table-striped">
 				<tr th:each="adds:${addable}">
 					<td th:text="${adds.getFirstName()} + ' ' + ${adds.getLastName()}">name</td>
 					<td th:text="${adds.getStudentId()}">id</td>

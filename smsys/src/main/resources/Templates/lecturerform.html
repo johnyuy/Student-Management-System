@@ -32,34 +32,34 @@ body {
 <div th:if="${access==3}" th:replace="fragments/header :: header_student"></div>
 <main role="main" class="container">
 	<form th:object="${lecturer}" method="post">
-		<table class="w3-table-all">
+		<table class="table table-striped">
 			<tr>
 				<th>Title</th>
-			 	<td><input type="text" th:field="*{title}" /></td>
+			 	<td><input class="form-control"  type="text" th:field="*{title}" /></td>
 			</tr>
 			<tr>
 				<th>First Name</th>
-				<td><input type="text" th:field="*{firstName}" /></td>
+				<td><input class="form-control"  type="text" th:field="*{firstName}" /></td>
 			</tr>
 			<tr>
 				<th>Middle Name</th>
-				<td><input type="text" th:field="*{middleName}" /></td>
+				<td><input class="form-control"  type="text" th:field="*{middleName}" /></td>
 			</tr>
 			<tr>
 				<th>Last Name</th>
-				<td><input type="text" th:field="*{lastName}" /></td>
+				<td><input class="form-control"  type="text" th:field="*{lastName}" /></td>
 			</tr>
 			<tr>
 				<th>Birth Date</th>
-				<td><input type="date" th:field="*{birthDate}" /></td>
+				<td><input class="form-control"  type="date" th:field="*{birthDate}" /></td>
 			</tr>
 			<tr>
 				<th>Mobile</th>
-				<td><input type="text" th:field="*{mobile}" /></td>
+				<td><input class="form-control"  type="text" th:field="*{mobile}" /></td>
 			</tr>
 			<tr>
 				<th>Email</th>
-				<td><input type="text" th:field="*{email}" /></td>
+				<td><input class="form-control"  type="text" th:field="*{email}" /></td>
 			</tr>
 			<tr>
 				<th>Gender</th>
@@ -72,11 +72,11 @@ body {
 			</tr>		
 			<tr>
 				<th>Address</th>
-				<td><input type="text" th:field="*{address}" /></td>
+				<td><input class="form-control"  type="text" th:field="*{address}" /></td>
 			</tr>
 			<tr>
 				<th>Status</th>
-				<td><input type="text" th:field="*{status}" /></td>
+				<td><input class="form-control"  type="text" th:field="*{status}" /></td>
 			</tr>
 
 		</table>

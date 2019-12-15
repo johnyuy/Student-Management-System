@@ -32,8 +32,8 @@ body {
 <main role="main" class="container">
 	<h1>Semester Listing Table</h1>
 	<br />
-	<div class="w3-responsive">
-	<table class="w3-table-all w3-centered w3-hoverable">
+	
+	<table class="table table-striped">
 		<tr>
 			<th>Semester ID</th>
 			<th>Semester Code</th>
@@ -47,7 +47,7 @@ body {
 			<td th:text=${semester.endDate}>End Date</td>
 		</tr>
 	</table>
-	</div>
+	
 	</main>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
