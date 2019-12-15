@@ -67,22 +67,19 @@ body {
 
 				</tr>
 				<tr th:each="student:${students}" align="center">
-					<td th:text=${student.studentId} style="font-size:10px">ID</td>
-					<td th:text=${student.firstName} style="font-size:10px">First Name</td>
-					<td th:text=${student.middleName} style="font-size:10px">Middle Name</td>
-					<td th:text=${student.lastName} style="font-size:10px">Last Name</td>
-					<td th:text=${student.email} style="font-size:10px">Email</td>
+					<td th:text=${student.studentId} style="font-size:11px">ID</td>
+					<td th:text=${student.firstName} style="font-size:11px">First Name</td>
+					<td th:text=${student.middleName} style="font-size:11px">Middle Name</td>
+					<td th:text=${student.lastName} style="font-size:11px">Last Name</td>
+					<td th:text=${student.email} style="font-size:11px">Email</td>
 					<td th:text=${student.birthDate} style="font-size:10px">DOB</td>
 
 					<td th:if="${access==1}"><a type="submit"
 						th:href="@{/students/details/{id}(id=${student.studentId})}"
-						class="btn btn-outline-dark" style="font-size:10px">Details</a></td>
-					<td th:if="${access==1}"><a type="submit"
-						th:href="@{/students/edit/{id}(id=${student.studentId})}"
-						class="btn btn-outline-dark" style="font-size:10px">Edit</a></td>
+						class="btn btn-outline-dark" style="font-size:11px">Details</a></td>
 					<td th:if="${access==1}"><a type="submit"
 						th:href="@{/students/delete/{id}(id=${student.studentId})}"
-						class="btn btn-outline-dark" style="font-size:10px">Delete</a></td>
+						class="btn btn-outline-dark" style="font-size:11px">Delete</a></td>
 				</tr>
 			</table>
 
