@@ -75,7 +75,7 @@ body {
 				<a type="submit" class="btn btn-outline-dark"
 					th:href="@{/courses/edit/{id}(id=${course.courseId})}">Edit</a>
 			</div>
-			<div class="container">
+			<div th:if="${access<3}" class="container">
 				<a class="btn btn-outline-dark" th:href="@{/courses/list}">Back
 					to Courses</a>
 			</div>
