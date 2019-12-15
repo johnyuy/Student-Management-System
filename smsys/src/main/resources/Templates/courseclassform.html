@@ -32,11 +32,11 @@ body {
 <div th:if="${access==3}" th:replace="fragments/header :: header_student"></div>
 	<main role="main" class="container">
 		<h3>Add Class</h3>
-		<div class="w3-responsive">
+		
 
 			<form action="/classes/add" method="post" th:object="${courseClass}"
 				th:action="@{/classes/add}">
-				<table class="w3-table-all">
+				<table class="table table-striped">
 					<tr>
 						<th>Course</th>
 						<td><select th:field="${courseClass.course}">
@@ -60,7 +60,7 @@ body {
 					</tr>
 				</table>
 			</form>
-		</div>
+		
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

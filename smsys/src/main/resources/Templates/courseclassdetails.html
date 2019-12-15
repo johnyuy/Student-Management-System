@@ -35,7 +35,7 @@ body {
 
 			<br />
 			<h3>Class Details</h3>
-			<table class="w3-table-all w3-centered">
+			<table class="table table-striped">
 				<tr>
 					<th>Class ID</th>
 					<td th:text=${class.classId}>id</td>
@@ -63,7 +63,7 @@ body {
 
 			<h3>Subjects</h3>
 			<table th:if="${class.course.courseSubjectList.size()>0}"
-				class="w3-table-all w3-centered">
+				class="table table-striped">
 				<tr th:each="subject:${class.course.courseSubjectList}">
 					<td th:text="${subject.subjectName}"></td>
 				</tr>
@@ -73,7 +73,7 @@ body {
 
 			<h3>Lecturers</h3>
 			<table th:if="${class.lecturerList.size()>0}"
-				class="w3-table-all w3-centered">
+				class="table table-striped">
 				<tr th:each="lecturer:${class.lecturerList}">
 					<td th:text="${lecturer.firstName}+' '+${lecturer.lastName}">name</td>
 					<td th:text="${lecturer.email}">email</td>
@@ -86,7 +86,7 @@ body {
 			<div th:if="${access==1} and ${addable.size()>0}"
 				class="w3-responsive">
 				<h3>Add Lecturer</h3>
-				<table class="w3-table-all w3-centered">
+				<table class="table table-striped">
 					<tr th:each="adds:${addable}">
 						<td th:text="${adds.getFirstName()} + ' ' + ${adds.getLastName()}">name</td>
 						<td><a
