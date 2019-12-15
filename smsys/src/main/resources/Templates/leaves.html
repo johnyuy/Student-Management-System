@@ -31,6 +31,11 @@ body {
 <div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
 <div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
 	<main role="main" class="container">
+	
+	<div class="starter-template">
+			<h1>Leave Application Record</h1>
+	</div>
+	
 			<table class="table table-striped">
 			
 				<tr>
@@ -48,13 +53,19 @@ body {
 					<td th:text=${leave.duration}>duration</td>
 					<td th:text=${leave.reason}>reason</td>
 					<td th:text=${leave.status}>status</td>
-					<td th:if="${leave.status}=='Pending'"><a
-						th:href="@{/leave/delete/{id}(id=${leave.leaveId})}">Cancel</a></td>
-					<td th:if="${leave.status}=='Pending'"><a
+					<td th:if="${leave.status}=='Pending'">
+					<a class="btn btn-outline-dark" type="submit"
+					 th:href="@{/leave/delete/{id}(id=${leave.leaveId})}">Cancel</a></td>
+					<td th:if="${leave.status}=='Pending'">
+					<a class="btn btn-outline-dark" type="submit"
 						th:href="@{/leave/edit/{id}(id=${leave.leaveId})}">Edit</a></td>
 				</tr>
 			</table>
-		
+			
+			<p></p>
+			<p></p>
+		<a  th:href="@{/leave/add}"><button class="btn btn-outline-dark"  type="submit">
+		Apply Leave</button> </a>
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

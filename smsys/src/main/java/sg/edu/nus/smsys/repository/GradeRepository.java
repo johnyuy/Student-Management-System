@@ -18,6 +18,6 @@ public interface GradeRepository extends JpaRepository<Grade, Integer> {
 	
 	List<Grade> findByStudentAndSubject(Student student, Subject subject);
 	
-	List<Grade> findByStudentAndSubjectAndClas(Student student, Subject subject, CourseClass clas);
+	Grade findByStudentAndSubjectAndClas(Student student, Subject subject, CourseClass clas);
 
 }

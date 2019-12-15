@@ -31,12 +31,16 @@ body {
 <div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
 <div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
 	<main role="main" class="container">
-		
-		<form th:object="${leave}" method="post">
+	
+	<div class="starter-template">
+			<h1>Leave Application</h1>
+	</div>
+	<div class="container">	
+		<form th:object="${leave}" method="post" id="add-student-form" class="form-horizontal">
 			<fieldset>
 			
 				<div class="col-md-4 mb-3">
-				Staff ID:
+				<label for="Staff ID">Staff ID:</label>
 				
 				<input class="form-control" type="text"
 					th:field="*{submittedByStaffID}" />
@@ -44,7 +48,7 @@ body {
 			</fieldset>
 			<fieldset>
 				<div class="col-md-4 mb-3">
-					Leave Start Time:<input class="form-control" type="date"
+				<label for="Leave Start Time">Leave Start Time:</label><input class="form-control" type="date"
 						th:field="*{dateStart}" />
 					<p th:if="${#fields.hasErrors('dateStart')}"
 						th:errors="*{dateStart}"></p>
@@ -52,23 +56,29 @@ body {
 			</fieldset>
 			<fieldset>
 				<div class="col-md-4 mb-3">
-				Duration:<input class="form-control" type="text"
+			<label for="Duration">Duration:</label><input class="form-control" type="text"
 					th:field="*{duration}" />
 				<p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></p>
 				</div>
 			</fieldset>
 			<fieldset>
 				<div class="col-md-4 mb-3">
-				Reason:<input class="form-control" type="text" th:field="*{reason}" />
+			<label for="Reason">Reason:</label><input class="form-control" type="text" th:field="*{reason}" />
 				<p th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}"></p>
 				</div>
 			</fieldset>
 			<fieldset>
 				<div class="col-md-4 mb-3">
-				<button type="submit">Submit</button>
+				<button class="btn btn-outline-success my-2 my-sm-0"  type="submit">Submit</button>
 				</div>
 			</fieldset>
 		</form>
+		
+		<p></p>
+		<p></p>
+		<a  th:href="@{/leave/leavelist?id={id}(id=${session.staffid})}"><button class="btn btn-outline-dark"  type="submit">
+		Cancel</button> </a>
+	</div>
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

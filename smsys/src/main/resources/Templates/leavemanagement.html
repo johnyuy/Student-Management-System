@@ -32,6 +32,9 @@ body {
 <div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
 	<main role="main" class="container">
 		
+	<div class="starter-template">
+			<h1>Leave Application Management</h1>
+	</div>
 		
 
 			<table class="table table-striped">
@@ -55,8 +58,8 @@ body {
 					<td th:text=${leave.reason}>reason</td>
 					<td th:text=${leave.status}>status</td>
 					<td th:text=${leave.submittedByStaffID.annualLeaveBalance}>balance</td>
-					<td><a th:href="@{/leave/view/}+${leave.leaveId}">View
-							Details</a></td>
+					<td><a class="btn btn-outline-dark" type="submit"
+					th:href="@{/leave/view/}+${leave.leaveId}">View Details</a></td>
 				</tr>
 			</table>
 		

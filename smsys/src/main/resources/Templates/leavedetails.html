@@ -32,6 +32,11 @@ body {
 <div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
 	<main role="main" class="container">
 		
+	<div class="starter-template">
+			<h1>Leave Application Details</h1>
+	</div>
+		
+		
 			<table class="table table-striped">
 				<tr>
 					<th>Application ID</th>
@@ -94,7 +99,7 @@ body {
 			</form>
 			<p></p>
 			<p></p>
-			<a th:href="@{/leave/alllist}"><button type="submit">Back
+			<a  th:href="@{/leave/alllist}"><button class="btn btn-outline-dark"  type="submit">Back
 					to Leave List</button> </a>
 
 	</main>
