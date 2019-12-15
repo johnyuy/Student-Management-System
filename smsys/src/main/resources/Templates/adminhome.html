@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -50,8 +49,8 @@ body {
 					<td th:text="${appcount}">Count</td>
 				</tr>
 				<tr>
-					<td th:href="@{/leave/leavelist}">Manage Leave</td>
-					<td th:href="@{/student/home/applications}">Manage Application</td>
+					<td><a class="btn btn-outline-dark" type="submit" th:href="@{/leave/leavelist}">Manage Leave</a></td>
+					<td><a class="btn btn-outline-dark" type="submit" th:href="@{/student/home/applications}">Manage Application</a></td>
 				</tr>
 			</table>
 		</div>
