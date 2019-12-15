@@ -49,6 +49,7 @@ public class CourseClassController {
 	@Autowired
 	private LecturerRepository lectRepo;
 	
+	
 	private static final Logger log = LoggerFactory.getLogger(CourseClassController.class);
 
 	//view classes by user
@@ -74,8 +75,13 @@ public class CourseClassController {
 
 		List<Semester> semesterList = semRepo.findAll();
 		model.addAttribute("semesterList", semesterList);
+		
+		if(suds.getAuthUserAccessLevel()==3)
+			return "redirect:/";
+		else
+			return("courseclassform");
 
-		return ("courseclassform");
+	
 	}
 
 	@PostMapping("/add")
