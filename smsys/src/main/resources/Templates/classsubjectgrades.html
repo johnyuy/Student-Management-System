@@ -1,26 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Custom styles for this template -->
+<style>
+body {
+	padding-top: 5rem;
+}
+
+.starter-template {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}
+</style>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
 <title>Grades</title>
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
+<meta charset="UTF-8">
 </head>
+
 <body>
-<h2>Student Performance Management</h2>
-<h3 th:text="${class.getCourse().courseName} + ' (Class ' + ${class.classId} + ')'"></h3>
-	<table>
-		<tr><th colspan="3" th:text="${subject.subjectName}">subject</th></tr>
-		<tr>
-			<th>Student ID</th>
-			<th>Student Name</th>
-			<th>Grade</th>
-			<th>Manage</th>
-		</tr>
-		<tr th:each="sg:${map}">
-			<td th:text="${sg.key.studentId}">ID</td>
-			<td th:text="${sg.key.firstName} + ' ' + ${sg.key.lastName}">Name</td>
-			<td th:text="${sg.value.grade}">grade</td>
-			<td><a th:href="@{/grades/} +${class.getClassId()+'/'}+ ${subject.getSubjectId() + '/'} + ${sg.key.studentId}" class="btn" type="submit">edit</a></td>
-		</tr>
-	</table>
+	<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
+	<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
+	<div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
+
+	<main role="main" class="container">
+		<h2>Student Performance Management</h2>
+		<h3
+			th:text="${class.getCourse().courseName} + ' (Class ' + ${class.classId} + ')'"></h3>
+		<table class="table table-striped" >
+			<tr align="center">
+				<th colspan="4" th:text="${subject.subjectName}">subject</th>
+			</tr>
+			<tr align="center">
+				<th>Student ID</th>
+				<th>Student Name</th>
+				<th>Grade</th>
+				<th></th>
+			</tr>
+			<tr th:each="sg:${map}" align="center">
+				<td th:text="${sg.key.studentId}">ID</td>
+				<td th:text="${sg.key.firstName} + ' ' + ${sg.key.lastName}">Name</td>
+				<td th:text="${sg.value.grade}">grade</td>
+				<td><a th:href="@{/grades/} +${class.getClassId()+'/'}+ ${subject.getSubjectId() + '/'} + ${sg.key.studentId}"
+					class="btn btn-outline-dark" type="submit">edit</a></td>
+			</tr>
+		</table>
+		<a th:href="@{/grades/} +${class.getClassId()}" class="btn btn-outline-dark"
+			type="submit">Back</a>
+	</main>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

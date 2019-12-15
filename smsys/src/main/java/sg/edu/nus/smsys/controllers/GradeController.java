@@ -44,14 +44,14 @@ public class GradeController {
 	@Autowired
 	private CourseClassService ccService;
 
-	@GetMapping("/list")
-	public String listAll(Model grade) {
-		List<Grade> glist = new ArrayList<Grade>();
-		glist = grepo.findAll();
-		grade.addAttribute("grade", glist);
-		return "grade";
-
-	}
+//	@GetMapping("/list")
+//	public String listAll(Model grade) {
+//		List<Grade> glist = new ArrayList<Grade>();
+//		glist = grepo.findAll();
+//		grade.addAttribute("grade", glist);
+//		return "grade";
+//
+//	}
 
 	@GetMapping("/{id}")
 	public String viewGradesByClass(Model model, @PathVariable("id") int id) {
@@ -60,7 +60,7 @@ public class GradeController {
 		CourseClass cc = new CourseClass();
 		if (accesslevel == 3)
 			return ("redirect:/");
-		;
+		
 
 		if (ccService.canViewClass(id)) {
 			cc = crepo.findByClassId(id);
@@ -106,7 +106,6 @@ public class GradeController {
 				gradefound=new Grade(stu, cc, s, " ");
 				grepo.save(gradefound);
 			}
-			System.out.println("student " + stu.getFirstName() + " got " + gradefound.getGrade() + " for " + s.getSubjectName());
 			sgmap.put(stu, gradefound);
 			
 		}
@@ -120,12 +119,14 @@ public class GradeController {
 	@GetMapping("/{id}/{subject}/{student}")
 	public String viewStudentGrade(Model model, @PathVariable("id") int id, @PathVariable("subject") int subject,
 			@PathVariable("student") int student) {
+		int accesslevel = suds.getAuthUserAccessLevel();
+		model.addAttribute("access", accesslevel);
+		if (accesslevel == 3)
+			return ("redirect:/");
+		
 		CourseClass cc = crepo.findByClassId(id);
 		Subject sub = subrepo.findBySubjectId(subject);
 		Student stu = srepo.findByStudentId(student);
-		System.out.println(cc.getClassId());
-		System.out.println(sub.getSubjectName());
-		System.out.println(stu.getStudentId());
 		Grade g = grepo.findByStudentAndSubjectAndClas(stu, sub, cc);
 		model.addAttribute("student", stu);
 		model.addAttribute("subject", sub);
@@ -136,6 +137,7 @@ public class GradeController {
 	
 	@PostMapping("/changegrade")
 	public String changeGrade(@RequestParam String newgrade,@RequestParam String stuid,@RequestParam String classId, @RequestParam String subid) {
+		
 		CourseClass cc = crepo.findByClassId(Integer.parseInt(classId));
 		Student student = srepo.findByStudentId(Integer.parseInt(stuid));
 		Subject subject = subrepo.findBySubjectId(Integer.parseInt(subid));
@@ -148,30 +150,30 @@ public class GradeController {
 		return ("redirect:/grades/" + classId + "/" + subid);
 	}
 
-	@GetMapping("/add")
-	public String addGrade(Model model) {
-		Grade grade = new Grade();
-		model.addAttribute("grade", grade);
-
-		ArrayList<Student> stulist = new ArrayList<Student>();
-		stulist.addAll(srepo.findAll());
-		model.addAttribute("student", stulist);
-
-		ArrayList<CourseClass> clist = new ArrayList<CourseClass>();
-		clist.addAll(crepo.findAll());
-		model.addAttribute("courseclass", clist);
-
-		ArrayList<Subject> sublist = new ArrayList<Subject>();
-		sublist.addAll(subrepo.findAll());
-		model.addAttribute("subject", sublist);
-
-		return "gradeform";
-	}
-
-	@PostMapping("/add")
-	public String insertGrade(@ModelAttribute Grade grade) {
-		grepo.save(grade);
-		return "redirect:/grade/list";
-	}
+//	@GetMapping("/add")
+//	public String addGrade(Model model) {
+//		Grade grade = new Grade();
+//		model.addAttribute("grade", grade);
+//
+//		ArrayList<Student> stulist = new ArrayList<Student>();
+//		stulist.addAll(srepo.findAll());
+//		model.addAttribute("student", stulist);
+//
+//		ArrayList<CourseClass> clist = new ArrayList<CourseClass>();
+//		clist.addAll(crepo.findAll());
+//		model.addAttribute("courseclass", clist);
+//
+//		ArrayList<Subject> sublist = new ArrayList<Subject>();
+//		sublist.addAll(subrepo.findAll());
+//		model.addAttribute("subject", sublist);
+//
+//		return "gradeform";
+//	}
+//
+//	@PostMapping("/add")
+//	public String insertGrade(@ModelAttribute Grade grade) {
+//		grepo.save(grade);
+//		return "redirect:/grade/list";
+//	}
 
 }

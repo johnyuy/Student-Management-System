@@ -149,9 +149,9 @@ public class Leave {
 
 	@Override
 	public String toString() {
-		return "Leave [leaveId=" + leaveId + ", dateStart=" + dateStart + ", duration=" + duration + ", reason="
-				+ reason + ", status=" + status + ", ApprovedByStaffID=" + approvedByStaffID + ", SubmittedByStaffID="
-				+ submittedByStaffID + "]";
+		return "Leave [leaveId=" + leaveId + "]";
 	}
+
+
 
  }

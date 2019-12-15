@@ -123,7 +123,7 @@ body {
 					th:text="*{studentId != 0}? 'Update Student' : 'Add Student'"
 					class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
 			</form>
-			<div>
+			<div th:if="${access==1}">
 				<a class="btn btn-outline-dark" th:href="@{/students/list}">Back to List</a>
 			</div>
 		</div>

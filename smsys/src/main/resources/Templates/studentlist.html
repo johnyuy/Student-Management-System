@@ -43,8 +43,11 @@ body {
 		<div class="container">
 		<p th:text="${session.string}">UserSession.Name</p> 
 		</div>
+		<div th:if="${access==1}">
+			<a class="btn btn-success" th:href="@{/students/add}">Add Student</a>
+			</div>
 		<div class="container">
-			<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
+					<form class="form-inline my-2 my-lg-0" th:action="@{/students/list}"
 				method="get">
 				<input class="form-control mr-sm-2" name="name" type="text"
 					placeholder="Search Student" aria-label="Search" />
@@ -86,10 +89,7 @@ body {
 				</tr>
 			</table>
 
-			<div th:if="${access==1}">
-				<a class="btn btn-success" th:href="@{/students/add}">Add New
-					Student</a>
-			</div>
+			
 		</div>
 	</main>
 <div th:replace="fragments/footer :: footer"></div>

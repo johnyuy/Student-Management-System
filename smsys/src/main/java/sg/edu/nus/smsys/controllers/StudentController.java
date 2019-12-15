@@ -121,7 +121,7 @@ public class StudentController {
 			model.addAttribute("student", student);
 			return "studentform";
 		}
-		return "Not Found";
+		return "/list";
 
 	}
 

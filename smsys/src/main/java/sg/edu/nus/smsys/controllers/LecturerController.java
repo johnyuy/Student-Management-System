@@ -83,23 +83,40 @@ public class LecturerController {
 		if (accesslevel == 1) {
 			// available lecturers
 			List<Subject> sl = getAvailableSubjects(l);
+			List<Subject> con = getAvailableSubjects(l);
+
 			model.addAttribute("addable", sl);
 
 			List<Schedule> schlist = new ArrayList<Schedule>();
-
 			schlist.addAll(screpo.findByLecturer(l));
+			
+			System.out.println(schlist.size());
+			
+			for (Schedule s : schlist) {
+				if(! con.contains(s.getSubject())) {
+					con.add(s.getSubject());
+				}
+			}
+			
+			System.out.println(con.size());
+			
+			
 			for (Schedule s : schlist) {
 				for (Subject su : sl) {
-					if (s.getSubject().equals(su) && !unremovable.contains(su)) {
+					if (s.getSubject().getSubjectName().equals(su.getSubjectName())) {
+						
 						unremovable.add(su);
-						ls.remove(su);
 					}
 				}
 			}
+			
+			
+			l.setSubjectList(ls);
 			System.out.println("unr");
-
 			System.out.println(unremovable.size());
 		}
+		
+		model.addAttribute("lecturer", l);
 		model.addAttribute("unremovable", unremovable);
 		return ("lecturerdetails");
 	}
@@ -120,6 +137,43 @@ public class LecturerController {
 		}
 		return output;
 	}
+	
+	
+	@GetMapping("/{id}/subject/add")
+	public String addCourseClassLecturer(@PathVariable("id") int id, @RequestParam String code) {
+		
+		if(suds.getAuthUserAccessLevel()==1)
+		{
+			Subject s = srepo.findBySubjectId(Integer.parseInt(code));
+			Lecturer l = lrepo.findByStaffId(id);
+			List<Subject> ls = l.getSubjectList();
+			ls.add(s);
+			l.setSubjectList(ls);
+			lrepo.save(l);			
+			String redirect = "redirect:/lecturers/details/" + id;
+			return redirect;
+		}
+		return "NotFound";
+	}
+	
+	@GetMapping("/{id}/subject/remove")
+	public String removeCourseClassLecturer(@PathVariable("id") int id, @RequestParam String code) {	
+		if(suds.getAuthUserAccessLevel()==1)
+		{
+			Subject s = srepo.findBySubjectId(Integer.parseInt(code));
+			Lecturer l = lrepo.findByStaffId(id);
+			List<Subject> ls = l.getSubjectList();
+			ls.remove(s);
+			l.setSubjectList(ls);
+			lrepo.save(l);	
+			String redirect = "redirect:/lecturers/details/" + id;
+			return redirect;
+		}
+		return "NotFound";
+	}
+	
+	
+	
 
 	@GetMapping("/add")
 	public String addLectuerForm(Model model) {
