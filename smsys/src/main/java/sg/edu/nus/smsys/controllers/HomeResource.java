@@ -30,7 +30,7 @@ import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("")
-@SessionAttributes({"name","classid","date",""})
+@SessionAttributes({"name","classid","date","access"})
 public class HomeResource {
 	@Autowired
 	SmsUserDetailsService suds;
@@ -59,7 +59,8 @@ public class HomeResource {
 		CourseClass clas = new CourseClass();
 		String date = LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
 		int accessLevel = suds.getAuthUserAccessLevel();
-		model.addAttribute("access", suds.getAuthUserAccessLevel());
+		session.setAttribute("access", suds.getAuthUserAccessLevel());
+		
 		if(accessLevel==1) {
 			name = us.getCourseAdminByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
 			System.out.println(name);
