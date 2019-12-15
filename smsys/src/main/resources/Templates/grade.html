@@ -27,7 +27,9 @@ body {
 <link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
-	<div th:replace="fragments/header :: header_admin"></div>
+<div th:if="${access==1}" th:replace="fragments/header :: header_admin"></div>
+<div th:if="${access==2}" th:replace="fragments/header :: header_lect"></div>
+<div th:if="${access==3}" th:replace="fragments/header :: header_student"></div>
 	<main role="main" class="container">
 		<h1>Grade List</h1>
 		<br />
