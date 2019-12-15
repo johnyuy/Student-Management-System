@@ -29,5 +29,7 @@ public interface ApplicationService {
 	public List<Application> getApplicationsByStatus(Course course, String status);
 	@Autowired
 	public Application getApplicationById(int applicationId);
+	@Autowired
+	public void deleteApplication(Application app);
 }
 	

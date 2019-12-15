@@ -176,5 +176,15 @@ public class ApplicationController {
 
 		return "applicationdetails";
 	}
+	
+	@GetMapping("/delete/{id}")
+	public String deleteMethod(Model model, @PathVariable("id") Integer id) {
+		Application app = as.getApplicationById(id);
+		as.deleteApplication(app);
+		Student student = app.getStudent();
+		String studentId = String.valueOf(student.getStudentId());
+		return "redirect:/student/appliedcourse";
+	}
+	
 
 }

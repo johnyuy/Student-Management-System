@@ -41,7 +41,11 @@ body {
 	</table>
 	<form method="post" th:action="@{/student/submitapplication}">
 		<table>
-			<tr>
+			<tr th:unless="${eligibility == true}">
+			<td colspan="2">Not eligible to apply for courses.</td>
+		</tr>
+			
+			<tr th:if="${eligibility == true}">
 				<td>Select Course</td>
 				<td><select name="selectedcourse">
 						<option value="">Select</option>
@@ -49,15 +53,14 @@ body {
 							th:text="${course.courseName}" th:value="${course.courseId}"></option>
 				</select></td>
 			</tr>
-
 		</table>
 
-		<button type="submit">Apply</button>
+		<button type="submit" th:if="${eligibility == true}">Apply</button>
 	</form>
 
 	<table class="table table-striped">
 		<tr th:unless="${eligibility == true}">
-			<td colspan="3">Not eligible to apply for courses.</td>
+			
 		</tr>
 
 		<tr th:if="${eligibility == true}">
