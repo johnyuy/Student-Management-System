@@ -3,6 +3,7 @@ package sg.edu.nus.smsys.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import sg.edu.nus.smsys.models.CourseAdmin;
 import sg.edu.nus.smsys.models.Leave;
 //import sg.edu.nus.smsys.models.MyAnnotation;
 import sg.edu.nus.smsys.models.Staff;
+import sg.edu.nus.smsys.models.User;
 import sg.edu.nus.smsys.repository.CourseAdminRepository;
 import sg.edu.nus.smsys.repository.LeaveRepository;
 import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.StaffRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
+import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("/leave")
@@ -41,6 +45,9 @@ public class LeaveController {
 	private SmsUserDetailsService suds;
 	@Autowired
 	LecturerRepository lerepo;
+	@Autowired
+	UserService us;
+	
 
 	@GetMapping("/alllist")
 	public String listAll(Model model) {
@@ -73,6 +80,23 @@ public class LeaveController {
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		Leave leave = new Leave();
 		model.addAttribute("leave", leave);
+
+		
+		
+		User user=us.getUserByUsername(suds.getAuthUsername());
+		Staff staff=new Staff();
+		if(user.getAccessLevel()==1)
+		{
+			staff=us.getCourseAdminByUser(user);
+		}
+		else {
+			staff=us.getLecturerByUser(user);
+			
+		}
+		System.out.println(staff.getStaffId());
+		
+		model.addAttribute("staff",staff);
+		
 		return "leaveapplication";
 	}
 
@@ -85,9 +109,30 @@ public class LeaveController {
 		}
 		//System.out.println(l.getDateStart().toString());
 
-		lrepo.save(l);
-		String staffId = String.valueOf(l.getSubmittedByStaffID().getStaffId());
+		
+		//model.addAttribute("session",session);
+		//String staffId=session.getId();
+		//;String.valueOf( staff.getStaffId());
+		//String.valueOf(l.getSubmittedByStaffID().getStaffId());
 		// return "redirect:/leave/leavelist?id="+staffId;
+		//User user=us.getUserByUsername(suds.getAuthUsername());
+		//Staff staff=us.getLecturerByUser(user);
+		
+		User user=us.getUserByUsername(suds.getAuthUsername());
+		Staff staff=new Staff();
+		if(user.getAccessLevel()==1)
+		{
+			staff=us.getCourseAdminByUser(user);
+		}
+		else {
+			staff=us.getLecturerByUser(user);
+			
+		}
+		String staffId =String.valueOf(staff.getStaffId());
+		l.setSubmittedByStaffID(staff);
+		
+		lrepo.save(l);
+		
 		return "redirect:/leave/leavelist?id=" + staffId;
 	}
 
@@ -99,8 +144,23 @@ public class LeaveController {
 				return "leaveapplication";
 			}
 			l.setLeaveId(id);
+			
+			//String staffId = String.valueOf(l.getSubmittedByStaffID().getStaffId());
+			User user=us.getUserByUsername(suds.getAuthUsername());
+			Staff staff=new Staff();
+			if(user.getAccessLevel()==1)
+			{
+				staff=us.getCourseAdminByUser(user);
+			}
+			else {
+				staff=us.getLecturerByUser(user);
+				
+			}
+			String staffId =String.valueOf(staff.getStaffId());
+			l.setSubmittedByStaffID(staff);
+			
 			lrepo.save(l);
-			String staffId = String.valueOf(l.getSubmittedByStaffID().getStaffId());
+			
 			return "redirect:/leave/leavelist?id=" + staffId;
 		}
 	
@@ -110,6 +170,19 @@ public class LeaveController {
 			//show a specific leave on page by leave id
 			Leave leave = lrepo.findById(Integer.valueOf(id)).get();
 			model.addAttribute("leave", leave);
+			
+			User user=us.getUserByUsername(suds.getAuthUsername());
+			Staff staff=new Staff();
+			if(user.getAccessLevel()==1)
+			{
+				staff=us.getCourseAdminByUser(user);
+			}
+			else {
+				staff=us.getLecturerByUser(user);
+				
+			}
+			
+			model.addAttribute("staff",staff);
 			return "leaveapplication";
 		}
 
@@ -118,7 +191,20 @@ public class LeaveController {
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		Leave leave = lrepo.findById(id).get();
 		lrepo.delete(leave);
-		String staffId = String.valueOf(leave.getSubmittedByStaffID().getStaffId());
+		//String staffId = String.valueOf(leave.getSubmittedByStaffID().getStaffId());
+		
+		User user=us.getUserByUsername(suds.getAuthUsername());
+		Staff staff=new Staff();
+		if(user.getAccessLevel()==1)
+		{
+			staff=us.getCourseAdminByUser(user);
+		}
+		else {
+			staff=us.getLecturerByUser(user);
+			
+		}
+		String staffId =String.valueOf(staff.getStaffId());
+		
 		return "redirect:/leave/leavelist?id=" + staffId;
 	}
 
@@ -129,6 +215,19 @@ public class LeaveController {
 
 		model.addAttribute("leave", leave);
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
+		//model.addAttribute("session",session);
+		
+		User user=us.getUserByUsername(suds.getAuthUsername());
+		//Staff staf=new Staff();
+		
+		CourseAdmin	ca=us.getCourseAdminByUser(user);
+	
+		leave.setApprovedByStaffID(ca);
+		
+		model.addAttribute("courseadmin",ca);
+		
+		
+		
 		if(suds.getAuthUserAccessLevel()==1)
 			return "leavedetails";
 		else
@@ -136,7 +235,16 @@ public class LeaveController {
 	}
 
 	@PostMapping("/reply")
-	public String replyLeave(@ModelAttribute Leave leave) {
+	public String replyLeave(@ModelAttribute Leave leave,Model model) {
+		
+		User user=us.getUserByUsername(suds.getAuthUsername());
+		//Staff staf=new Staff();
+		
+		CourseAdmin	ca=us.getCourseAdminByUser(user);
+	
+		leave.setApprovedByStaffID(ca);
+		
+		model.addAttribute("courseadmin",ca);
 		
 		lrepo.save(leave);
 

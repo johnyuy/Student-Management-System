@@ -61,13 +61,16 @@ body {
 			<form th:object="${leave}" method="post" th:action="@{/leave/reply}">
 				<table >
 					<tr>
+					<th></th>
 						<td><input type="hidden" th:field=*{leaveId} /></td>
 					</tr>
 					<tr>
+					<th></th>
 						<td><input type="hidden"
 							th:field=*{submittedByStaffID.staffId} /></td>
 					</tr>
 					<tr>
+					<th></th>
 						<td><input type="hidden"
 							th:field=*{submittedByStaffID.firstName} /></td>
 					</tr>
@@ -75,25 +78,43 @@ body {
 						<td><input type="hidden" th:field=*{dateStart} /></td>
 					</tr>
 					<tr>
+					<th></th>
 						<td><input type="hidden" th:field=*{duration} /></td>
 					</tr>
 					<tr>
 						<td><input type="hidden" th:field=*{reason} /></td>
 					</tr>
 					<tr>
-						<td><input type="hidden"
-							th:field=*{submittedByStaffID.annualLeaveBalance} /></td>
+					
+						<td>
+						<input type="hidden"
+							th:field=*{submittedByStaffID.annualLeaveBalance} />
+						</td>
 					</tr>
+					
 					<tr>
-						<th th:text="${leave.status}=='Pending'?'Change Status':''">change
-							status or not</th>
-						<td th:if="${leave.status}=='Pending'"><select class="form-control"
+				
+						<td>
+						<input type="hidden"
+							th:field=*{approvedByStaffID} th:value=${courseadmin.staffId}/>
+						</td>
+					</tr>
+					
+					
+					
+					<tr>
+						<th th:text="${leave.status}=='Pending'?'Change Status':''">
+						change status or not</th>
+						<td th:if="${leave.status}=='Pending'">
+						<select class="form-control"
 							th:field="*{status}">
 								<option value="Pending">select status</option>
 								<option th:value="Approve">Approve</option>
 								<option th:value="Reject">Reject</option>
 						</select>
-							<button class="btn btn-outline-dark" type="submit">Submit</button></td>
+						</td>
+						<td><button class="btn btn-outline-dark" type="submit">Submit</button>
+						</td>
 					</tr>
 				</table>
 			</form>

@@ -40,15 +40,15 @@ body {
 			<fieldset>
 			
 				<div class="col-md-4 mb-3">
-				<label for="Staff ID">Staff ID:</label>
 				
-				<input class="form-control" type="text"
-					th:field="*{submittedByStaffID}" />
+				<label for="staffid">Staff ID:</label>
+				<p th:field="*{submittedByStaffID}" th:text=${staff.staffId}></p>
 				</div>
 			</fieldset>
 			<fieldset>
 				<div class="col-md-4 mb-3">
-				<label for="Leave Start Time">Leave Start Time:</label><input class="form-control" type="date"
+				<label for="Leave Start Time">Leave Start Time:</label>
+				<input class="form-control" type="date"
 						th:field="*{dateStart}" />
 					<p th:if="${#fields.hasErrors('dateStart')}"
 						th:errors="*{dateStart}"></p>
