@@ -31,10 +31,14 @@ body {
 <div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
 <div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
 	<main role="main" class="container">
+		
 		<form th:object="${leave}" method="post">
 			<fieldset>
+			
 				<div class="col-md-4 mb-3">
-				Staff ID:<input class="form-control" type="text"
+				Staff ID:
+				
+				<input class="form-control" type="text"
 					th:field="*{submittedByStaffID}" />
 				</div>
 			</fieldset>
