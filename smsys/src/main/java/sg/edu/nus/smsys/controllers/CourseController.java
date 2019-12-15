@@ -72,21 +72,28 @@ public class CourseController
 		
 		@GetMapping("/edit/{courseId}")
 		public String editCourseForm(Model model, @PathVariable("courseId") int id) {
-
-			model.addAttribute("access", suds.getAuthUserAccessLevel());
-			Course course = cRepo.findByCourseId(id);
-			model.addAttribute("course",course);
-			return "courseform";
+			int access = suds.getAuthUserAccessLevel();
+			if (access==1) {
+				model.addAttribute("access", suds.getAuthUserAccessLevel());
+				Course course = cRepo.findByCourseId(id);
+				model.addAttribute("course",course);
+				return "courseform";
+			}
+			return "redirect:/";
 		}
 
 		@PostMapping("/edit/{courseId}")
 		public String editCourse(@Valid @ModelAttribute Course c, BindingResult bindingResult,
 				@RequestParam() String courseStatus) {
+			int access = suds.getAuthUserAccessLevel();
+			if(access==1) {
 			if (bindingResult.hasErrors()) {
 				return "courseform";
 			}
 			c.setCourseStatus(courseStatus);
 			cRepo.save(c);
 			return "redirect:/courses/list";
+			}
+			return "redirect:/";
 		}
 	}

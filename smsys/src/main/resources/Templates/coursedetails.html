@@ -70,7 +70,7 @@ body {
 				</tr>
 
 			</table>
-			<div class="container">
+			<div th:if="${access==1}" class="container">
 
 				<a type="submit" class="btn btn-outline-dark"
 					th:href="@{/courses/edit/{id}(id=${course.courseId})}">Edit</a>
