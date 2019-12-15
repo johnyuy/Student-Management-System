@@ -1,92 +1,60 @@
-//package sg.edu.nus.smsys.controllers;
+package sg.edu.nus.smsys.controllers;
 
-//import java.util.Optional;
-//import java.util.UUID;
-//import javax.servlet.http.HttpSession;
-//import javax.validation.Valid;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.validation.BindingResult;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.ModelAttribute;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.support.SessionStatus;
-//
-//import sg.edu.nus.smsys.UserSession;
-//import sg.edu.nus.smsys.models.User;
-//import sg.edu.nus.smsys.repository.CourseAdminRepository;
-//import sg.edu.nus.smsys.repository.LecturerRepository;
-//import sg.edu.nus.smsys.repository.StudentRepository;
-//import sg.edu.nus.smsys.repository.UserRepository;
-//import sg.edu.nus.smsys.service.UserService;
+import java.util.List;
 
-//@Controller
-//@RequestMapping("/home")
-//public class HomeController {
-//	@Autowired
-//	private UserRepository urepo;
-//	@Autowired
-//	private LecturerRepository lrepo;
-//	@Autowired
-//	private StudentRepository srepo;
-//	@Autowired
-//	private CourseAdminRepository crepo;
-//	
-//	@Autowired 
-//	private UserService us;
-//
-//	@GetMapping("/login")
-//	public String getLoginPage(Model model) {
-//		
-//		User user = new User();
-//		model.addAttribute("user", user);
-//		return "login";
-//	}
-//	
-//	
-//	
-//	@GetMapping("/logout")
-//	public String getLogoutPage(SessionStatus status) {
-//		System.out.println(status);
-//		status.setComplete();
-//		return "redirect:/home/login";
-//	}
-//	
-//	
-//	@PostMapping("/authenticate")
-//	public String getAuthentication(@Valid @ModelAttribute User user, BindingResult bindingresult, HttpSession httpSession) {
-//		System.out.println(user.getUsername());
-//		System.out.println(user.getPassword());
-//		if(bindingresult.hasErrors()) {
-//			return "login";
-//		}
-//		if (us.verifyUserAndPassword(user.getUsername(), user.getPassword()) == true){
-//			//LOGIN AUTHENTHICATION IS SUCCESSFUL
-//			Optional<User> u = urepo.findByUsername(user.getUsername());
-//			int accesslevel = u.get().getAccessLevel();
-//			
-//			UUID sessionId = UUID.randomUUID();
-//			UserSession session = new UserSession(urepo.findByUsername(user.getUsername()).get(), sessionId);
-//			httpSession.setAttribute("session", session);
-//			System.out.println(session.getSessionId());
-//			
-//			//System.out.println("NEW SESSION IN TOWN!   " + UserSession.sessions.get(0).getSessionId());
-//			if ( accesslevel == 1) {
-//				return "redirect:/admin";
-//			} 
-//			if (accesslevel == 2) {
-//					return "redirect:/lecturer";
-//				} 
-//			if (accesslevel == 3) {
-//					return "redirect:/student";
-//				}
-//		}
-//		
-//		return "redirect:/home/login";
-//		
-//	}
-//
+import javax.servlet.http.HttpSession;
 
-//}
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import sg.edu.nus.smsys.models.Course;
+import sg.edu.nus.smsys.repository.CourseRepository;
+import sg.edu.nus.smsys.security.SmsUserDetailsService;
+import sg.edu.nus.smsys.service.UserService;
+
+@Controller
+@RequestMapping("")
+@SessionAttributes("name")
+public class HomeController {
+	@Autowired
+	SmsUserDetailsService suds;
+	@Autowired
+	CourseRepository courserepo;
+	@Autowired
+	UserService us;
+	
+	@GetMapping("/welcome")
+	public String landing(Model model) {
+		List<Course> courselist = courserepo.findAll();
+		model.addAttribute("courselist",courselist);
+		return "welcome.html";
+	}
+	
+	@GetMapping("")
+	public String home(HttpSession session){
+		String name = "";
+		int accessLevel = suds.getAuthUserAccessLevel();
+		if(accessLevel==1) {
+			name = us.getCourseAdminByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
+			System.out.println(name);
+			session.setAttribute("name", name);
+			return "adminhome.html";
+		}
+		if(accessLevel==2) {
+			name = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
+			session.setAttribute("name", name);
+			return "lecturerhome";
+		}
+		if(accessLevel==3) {
+			name = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
+			session.setAttribute("name", name);
+			return "studenthome";
+		}
+		return "redirect:/welcome";
+	}
+}
