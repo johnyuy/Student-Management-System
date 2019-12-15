@@ -76,7 +76,7 @@ body {
 		
 		<p></p>
 		<p></p>
-		<a  th:href="@{/leave/leavelist}"><button class="btn btn-outline-dark"  type="submit">
+		<a  th:href="@{/leave/leavelist?id={id}(id=${session.staffid})}"><button class="btn btn-outline-dark"  type="submit">
 		Cancel</button> </a>
 	</div>
 	</main>
