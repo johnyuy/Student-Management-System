@@ -83,12 +83,23 @@ public class LecturerController {
 		if (accesslevel == 1) {
 			// available lecturers
 			List<Subject> sl = getAvailableSubjects(l);
+			List<Subject> con = getAvailableSubjects(l);
+
 			model.addAttribute("addable", sl);
 
 			List<Schedule> schlist = new ArrayList<Schedule>();
 			schlist.addAll(screpo.findByLecturer(l));
 			
 			System.out.println(schlist.size());
+			
+			for (Schedule s : schlist) {
+				if(! con.contains(s.getSubject())) {
+					con.add(s.getSubject());
+				}
+			}
+			
+			System.out.println(con.size());
+			
 			
 			for (Schedule s : schlist) {
 				for (Subject su : sl) {
