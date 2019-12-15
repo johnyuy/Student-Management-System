@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Grades</title>
+</head>
+<body>
+<h2>Student Performance Management</h2>
+<h3 th:text="${class.getCourse().courseName} + ' - ' + ${class.classId}"></h3>
+	<table>
+		<tr>
+			<th>Subject</th>
+			<th>Grades</th>
+		</tr>
+		<tr th:each="subject:${subjectlist}">
+			<td th:text="${subject.subjectName}">subject</td>
+			<td><a th:href="@{/grades/} +${class.getClassId()+'/'}+ ${subject.getSubjectId()} " class="btn" type="submit">view</a></td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,10 +1,74 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Lecturer Home page</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Custom styles for this template -->
+<style>
+body {
+	padding-top: 5rem;
+}
+
+.starter-template {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}
+</style>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+<title>SMS</title>
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
-	<h1>Lecturer Home page</h1>
+<div th:if="${access==2}" th:replace="fragments/header :: header_lect"></div>
+	<main role="main" class="container">
+		<div class="starter-template">
+			<h1>Lecturer Dashboard</h1>
+		</div>
+
+		<div class="container">
+			<h4>Classes:</h4>
+		</div>
+		<div class="container">
+			<table class="table table-striped">
+				<tr>
+					<th colspan="3">Today's Lesson</th>
+				</tr>
+				<tr>
+					<th>Date</th>
+					<th>Subject</th>
+					<th>Class</th>
+				</tr>
+				<tr th:object="${today}">
+					<td th:text="${today != null}? *{dateFormat} : 'None'">Count</td>
+					<td th:text="${today != null}? *{subject.subjectName} : 'None'">Count</td>
+					<td th:text="${today.clas.classId==0}? 'No Class' : *{clas.classId} ">Count</td>
+				</tr>
+				<tr>
+					<th colspan="3">Next Lesson</th>
+				</tr>
+				<tr>
+					<th>Date</th>
+					<th>Subject</th>
+					<th>Class</th>
+				</tr>
+				<tr th:object="${next}">
+					<td th:text="${next != null}? *{dateFormat}  : 'None'">Count</td>
+					<td th:text="${next != null}? *{subject.subjectName}: 'None'">Count</td>
+					<td th:text="${next.clas.classId==0}? 'None' : *{clas.classId} ">Count</td>
+				</tr>
+			</table>
+		</div>
+	</main>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
