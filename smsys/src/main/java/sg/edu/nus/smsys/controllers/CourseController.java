@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.nus.smsys.models.Course;
+import sg.edu.nus.smsys.models.Subject;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
+import sg.edu.nus.smsys.security.SmsUserDetailsService;
 
 @Controller
 @RequestMapping("/courses")
@@ -27,13 +29,16 @@ public class CourseController
 		private CourseRepository cRepo;
 		@Autowired
 		CourseClassRepository classrepo;
+		@Autowired
+		private SmsUserDetailsService suds;
 		
 		@GetMapping("/list")
-		public String listAll(Model course)
+		public String listAll(Model model)
 		{
+			model.addAttribute("access", suds.getAuthUserAccessLevel());
 			List<Course> cList = new ArrayList<Course>();
 			cList = cRepo.findAll();
-			course.addAttribute("courses",cList);
+			model.addAttribute("courses",cList);
 			return "courselist";
 			
 		}
@@ -41,6 +46,7 @@ public class CourseController
 		@GetMapping("/add")
 		public String showAddForm(Model model)
 		{
+			model.addAttribute("access", suds.getAuthUserAccessLevel());
 			Course course = new Course();
 			model.addAttribute("course",course);
 			return "courseform";
@@ -56,14 +62,18 @@ public class CourseController
 		@GetMapping("/details")
 		public String viewCourseDetails(Model model, @RequestParam() String courseId)
 		{
+			model.addAttribute("access", suds.getAuthUserAccessLevel());
 			Course course = cRepo.findByCourseId(Integer.parseInt(courseId));
+			List<Subject> subjectlist = course.getCourseSubjectList();
 			model.addAttribute("course",course);
+			model.addAttribute("subjectlist", subjectlist);
 			return "coursedetails";
 		}
 		
 		@GetMapping("/edit/{courseId}")
 		public String editCourseForm(Model model, @PathVariable("courseId") int id) {
 
+			model.addAttribute("access", suds.getAuthUserAccessLevel());
 			Course course = cRepo.findByCourseId(id);
 			model.addAttribute("course",course);
 			return "courseform";

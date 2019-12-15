@@ -41,6 +41,10 @@ public class Subject {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public Subject(String subjectName) {
+		super();
+		this.subjectName = subjectName;
+	}
 	
 	public Subject(String subjectName, String subjectDesc, int units) {
 		super();

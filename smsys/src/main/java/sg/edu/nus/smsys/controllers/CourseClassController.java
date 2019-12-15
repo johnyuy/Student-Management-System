@@ -48,6 +48,9 @@ public class CourseClassController {
 	private StudentRepository stuRepo;
 	@Autowired
 	private LecturerRepository lectRepo;
+	@Autowired
+	private CourseClassRepository ccrepo;
+	
 	
 	private static final Logger log = LoggerFactory.getLogger(CourseClassController.class);
 
@@ -62,6 +65,17 @@ public class CourseClassController {
 		
 		return ("classlist");
 	}
+	
+	@GetMapping("/course/{id}")
+	public String viewCourseClassesbyCourseId(Model model, @PathVariable("id") int id) {
+		List<CourseClass> classlist = new ArrayList<CourseClass>();
+		Course c = couRepo.findByCourseId(id);
+		classlist.addAll(ccrepo.findByCourse(c));
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
+		model.addAttribute("classes", classlist);
+		return ("classlist");
+	}
+	
 
 	// can be opened from the course details page
 	@GetMapping("/add")
@@ -74,8 +88,13 @@ public class CourseClassController {
 
 		List<Semester> semesterList = semRepo.findAll();
 		model.addAttribute("semesterList", semesterList);
+		
+		if(suds.getAuthUserAccessLevel()==3)
+			return "redirect:/";
+		else
+			return("courseclassform");
 
-		return ("courseclassform");
+	
 	}
 
 	@PostMapping("/add")

@@ -10,6 +10,7 @@
 body {
 	padding-top: 5rem;
 }
+
 .starter-template {
 	padding: 3rem 1.5rem;
 	text-align: center;
@@ -26,52 +27,60 @@ body {
 <link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
-<div th:if="${access==1}" th:replace="fragments/header :: header_admin"></div>
-<div th:if="${access==2}" th:replace="fragments/header :: header_lect"></div>
-<div th:if="${access==3}" th:replace="fragments/header :: header_student"></div><main role="main" class="container">
-	<div>
-		<h1 th:text=${course.courseName}>Course Name</h1>
-		<h2>Course Details</h2>
-		<br />
-		<table class="table table-striped">
-			<tr>
-				<th>ID</th>
-				<td th:text=${course.courseId}></td>
-			<tr>
-				<th>Name</th>
-				<td th:text=${course.courseName}></td>
-			</tr>
-			<tr>
-				<th>Description</th>
-				<td th:text=${course.courseDesc}></td>
-			</tr>
-			<tr>
-				<th>Class Size</th>
-				<td th:text=${course.classSize}></td>
-			</tr>
-			<tr>
-				<th>Duration (Semesters)</th>
-				<td th:text=${course.durationSemesters}></td>
-			</tr>
-			<tr>
-				<th>Status</th>
-				<td th:text=${course.courseStatus}></td>
-			</tr>
-			<tr>
-				<th>Subjects</th>
-				<td>link to see subjects here</td>
-			</tr>
-				
-		</table>	
-		<table>
-		<tr><td><a type="submit" th:href="@{/courses/edit/{id}(id=${course.courseId})}">Edit
-				</a>
-		</td></tr></table>			
-		<form action="/courses/list" method="get" th:action="@{/courses/list}">
-			<button>Back to courses</button>
-		</form>
-	</div>
+	<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
+	<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
+	<div th:if="${access==3}"
+		th:include="fragments/header :: header_student"></div>
+	<main role="main" class="container">
+		<div>
+			<h1 th:text=${course.courseName}>Course Name</h1>
+			<h2>Course Details</h2>
+			<br />
+			<table class="table table-striped">
+				<tr>
+					<th>ID</th>
+					<td th:text=${course.courseId}></td>
+				<tr>
+					<th>Name</th>
+					<td th:text=${course.courseName}></td>
+				</tr>
+				<tr>
+					<th>Description</th>
+					<td th:text=${course.courseDesc}></td>
+				</tr>
+				<tr>
+					<th>Class Size</th>
+					<td th:text=${course.classSize}></td>
+				</tr>
+				<tr>
+					<th>Duration (Semesters)</th>
+					<td th:text=${course.durationSemesters}></td>
+				</tr>
+				<tr>
+					<th>Status</th>
+					<td th:text=${course.courseStatus}></td>
+				</tr>
+				<tr>
+					<th colspan="2" style="text-align: center">Subject List</th>
+				</tr>
+				<tr th:each="s,k:${subjectlist}">
+					<td colspan="2" th:text="${k.index + 1} + '. ' +  ${s.subjectName}">Subject
+						Name</td>
+					<td></td>
+				</tr>
+
+			</table>
+			<div class="container">
+
+				<a type="submit" class="btn btn-outline-dark"
+					th:href="@{/courses/edit/{id}(id=${course.courseId})}">Edit</a>
+			</div>
+			<div class="container">
+				<a class="btn btn-outline-dark" th:href="@{/courses/list}">Back
+					to Courses</a>
+			</div>
+		</div>
 	</main>
-<div th:replace="fragments/footer :: footer"></div>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

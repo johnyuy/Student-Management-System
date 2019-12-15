@@ -27,53 +27,79 @@ body {
 <link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
-<div th:if="${access==1}" th:replace="fragments/header :: header_admin"></div>
-<div th:if="${access==2}" th:replace="fragments/header :: header_lect"></div>
-<div th:if="${access==3}" th:replace="fragments/header :: header_student"></div>
+	<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
+	<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
+	<div th:if="${access==3}"
+		th:include="fragments/header :: header_student"></div>
 	<main role="main" class="container">
-		
+		<h2>Lecturer Details</h2>
+		<br />
+		<table th:object="${lecturer}" class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<td><b
+					th:text="*{title + '. ' + firstName + ' ' + middleName + ' ' + lastName + ', ' + age}"></b></td>
+			</tr>
+			<tr>
+				<th>Birth Date</th>
+				<td th:text="*{birthDate}" /></td>
+			</tr>
+			<tr>
+				<th>Address</th>
+				<td th:text="*{address}" /></td>
+			</tr>
+			<tr>
+				<th>Mobile</th>
+				<td th:text="*{mobile}" /></td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td th:text="*{email}" /></td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td th:text="*{status}" /></td>
+			</tr>
+			<tr>
+		</table>
 
-			<h2>Lecturer Details</h2>
-			<br />
-			<table th:object="${lecturer}" class="table table-striped">
-
-				<tr>
-					<th>Birth Date</th>
-					<td th:text="*{birthDate}" /></td>
-				</tr>
-				<tr>
-					<th>Address</th>
-					<td th:text="*{address}" /></td>
-				</tr>
-				<tr>
-					<th>Mobile</th>
-					<td th:text="*{mobile}" /></td>
-				</tr>
-				<tr>
-					<th>Email</th>
-					<td th:text="*{email}" /></td>
-				</tr>
-				<tr>
-					<th>Status</th>
-					<td th:text="*{status}" /></td>
-				</tr>
-				<tr th:each="s:${lecturer.subjectList}">
-					<th>Teaching</th>
-					<td th:text="${s.subjectName}">Subject Name</td>
-				</tr>
-				<tr>
-					<td><a type="submit"
-						th:action="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit
-					</a></td>
+		<h3>Subjects</h3>
+		<table th:if="${access==1} and ${unremovable.size()>0}"
+			class="table table-striped">
+			<tr th:each="subject:${unremovable}">
+				<td th:text="${subject.subjectName}">name</td>
+				<td></td>
+			</tr>
+		</table>
+		<table th:if="${lecturer.subjectList.size()>0}"
+			class="table table-striped">
+			<tr th:each="subject:${lecturer.subjectList}">
+				<td th:text="${subject.subjectName}">name</td>
+				<td th:if="${access==1}"><a
+					th:href="@{/lecturers/} +${lecturer.staffId} + @{/subject/remove?code=} + ${subject.getSubjectId()} "
+					class="btn btn-outline-dark" type="submit">Remove</a></td>
+			</tr>
+		</table>
+		<br />
+		<div th:if="${access==1} and ${addable.size()>0}">
+			<h3>Add Subjects</h3>
+			<table class="table table-striped">
+				<tr th:each="adds:${addable}">
+					<td th:text="${adds.getSubjectName()}">name</td>
+					<td><a
+						th:href="@{/lecturers/} +${lecturer.staffId}+ @{/subject/add?code=} + ${adds.getSubjectId()} "
+						class="btn btn-outline-dark" type="submit">Add</a></td>
 				</tr>
 			</table>
-			<form action="/lecturers/list" method="get"
-				th:action="@{/lecturers/list}">
-				<button>Back to Lecturers List</button>
-			</form>
-
-		
-
+		</div>
+		<div class="container">
+			<a type="submit" class="btn btn-outline-dark"
+				th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit </a>
+		</div>
+		<div class="container">
+			<a type="submit" class="btn btn-outline-dark"
+				th:href="@{/lecturers/list}"> Back to Lecturers List</a>
+		</div>
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

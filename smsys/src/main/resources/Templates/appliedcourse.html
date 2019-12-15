@@ -26,9 +26,9 @@ body {
 <link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
-<div th:if="${access==1}" th:replace="fragments/header :: header_admin"></div>
-<div th:if="${access==2}" th:replace="fragments/header :: header_lect"></div>
-<div th:if="${access==3}" th:replace="fragments/header :: header_student"></div>
+<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
+<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
+<div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
 <main role="main" class="container">
 	<h1>Course Application</h1>
 	<div th:if="${access}==3">
@@ -57,7 +57,7 @@ body {
 					<th>Description</th>
 					<th>Status</th>
 					<th></th>
-					<th></th>
+					
 				</tr>
 
 				<tr th:each="app:${myapplicationlist}">
@@ -66,7 +66,7 @@ body {
 					<td th:text=${app.course.courseName}>Course Name</td>
 					<td th:text=${app.course.courseDesc}>Description</td>
 					<td th:text=${app.status}>Status</td>
-					<td><a
+					<td><a class="btn btn-outline-dark"
 						th:href="@{/student/delete/{id}(id=${app.applicationId})}">Delete</a></td>
 
 				</tr>
@@ -99,7 +99,7 @@ body {
 				<td th:text=${app.student.studentId}>Student ID</td>
 				<td th:text=${app.student.firstName}>Student Name</td>
 				<td th:text=${app.status}>Status</td>
-				<td><a th:href="@{/student/app/}+${app.applicationId}">View
+				<td><a class="btn btn-outline-dark" th:href="@{/student/app/}+${app.applicationId}">View
 						Details</a></td>
 			</tr>
 		</table>
@@ -124,7 +124,7 @@ body {
 				<td th:text=${app.student.studentId}>Student ID</td>
 				<td th:text=${app.student.firstName}>Student Name</td>
 				<td th:text=${app.status}>Status</td>
-				<td><a th:href="@{/student/app/}+${app.applicationId}">View
+				<td><a class="btn btn-outline-dark" th:href="@{/student/app/}+${app.applicationId}">View
 						Details</a></td>
 			</tr>
 		</table>
@@ -149,7 +149,7 @@ body {
 				<td th:text=${app.student.studentId}>Student ID</td>
 				<td th:text=${app.student.firstName}>Student Name</td>
 				<td th:text=${app.status}>Status</td>
-				<td><a th:href="@{/student/app/}+${app.applicationId}">View
+				<td><a class="btn btn-outline-dark" th:href="@{/student/app/}+${app.applicationId}">View
 						Details</a></td>
 			</tr>
 		</table>

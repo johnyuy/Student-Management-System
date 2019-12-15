@@ -7,8 +7,9 @@
 <body>
 	<div th:fragment="header_admin">
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		<a href="http://localhost:8080/"><img  src="https://i.imgur.com/LU6MRJE.png" width=100 height=25></a>	
-			
+			<a href="http://localhost:8080/"><img
+				src="https://i.imgur.com/LU6MRJE.png" width=100 height=25></a>
+
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarsExampleDefault"
 				aria-controls="navbarsExampleDefault" aria-expanded="false"
@@ -22,7 +23,7 @@
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown01">
 							<a class="dropdown-item" th:href="@{/classes}">Classes</a> <a
-								class="dropdown-item" th:href="@{/courses}">Courses</a> <a
+								class="dropdown-item" th:href="@{/courses/list}">Courses</a> <a
 								class="dropdown-item" th:href="@{/students/list}">Students</a><a
 								class="dropdown-item" th:href="@{/student/home/applications}">Applications</a>
 						</div></li>
@@ -35,7 +36,7 @@
 							<a class="dropdown-item" th:href="@{/leave/alllist}">Leave</a>
 						</div></li>
 					<li class="nav-item"><a class="nav-link"
-						th:href="@{/leave/leavelist}">My Leave</a></li>
+						th:href="@{/leave/leavelist?id={id}(id=${session.staffid})}">My Leave</a></li>
 				</ul>
 				<div class="form-inline my-2 my-lg-0">
 					<ul class="navbar-nav mr-auto">
@@ -53,7 +54,8 @@
 
 	<div th:fragment="header_student">
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		<a href="http://localhost:8080/"><img  src="https://i.imgur.com/LU6MRJE.png" width=100 height=25></a>	
+			<a href="http://localhost:8080/"><img
+				src="https://i.imgur.com/LU6MRJE.png" width=100 height=25></a>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarsExampleDefault"
@@ -64,7 +66,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item dropdown"><a
+					<li th:if="${session.classid!=0}" class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="dropdown01"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Course</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -75,16 +77,18 @@
 								Details</a>
 						</div></li>
 					<li class="nav-item"><a class="nav-link"
-						th:href="@{/student/home/applications}">Application</a></li>
+						th:href="@{/student/appliedcourse}">Application</a></li>
 				</ul>
 				<div class="form-inline my-2 my-lg-0">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item active"><a class="nav-link"
-							th:text="'Welcome, ' + ${session.name}">My Profile</a></li>
+							th:text="'Welcome, ' + ${session.name}">Welcome</a></li>
 						<li class="nav-item active"><a class="nav-link"
 							th:text="${session.date}">Date</a></li>
-						<li class="nav-item"><a class="nav-link"
-							th:href="@{/logout}">Logout</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							th:href="@{/students/details/{id}(id=${session.studentid})}">My
+								Profile</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
 					</ul>
 				</div>
 			</div>
@@ -93,8 +97,9 @@
 
 	<div th:fragment="header_lect">
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		<a href="http://localhost:8080/"><img  src="https://i.imgur.com/LU6MRJE.png" width=100 height=25></a>	
-			
+			<a href="http://localhost:8080/"><img
+				src="https://i.imgur.com/LU6MRJE.png" width=100 height=25></a>
+
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarsExampleDefault"
 				aria-controls="navbarsExampleDefault" aria-expanded="false"
@@ -103,27 +108,21 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" href="#">Home
-							<span class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#"
-						tabindex="-1" aria-disabled="true">Disabled</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="dropdown01"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown01">
-							<a class="dropdown-item" href="#">Action</a> <a
-								class="dropdown-item" href="#">Another action</a> <a
-								class="dropdown-item" href="#">Something else here</a>
-						</div></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/classes}">Classes</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/leave/leavelist?id={id}(id=${session.staffid})}">My Leave</a></li>
+
 				</ul>
 				<div class="form-inline my-2 my-lg-0">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item active"><a class="nav-link"
-							th:text="'Welcome, ' + ${session.name}">My Profile</a></li>
-						<li class="nav-item"><a class="nav-link"
-							th:href="@{/logout}">Logout</a></li>
+							th:text="'Welcome, ' + ${session.name}">Welcome</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							th:text="${session.date}">Date</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							th:href="@{/lecturers/details/{staffId}(staffId=${session.staffid})}">My
+								Profile</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
 					</ul>
 				</div>
 			</div>

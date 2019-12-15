@@ -27,10 +27,15 @@ body {
 <link href="starter-template.css" rel="stylesheet">
 </head>
 <body>
-<div th:if="${access==1}" th:replace="fragments/header :: header_admin"></div>
-<div th:if="${access==2}" th:replace="fragments/header :: header_lect"></div>
-<div th:if="${access==3}" th:replace="fragments/header :: header_student"></div>
+<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
+<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
+<div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
 	<main role="main" class="container">
+		
+	<div class="starter-template">
+			<h1>Leave Application Details</h1>
+	</div>
+		
 		
 			<table class="table table-striped">
 				<tr>
@@ -82,21 +87,21 @@ body {
 					<tr>
 						<th th:text="${leave.status}=='Pending'?'Change Status':''">change
 							status or not</th>
-						<td th:if="${leave.status}=='Pending'"><select
+						<td th:if="${leave.status}=='Pending'"><select class="form-control"
 							th:field="*{status}">
 								<option value="Pending">select status</option>
 								<option th:value="Approve">Approve</option>
 								<option th:value="Reject">Reject</option>
 						</select>
-							<button type="submit">Submit</button></td>
+							<button class="btn btn-outline-dark" type="submit">Submit</button></td>
 					</tr>
 				</table>
 			</form>
 			<p></p>
 			<p></p>
-			<a th:href="@{/leave/alllist}"><button type="submit">Back
+			<a  th:href="@{/leave/alllist}"><button class="btn btn-outline-dark"  type="submit">Back
 					to Leave List</button> </a>
-		
+
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

@@ -28,9 +28,9 @@ body {
 
 </head>
 <body>
-<div th:if="${access==1}" th:replace="fragments/header :: header_admin"></div>
-<div th:if="${access==2}" th:replace="fragments/header :: header_lect"></div>
-<div th:if="${access==3}" th:replace="fragments/header :: header_student"></div>
+<div th:if="${access==1}" th:include="fragments/header :: header_admin"></div>
+<div th:if="${access==2}" th:include="fragments/header :: header_lect"></div>
+<div th:if="${access==3}" th:include="fragments/header :: header_student"></div>
 	<main role="main" class="container">
 
 
@@ -117,13 +117,6 @@ body {
 						<label for="address">Address</label> <input class="form-control"
 							placeholder="Enter Address" type="text" th:field="*{address}" />
 						<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 mb-3">
-						<label for="status">Status</label> <input class="form-control"
-							placeholder="Enter Status" type="text" th:field="*{status}" />
-						<p th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></p>
 					</div>
 				</div>
 				<button

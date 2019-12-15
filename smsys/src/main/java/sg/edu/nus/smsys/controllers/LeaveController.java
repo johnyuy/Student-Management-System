@@ -48,7 +48,10 @@ public class LeaveController {
 		alllist = lrepo.findAll();
 		model.addAttribute("leave", alllist);
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
-		return "leavemanagement";
+		if(suds.getAuthUserAccessLevel()==1)
+			return "leavemanagement";
+		else
+			return "redirect:/";
 	}
 
 	@GetMapping("/leavelist")
@@ -125,8 +128,11 @@ public class LeaveController {
 		leave = lrepo.findById(id).get();
 
 		model.addAttribute("leave", leave);
-
-		return "leavedetails";
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
+		if(suds.getAuthUserAccessLevel()==1)
+			return "leavedetails";
+		else
+			return "redirect:/";
 	}
 
 	@PostMapping("/reply")

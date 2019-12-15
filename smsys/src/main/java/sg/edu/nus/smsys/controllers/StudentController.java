@@ -134,7 +134,13 @@ public class StudentController {
 			}
 			s.setStudentId(id);
 			srepo.save(s);
-			return "redirect:/students/list";
+			
+			if (suds.getAuthUserAccessLevel() == 1) {
+				return "redirect:/students/list";
+			}
+			else {
+				return "redirect:/students/details/" + s.getStudentId();
+			}
 		}
 		return "Not Found";
 	}
