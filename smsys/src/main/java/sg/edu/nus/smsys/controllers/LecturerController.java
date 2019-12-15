@@ -208,7 +208,13 @@ public class LecturerController {
 		System.out.println("Hi");
 		lecturer.setStaffId(id);
 		lrepo.save(lecturer);
-		return "redirect:/lecturers/list";
+		
+		if (suds.getAuthUserAccessLevel() == 1) {
+			return "redirect:/lecturers/list";
+		}
+		else {
+			return "redirect:/lecturers/details/" + lecturer.getStaffId();
+		}
 	}
 
 	@GetMapping("/delete/{staffId}")

@@ -102,6 +102,10 @@ body {
 				th:href="@{/lecturers/list}"> Back to Lecturers List</a>
 		</div>
 		</div>
+		<div th:if="${access==2}">
+					<a type="submit" class="btn btn-outline-dark"
+				th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit </a>
+		</div>
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
