@@ -50,7 +50,7 @@ body {
 						th:text=${course.courseName} class="btn btn-default">testing</a></td>
 
 					<td><a href="classlist.html"
-						th:href="@{/classes/(courseId=${course.courseId})}"
+						th:href="@{/classes/course/{id}(id=${course.courseId})}"
 						class="btn btn-outline-dark"><span
 							th:text="${course.classesList.size()}+' Classes'">number
 								of classes</span></a></td>

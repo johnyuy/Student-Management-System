@@ -83,8 +83,7 @@ body {
 				</tr>
 			</table>
 			<br />
-			<div th:if="${access==1} and ${addable.size()>0}"
-				class="w3-responsive">
+			<div th:if="${access==1} and ${addable.size()>0}">
 				<h3>Add Lecturer</h3>
 				<table class="table table-striped">
 					<tr th:each="adds:${addable}">

@@ -61,17 +61,40 @@ body {
 				<td th:text="*{status}" /></td>
 			</tr>
 			<tr>
-				<th colspan="2" style="text-align:center" >Teaching</th>
-			</tr>
-			<tr th:each="s,k:${lecturer.subjectList}">
-				<td th:text="${k.index + 1} + '. ' +  ${s.subjectName}">Subject Name</td>
+		</table>
+
+		<h3>Subjects</h3>
+		<table th:if="${access==1} and ${unremovable.size()>0}"
+			class="table table-striped">
+			<tr th:each="subject:${unremovable}">
+				<td th:text="${subject.subjectName}">name</td>
 				<td></td>
 			</tr>
 		</table>
+		<table th:if="${lecturer.subjectList.size()>0}"
+			class="table table-striped">
+			<tr th:each="subject:${lecturer.subjectList}">
+				<td th:text="${subject.subjectName}">name</td>
+				<td th:if="${access==1}"><a
+					th:href="@{/lecturers/} +${lecturer.staffId} + @{/subject/remove?code=} + ${subject.getSubjectId()} "
+					class="btn btn-outline-dark" type="submit">Remove</a></td>
+			</tr>
+		</table>
+		<br />
+		<div th:if="${access==1} and ${addable.size()>0}">
+			<h3>Add Subjects</h3>
+			<table class="table table-striped">
+				<tr th:each="adds:${addable}">
+					<td th:text="${adds.getSubjectName()}">name</td>
+					<td><a
+						th:href="@{/lecturers/} +${lecturer.staffId}+ @{/subject/add?code=} + ${adds.getSubjectId()} "
+						class="btn btn-outline-dark" type="submit">Add</a></td>
+				</tr>
+			</table>
+		</div>
 		<div class="container">
 			<a type="submit" class="btn btn-outline-dark"
-				th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit
-			</a>
+				th:href="@{/lecturers/edit/{id}(id=${lecturer.staffId})}">Edit </a>
 		</div>
 		<div class="container">
 			<a type="submit" class="btn btn-outline-dark"
