@@ -45,8 +45,8 @@ body {
 					<th>Pending Application</th>
 				</tr>
 				<tr>
-					<td th:text="${leavecount}">Count</td>
-					<td th:text="${appcount}">Count</td>
+					<td th:text="${leavecount != 0}? ${leavecount} : 'None to Approve'">Count</td>
+					<td th:text="${appcount != 0}? ${appcount} : 'None to Approve'">Count</td>
 				</tr>
 				<tr>
 					<td><a class="btn btn-outline-dark" type="submit" th:href="@{/leave/leavelist}">Manage Leave</a></td>
