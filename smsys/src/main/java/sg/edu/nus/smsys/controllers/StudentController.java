@@ -108,7 +108,7 @@ public class StudentController {
 			model.addAttribute("student", student);
 			return "studentform";
 		}
-		return "Not Found";
+		return "redirect:/";
 	}
 
 	@PostMapping("/add")
@@ -119,7 +119,7 @@ public class StudentController {
 				if (bindingResult.hasErrors()) {
 					bindingResult.getFieldErrors().stream()
 							.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
-					return "studentform";
+					return "redirect:/students/add";
 				}
 				Student student = new Student();
 				student = s;
