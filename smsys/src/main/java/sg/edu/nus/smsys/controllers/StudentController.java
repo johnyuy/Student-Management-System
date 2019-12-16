@@ -13,9 +13,11 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import sg.edu.nus.smsys.UserSession;
+import sg.edu.nus.smsys.models.Application;
 import sg.edu.nus.smsys.models.CourseClass;
+import sg.edu.nus.smsys.models.Grade;
 import sg.edu.nus.smsys.models.Student;
-
+import sg.edu.nus.smsys.models.User;
 import sg.edu.nus.smsys.repository.*;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
 import sg.edu.nus.smsys.service.StudentServiceImpl;
@@ -34,6 +36,17 @@ public class StudentController {
 	private CourseClassRepository ccrepo;
 	@Autowired
 	private SmsUserDetailsService suds;
+	
+	@Autowired
+	private UserRepository userrepo;
+	
+	@Autowired
+	private ApplicationRepository apprepo;
+	
+
+	
+	
+	
 
 	@GetMapping("/list")
 	public String findStudents(Model model, @RequestParam(defaultValue = "") String name) {
@@ -50,7 +63,7 @@ public class StudentController {
 			}
 			return "studentlist";
 		}
-		return "Not Found";
+		return "redirect:/";
 	}
 
 	@GetMapping("/details/{id}")
@@ -80,7 +93,7 @@ public class StudentController {
 			model.addAttribute("student", student);
 			return "studentdetails";
 		}
-		return "Not Found";
+		return "redirect:/";
 	}
 
 	@GetMapping("/add")
@@ -142,7 +155,7 @@ public class StudentController {
 				return "redirect:/students/details/" + s.getStudentId();
 			}
 		}
-		return "Not Found";
+		return "redirect:/";
 	}
 
 	@GetMapping("/delete/{id}")
@@ -150,9 +163,21 @@ public class StudentController {
 		if (suds.getAuthUserAccessLevel() == 1) {
 			model.addAttribute("access", suds.getAuthUserAccessLevel());
 			Student student = srepo.findById(id).get();
+			
+			List<Application> applist= apprepo.findByStudent(student);
+			apprepo.deleteAll(applist);
+			
+			List<Grade> glist=grepo.findByStudent(student);
+			grepo.deleteAll(glist);
+			
+			User u=userrepo.findByUsername("S"+student.getStudentId()).get();
+			userrepo.delete(u);
+			
+			
 			srepo.delete(student);
+			
 			return "redirect:/students/list";
 		}
-		return "Not Found";
+		return "redirect:/";
 	}
 }
