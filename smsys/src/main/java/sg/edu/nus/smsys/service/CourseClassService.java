@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import sg.edu.nus.smsys.models.Course;
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Student;

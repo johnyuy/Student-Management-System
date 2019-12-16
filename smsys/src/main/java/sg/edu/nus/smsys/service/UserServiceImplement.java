@@ -36,12 +36,9 @@ public class UserServiceImplement implements UserService {
 
 	@Transactional
 	public void registerNewAccount(Integer id, String password) throws GeneralSecurityException {
-		System.out.println("Hello : " + id + "   " + password);
 		int userType = id / 10000;
 		byte[] salt = getSalt();
-		System.out.println("HEY : " + id + "   " + password);
 		String pw = passwordEncoder(password, salt);
-		System.out.println("NEW : " + id + "   " + pw);
 		if (userType == 5) {
 			// Course Admin
 			if (usernameExist("A" + id) == false && courseAdminIdExist(id) == true) {
@@ -58,7 +55,6 @@ public class UserServiceImplement implements UserService {
 			}
 			// lecturer
 			else if (usernameExist("L" + id) == false && lecturerIdExist(id) == true) {
-				System.out.println("hereLL");
 				Lecturer lect = lrepo.findByStaffId(id);
 				String username = "L" + id;
 				User user = new User(username, lect.getAccessLevel(), pw, salt, "ROLE_LECTURER", true);
@@ -69,7 +65,6 @@ public class UserServiceImplement implements UserService {
 
 			// student
 		} else if (userType == 1 && usernameExist("S" + id) == false && studentIdExist(id) == true) {
-			System.out.println("hereSS");
 			Student s = srepo.findByStudentId(id);
 			String username = "S" + id;
 			User user = new User(username, s.getAccessLevel(), pw, salt, "ROLE_STUDENT", true);
@@ -161,10 +156,7 @@ public class UserServiceImplement implements UserService {
 
 	public Student getStudentByUser(User user) {
 		int id = Integer.parseInt(user.getUsername().substring(1));
-		System.out.println(user.getUsername().substring(0, 1));
-		System.out.println("only numbers = " + id);
 		if (user.getUsername().substring(0, 1).equals("S")) {
-			System.out.println("beta");
 			return srepo.findByStudentId(id);
 		}
 		return null;

@@ -1,7 +1,5 @@
 package sg.edu.nus.smsys.cmdlr;
 
-import java.security.GeneralSecurityException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import sg.edu.nus.smsys.models.Application;
 import sg.edu.nus.smsys.repository.ApplicationRepository;
 import sg.edu.nus.smsys.repository.CourseRepository;
 import sg.edu.nus.smsys.repository.StudentRepository;
-import sg.edu.nus.smsys.service.UserService;
 
 @Component
 @Order(5)

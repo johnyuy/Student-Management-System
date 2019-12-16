@@ -35,7 +35,7 @@ public class SmsysApplication {
 	
 	@Scheduled(fixedRate = 1000)
 	public void printTime() {
-		log.info("Fixed Delay Task :: Execution Time - " + LocalDateTime.now().toString());
+		log.info("Scheculer Time Check = " + LocalDateTime.now().toString());
 	    try {
 	        TimeUnit.SECONDS.sleep(10);
 	    } catch (InterruptedException ex) {

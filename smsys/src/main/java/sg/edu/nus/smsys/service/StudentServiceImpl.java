@@ -2,15 +2,12 @@ package sg.edu.nus.smsys.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.nus.smsys.models.*;
 import sg.edu.nus.smsys.repository.GradeRepository;
 import sg.edu.nus.smsys.repository.StudentRepository;
-import sg.edu.nus.smsys.repository.SubjectRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
 
 @Service

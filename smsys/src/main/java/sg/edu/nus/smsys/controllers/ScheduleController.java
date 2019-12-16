@@ -19,15 +19,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Schedule;
 import sg.edu.nus.smsys.models.Semester;
 import sg.edu.nus.smsys.models.Subject;
-import sg.edu.nus.smsys.models.UserSession;
 import sg.edu.nus.smsys.repository.CourseClassRepository;
 import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.ScheduleRepository;

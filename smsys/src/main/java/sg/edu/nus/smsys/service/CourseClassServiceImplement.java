@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.nus.smsys.models.Application;
-import sg.edu.nus.smsys.models.Course;
 import sg.edu.nus.smsys.models.CourseClass;
 import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Student;

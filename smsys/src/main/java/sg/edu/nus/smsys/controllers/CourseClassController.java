@@ -26,9 +26,7 @@ import sg.edu.nus.smsys.repository.StudentRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
 import sg.edu.nus.smsys.service.CourseClassService;
 import sg.edu.nus.smsys.service.SemesterService;
-import sg.edu.nus.smsys.service.StudentService;
 import sg.edu.nus.smsys.service.StudentServiceImpl;
-import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("/classes")
