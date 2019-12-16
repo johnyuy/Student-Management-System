@@ -184,7 +184,7 @@ public class LecturerController {
 			if (bindingResult.hasErrors()) {
 				bindingResult.getFieldErrors().stream()
 						.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
-				return "lecturerform";
+				return "redirect:/lecturers/add";
 			}
 			Lecturer l = new Lecturer();
 			l = lecturer;
