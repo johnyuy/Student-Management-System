@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.controllers;
 
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,19 +73,6 @@ public class LecturerController {
 		return "lecturerlist";
 	}
 
-//	@GetMapping("/details/{staffId}")
-//	public String viewLecturer(Model model, @PathVariable("staffId") int id) {
-//		model.addAttribute("access", suds.getAuthUserAccessLevel());
-//		Lecturer lecturer = lrepo.findByStaffId(id);
-//		ArrayList<Subject> s = new ArrayList<Subject>();
-//		s.addAll(srepo.findByLecturerListContaining(lecturer));
-//		System.out.println(s.isEmpty());
-//		lecturer.setSubjectList(s);
-//		s.stream().forEach(ss -> System.out.println(ss.getSubjectName()));
-//		model.addAttribute("lecturer",lecturer);
-//		return "lecturerdetails";
-//	}
-//	
 	@GetMapping("/details/{staffId}")
 	public String viewCourseClass(Model model, @PathVariable("staffId") int id) {
 		int accesslevel = suds.getAuthUserAccessLevel();
@@ -197,7 +185,7 @@ public class LecturerController {
 	}
 
 	@PostMapping("/add")
-	public String addLecturer(@Valid @ModelAttribute Lecturer lecturer, BindingResult bindingResult) {
+	public String addLecturer(@Valid @ModelAttribute Lecturer lecturer, BindingResult bindingResult) throws GeneralSecurityException {
 		{
 			if (bindingResult.hasErrors()) {
 				bindingResult.getFieldErrors().stream()
@@ -207,6 +195,12 @@ public class LecturerController {
 			Lecturer l = new Lecturer();
 			l = lecturer;
 			lrepo.save(l);
+			
+			Lecturer l1 = new Lecturer();
+			List<Lecturer>lectList = new ArrayList<Lecturer>();
+			lectList.addAll(lrepo.findAll());
+			l1 = lectList.get(lectList.size()-1);
+			us.registerNewAccount(l1.getStaffId(), "pass");
 			return "redirect:/lecturers/list";
 		}
 	}

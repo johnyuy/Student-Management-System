@@ -37,7 +37,7 @@ import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("")
-@SessionAttributes({ "name", "classid", "date", "access","staffid", "studentid" })
+@SessionAttributes({ "name", "classid", "date", "access", "staffid", "studentid" })
 public class HomeResource {
 	@Autowired
 	SmsUserDetailsService suds;
@@ -71,6 +71,7 @@ public class HomeResource {
 		LocalDate now = LocalDate.now();
 		String date = LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
 		int accessLevel = suds.getAuthUserAccessLevel();
+
 		System.out.println("accesslevel="+accessLevel);
 		session.setAttribute("date", date);
 		session.setAttribute("access", suds.getAuthUserAccessLevel());
@@ -108,10 +109,8 @@ public class HomeResource {
 			return "adminhome";
 		}
 		if (accessLevel == 2) {
-			
-			
+
 			name = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
-			
 			
 			lecturer = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername()));
 		
@@ -136,16 +135,20 @@ public class HomeResource {
 					}
 				}
 				next = getNextLecturerSchedule(lecturer);
-
-				model.addAttribute("today", today);
-				model.addAttribute("next", next);
-				session.setAttribute("name", name);
-				session.setAttribute("staffid", staffid);
-				return "lecturerhome";
 			}
-	
-		
-		
+			else {
+				CourseClass noclass = new CourseClass();
+				Subject subject = new Subject("No Class");
+				today = new Schedule(now, new Lecturer(), subject, noclass);
+				next = new Schedule(now, new Lecturer(), subject, noclass);
+				session.setAttribute("classid", 0);
+				
+			}
+			model.addAttribute("today", today);
+			model.addAttribute("next", next);
+			session.setAttribute("name", name);
+			session.setAttribute("staffid", staffid);
+			return "lecturerhome";
 		}
 		if (accessLevel == 3) {
 			name = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
@@ -202,7 +205,6 @@ public class HomeResource {
 			return "studenthome";
 		}
 		return "redirect:/welcome";
-
 	}
 
 	public Schedule getNextSchedule(CourseClass cc) {
