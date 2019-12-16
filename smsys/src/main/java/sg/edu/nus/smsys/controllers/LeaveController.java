@@ -80,6 +80,7 @@ public class LeaveController {
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		Leave leave = new Leave();
 		model.addAttribute("leave", leave);
+		
 		User user=us.getUserByUsername(suds.getAuthUsername());
 		Staff staff=new Staff();
 		if(user.getAccessLevel()==1)
@@ -98,7 +99,7 @@ public class LeaveController {
 	}
 
 	@PostMapping("/add")
-	public String applyLeave(@Valid @ModelAttribute Leave l, BindingResult bindingResult) {
+	public String applyLeave(@Valid @ModelAttribute Leave l, BindingResult bindingResult) {	
 		if (bindingResult.hasErrors()) {
 			bindingResult.getFieldErrors().stream()
 					.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
@@ -116,8 +117,8 @@ public class LeaveController {
 			
 		}
 		String staffId =String.valueOf(staff.getStaffId());
+	
 		l.setSubmittedByStaffID(staff);
-		
 		lrepo.save(l);
 		
 		return "redirect:/leave/leavelist?id=" + staffId;

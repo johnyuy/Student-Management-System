@@ -29,20 +29,25 @@ public class Leave {
 	@Max(399999)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator= "leave_id_seq")
 	private int leaveId;
+	
 	@NotNull
-	@Future
+	@Future(message ="Please enter future date")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateStart;
-	@NotNull
-	@Min(1)
+
+	@NotNull(message ="This field cannot be left empty")
+	//@Min(1)
 	@Max(21)
 	private int duration=1;
-	@Size(min=2, max=100)
+	
+	@Size(max=100)
 	private String reason;
 	
 	private String status = "Pending" ;
+	
 	@ManyToOne
 	private CourseAdmin approvedByStaffID;
+	
 	@ManyToOne
 	private Staff submittedByStaffID;
 	

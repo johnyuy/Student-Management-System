@@ -113,7 +113,8 @@ body {
 								<option th:value="Reject">Reject</option>
 						</select>
 						</td>
-						<td><button class="btn btn-outline-dark" type="submit">Submit</button>
+						<td th:if="${leave.status}=='Pending'">
+						<button class="btn btn-outline-dark" type="submit">Submit</button>
 						</td>
 					</tr>
 				</table>

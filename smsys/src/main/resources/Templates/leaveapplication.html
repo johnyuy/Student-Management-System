@@ -37,26 +37,28 @@ body {
 	</div>
 	<div class="container">	
 		<form th:object="${leave}" method="post" id="add-student-form" class="form-horizontal">
-			<fieldset>
 			
+			<!-- 
+			<fieldset>
 				<div class="col-md-4 mb-3">
-				
-				<label for="staffid">Staff ID:</label>
-				<p th:field="*{submittedByStaffID}" th:text=${staff.staffId}></p>
+				<label for="staffid">Staff ID:</label> 
+				<p  th:field="*{submittedByStaffID}" th:value=${staff.staffId} ></p>
 				</div>
 			</fieldset>
+			 -->
+			
+			
 			<fieldset>
 				<div class="col-md-4 mb-3">
 				<label for="Leave Start Time">Leave Start Time:</label>
-				<input class="form-control" type="date"
-						th:field="*{dateStart}" />
-					<p th:if="${#fields.hasErrors('dateStart')}"
-						th:errors="*{dateStart}"></p>
+				<input class="form-control" type="date" th:field="*{dateStart}" />
+				<p th:if="${#fields.hasErrors('dateStart')}" th:errors="*{dateStart}"></p>
 				</div>
 			</fieldset>
+			
 			<fieldset>
 				<div class="col-md-4 mb-3">
-			<label for="Duration">Duration:</label><input class="form-control" type="text"
+			<label for="Duration">Duration:</label><input class="form-control" min="1" type="number"
 					th:field="*{duration}" />
 				<p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></p>
 				</div>
