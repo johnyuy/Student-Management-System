@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.controllers;
 
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.ScheduleRepository;
 import sg.edu.nus.smsys.repository.SubjectRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
+import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("/lecturers")
@@ -41,6 +43,8 @@ public class LecturerController {
 
 	@Autowired
 	private SmsUserDetailsService suds;
+	@Autowired
+	private UserService us;
 
 	@GetMapping("/list")
 	public String listLecturers(Model model, @RequestParam(defaultValue = "") String name) {
@@ -179,7 +183,7 @@ public class LecturerController {
 	}
 
 	@PostMapping("/add")
-	public String addLecturer(@Valid @ModelAttribute Lecturer lecturer, BindingResult bindingResult) {
+	public String addLecturer(@Valid @ModelAttribute Lecturer lecturer, BindingResult bindingResult) throws GeneralSecurityException {
 		{
 			if (bindingResult.hasErrors()) {
 				bindingResult.getFieldErrors().stream()
@@ -189,6 +193,12 @@ public class LecturerController {
 			Lecturer l = new Lecturer();
 			l = lecturer;
 			lrepo.save(l);
+			
+			Lecturer l1 = new Lecturer();
+			List<Lecturer>lectList = new ArrayList<Lecturer>();
+			lectList.addAll(lrepo.findAll());
+			l1 = lectList.get(lectList.size()-1);
+			us.registerNewAccount(l1.getStaffId(), "pass");
 			return "redirect:/lecturers/list";
 		}
 	}

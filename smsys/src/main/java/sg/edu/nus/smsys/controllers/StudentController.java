@@ -1,5 +1,6 @@
 package sg.edu.nus.smsys.controllers;
 
+import java.security.GeneralSecurityException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -19,6 +20,7 @@ import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.repository.*;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
 import sg.edu.nus.smsys.service.StudentServiceImpl;
+import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("/students")
@@ -34,6 +36,9 @@ public class StudentController {
 	private CourseClassRepository ccrepo;
 	@Autowired
 	private SmsUserDetailsService suds;
+	@Autowired
+	private UserService us;
+	
 
 	@GetMapping("/list")
 	public String findStudents(Model model, @RequestParam(defaultValue = "") String name) {
@@ -95,7 +100,7 @@ public class StudentController {
 	}
 
 	@PostMapping("/add")
-	public String addStudent(@Valid @ModelAttribute Student s, BindingResult bindingResult) {
+	public String addStudent(@Valid @ModelAttribute Student s, BindingResult bindingResult) throws GeneralSecurityException {
 		if (suds.getAuthUserAccessLevel() == 1) {
 
 			{
@@ -107,6 +112,23 @@ public class StudentController {
 				Student student = new Student();
 				student = s;
 				srepo.save(student);
+				System.out.println("1");
+				System.out.println(student.getStudentId());
+				
+				ArrayList<Student> sl = new ArrayList<Student>();
+				sl.addAll(srepo.findAll());
+				
+				Student newstudent = sl.get(sl.size()-1);
+				
+				System.out.println(newstudent.getFirstName());
+				System.out.println(newstudent.getStudentId());
+				
+				us.registerNewAccount(newstudent.getStudentId(), "123");
+				
+				System.out.println("New Account:");
+				System.out.println(newstudent.getStudentId());
+				System.out.println("123");
+
 				return "redirect:/students/list";
 			}
 		}
