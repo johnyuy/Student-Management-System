@@ -17,14 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.nus.smsys.models.CourseClass;
+import sg.edu.nus.smsys.models.Leave;
 import sg.edu.nus.smsys.models.Lecturer;
 import sg.edu.nus.smsys.models.Schedule;
 import sg.edu.nus.smsys.models.Student;
 import sg.edu.nus.smsys.models.Subject;
+import sg.edu.nus.smsys.models.User;
+import sg.edu.nus.smsys.repository.LeaveRepository;
 import sg.edu.nus.smsys.repository.LecturerRepository;
 import sg.edu.nus.smsys.repository.ScheduleRepository;
 import sg.edu.nus.smsys.repository.SubjectRepository;
+import sg.edu.nus.smsys.repository.UserRepository;
 import sg.edu.nus.smsys.security.SmsUserDetailsService;
+import sg.edu.nus.smsys.service.UserService;
 
 @Controller
 @RequestMapping("/lecturers")
@@ -41,7 +46,20 @@ public class LecturerController {
 
 	@Autowired
 	private SmsUserDetailsService suds;
-
+	
+	@Autowired
+	private UserService us;
+	
+	@Autowired
+	private UserRepository urepo;
+	
+	@Autowired
+	private ScheduleRepository schrepo;
+	
+	@Autowired
+	private LeaveRepository leaverepo;
+	
+	
 	@GetMapping("/list")
 	public String listLecturers(Model model, @RequestParam(defaultValue = "") String name) {
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
@@ -231,6 +249,20 @@ public class LecturerController {
 	public String deleteLecturer(Model model, @PathVariable("staffId") int id) {
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
 		Lecturer lecturer = lrepo.findByStaffId(id);
+		int staffid = lecturer.getStaffId();
+		
+		List<Schedule> schlist = schrepo.findByLecturer(lecturer);
+		schrepo.deleteAll(schlist);
+		List<Leave> llist = leaverepo.findBysubmittedByStaffID(lecturer);
+		leaverepo.deleteAll(llist);
+		
+		//remove user account
+		User u = us.getUserByUsername("L"+staffid);
+		if(u!=null) {
+			
+			urepo.delete(u);
+			
+		}
 		lrepo.delete(lecturer);
 		return "redirect:/lecturers/list";
 	}
