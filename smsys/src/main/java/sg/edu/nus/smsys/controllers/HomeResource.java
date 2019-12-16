@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,8 +72,7 @@ public class HomeResource {
 		String date = LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
 		int accessLevel = suds.getAuthUserAccessLevel();
 
-		System.out.println(accessLevel);
-
+		System.out.println("accesslevel="+accessLevel);
 		session.setAttribute("date", date);
 		session.setAttribute("access", suds.getAuthUserAccessLevel());
 
@@ -110,10 +110,11 @@ public class HomeResource {
 		}
 		if (accessLevel == 2) {
 
-			System.out.println("I am lecturer");
-
 			name = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
+			
 			lecturer = us.getLecturerByUser(us.getUserByUsername(suds.getAuthUsername()));
+		
+				
 			int staffid = lecturer.getStaffId();
 			List<Schedule> schlist = new ArrayList<Schedule>();
 			schlist.addAll(schrepo.findByLecturer(lecturer));
@@ -148,7 +149,6 @@ public class HomeResource {
 			session.setAttribute("name", name);
 			session.setAttribute("staffid", staffid);
 			return "lecturerhome";
-
 		}
 		if (accessLevel == 3) {
 			name = us.getStudentByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();

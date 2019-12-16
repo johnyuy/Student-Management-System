@@ -45,11 +45,14 @@ public class CourseController
 		
 		@GetMapping("/add")
 		public String showAddForm(Model model)
-		{
+		{ 
+			if(suds.getAuthUserAccessLevel()==1) {
 			model.addAttribute("access", suds.getAuthUserAccessLevel());
 			Course course = new Course();
 			model.addAttribute("course",course);
 			return "courseform";
+			}
+			return "redirect:/";
 		}
 		
 		@PostMapping("/add")

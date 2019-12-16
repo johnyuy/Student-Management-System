@@ -70,6 +70,7 @@ public class SmsUrlAuthenticationSuccessHandler implements AuthenticationSuccess
             return "/";
         } else {
         	throw new IllegalStateException();
+        	//return "/welcome";
         }
     }
 	

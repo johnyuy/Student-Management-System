@@ -54,4 +54,8 @@ public class SmsUserDetailsService implements UserDetailsService {
 		}
 		return null;
 	}
+	
+	public void deAuth() {
+		SecurityContextHolder.clearContext();
+	}
 }

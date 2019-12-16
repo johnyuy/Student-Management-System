@@ -321,9 +321,9 @@ public class CmdRunner2 implements CommandLineRunner {
 		// Insert Students
 		log.info("Adding Leaves..");
 
-		Leave le1=new Leave(300000,LocalDate.of(2019, 12, 26),1,"holiday","Pending",carepo.findByStaffId(50001),strepo.findByStaffId(50002));
-		Leave le2=new Leave(300001,LocalDate.of(2019,12,21),2,"private","Pending",carepo.findByStaffId(50001),strepo.findByStaffId(50003));
-		Leave le3=new Leave(300002,LocalDate.of(2019,12,17),3,"sick","Pending",carepo.findByStaffId(50001),strepo.findByStaffId(50004));
+		Leave le1=new Leave(300000,LocalDate.of(2020, 2, 26),1,"holiday","Pending",carepo.findByStaffId(50001),strepo.findByStaffId(50002));
+		Leave le2=new Leave(300001,LocalDate.of(2020,2,22),2,"private","Pending",carepo.findByStaffId(50001),strepo.findByStaffId(50003));
+		Leave le3=new Leave(300002,LocalDate.of(2020,2,19),3,"sick","Pending",carepo.findByStaffId(50001),strepo.findByStaffId(50004));
 								
 		lerepo.save(le1);
 		lerepo.save(le2);

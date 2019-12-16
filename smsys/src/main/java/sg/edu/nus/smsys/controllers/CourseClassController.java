@@ -3,11 +3,14 @@ package sg.edu.nus.smsys.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -80,6 +83,9 @@ public class CourseClassController {
 	// can be opened from the course details page
 	@GetMapping("/add")
 	public String showAddForm(Model model, @RequestParam(defaultValue = "") String courseId) {
+		
+		model.addAttribute("access", suds.getAuthUserAccessLevel());
+		
 		CourseClass courseclass = new CourseClass();
 		model.addAttribute(courseclass);
 
@@ -98,7 +104,14 @@ public class CourseClassController {
 	}
 
 	@PostMapping("/add")
-	public String insertCourseClass(@ModelAttribute CourseClass courseClass) {
+	public String insertCourseClass(@Valid @ModelAttribute CourseClass courseClass,BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			bindingResult.getFieldErrors().stream()
+					.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
+			return "redirect:/classes/add";
+		}
+		
 		log.info("Inserting Course Class...");
 		log.info("	Course name = " + courseClass.getCourse().getCourseName());
 		log.info("	Number of semesters =" + courseClass.getCourse().getDurationSemesters());

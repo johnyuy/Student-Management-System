@@ -35,12 +35,12 @@ body {
 			<table class="table table-striped">
 				<tr>
 					<th>Course Name</th>
-					<td><input class="form-control" type="text" th:field="*{courseName}" /></td>
+					<td><input pattern=".{5,}"  required title="minimum 5 characters" class="form-control" type="text" th:field="*{courseName}" /></td>
 				</tr>
 
 				<tr>
 					<th>Course Description</th>
-					<td><input class="form-control" type="text" th:field="*{courseDesc}" /></td>
+					<td><input pattern=".{5,}"  required title="minimum 5 characters" class="form-control" type="text" th:field="*{courseDesc}" /></td>
 				</tr>
 				<tr>
 					<th>Class Size</th>
@@ -50,8 +50,8 @@ body {
 				<tr>
 					<th>Semesters</th>
 					<td><select th:field="*{durationSemesters}">
-							<option value="0" selected>Select Duration</option>
-							<option th:value="1">1</option>
+							
+							<option th:value="1" selected>1</option>
 							<option th:value="2">2</option>
 							<option th:value="3">3</option>
 							<option th:value="4">4</option>
@@ -65,8 +65,8 @@ body {
 				<tr>
 					<th>Status</th>
 					<td><select th:field="*{courseStatus}">
-							<option value="Open" selected>Select Status</option>
-							<option th:value="Open">Open</option>
+							
+							<option th:value="Open" selected>Open</option>
 							<option th:value="Closed">Closed</option>
 					</select></td>
 				</tr>
@@ -77,6 +77,9 @@ body {
 				</tr>
 			</table>
 		</form>
+		<a  th:href="@{/courses/list}"><button class="btn btn-outline-dark"  type="submit">
+		Back</button> </a>
+		
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

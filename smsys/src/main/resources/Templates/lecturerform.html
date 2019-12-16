@@ -88,6 +88,13 @@ body {
 				th:text="*{staffId != 0}? 'Update Lecturer' : 'Add Lecturer'"
 				class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
 		</form>
+		
+		<a th:if="${access==1}" th:href="@{/lecturers/list}"><button class="btn btn-outline-dark"  type="submit">
+		Back</button> </a>
+		
+		<a th:if="${access==2}" th:href="@{/lecturers/details/{id}(id=${lecturer.staffId})}"><button class="btn btn-outline-dark"  type="submit">
+		Back</button> </a>
+		
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

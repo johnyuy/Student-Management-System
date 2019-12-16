@@ -27,10 +27,15 @@ public class CourseClass {
 	@NotNull
 	@Min(0)
 	private int level;
+	
+	@NotNull
 	@ManyToOne
 	private Course course;
+	
+	
 	@ManyToMany
 	private List<Semester> semesterList;
+	
 	@ManyToMany
 	private List<Student> studentList;
 	

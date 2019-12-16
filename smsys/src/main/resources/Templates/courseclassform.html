@@ -43,15 +43,20 @@ body {
 								<option value="" selected hidden>Select Course</option>
 								<option th:each="course: ${courseList}"
 									th:value="${course.courseId}" th:text="${course.courseName}"></option>
-						</select></td>
+						</select>
+						</td>
+						<td><p th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></p></td>
+					
 					</tr>
 					<tr>
 						<th>Starting Semester</th>
-						<td><select th:field="${courseClass.semesterList}">
-								<option value="" selected hidden>Select Semester</option>
+						<td><select th:field="${courseClass.semesterList}" require>
+							<!--  	<option value="" selected hidden>Select Semester</option> -->
 								<option th:each="semester: ${semesterList}"
 									th:value="${semester.semId}" th:text="${semester.semCode}"></option>
-						</select></td>
+						</select>
+						</td>
+
 					</tr>
 					<tr>
 						<td>
@@ -60,7 +65,8 @@ body {
 					</tr>
 				</table>
 			</form>
-		
+		<a  th:href="@{/classes}"><button class="btn btn-outline-dark"  type="submit">
+		Back</button> </a>
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

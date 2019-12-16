@@ -121,10 +121,10 @@ body {
 				</div>
 				<button
 					th:text="*{studentId != 0}? 'Update Student' : 'Add Student'"
-					class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
+					class="btn btn-success my-2 my-sm-0" type="submit" style="margin-right:20px;float:left">Add</button>
 			</form>
 			<div th:if="${access==1}">
-				<a class="btn btn-outline-dark" th:href="@{/students/list}">Back to List</a>
+				<a class="btn btn-outline-dark" th:href="@{/students/list}" style="float:left">Back to List</a>
 			</div>
 		</div>
 	</main>
