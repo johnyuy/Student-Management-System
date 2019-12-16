@@ -140,37 +140,11 @@ public class GradeController {
 		Subject subject = subrepo.findBySubjectId(Integer.parseInt(subid));
 		Grade g =  grepo.findByStudentAndSubjectAndClas(student, subject, cc);
 		if(g!=null) {
-			System.out.println("grade id is " + g.getGradeId());
 			g.setGrade(newgrade);
 			grepo.save(g);
 		} else { System.out.println("ERROR in retrieving grade!");}
 		return ("redirect:/grades/" + classId + "/" + subid);
 	}
 
-//	@GetMapping("/add")
-//	public String addGrade(Model model) {
-//		Grade grade = new Grade();
-//		model.addAttribute("grade", grade);
-//
-//		ArrayList<Student> stulist = new ArrayList<Student>();
-//		stulist.addAll(srepo.findAll());
-//		model.addAttribute("student", stulist);
-//
-//		ArrayList<CourseClass> clist = new ArrayList<CourseClass>();
-//		clist.addAll(crepo.findAll());
-//		model.addAttribute("courseclass", clist);
-//
-//		ArrayList<Subject> sublist = new ArrayList<Subject>();
-//		sublist.addAll(subrepo.findAll());
-//		model.addAttribute("subject", sublist);
-//
-//		return "gradeform";
-//	}
-//
-//	@PostMapping("/add")
-//	public String insertGrade(@ModelAttribute Grade grade) {
-//		grepo.save(grade);
-//		return "redirect:/grade/list";
-//	}
 
 }

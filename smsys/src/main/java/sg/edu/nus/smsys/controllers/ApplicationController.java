@@ -61,13 +61,11 @@ public class ApplicationController {
 			model.addAttribute("semester", semCode);
 
 			boolean eligible = as.checkEligibility(student);
-			System.out.println("eligible student? " + eligible);
 			model.addAttribute("eligibility", eligible);
 
 			if (eligible) {
 				eligibleCourse = as.displayEligibleCourses(student);
 				List<Course> availableCourses = as.displayAvailableCourses();
-				System.out.println("Available Courses: " + availableCourses.size());
 				model.addAttribute("courselist", eligibleCourse);
 			}
 			return "applycourse";
@@ -79,7 +77,6 @@ public class ApplicationController {
 	public String applyCourse(@RequestParam int selectedcourse) {
 		User user = us.getUserByUsername(suds.getAuthUsername());
 		Student student = us.getStudentByUser(user);
-		System.out.println(student.getFirstName() + " has applied for courseid = " + selectedcourse);
 		Course course = crepo.findByCourseId(selectedcourse);
 		as.saveApplication(course, student);
 
@@ -100,10 +97,8 @@ public class ApplicationController {
 	public String displayAppliedCourse(Model model, Student student) {
 		// for Student to see his applications
 		model.addAttribute("access", suds.getAuthUserAccessLevel());
-		System.out.println("Entered displayAppliedCourse");
 		User user = us.getUserByUsername(suds.getAuthUsername());
 		student = us.getStudentByUser(user);
-		System.out.println(student.getFirstName() + " applied");
 		model.addAttribute("studentid", student.getStudentId());
 		List<Application> applications = new ArrayList<Application>();
 		applications.addAll(apprepo.findByStudent(student));

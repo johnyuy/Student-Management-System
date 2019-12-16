@@ -49,7 +49,6 @@ public class SmsUserDetailsService implements UserDetailsService {
 			return ((UserDetails) principal).getUsername();
 		}
 		if (principal instanceof String) {
-			System.out.println("username = " + principal.toString());
 			return principal.toString();
 		}
 		return null;

@@ -60,7 +60,6 @@ public class CourseClassController {
 	public String viewCourseClasses(Model model) {
 		int accesslevel = suds.getAuthUserAccessLevel();
 		model.addAttribute("access", accesslevel);
-		System.out.println("level = " + suds.getAuthUserAccessLevel());
 		List<CourseClass> classlist = ccService.getClassesByUser();
 		model.addAttribute("classes", classlist);
 		
@@ -167,7 +166,6 @@ public class CourseClassController {
 				List<Student> studentlist = cc.getStudentList();
 				model.addAttribute("studentlist", studentlist);
 				int accesslevel = suds.getAuthUserAccessLevel();
-				//studentlist.get(0).get
 				model.addAttribute("access", accesslevel);
 				
 				if(accesslevel==1)
@@ -187,8 +185,7 @@ public class CourseClassController {
 						for(Student s : availableStudents) {
 							addableStudents.add(s);
 						}
-					} else {System.out.println("no enrolled students w/o class for this course");}
-					System.out.println("size of addable students list " + addableStudents.size());
+					} else {System.out.println("Notice: no enrolled students w/o class for this course");}
 					
 					
 					model.addAttribute("addable", addableStudents);
@@ -197,7 +194,7 @@ public class CourseClassController {
 				return("courseclassstudents");
 			}
 		}
-		return "NotFound";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/{id}/students/add")
@@ -212,7 +209,7 @@ public class CourseClassController {
 			String redirect = "redirect:/classes/" + id + "/students";
 			return redirect;
 		}
-		return "NotFound";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/{id}/students/remove")
@@ -227,7 +224,7 @@ public class CourseClassController {
 			String redirect = "redirect:/classes/" + id + "/students";
 			return redirect;
 		}
-		return "NotFound";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/{id}/lecturer/add")
@@ -241,7 +238,7 @@ public class CourseClassController {
 			String redirect = "redirect:/classes/" + id;
 			return redirect;
 		}
-		return "NotFound";
+		return "redirect:/";
 	}
 	@GetMapping("/{id}/lecturer/remove")
 	public String removeCourseClassLecturer(@PathVariable("id") int id, @RequestParam String code) {
@@ -256,6 +253,6 @@ public class CourseClassController {
 			String redirect = "redirect:/classes/" + id;
 			return redirect;
 		}
-		return "NotFound";
+		return "redirect:/";
 	}
 }

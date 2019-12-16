@@ -10,13 +10,7 @@ import sg.edu.nus.smsys.models.Schedule;
 
 public interface ScheduleRepository extends JpaRepository<Schedule,Integer> {
 
-	//List<Schedule> findByScheduleId(int id);
 	Schedule findByScheduleId(int id);
-	
-//	or s.lecturer.staffId=id
-//	orLecturerId
-	
-//	@Query("select s from Schedule s where s.clas.classId=id ")
 	
 	List<Schedule> findByClas(CourseClass clas);
 
@@ -26,6 +20,4 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Integer> {
 
 	List<Schedule> findByLecturer(Lecturer lecturer);
 	
-	//List<Schedule> findByCourseClass(CourseClass Courseclass );
-
 }

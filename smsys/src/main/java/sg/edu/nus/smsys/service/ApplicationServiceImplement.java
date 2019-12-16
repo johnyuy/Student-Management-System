@@ -47,37 +47,25 @@ public class ApplicationServiceImplement implements ApplicationService {
 		boolean output = false;
 		// check if student can apply based on enrolled course
 		List<CourseClass> classList = student.getCourseClassList();
-		System.out.println("My Course List: " + classList);
 		List<Application> appList = arepo.findByStudent(student);
 		if (classList != null) {
 			if (classList.size() == 0 && appList != null) {
 				for (Application app : appList) {
 					System.out.println("CHecking eligibility. appList size is: " + appList);
 					if (app.getStatus().equals("accepted")) {
-						System.out.println("YOU'RE ACCEPTED INTO A COURSE ALREADY");
 						return false;
 					}
 				}
-				System.out.println("YOU ARE ELIGIBLE!");
 				return true;
 			} else {
 				// check the level of current class
 				CourseClass lastCourse = classList.get(classList.size() - 1);
 				if (lastCourse.getLevel() < lastCourse.getCourse().getDurationSemesters()) {
-					System.out.println("YOU ARE NOT ELIGIBLE!!");
 					return false;
 				} else
 					return true;
 			}
 		}
-//		if (appList != null) {
-//			for (Application app : appList) {
-//				System.out.println("CHecking eligibility. appList size is: " + appList);
-//				if (app.getStatus().equals("accepted"));
-//				System.out.println("YOU'RE ACCEPTED INTO A COURSE ALREADY");
-//				return false;
-//			}
-//		}
 
 		return output;
 	}
@@ -97,13 +85,10 @@ public class ApplicationServiceImplement implements ApplicationService {
 	public List<Course> displayEligibleCourses(Student student) {
 		// get list of courses taken
 		List<CourseClass> stuCourseList = student.getCourseClassList();
-		System.out.println("Student Course List: " + stuCourseList.size());
 		// Get all courses which are currently "open"
 		List<Course> openedCoursesList = displayAvailableCourses();
-		System.out.println("Opened Course List: " + openedCoursesList.size());
 		// find courses "open" AND not taken by student
 		List<Application> appList = arepo.findByStudent(student);
-		System.out.println("In displayEligibleCourses appList");
 		List<Application> pendingList = new ArrayList<Application>();
 		if (appList.size() > 0) {
 			for (Application app : appList) {
@@ -123,7 +108,6 @@ public class ApplicationServiceImplement implements ApplicationService {
 						// compare the two list and add only courses not found in student's list
 						int openedCourseId = openedCourse.getCourseId();
 						int completedCourseId = courseClass.getCourse().getCourseId();
-						System.out.println("Comparing the Ids: " + openedCourseId + " and " + completedCourseId);
 						if (openedCourseId != completedCourseId) {
 							eligibleCourses.add(openedCourse);
 						}
@@ -131,22 +115,6 @@ public class ApplicationServiceImplement implements ApplicationService {
 				}
 			}
 
-//			else if (pendingList.size() > 0) {
-//				System.out.println("Size of pendingList: " + pendingList.size());
-//				for (Application app : pendingList) {
-//					int pendingCourseId = app.getCourse().getCourseId();
-//					for (Course openedCourse : openedCoursesList) {
-//						for (Course eCourse : eligibleCourses) {
-//							if (openedCourse.getCourseId() != pendingCourseId
-//									&& openedCourse.getCourseId() != eCourse.getCourseId()) {
-//								eligibleCourses.add(openedCourse);
-//								System.out.println("Size of eligible course: " + eligibleCourses.size());
-//							}
-//
-//						}
-//					}
-//				}
-//			}
 
 			else {
 				// if student have never taken ANY courses before
@@ -170,19 +138,14 @@ public class ApplicationServiceImplement implements ApplicationService {
 	}
 
 	public List<Application> displayMyApplication(Student student) {
-		System.out.println("Entered displayMyApplication.");
 		List<Application> appList = new ArrayList<>();
 		List<Application> myApp = new ArrayList<>();
 		appList = arepo.findAll();
-		System.out.println("appList size is " + appList.size());
 		for (Application app : appList) {
-			System.out.println("Entered for loop");
 			if (app.getStudent().getStudentId() == student.getStudentId()) {
 				myApp.add(app);
-				System.out.println(myApp.size());
 			}
 		}
-		System.out.println("myApp size is " + myApp.size());
 		return myApp;
 	}
 

@@ -90,7 +90,6 @@ public class LeaveController {
 			staff=us.getLecturerByUser(user);
 			
 		}
-		System.out.println(staff.getStaffId());
 		
 		model.addAttribute("staff",staff);
 		

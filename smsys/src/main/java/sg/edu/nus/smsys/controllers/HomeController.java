@@ -70,7 +70,6 @@ public class HomeController {
 		String date = LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
 		int accessLevel = suds.getAuthUserAccessLevel();
 
-		System.out.println("accesslevel="+accessLevel);
 		session.setAttribute("date", date);
 		session.setAttribute("access", suds.getAuthUserAccessLevel());
 
@@ -78,7 +77,6 @@ public class HomeController {
 			name = us.getCourseAdminByUser(us.getUserByUsername(suds.getAuthUsername())).getFirstName();
 			ca = us.getCourseAdminByUser(us.getUserByUsername(suds.getAuthUsername()));
 
-			System.out.println(name);
 
 			// Pending Leave Count
 			List<Leave> ll = new ArrayList<Leave>();
@@ -88,8 +86,6 @@ public class HomeController {
 				if (l.getStatus().equals("Pending"))
 					leavecount++;
 			}
-			System.out.println(ll.size());
-			System.out.println(leavecount);
 			// Pending Application Count
 			List<Application> al = new ArrayList<Application>();
 			al.addAll(arepo.findAll());
@@ -98,8 +94,6 @@ public class HomeController {
 				if (a.getStatus().equals("pending"))
 					appcount++;
 			}
-			System.out.println(al.size());
-			System.out.println(appcount);
 			session.setAttribute("name", name);
 			model.addAttribute("leavecount", leavecount);
 			session.setAttribute("staffid", ca.getStaffId());
@@ -124,7 +118,6 @@ public class HomeController {
 				for (Schedule sch : schlist) {
 					if (sch.getDate().equals(now)) {
 						today = sch;
-						System.out.println("here");
 						break;
 					} else {
 						CourseClass noclass = new CourseClass();
@@ -157,11 +150,8 @@ public class HomeController {
 
 			if (!student.getCourseClassList().isEmpty()) {
 				clas = student.getCourseClassList().get(student.getCourseClassList().size() - 1);
-				System.out.println("Class Id is:");
-				System.out.println(clas.getClassId());
 			} else {
 				clas.setClassId(0);
-				System.out.println(clas.getClassId());
 			}
 
 			CourseClass cclass = new CourseClass();
@@ -178,7 +168,6 @@ public class HomeController {
 					for (Schedule sch : schlist) {
 						if (sch.getDate().equals(now)) {
 							today = sch;
-							System.out.println("here");
 							break;
 						} else {
 							Lecturer noclass = new Lecturer("No Class");
@@ -225,7 +214,6 @@ public class HomeController {
 				}
 			}
 		}
-		System.out.println(schedule.getDateFormat());
 		return schedule;
 	}
 
@@ -248,7 +236,6 @@ public class HomeController {
 				}
 			}
 		}
-		System.out.println(schedule.getDateFormat());
 		return schedule;
 	}
 }
